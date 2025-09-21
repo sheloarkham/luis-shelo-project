@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presupuestos - Luis Shelo Proyect</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="presupuestos.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="../Home/index.html">Home</a></li>
+      <li class="dropdown">
+        <a href="../Ocio/index.html" class="dropdown-toggle">Ocio</a>
+        <ul class="dropdown-menu">
+          <li><a href="../Ocio/index.html#juegos">Juegos</a></li>
+          <li><a href="../Ocio/index.html#libros">Libros</a></li>
+          <li><a href="../Ocio/index.html#series">Series</a></li>
+          <li><a href="../Ocio/index.html#animes">Animes</a></li>
+        </ul>
+      </li>
+      <li><a href="index.html" class="active">Presupuestos</a></li>
+      <li><a href="../Proyecto/index.html">Proyecto</a></li>
+      <li><a href="../Yeni 💞/index.html">💞Yeni💞</a></li>
+    </ul>
+  </nav>
+
+
+
+    <main>
+        <!-- Sección: Gastos Generales -->
+        <div class="month-card">
+            <h2>Gastos Generales fines de Septiembre 2025</h2>
+            
+            <div class="add-expense-form">
+                <input type="text" id="expense-name" placeholder="Nombre del gasto">
+                <input type="number" id="expense-amount" placeholder="Cantidad (CLP)">
+                <button id="add-expense-btn">Agregar Gasto</button>
+                <button onclick="testFunction()" style="background-color: orange; margin-left: 10px;">Prueba</button>
+            </div>
+
+            <div class="expenses-header">
+                <span>Descripción</span>
+                <span>Fecha</span>
+                <span>Cantidad</span>
+                <span></span>
+            </div>
+            
+            <div class="expenses-list" id="expenses-list">
+                <!-- Aquí se mostrarán los gastos generales -->
+            </div>
+
+            <div class="total-section">
+                <h3>Total Gastos Generales: $<span id="total-amount">0</span> CLP</h3>
+            </div>
+        </div>
+
+        <!-- Sección: Gastos de CRM -->
+        <div class="month-card">
+            <h2>Gastos de CRM - Octubre 2025</h2>
+            
+            <div class="add-expense-form">
+                <input type="text" id="crm-expense-name" placeholder="Nombre del gasto CRM">
+                <input type="number" id="crm-expense-amount" placeholder="Cantidad (CLP)">
+                <button id="add-crm-expense-btn">Agregar Gasto CRM</button>
+            </div>
+
+            <div class="expenses-header">
+                <span>Descripción</span>
+                <span>Fecha</span>
+                <span>Cantidad</span>
+                <span></span>
+            </div>
+            
+            <div class="expenses-list" id="crm-expenses-list">
+                <!-- Aquí se mostrarán los gastos de CRM -->
+            </div>
+
+            <div class="total-section">
+                <h3>Total Gastos CRM: $<span id="crm-total-amount">0</span> CLP</h3>
+            </div>
+        </div>
+
+        <!-- Total Global -->
+        <div class="month-card total-global">
+            <h2>Resumen de Gastos Reales</h2>
+            
+            <!-- Lista detallada de todos los gastos -->
+            <div class="detailed-summary">
+                <h3>Detalle de Gastos Generales</h3>
+                <div class="summary-expenses-list" id="summary-general-list">
+                    <p class="no-expenses">No hay gastos generales registrados</p>
+                </div>
+
+                <h3>Detalle de Gastos CRM</h3>
+                <div class="summary-expenses-list" id="summary-crm-list">
+                    <p class="no-expenses">No hay gastos CRM registrados</p>
+                </div>
+            </div>
+
+            <!-- Resumen de totales -->
+            <div class="global-summary">
+                <div class="summary-item">
+                    <span>Gastos Generales:</span>
+                    <span>$<span id="summary-general">0</span> CLP</span>
+                </div>
+                <div class="summary-item">
+                    <span>Gastos CRM:</span>
+                    <span>$<span id="summary-crm">0</span> CLP</span>
+                </div>
+                <div class="summary-item total-final">
+                    <span><strong>TOTAL REAL:</strong></span>
+                    <span><strong>$<span id="global-total">0</span> CLP</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección: Tarjeta JUNAEB (Independiente) -->
+        <div class="month-card junaeb-card">
+            <h2>Tarjeta JUNAEB</h2>
+            <p class="junaeb-info">Beneficio estudiantil mensual: $48.000 CLP</p>
+            
+            <div class="add-expense-form">
+                <input type="text" id="junaeb-expense-name" placeholder="¿En qué gastaste la JUNAEB?">
+                <input type="number" id="junaeb-expense-amount" placeholder="Cantidad (CLP)" max="48000">
+                <button id="add-junaeb-expense-btn">Agregar Gasto JUNAEB</button>
+            </div>
+
+            <div class="expenses-header">
+                <span>Descripción</span>
+                <span>Fecha</span>
+                <span>Cantidad</span>
+                <span></span>
+            </div>
+            
+            <div class="expenses-list" id="junaeb-expenses-list">
+                <!-- Aquí se mostrarán los gastos de JUNAEB -->
+            </div>
+
+            <div class="total-section">
+                <h3>Total Gastado JUNAEB: $<span id="junaeb-total-amount">0</span> CLP</h3>
+            </div>
+        </div>
+
+        <!-- Sección: Gastos Futuros de CRM (Independiente) -->
+        <div class="month-card future-expenses">
+            <h2>Cosas a comprar con la CRM </h2>
+            
+            <div class="add-expense-form">
+                <input type="text" id="future-crm-expense-name" placeholder="Nombre del gasto futuro CRM">
+                <input type="number" id="future-crm-expense-amount" placeholder="Cantidad (CLP)">
+                <button id="add-future-crm-expense-btn">Agregar Gasto Futuro</button>
+            </div>
+
+            <div class="expenses-header">
+                <span>Descripción</span>
+                <span>Fecha</span>
+                <span>Cantidad</span>
+                <span></span>
+            </div>
+            
+            <div class="expenses-list" id="future-crm-expenses-list">
+                <!-- Aquí se mostrarán los gastos futuros de CRM -->
+            </div>
+
+            
+        </div>
+    </main>
+
+    <footer>
+    <p>&copy; 2025 Luis Rosales Proyect - Todos los derechos reservados</p>
+  </footer>
+</body>
+</html>

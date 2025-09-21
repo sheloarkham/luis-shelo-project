@@ -1,0 +1,10 @@
+{
+    // Configuración de VS Code para el proyecto Luis Shelo
+    // Este archivo define la configuración del Live Server extension:
+    // - Puerto personalizado (5501) para evitar conflictos
+    // - Raíz del servidor establecida en el directorio principal
+    // - Apertura automática del navegador habilitada
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.root": "/",
+    "liveServer.settings.NoBrowser": false
+}

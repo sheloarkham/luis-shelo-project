@@ -1,0 +1,629 @@
+/* styles.css */
+
+/* Fondo dorado con lluvia de luces */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+        url('assets/namiplata.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* La lluvia dorada ya está en la imagen de fondo real */
+
+/* Navbar estandarizado para todas las páginas */
+.navbar {
+    background-color: #111;
+    padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    z-index: 1000;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 3rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: #222;
+    color: #ffffff;
+}
+
+/* Estilos para el dropdown de Ocio - Estandarizado */
+.navbar .dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .dropdown-toggle {
+    display: inline-block;
+    cursor: pointer;
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.navbar .dropdown-toggle:hover,
+.navbar .dropdown-toggle.active {
+    background-color: #222;
+    color: #ffffff;
+}
+
+.navbar .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(17, 17, 17, 0.98);
+    border: 1px solid #444;
+    border-radius: 8px;
+    min-width: 120px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.navbar .dropdown-menu li {
+    list-style: none;
+    margin: 0;
+}
+
+.navbar .dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    margin: 0.25rem;
+    font-size: 1rem;
+}
+
+.navbar .dropdown-menu a:hover {
+    background: #333;
+    color: #fff;
+    transform: translateX(5px);
+}
+
+/* Contenido principal */
+.content {
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 2rem;
+    background: transparent;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    margin: 0;
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 2px solid rgba(255, 215, 0, 0.4);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: transparent;
+    border-bottom: none;
+    color: #f0f0f0;
+    margin-top: 3rem;
+}
+
+footer p {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+/* Estilos para la sección de presupuestos */
+.month-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 215, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.month-card h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.add-expense-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.add-expense-form input {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+#expense-name {
+    flex: 2;
+    min-width: 200px;
+}
+
+#expense-amount {
+    flex: 1;
+    min-width: 100px;
+}
+
+.add-expense-form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-expense-form button:hover {
+    background-color: #45a049;
+}
+
+.expenses-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 1rem;
+    padding: 0.5rem 0.75rem;
+    font-weight: bold;
+    color: #555;
+    border-bottom: 2px solid #ddd;
+    background-color: #f8f9fa;
+}
+
+.expenses-list {
+    margin-bottom: 2rem;
+}
+
+.expense-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+    animation: fadeIn 0.15s ease;
+    transition: background-color 0.2s;
+}
+
+.expense-item:hover {
+    background-color: #f8f9fa;
+}
+
+.expense-name {
+    color: #333;
+    font-weight: 500;
+}
+
+.expense-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.expense-amount {
+    text-align: right;
+    color: #e44d26;
+    font-weight: bold;
+}
+
+.delete-btn {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.total-section {
+    border-top: 2px solid #ddd;
+    padding-top: 1rem;
+    text-align: right;
+}
+
+.total-section h3 {
+    color: #333;
+    margin: 0;
+}
+
+#total-amount {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Estilos para el resumen global */
+.total-global {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* Estilos para gastos futuros */
+.future-expenses {
+    background: linear-gradient(135deg, #00a651 0%, #008f45 100%);
+    color: white;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.future-expenses h2 {
+    color: white;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.future-note {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+}
+
+.future-total {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.future-subtitle {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0.5rem 0 0 0;
+    text-align: center;
+    font-style: italic;
+}
+
+.total-global h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.global-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.summary-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.total-final {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-size: 1.1rem;
+}
+
+.total-final span {
+    font-weight: bold;
+}
+
+/* Hacer todos los números del resumen global amarillos */
+.global-summary .summary-item span:last-child,
+.global-summary .total-final span:last-child {
+    color: #ffd700 !important;
+    font-weight: bold;
+}
+
+/* Estilos para el resumen detallado */
+.detailed-summary {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 2rem;
+}
+
+.detailed-summary h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.summary-expenses-list {
+    margin-bottom: 1.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem;
+}
+
+.summary-expense-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+.summary-expense-name {
+    flex: 2;
+    color: white;
+    font-weight: 500;
+}
+
+.summary-expense-date {
+    flex: 1;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.summary-expense-amount {
+    flex: 1;
+    text-align: right;
+    color: #ffeb3b;
+    font-weight: bold;
+}
+
+.no-expenses {
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar {
+  background-color: #111;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #444;
+  z-index: 1000;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: #222;
+  color: #fff;
+}
+
+.content {
+  width: 100%;
+  padding-top: 80px;
+}
+
+header {
+  text-align: center;
+  padding: 2rem;
+  background: transparent;
+}
+
+/* Footer ya está definido arriba con el estilo correcto */
+
+main {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Estilos específicos para la tarjeta JUNAEB (similar a future-expenses) */
+.junaeb-card {
+    background: linear-gradient(135deg, #ff8c00 0%, #ff7700 100%) !important;
+    color: white !important;
+    border: 2px dashed rgba(255, 255, 255, 0.3) !important;
+}
+
+.junaeb-card h2 {
+    color: white !important;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.junaeb-info {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    font-weight: 500;
+}
+
+.junaeb-card .add-expense-form button {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.junaeb-card .add-expense-form button:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Estilos para inputs dentro de JUNAEB */
+.junaeb-card .add-expense-form input {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #333 !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+.junaeb-card .add-expense-form input::placeholder {
+    color: #666 !important;
+}
+
+/* Estilos para el header de gastos en JUNAEB */
+.junaeb-card .expenses-header {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border-radius: 4px !important;
+}
+
+/* Estilos para los items de gastos en JUNAEB */
+.junaeb-card .expense-item {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.junaeb-card .expense-item:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.junaeb-card .delete-btn {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.junaeb-card .delete-btn:hover {
+    background-color: rgba(255, 0, 0, 0.3) !important;
+}
+
+/* Estilos para el total de JUNAEB */
+.junaeb-card .total-section {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.junaeb-card .total-section h3 {
+    color: white !important;
+    margin: 0 !important;
+    text-align: center !important;
+    font-size: 1.2rem !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+.junaeb-card .total-section h3 span {
+    color: #fff !important;
+    font-weight: bold !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+}
