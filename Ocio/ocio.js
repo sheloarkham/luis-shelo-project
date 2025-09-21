@@ -5,8 +5,11 @@ function createPlaceholder() {
 
 // Función para renderizar una card de juego
 function renderGameCard(game) {
+    const isCurrentlyPlaying = game.Estado === "Jugando";
+    const cardClass = isCurrentlyPlaying ? "game-card currently-playing" : "game-card";
+    
     return `
-        <div class="game-card">
+        <div class="${cardClass}">
             <img src="${createPlaceholder()}" 
                  data-src="${game.image}" 
                  alt="${game.title}" 
@@ -17,7 +20,7 @@ function renderGameCard(game) {
                 <p><strong>Desarrollador:</strong> ${game.developer}</p>
                 <p><strong>Duración:</strong> ${game.duration} horas</p>
                 ${game.synopsis ? `<div class="synopsis game-synopsis"><p><strong>Historia:</strong> ${game.synopsis}</p></div>` : ''}
-                <p><strong>Estado:</strong> ${game.Estado}</p>
+                <p><strong>Estado:</strong> <span class="${isCurrentlyPlaying ? 'status-active' : 'status-normal'}">${game.Estado}</span></p>
             </div>
         </div>
     `;
@@ -106,8 +109,11 @@ function renderGames() {
 
 // Función para renderizar una card de libro
 function renderBookCard(book) {
+    const isCurrentlyReading = book.Estado === "Leyendo";
+    const cardClass = isCurrentlyReading ? "book-card currently-reading" : "book-card";
+    
     return `
-        <div class="book-card">
+        <div class="${cardClass}">
             <img src="${createPlaceholder()}" 
                  data-src="${book.image}" 
                  alt="${book.title}" 
@@ -118,7 +124,7 @@ function renderBookCard(book) {
                 <p><strong>Año:</strong> ${book.releaseYear}</p>
                 <p><strong>Páginas:</strong> ${book.pages}</p>
                 ${book.synopsis ? `<div class="synopsis book-synopsis"><p><strong>Historia:</strong> ${book.synopsis}</p></div>` : ''}
-                <p><strong>Estado:</strong> ${book.Estado}</p>
+                <p><strong>Estado:</strong> <span class="${isCurrentlyReading ? 'status-active' : 'status-normal'}">${book.Estado}</span></p>
             </div>
         </div>
     `;

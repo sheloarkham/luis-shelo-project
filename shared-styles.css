@@ -1,0 +1,136 @@
+/* ========================================
+   ESTILOS COMPARTIDOS - LUIS SHELO PROJECT
+   ========================================
+   Este archivo contiene estilos que se usan
+   en todas las páginas del proyecto para
+   mantener consistencia visual.
+*/
+
+/* Estilos base del navbar */
+.navbar {
+  background-color: #111;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #444;
+  z-index: 1000;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: #222;
+  color: #ffffff;
+}
+
+/* Estilos optimizados para el dropdown de Ocio */
+.navbar .dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .dropdown-toggle {
+    display: inline-block;
+    cursor: pointer;
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.navbar .dropdown-toggle:hover,
+.navbar .dropdown-toggle.active {
+    background-color: #222;
+    color: #ffffff;
+}
+
+.navbar .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background: rgba(17, 17, 17, 0.98);
+    border: 1px solid #444;
+    border-radius: 8px;
+    min-width: 120px;
+    width: max-content;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 0;
+}
+
+.navbar .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.navbar .dropdown-menu li {
+    list-style: none;
+    margin: 0;
+}
+
+.navbar .dropdown-menu a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    margin: 0.1rem 0.5rem;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.navbar .dropdown-menu a:hover {
+    background: #333;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* Estilos base del footer transparente */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: transparent;
+  border-bottom: none;
+}
+
+footer p {
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-weight: bold;
+}

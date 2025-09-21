@@ -90,7 +90,6 @@ const books = [
         releaseYear: 1945,
         pages: 144,
         image: "./assetsB/rebelion.png",
-        synopsis: "Los animales de una granja se rebelan contra sus opresores humanos, esperando crear una sociedad igualitaria. Pero pronto descubren que algunos animales son 'más iguales que otros'. Una fábula política que critica el totalitarismo y la corrupción del poder.",
         Estado: "Leido"
     },
     {
