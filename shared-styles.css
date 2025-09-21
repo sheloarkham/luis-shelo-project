@@ -4,6 +4,11 @@
    Este archivo contiene estilos que se usan
    en todas las páginas del proyecto para
    mantener consistencia visual.
+   
+   INCLUYE:
+   - Navbar universal con JavaScript dinámico
+   - Dropdown de Ocio optimizado
+   - Footer transparente estandarizado
 */
 
 /* Estilos base del navbar */

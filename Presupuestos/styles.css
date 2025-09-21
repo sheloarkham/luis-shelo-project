@@ -49,20 +49,7 @@ header h1 {
         0 0 20px rgba(255, 215, 0, 0.2);
 }
 
-footer {
-    text-align: center;
-    padding: 2rem;
-    background-color: transparent;
-    border-bottom: none;
-    color: #f0f0f0;
-    margin-top: 3rem;
-}
-
-footer p {
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    font-weight: bold;
-}
+/* Footer duplicado eliminado - ahora está en shared-styles.css */
 
 /* Estilos para la sección de presupuestos */
 .month-card {
@@ -359,68 +346,7 @@ footer p {
         transform: translateY(0);
     }
 }
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #000;
-  color: #f0f0f0;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.navbar {
-  background-color: #111;
-  padding: 1rem 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #444;
-  z-index: 1000;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 3rem;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-links a {
-  color: #f0f0f0;
-  text-decoration: none;
-  font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  background-color: #222;
-  color: #fff;
-}
-
-.content {
-  width: 100%;
-  padding-top: 80px;
-}
-
-header {
-  text-align: center;
-  padding: 2rem;
-  background: transparent;
-}
-
-/* Footer ya está definido arriba con el estilo correcto */
-
-main {
-  padding: 2rem;
-  text-align: center;
-}
+/* Código duplicado de navbar eliminado - ahora está en shared-styles.css */
 
 /* Estilos específicos para la tarjeta JUNAEB (similar a future-expenses) */
 .junaeb-card {
