@@ -126,7 +126,547 @@
     transform: scale(1.05);
 }
 
-/* Estilos base del footer transparente */
+/* ========================================
+   ESTILOS PERSONALIZADOS POR SECCIÓN
+   ========================================*/
+
+/* YENI - Rosa romántico especial 💞 */
+.nav-yeni {
+  background: linear-gradient(45deg, #FF1493, #FF69B4, #FFB6C1);
+  color: #fff !important;
+  font-weight: bold;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.5), 
+              0 0 20px rgba(255, 105, 180, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  animation: romanticPulse 3s ease-in-out infinite;
+}
+
+@keyframes romanticPulse {
+  0%, 100% { box-shadow: 0 4px 15px rgba(255, 20, 147, 0.5), 0 0 20px rgba(255, 105, 180, 0.3); }
+  50% { box-shadow: 0 6px 25px rgba(255, 20, 147, 0.7), 0 0 30px rgba(255, 105, 180, 0.5); }
+}
+
+.nav-yeni::after {
+  content: '💞';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.nav-yeni:hover,
+.nav-yeni.active {
+  background: linear-gradient(45deg, #FF69B4, #FFB6C1, #FFC0CB);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 25px rgba(255, 20, 147, 0.7),
+              0 0 30px rgba(255, 105, 180, 0.6);
+}
+
+/* PROYECTO - Blanco neón futurista */
+.nav-proyecto {
+  background: linear-gradient(45deg, #ffffff, #f0f8ff, #ffffff);
+  color: #000 !important;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.8), 0 0 15px rgba(255, 255, 255, 1);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.6), 
+              0 0 40px rgba(255, 255, 255, 0.8),
+              inset 0 2px 0 rgba(255, 255, 255, 0.9);
+  border: 2px solid #00d4ff;
+  position: relative;
+  overflow: hidden;
+  animation: futuristicPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes futuristicPulse {
+  0% { 
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.6), 
+                0 0 40px rgba(255, 255, 255, 0.8),
+                inset 0 2px 0 rgba(255, 255, 255, 0.9);
+  }
+  100% { 
+    box-shadow: 0 0 35px rgba(0, 212, 255, 1), 
+                0 0 60px rgba(255, 255, 255, 1),
+                inset 0 2px 0 rgba(255, 255, 255, 1);
+  }
+}
+
+.nav-proyecto::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), rgba(255, 255, 255, 0.5), rgba(0, 212, 255, 0.3), transparent);
+  transition: left 0.8s ease;
+}
+
+.nav-proyecto:hover::before {
+  left: 100%;
+}
+
+.nav-proyecto:hover,
+.nav-proyecto.active {
+  background: linear-gradient(45deg, #ffffff, #e6f7ff, #ffffff);
+  color: #000 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), 0 0 60px rgba(135, 206, 250, 0.3);
+}
+
+/* OCIO - Morado profundo como historia en nav bars */
+.nav-ocio {
+  background: linear-gradient(45deg, #4B0082, #6A0DAD, #8A2BE2);
+  color: #fff !important;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(138, 43, 226, 0.6);
+  box-shadow: 0 4px 20px rgba(75, 0, 130, 0.7), 
+              0 0 30px rgba(106, 13, 173, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(138, 43, 226, 0.8);
+  position: relative;
+  overflow: hidden;
+  animation: purpleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes purpleGlow {
+  0% { 
+    box-shadow: 0 4px 20px rgba(75, 0, 130, 0.7), 
+                0 0 30px rgba(106, 13, 173, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  100% { 
+    box-shadow: 0 6px 30px rgba(75, 0, 130, 1), 
+                0 0 50px rgba(106, 13, 173, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+.nav-ocio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.4), rgba(255, 255, 255, 0.2), rgba(138, 43, 226, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.nav-ocio:hover::before {
+  left: 100%;
+}
+
+.nav-ocio:hover,
+.nav-ocio.active {
+  background: linear-gradient(45deg, #6A0DAD, #8A2BE2, #9370DB);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 35px rgba(75, 0, 130, 0.9), 
+              0 0 60px rgba(106, 13, 173, 0.7);
+}
+
+/* PRESUPUESTOS - Naranja rojizo atardecer */
+.nav-presupuestos {
+  background: linear-gradient(45deg, #FF4500, #FF6347, #DC143C, #B22222);
+  color: #fff !important;
+  font-weight: bold;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 69, 0, 0.6);
+  box-shadow: 0 4px 20px rgba(255, 69, 0, 0.7), 
+              0 0 30px rgba(220, 20, 60, 0.5),
+              inset 0 1px 0 rgba(255, 140, 0, 0.3);
+  border: 2px solid rgba(255, 140, 0, 0.8);
+  position: relative;
+  overflow: hidden;
+  animation: sunsetGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes sunsetGlow {
+  0% { 
+    box-shadow: 0 4px 20px rgba(255, 69, 0, 0.7), 
+                0 0 30px rgba(220, 20, 60, 0.5),
+                inset 0 1px 0 rgba(255, 140, 0, 0.3);
+  }
+  100% { 
+    box-shadow: 0 6px 30px rgba(255, 69, 0, 1), 
+                0 0 50px rgba(220, 20, 60, 0.8),
+                inset 0 1px 0 rgba(255, 140, 0, 0.6);
+  }
+}
+
+.nav-presupuestos::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 140, 0, 0.4), rgba(255, 69, 0, 0.3), rgba(220, 20, 60, 0.4), transparent);
+  transition: left 0.7s ease;
+}
+
+.nav-presupuestos:hover::before {
+  left: 100%;
+}
+
+.nav-presupuestos:hover,
+.nav-presupuestos.active {
+  background: linear-gradient(45deg, #FF6347, #FF8C00, #FF4500, #DC143C);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 35px rgba(255, 69, 0, 0.9), 
+              0 0 60px rgba(220, 20, 60, 0.8);
+}
+
+
+
+/* HOME - Estilo elegante dorado */
+.nav-home {
+  background: linear-gradient(45deg, #2c2c2c, #404040);
+  color: #DAA520 !important;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+  border: 2px solid rgba(218, 165, 32, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(218, 165, 32, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-home:hover::before {
+  left: 100%;
+}
+
+.nav-home:hover,
+.nav-home.active {
+  background: linear-gradient(45deg, #404040, #555);
+  color: #FFD700 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(218, 165, 32, 0.5);
+  border-color: rgba(255, 215, 0, 0.6);
+}
+
+/* ========================================
+   DROPDOWN ESPECÍFICOS POR SECCIÓN
+   ========================================*/
+
+/* Dropdown de Ocio - Tema morado */
+.dropdown-ocio {
+  background: linear-gradient(135deg, rgba(75, 0, 130, 0.95), rgba(106, 13, 173, 0.95)) !important;
+  border: 2px solid rgba(138, 43, 226, 0.8) !important;
+  box-shadow: 0 8px 25px rgba(75, 0, 130, 0.6), 0 0 30px rgba(106, 13, 173, 0.4) !important;
+}
+
+.dropdown-ocio a {
+  color: #fff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7) !important;
+}
+
+.dropdown-ocio a:hover {
+  background: rgba(138, 43, 226, 0.7) !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+}
+
+/* ========================================
+   TEMAS COMPLETOS POR SECCIÓN
+   ========================================*/
+
+/* ==================== TEMA YENI - ROSADO ROMÁNTICO ==================== */
+.navbar-theme-yeni {
+  background: linear-gradient(135deg, #ff9ec4, #ffb3d9, #ffc2e0) !important;
+  border-bottom: none !important;
+  box-shadow: none;
+  padding: 0.5rem 0;
+}
+
+.navbar-theme-yeni .nav-links a {
+  text-shadow: none !important;
+  background: rgba(255, 182, 213, 0.3) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border: none;
+  font-weight: 600;
+}
+
+.navbar-theme-yeni .nav-links a:hover {
+  background: rgba(255, 182, 213, 0.5) !important;
+}
+
+.navbar-theme-yeni .nav-links a.active {
+  background: #2d2d2d !important;
+  color: #fff !important;
+}
+
+/* Cards tema Yeni */
+.theme-yeni .card,
+.theme-yeni .month-card {
+  background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 105, 180, 0.05));
+  border: 2px solid rgba(255, 20, 147, 0.3);
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.2);
+}
+
+/* ==================== TEMA PROYECTO - BLANCO NEÓN FUTURISTA ==================== */
+.navbar-theme-proyecto {
+  background: linear-gradient(135deg, 
+    #ffffff 0%, 
+    #f0f8ff 25%, 
+    #e0f2ff 50%,
+    #f0f8ff 75%, 
+    #ffffff 100%) !important;
+  border-bottom: 4px solid #00d4ff !important;
+  border-top: 2px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 0 40px rgba(0, 212, 255, 0.8), 
+              0 0 80px rgba(135, 206, 250, 0.6),
+              0 4px 60px rgba(0, 212, 255, 0.5),
+              inset 0 2px 0 rgba(255, 255, 255, 1),
+              inset 0 -2px 20px rgba(0, 212, 255, 0.2) !important;
+  position: relative;
+  backdrop-filter: brightness(1.2);
+  animation: whiteNeonPulse 2.5s ease-in-out infinite alternate;
+  z-index: 1000;
+}
+
+@keyframes whiteNeonPulse {
+  0% { 
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.8), 
+                0 0 80px rgba(135, 206, 250, 0.6),
+                0 4px 60px rgba(0, 212, 255, 0.5),
+                inset 0 2px 0 rgba(255, 255, 255, 1),
+                inset 0 -2px 20px rgba(0, 212, 255, 0.2);
+    filter: brightness(1.1);
+  }
+  100% { 
+    box-shadow: 0 0 60px rgba(0, 212, 255, 1), 
+                0 0 120px rgba(135, 206, 250, 0.8),
+                0 6px 80px rgba(0, 212, 255, 0.7),
+                inset 0 2px 0 rgba(255, 255, 255, 1),
+                inset 0 -2px 30px rgba(0, 212, 255, 0.4);
+    filter: brightness(1.3);
+  }
+}
+
+.navbar-theme-proyecto::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 212, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.6) 50%, 
+    rgba(0, 212, 255, 0.1) 75%,
+    transparent 100%);
+  animation: futuristicScan 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes futuristicScan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.navbar-theme-proyecto::after {
+  content: '⚡';
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  opacity: 0.7;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+}
+
+.navbar-theme-proyecto .nav-links a {
+  color: #000 !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  text-shadow: 0 0 15px rgba(0, 212, 255, 1), 
+               0 0 25px rgba(135, 206, 250, 0.8),
+               0 0 35px rgba(255, 255, 255, 1),
+               0 2px 4px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease;
+  padding: 12px 20px !important;
+  border-radius: 8px;
+  position: relative;
+}
+
+.navbar-theme-proyecto .nav-links a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 255, 255, 0.2));
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-theme-proyecto .nav-links a:hover {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 1), 
+               0 0 40px rgba(135, 206, 250, 1),
+               0 0 60px rgba(255, 255, 255, 1),
+               0 0 80px rgba(0, 212, 255, 0.5) !important;
+  transform: scale(1.08) translateY(-2px);
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.navbar-theme-proyecto .nav-links a:hover::before {
+  opacity: 1;
+}
+
+.navbar-theme-proyecto .nav-links a.active {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 255, 255, 0.4));
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.6),
+              inset 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+/* Cards tema Proyecto */
+.theme-proyecto .card,
+.theme-proyecto .month-card,
+.theme-proyecto .project-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95), 
+    rgba(0, 212, 255, 0.05), 
+    rgba(255, 255, 255, 0.9));
+  border: 2px solid #00d4ff;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.3),
+              0 0 50px rgba(255, 255, 255, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  color: #000 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-proyecto .card::before,
+.theme-proyecto .month-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 212, 255, 0.2), 
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 212, 255, 0.2), 
+    transparent);
+  transition: left 0.8s ease;
+  z-index: 1;
+}
+
+.theme-proyecto .card:hover::before,
+.theme-proyecto .month-card:hover::before {
+  left: 100%;
+}
+
+/* ==================== TEMA OCIO - MORADO PROFUNDO ==================== */
+.navbar-theme-ocio {
+  background: linear-gradient(135deg, #2a0845, #4B0082, #6A0DAD, #1a0033) !important;
+  border-bottom: 3px solid rgba(138, 43, 226, 0.8) !important;
+  box-shadow: 0 4px 25px rgba(75, 0, 130, 0.6),
+              0 0 40px rgba(106, 13, 173, 0.3);
+}
+
+.navbar-theme-ocio .nav-links a {
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.8) !important;
+}
+
+/* Cards tema Ocio */
+.theme-ocio .card,
+.theme-ocio .game-card,
+.theme-ocio .book-card {
+  background: linear-gradient(135deg, 
+    rgba(75, 0, 130, 0.1), 
+    rgba(106, 13, 173, 0.05), 
+    rgba(138, 43, 226, 0.08));
+  border: 2px solid rgba(138, 43, 226, 0.4);
+  box-shadow: 0 8px 25px rgba(75, 0, 130, 0.3),
+              0 0 30px rgba(106, 13, 173, 0.2);
+  color: #fff;
+}
+
+.theme-ocio .card:hover,
+.theme-ocio .game-card:hover,
+.theme-ocio .book-card:hover {
+  background: linear-gradient(135deg, 
+    rgba(75, 0, 130, 0.2), 
+    rgba(106, 13, 173, 0.15), 
+    rgba(138, 43, 226, 0.18));
+  box-shadow: 0 12px 35px rgba(75, 0, 130, 0.5),
+              0 0 50px rgba(106, 13, 173, 0.4);
+  transform: translateY(-5px);
+}
+
+/* ==================== TEMA PRESUPUESTOS - ATARDECER ==================== */
+.navbar-theme-presupuestos {
+  background: linear-gradient(135deg, #8B0000, #B22222, #DC143C, #2F1B14) !important;
+  border-bottom: 3px solid rgba(255, 140, 0, 0.8) !important;
+  box-shadow: 0 4px 25px rgba(255, 69, 0, 0.5),
+              0 0 40px rgba(220, 20, 60, 0.3);
+}
+
+.navbar-theme-presupuestos .nav-links a {
+  text-shadow: 0 0 10px rgba(255, 140, 0, 0.8) !important;
+}
+
+/* Cards tema Presupuestos */
+.theme-presupuestos .card,
+.theme-presupuestos .month-card,
+.theme-presupuestos .expense-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 69, 0, 0.1), 
+    rgba(220, 20, 60, 0.05), 
+    rgba(255, 140, 0, 0.08));
+  border: 2px solid rgba(255, 140, 0, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 69, 0, 0.3),
+              0 0 30px rgba(220, 20, 60, 0.2);
+  color: #fff;
+}
+
+.theme-presupuestos .card:hover,
+.theme-presupuestos .month-card:hover {
+  background: linear-gradient(135deg, 
+    rgba(255, 69, 0, 0.2), 
+    rgba(220, 20, 60, 0.15), 
+    rgba(255, 140, 0, 0.18));
+  box-shadow: 0 12px 35px rgba(255, 69, 0, 0.5),
+              0 0 50px rgba(220, 20, 60, 0.4);
+  transform: translateY(-3px);
+}
+
+/* ==================== TEMA HOME - ELEGANTE DORADO ==================== */
+.navbar-theme-home {
+  background: linear-gradient(135deg, #2c2c2c, #404040, #1a1a1a) !important;
+  border-bottom: 3px solid rgba(218, 165, 32, 0.6) !important;
+  box-shadow: 0 4px 25px rgba(218, 165, 32, 0.4);
+}
+
+.navbar-theme-home .nav-links a {
+  text-shadow: 0 0 8px rgba(218, 165, 32, 0.6) !important;
+}
+
+/* ========================================
+   FOOTER TRANSPARENTE
+   ========================================*/
 footer {
   text-align: center;
   padding: 2rem;

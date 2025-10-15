@@ -1,10 +1,36 @@
-/* styles.css */
+/* styles.css - TEMA PROYECTO FUTURISTA */
 body {
   margin: 0;
   padding: 0;
-  background-color: #000;
-  color: #f0f0f0;
+  background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e, #000) !important;
+  color: #f0f0f0 !important;
   font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sobrescribir cualquier tema de Yeni */
+body.theme-yeni {
+  background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e, #000) !important;
+}
+
+/* Efectos futuristas para el fondo */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  animation: futuristicAmbient 10s ease-in-out infinite alternate;
+}
+
+@keyframes futuristicAmbient {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
 }
 
 /* Los estilos del navbar y dropdown ahora están en shared-styles.css */
@@ -23,7 +49,137 @@ header {
 
 /* Footer duplicado eliminado - ahora está en shared-styles.css */
 
+/* Forzar tema de Proyecto - sobrescribir otros temas */
+body {
+  background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e, #000) !important;
+  color: #fff !important;
+}
+
+.content {
+  background: transparent !important;
+}
+
 main {
   padding: 2rem;
   text-align: center;
+}
+
+/* ========================================
+   CARDS DE PROYECTO - BLANCO NEÓN FUTURISTA
+   ========================================*/
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95), 
+    rgba(0, 212, 255, 0.05), 
+    rgba(255, 255, 255, 0.9));
+  border: 2px solid #00d4ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.3),
+              0 0 50px rgba(255, 255, 255, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  color: #000 !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(0, 212, 255, 0.2), 
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 212, 255, 0.2), 
+    transparent);
+  transition: left 0.8s ease;
+  z-index: 1;
+}
+
+.project-card:hover::before {
+  left: 100%;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 35px rgba(0, 212, 255, 0.5),
+              0 0 70px rgba(255, 255, 255, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: #00bfff;
+}
+
+.project-card h3 {
+  color: #000 !important;
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.project-card p {
+  color: #333 !important;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+  position: relative;
+  z-index: 2;
+}
+
+.project-card .project-status {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
+
+.project-status.active {
+  background: linear-gradient(45deg, #00ff00, #32cd32);
+  color: #000 !important;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.project-status.planning {
+  background: linear-gradient(45deg, #ffaa00, #ffd700);
+  color: #000 !important;
+  box-shadow: 0 0 10px rgba(255, 170, 0, 0.3);
+}
+
+.project-status.completed {
+  background: linear-gradient(45deg, #00d4ff, #87ceeb);
+  color: #000 !important;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+}
+
+.project-tech {
+  margin-top: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.project-tech .tech-tag {
+  display: inline-block;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  color: #000 !important;
+  padding: 0.2rem 0.6rem;
+  margin: 0.2rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
 }

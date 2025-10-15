@@ -1,51 +1,55 @@
-/* styles.css */
-@keyframes fadeToYeni {
-  0% {
-    background-color: #000000;
-    opacity: 0.9;
-  }
-  40% {
-    background-color: #4d0031;
-    opacity: 0.95;
-  }
-  100% {
-    background-color: #FF1493;
-    opacity: 1;
-  }
-}
-
+/* styles.css - TEMA YENI ROMÁNTICO */
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+  background: #000 !important;
   min-height: 100vh;
-  color: #f0f0f0;
-  font-family: 'Segoe UI', sans-serif;
-  animation: fadeToYeni 0.8s ease-in-out forwards;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.navbar,
-.content,
-header,
-main,
-footer,
-section {
-  animation: fadeToYeni 0.8s ease-in-out forwards;
-}
-
-/* Estilos para eliminar líneas divisorias y hacer el contenido más fluido */
 .content {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: transparent;
+  min-height: calc(100vh - 200px);
   padding-top: 80px;
+  background: transparent;
 }
 
-header {
+/* Header "Para mi amor" */
+.yeni-header {
   text-align: center;
-  padding: 2rem;
-  background: transparent;
+  padding: 3rem 2rem;
+  background: linear-gradient(180deg, rgba(255,158,196,0.4) 0%, rgba(255,158,196,0.2) 50%, transparent 100%);
+  border-bottom: 2px solid rgba(255,158,196,0.3);
+}
+
+.yeni-header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(255, 20, 147, 0.6);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/* Main content */
+.yeni-main {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Grid de cards */
+.yeni-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 968px) {
+  .yeni-cards-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Footer duplicado eliminado - ahora está en shared-styles.css */
@@ -66,3 +70,113 @@ section {
 }
 
 /* Los estilos del navbar y dropdown ahora están en shared-styles.css */
+
+/* ========================================
+   CARDS ROMÁNTICAS YENI
+   ========================================*/
+.yeni-card {
+  background: linear-gradient(135deg, rgba(255,182,213,0.4), rgba(255,192,224,0.3));
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255,182,213,0.2);
+  box-shadow: 0 8px 32px rgba(255,105,180,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.yeni-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(255,105,180,0.03) 0px, rgba(255,105,180,0.03) 10px, transparent 10px, transparent 20px);
+  pointer-events: none;
+}
+
+.yeni-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(255,105,180,0.4);
+  border-color: rgba(255,182,213,0.5);
+}
+
+.yeni-card h2 {
+  font-size: 2rem;
+  color: #ff69b4;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+}
+
+/* Botón "Ver más" */
+.yeni-btn {
+  background: linear-gradient(135deg, #ff1493, #ff69b4);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255,20,147,0.4);
+  position: relative;
+  z-index: 2;
+  letter-spacing: 1px;
+}
+
+.yeni-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(255,20,147,0.6);
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+}
+
+/* Footer especial de Yeni */
+.yeni-footer {
+  margin-top: 4rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: linear-gradient(180deg, transparent 0%, rgba(45,0,30,0.9) 100%);
+  border-top: 2px solid rgba(255,105,180,0.3);
+}
+
+.footer-dates {
+  margin-bottom: 1.5rem;
+}
+
+.main-date {
+  font-size: 1.8rem;
+  color: #ff69b4;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  text-shadow: 2px 2px 6px rgba(255,20,147,0.5);
+}
+
+.secondary-date {
+  font-size: 1.4rem;
+  color: #ffb3d9;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  text-shadow: 1px 1px 4px rgba(255,20,147,0.4);
+}
+
+.footer-copyright {
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: 1rem;
+}

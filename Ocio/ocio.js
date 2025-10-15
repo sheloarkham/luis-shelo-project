@@ -3,10 +3,10 @@ function createPlaceholder() {
     return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='100%25' height='100%25' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='0.3em' font-family='Arial' font-size='14' fill='%23666'%3ECargando...%3C/text%3E%3C/svg%3E";
 }
 
-// Función para renderizar una card de juego
+// Función para renderizar una card de juego con tema Ocio
 function renderGameCard(game) {
     const isCurrentlyPlaying = game.Estado === "Jugando";
-    const cardClass = isCurrentlyPlaying ? "game-card currently-playing" : "game-card";
+    const cardClass = isCurrentlyPlaying ? "card game-card currently-playing" : "card game-card";
     
     return `
         <div class="${cardClass}">

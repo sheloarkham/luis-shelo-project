@@ -3,7 +3,18 @@ let expenses = []; // Gastos generales
 let crmExpenses = []; // Gastos de CRM
 let futureCrmExpenses = []; // Gastos futuros de CRM
 let junaebExpenses = []; // Gastos de tarjeta JUNAEB (independiente)
-console.log('Presupuestos.js cargado correctamente');
+console.log('✅ Presupuestos.js cargado correctamente');
+
+// Manejar errores globales
+window.addEventListener('error', function(e) {
+    console.error('❌ Error en presupuestos.js:', e.error);
+    console.error('📍 Archivo:', e.filename, 'Línea:', e.lineno);
+});
+
+// Debug de carga del DOM
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔄 DOM cargado en Presupuestos');
+});
 
 // Función de prueba
 function testFunction() {
