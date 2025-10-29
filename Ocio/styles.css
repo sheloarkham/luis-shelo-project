@@ -79,13 +79,14 @@ main {
 }
 
 .game-card {
-  background-color: white;
+  background-color: #ffffff !important;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, opacity 0.5s ease;
   opacity: 0;
   transform: translateY(20px);
+  border: 1px solid #e0e0e0;
 }
 
 .game-card.visible {
@@ -152,6 +153,7 @@ main {
 .game-info {
   padding: 1.5rem;
   color: #333;
+  background-color: #ffffff !important;
 }
 
 /* Estilos para la sección de libros */
@@ -213,16 +215,16 @@ main {
 .game-info h3 {
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
-  color: #000;
+  color: #000 !important;
 }
 
 .game-info p {
   margin: 0.5rem 0;
-  color: #666;
+  color: #666 !important;
 }
 
 .game-info strong {
-  color: #333;
+  color: #333 !important;
 }
 
 /* Estilos para las sinopsis */
