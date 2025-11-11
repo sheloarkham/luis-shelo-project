@@ -8,6 +8,14 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Navbar con fondo de cereza para Yeni */
+.navbar {
+  background: linear-gradient(rgba(17, 17, 17, 0.7), rgba(17, 17, 17, 0.8)), url('../Home/assets/cereza.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
 .content {
   min-height: calc(100vh - 200px);
   padding-top: 80px;
@@ -52,8 +60,6 @@ body {
   }
 }
 
-/* Footer duplicado eliminado - ahora está en shared-styles.css */
-
 main {
   flex: 1;
   padding: 2rem;
@@ -69,13 +75,13 @@ section {
   background: transparent;
 }
 
-/* Los estilos del navbar y dropdown ahora están en shared-styles.css */
-
 /* ========================================
    CARDS ROMÁNTICAS YENI
    ========================================*/
 .yeni-card {
-  background: linear-gradient(135deg, rgba(255,182,213,0.4), rgba(255,192,224,0.3));
+  background: linear-gradient(135deg, rgba(255,182,213,0.4), rgba(255,192,224,0.3)), url('../Home/assets/cereza.jpg');
+  background-size: cover;
+  background-position: center;
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 2.5rem 2rem;
@@ -179,4 +185,86 @@ section {
   font-size: 0.95rem;
   color: rgba(255,255,255,0.7);
   margin-top: 1rem;
+}
+
+/* ========================================
+   CONTADORES ROMÁNTICOS MINIMALISTAS
+   ========================================*/
+.counters-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 500;
+}
+
+.counter-bubble {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 182, 213, 0.3);
+  border-radius: 50px;
+  padding: 12px 20px;
+  min-width: 200px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.counter-bubble:hover {
+  background: rgba(255, 182, 213, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(255, 105, 180, 0.2);
+  border-color: rgba(255, 182, 213, 0.5);
+}
+
+.counter-title {
+  font-size: 0.9rem;
+  color: #ff69b4;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.counter-emoji {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.counter-display {
+  font-size: 0.8rem;
+  color: #fff;
+  font-weight: 500;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+}
+
+.counter-date {
+  display: none; /* Ocultar para diseño minimalista */
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .counters-container {
+    position: static;
+    margin: 2rem auto;
+    max-width: 300px;
+    align-items: center;
+  }
+  
+  .counter-bubble {
+    min-width: 250px;
+    padding: 15px 20px;
+  }
+  
+  .counter-title {
+    font-size: 1rem;
+  }
+  
+  .counter-display {
+    font-size: 0.9rem;
+  }
 }
