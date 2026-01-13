@@ -19,7 +19,7 @@ const books = [
         pages: 192,
         image: "./assetsB/invisible.png",
         synopsis: "Griffin, un científico brillante, descubre la fórmula para volverse invisible, pero su experimento lo condena a una existencia de aislamiento y locura. Una reflexión sobre el poder, la moralidad y las consecuencias de la ciencia sin ética.",
-        Estado: "Leyendo"
+        Estado: "Leido"
     },
     {
         title: "La Amortajada",

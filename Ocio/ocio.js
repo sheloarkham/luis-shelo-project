@@ -4,12 +4,20 @@ function createPlaceholder() {
 }
 
 // Función para renderizar una card de juego con tema Ocio
-function renderGameCard(game) {
+function renderGameCard(game, index) {
     const isCurrentlyPlaying = game.Estado === "Jugando";
     const cardClass = isCurrentlyPlaying ? "card game-card currently-playing" : "card game-card";
     
     return `
-        <div class="${cardClass}">
+        <div class="${cardClass}" data-game-index="${index}">
+            <button class="status-menu-btn" onclick="toggleStatusMenu(event, 'game', ${index})">
+                <span>⋮</span>
+            </button>
+            <div class="status-dropdown" id="game-menu-${index}">
+                <button onclick="changeGameStatus(${index}, 'Pendiente')">Pendiente</button>
+                <button onclick="changeGameStatus(${index}, 'Jugando')">Jugando</button>
+                <button onclick="changeGameStatus(${index}, 'Completado')">Completado</button>
+            </div>
             <img src="${createPlaceholder()}" 
                  data-src="${game.image}" 
                  alt="${game.title}" 
@@ -87,7 +95,7 @@ const imageObserver = new IntersectionObserver((entries) => {
 // Función para renderizar todos los juegos
 function renderGames() {
     const gamesContainer = document.getElementById('games-container');
-    const gamesHTML = games.map(game => renderGameCard(game)).join('');
+    const gamesHTML = games.map((game, index) => renderGameCard(game, index)).join('');
     gamesContainer.innerHTML = gamesHTML;
     
     // Observar todas las cards de juegos para animaciones
@@ -108,12 +116,20 @@ function renderGames() {
 
 
 // Función para renderizar una card de libro
-function renderBookCard(book) {
+function renderBookCard(book, index) {
     const isCurrentlyReading = book.Estado === "Leyendo";
     const cardClass = isCurrentlyReading ? "book-card currently-reading" : "book-card";
     
     return `
-        <div class="${cardClass}">
+        <div class="${cardClass}" data-book-index="${index}">
+            <button class="status-menu-btn" onclick="toggleStatusMenu(event, 'book', ${index})">
+                <span>⋮</span>
+            </button>
+            <div class="status-dropdown" id="book-menu-${index}">
+                <button onclick="changeBookStatus(${index}, 'Pendiente')">Pendiente</button>
+                <button onclick="changeBookStatus(${index}, 'Leyendo')">Leyendo</button>
+                <button onclick="changeBookStatus(${index}, 'Leido')">Leído</button>
+            </div>
             <img src="${createPlaceholder()}" 
                  data-src="${book.image}" 
                  alt="${book.title}" 
@@ -133,7 +149,7 @@ function renderBookCard(book) {
 // Función para renderizar todos los libros
 function renderBooks() {
     const booksContainer = document.getElementById('books-container');
-    const booksHTML = books.map(book => renderBookCard(book)).join('');
+    const booksHTML = books.map((book, index) => renderBookCard(book, index)).join('');
     booksContainer.innerHTML = booksHTML;
     
     // Observar todas las cards de libros para animaciones
@@ -155,10 +171,12 @@ function renderBooks() {
 function showCategory(category) {
     const gamesSection = document.querySelector('.games-section');
     const booksSection = document.querySelector('.books-section');
+    const seriesSection = document.querySelector('.series-section');
     
     // Ocultar todas las secciones primero
     gamesSection.style.display = 'none';
     booksSection.style.display = 'none';
+    if (seriesSection) seriesSection.style.display = 'none';
     
     // Mostrar solo la sección seleccionada
     if (category === 'games') {
@@ -173,6 +191,14 @@ function showCategory(category) {
             behavior: 'smooth',
             block: 'start'
         });
+    } else if (category === 'series') {
+        if (seriesSection) {
+            seriesSection.style.display = 'block';
+            seriesSection.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
 }
 
@@ -180,9 +206,11 @@ function showCategory(category) {
 function showAllSections() {
     const gamesSection = document.querySelector('.games-section');
     const booksSection = document.querySelector('.books-section');
+    const seriesSection = document.querySelector('.series-section');
     
     gamesSection.style.display = 'block';
     booksSection.style.display = 'block';
+    if (seriesSection) seriesSection.style.display = 'block';
 }
 
 // Función para manejar navegación por hash
@@ -258,3 +286,52 @@ document.addEventListener('DOMContentLoaded', () => {
 // Manejar cambios de hash
 window.addEventListener('hashchange', handleHashNavigation);
 
+// ========================================
+// FUNCIONES PARA MENÚ DE CAMBIO DE ESTADO
+// ========================================
+
+// Función para mostrar/ocultar el menú de estado
+function toggleStatusMenu(event, type, index) {
+    event.stopPropagation();
+    const menuId = `${type}-menu-${index}`;
+    const menu = document.getElementById(menuId);
+    
+    // Cerrar todos los demás menús
+    document.querySelectorAll('.status-dropdown').forEach(dropdown => {
+        if (dropdown.id !== menuId) {
+            dropdown.classList.remove('show');
+        }
+    });
+    
+    // Toggle del menú actual
+    menu.classList.toggle('show');
+}
+
+// Función para cambiar el estado de un juego
+function changeGameStatus(index, newStatus) {
+    games[index].Estado = newStatus;
+    renderGames();
+    
+    // Cerrar el menú
+    const menu = document.getElementById(`game-menu-${index}`);
+    if (menu) menu.classList.remove('show');
+}
+
+// Función para cambiar el estado de un libro
+function changeBookStatus(index, newStatus) {
+    books[index].Estado = newStatus;
+    renderBooks();
+    
+    // Cerrar el menú
+    const menu = document.getElementById(`book-menu-${index}`);
+    if (menu) menu.classList.remove('show');
+}
+
+// Cerrar menús al hacer click fuera
+document.addEventListener('click', (event) => {
+    if (!event.target.closest('.status-menu-btn') && !event.target.closest('.status-dropdown')) {
+        document.querySelectorAll('.status-dropdown').forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+    }
+});

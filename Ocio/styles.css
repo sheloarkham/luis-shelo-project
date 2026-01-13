@@ -81,12 +81,13 @@ main {
 .game-card {
   background-color: #ffffff !important;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, opacity 0.5s ease;
   opacity: 0;
   transform: translateY(20px);
   border: 1px solid #e0e0e0;
+  position: relative;
 }
 
 .game-card.visible {
@@ -96,6 +97,83 @@ main {
 
 .game-card:hover {
   transform: translateY(-5px);
+}
+
+/* Botón de menú de tres puntos */
+.status-menu-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: all 0.3s ease;
+  z-index: 10;
+  padding: 0;
+}
+
+.status-menu-btn span {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+  transform: rotate(90deg);
+}
+
+.status-menu-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+}
+
+/* Dropdown del menú de estado */
+.status-dropdown {
+  position: absolute;
+  top: 45px;
+  right: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 100;
+  min-width: 140px;
+}
+
+.status-dropdown.show {
+  display: flex;
+}
+
+.status-dropdown button {
+  padding: 12px 16px;
+  border: none;
+  background: white;
+  color: #333;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.status-dropdown button:last-child {
+  border-bottom: none;
+}
+
+.status-dropdown button:hover {
+  background: #f5f5f5;
+  color: #000;
+}
+
+.status-dropdown button:active {
+  background: #e0e0e0;
 }
 
 .game-image {
@@ -167,7 +245,7 @@ main {
 .book-card {
   background-color: white;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, opacity 0.5s ease;
   opacity: 0;
@@ -175,6 +253,7 @@ main {
   height: 100%;  /* Asegura altura consistente */
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .book-card.visible {
@@ -194,6 +273,7 @@ main {
   margin: 0 auto;  /* Centro horizontal */
   transition: opacity 0.3s ease;
   background-color: #f0f0f0;
+  border-radius: 10px 10px 0 0;
 }
 
 .book-image.lazy-load {
@@ -334,3 +414,195 @@ main {
   padding: 2rem;
   text-align: center;
 }
+
+/* ========================================
+   ESTILOS GUITAR HERO PARA SERIES - ESTILO SETLIST
+   ======================================== */
+
+.series-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+}
+
+#series-container {
+  width: 100%;
+  max-width: 700px;
+}
+
+.gh-setlist-container {
+  background: linear-gradient(135deg, #f5f5dc 0%, #e8e8d0 100%);
+  border-radius: 15px;
+  padding: 3rem 2.5rem;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+  border: 2px solid #d4d4b8;
+}
+
+/* Efecto de papel arrugado */
+.gh-setlist-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 25px,
+      rgba(0, 0, 0, 0.02) 25px,
+      rgba(0, 0, 0, 0.02) 26px
+    );
+  pointer-events: none;
+  border-radius: 15px;
+}
+
+.gh-setlist-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #333;
+}
+
+.gh-setlist-header h1 {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 3rem;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 2px 2px 0px rgba(255, 107, 0, 0.3);
+}
+
+.gh-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+}
+
+.gh-icon {
+  filter: grayscale(100%) brightness(0.3);
+}
+
+.gh-song-list {
+  position: relative;
+  z-index: 1;
+}
+
+.gh-song-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.gh-song-row.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gh-song-row:hover {
+  background: rgba(255, 107, 0, 0.08);
+  transform: translateX(5px);
+  border-left: 4px solid #ff6b00;
+  padding-left: calc(1rem - 4px);
+}
+
+.gh-song-title {
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #1a1a1a;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gh-song-stars {
+  font-size: 1.3rem;
+  color: #ff6b00;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+.gh-song-details {
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 1.1rem;
+  color: #555;
+  font-weight: bold;
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: right;
+}
+
+/* Efecto de desgaste en los bordes */
+.gh-setlist-container::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: 
+    radial-gradient(circle at 10% 10%, transparent 95%, rgba(0, 0, 0, 0.1) 100%),
+    radial-gradient(circle at 90% 10%, transparent 95%, rgba(0, 0, 0, 0.1) 100%),
+    radial-gradient(circle at 10% 90%, transparent 95%, rgba(0, 0, 0, 0.1) 100%),
+    radial-gradient(circle at 90% 90%, transparent 95%, rgba(0, 0, 0, 0.1) 100%);
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 15px;
+}
+
+/* Responsive para Guitar Hero Setlist */
+@media (max-width: 768px) {
+  .gh-setlist-container {
+    padding: 2rem 1.5rem;
+  }
+  
+  .gh-setlist-header h1 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+  
+  .gh-icons {
+    font-size: 1.4rem;
+    gap: 1rem;
+  }
+  
+  .gh-song-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem 0.8rem;
+  }
+  
+  .gh-song-title {
+    font-size: 1.1rem;
+  }
+  
+  .gh-song-stars {
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  
+  .gh-song-details {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+}
+
