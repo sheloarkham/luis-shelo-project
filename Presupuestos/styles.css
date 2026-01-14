@@ -24,11 +24,15 @@ body {
 /* Contenido principal */
 .content {
     padding-top: 100px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
     min-height: 100vh;
+    box-sizing: border-box;
 }
 
 main {
-    padding: 2rem;
+    padding: 2rem 2rem 2rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
 }

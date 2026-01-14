@@ -17,6 +17,7 @@ function renderGameCard(game, index) {
                 <button onclick="changeGameStatus(${index}, 'Pendiente')">Pendiente</button>
                 <button onclick="changeGameStatus(${index}, 'Jugando')">Jugando</button>
                 <button onclick="changeGameStatus(${index}, 'Completado')">Completado</button>
+                <button onclick="deleteGame(${index})" class="delete-btn">🗑️ Eliminar</button>
             </div>
             <img src="${createPlaceholder()}" 
                  data-src="${game.image}" 
@@ -129,6 +130,7 @@ function renderBookCard(book, index) {
                 <button onclick="changeBookStatus(${index}, 'Pendiente')">Pendiente</button>
                 <button onclick="changeBookStatus(${index}, 'Leyendo')">Leyendo</button>
                 <button onclick="changeBookStatus(${index}, 'Leido')">Leído</button>
+                <button onclick="deleteBook(${index})" class="delete-btn">🗑️ Eliminar</button>
             </div>
             <img src="${createPlaceholder()}" 
                  data-src="${book.image}" 
@@ -317,6 +319,14 @@ function changeGameStatus(index, newStatus) {
     if (menu) menu.classList.remove('show');
 }
 
+// Función para eliminar un juego
+function deleteGame(index) {
+    if (confirm(`¿Estás seguro de que quieres eliminar "${games[index].title}"?`)) {
+        games.splice(index, 1);
+        renderGames();
+    }
+}
+
 // Función para cambiar el estado de un libro
 function changeBookStatus(index, newStatus) {
     books[index].Estado = newStatus;
@@ -325,6 +335,14 @@ function changeBookStatus(index, newStatus) {
     // Cerrar el menú
     const menu = document.getElementById(`book-menu-${index}`);
     if (menu) menu.classList.remove('show');
+}
+
+// Función para eliminar un libro
+function deleteBook(index) {
+    if (confirm(`¿Estás seguro de que quieres eliminar "${books[index].title}"?`)) {
+        books.splice(index, 1);
+        renderBooks();
+    }
 }
 
 // Cerrar menús al hacer click fuera

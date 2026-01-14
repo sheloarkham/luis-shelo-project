@@ -17,6 +17,7 @@ const NAVBAR_CONFIG = {
         if (path.includes('/Ocio/')) return 'ocio';
         if (path.includes('/Presupuestos/')) return 'presupuestos';
         if (path.includes('/Proyecto/')) return 'proyecto';
+        if (path.includes('/Carrera/')) return 'carrera';
         if (path.includes('/Archivos/')) return 'archivos';
         if (path.includes('/Yeni') || path.includes('Yeni%20%F0%9F%92%9E') || path.includes('Yeni%20💞') || path.includes('Yeni%C2%A0')) return 'yeni';
         
@@ -62,6 +63,12 @@ const NAVBAR_CONFIG = {
                 text: 'Proyecto',
                 href: `${basePath}Proyecto/index.html`,
                 active: currentPage === 'proyecto'
+            },
+            {
+                id: 'carrera',
+                text: 'Carrera',
+                href: `${basePath}Carrera/index.html`,
+                active: currentPage === 'carrera'
             },
             {
                 id: 'yeni',

@@ -176,6 +176,17 @@ main {
   background: #e0e0e0;
 }
 
+.status-dropdown button.delete-btn {
+  color: #dc3545;
+  font-weight: 600;
+  border-top: 2px solid #f0f0f0;
+}
+
+.status-dropdown button.delete-btn:hover {
+  background: #fff5f5;
+  color: #c82333;
+}
+
 .game-image {
   width: 100%;
   height: 200px;
@@ -411,7 +422,7 @@ main {
 /* Estilos duplicados de header/footer eliminados */
 
 main {
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
 
@@ -423,8 +434,13 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  min-height: 100vh;
   padding: 2rem;
+  background: url('assetsC/wp14908430-secret-level-wallpapers.webp') center/cover fixed;
+  background-color: #000;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #series-container {
@@ -583,6 +599,380 @@ main {
   .gh-icons {
     font-size: 1.4rem;
     gap: 1rem;
+  }
+  
+  .gh-song-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 1rem 0.8rem;
+  }
+  
+  .gh-song-title {
+    font-size: 1.1rem;
+  }
+  
+  .gh-song-stars {
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  
+  .gh-song-details {
+    font-size: 0.95rem;
+    text-align: left;
+  }
+}
+
+/* Estilos para botón agregar serie - integrado en la lista */
+.gh-add-row {
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.1) 0%, rgba(255, 107, 0, 0.05) 100%);
+  border: 2px dashed #ff6b00 !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gh-add-row:hover {
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.2) 0%, rgba(255, 107, 0, 0.1) 100%);
+  border: 2px solid #ff6b00 !important;
+  transform: translateX(10px) scale(1.02);
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+}
+
+.gh-add-row .gh-song-title {
+  color: #ff6b00;
+  font-weight: bold;
+}
+
+.gh-add-row .gh-song-stars {
+  color: #ccc;
+}
+
+.gh-add-row .gh-song-details {
+  color: #ff6b00;
+  font-weight: bold;
+}
+
+/* Wrapper para lista y formulario lado a lado */
+.gh-series-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.gh-series-wrapper .gh-setlist-container {
+  width: 700px;
+  max-width: 700px;
+}
+
+/* Panel de formulario - estilo Guitar Hero */
+.gh-form-panel {
+  position: fixed;
+  right: calc((100vw - 1400px) / 2);
+  top: 100px;
+  width: 400px;
+  background: linear-gradient(135deg, #f5f5dc 0%, #e8e8d0 100%);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  border: 2px solid #d4d4b8;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.gh-form-panel.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gh-form-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 25px,
+      rgba(0, 0, 0, 0.02) 25px,
+      rgba(0, 0, 0, 0.02) 26px
+    );
+  pointer-events: none;
+  border-radius: 15px;
+}
+
+.gh-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #333;
+}
+
+.gh-form-header h2 {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 1.8rem;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+  text-shadow: 2px 2px 0px rgba(255, 107, 0, 0.3);
+}
+
+.gh-close-btn {
+  background: #ff6b00;
+  border: none;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gh-close-btn:hover {
+  background: #cc5500;
+  transform: rotate(90deg);
+}
+
+.gh-form-content {
+  position: relative;
+  z-index: 1;
+}
+
+.gh-form-group {
+  margin-bottom: 1.2rem;
+}
+
+.gh-form-group label {
+  display: block;
+  font-family: 'Courier New', 'Courier', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gh-form-group input,
+.gh-form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #d4d4b8;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  font-size: 1rem;
+  font-family: 'Courier New', 'Courier', monospace;
+  font-weight: bold;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.gh-form-group input:focus,
+.gh-form-group select:focus {
+  outline: none;
+  border-color: #ff6b00;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+}
+
+.gh-search-btn {
+  background: #4CAF50;
+  border: 2px solid #388E3C;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.gh-search-btn:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gh-search-btn:disabled {
+  background: #999;
+  border-color: #777;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.gh-form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+.gh-save-btn, .gh-manual-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.gh-save-btn {
+  background: #4CAF50;
+  border-color: #388E3C;
+  color: white;
+}
+
+.gh-save-btn:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+}
+
+.gh-manual-btn {
+  background: #FF9800;
+  border-color: #F57C00;
+  color: white;
+}
+
+.gh-manual-btn:hover {
+  background: #F57C00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.4);
+}
+
+/* Resultados de IMDb - estilo Guitar Hero */
+.gh-imdb-result {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 50px;
+  font-family: 'Courier New', 'Courier', monospace;
+}
+
+.gh-imdb-found {
+  background: rgba(76, 175, 80, 0.15);
+  border: 2px solid #4CAF50;
+}
+
+.gh-imdb-not-found {
+  background: rgba(244, 67, 54, 0.15);
+  border: 2px solid #f44336;
+}
+
+.gh-result-title {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 1.1rem;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.gh-result-item {
+  color: #333;
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.gh-result-stars {
+  color: #ff6b00;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.gh-manual-msg {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  color: #ff6b00;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.gh-manual-inputs {
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .gh-form-panel {
+    position: fixed;
+    right: 20px;
+    width: 350px;
+  }
+}
+
+@media (max-width: 900px) {
+  .gh-series-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .gh-form-panel {
+    position: relative;
+    right: auto;
+    width: 100%;
+    max-width: 700px;
+    top: 0;
+    margin-top: 2rem;
+  }
+  
+  .gh-series-wrapper .gh-setlist-container {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Responsive para panel lateral */
+@media (max-width: 768px) {
+  .gh-series-wrapper {
+    flex-direction: column;
+  }
+  
+  .gh-form-panel {
+    width: 100%;
   }
   
   .gh-song-row {
