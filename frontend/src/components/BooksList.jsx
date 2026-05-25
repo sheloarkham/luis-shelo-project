@@ -164,7 +164,7 @@ const initialBooksData = [
     pages: 496,
     image: "/Ocio/assetsB/psico2.png",
     synopsis: "Secuela de El Psicoanalista. El Dr. Frederick Starks debe enfrentar nuevamente el terror cuando alguien de su pasado regresa con sed de venganza. Un thriller psicológico que explora las consecuencias de las decisiones tomadas en el primer libro.",
-    Estado: "Leyendo"
+    Estado: "Leido"
   }
 ]
 
