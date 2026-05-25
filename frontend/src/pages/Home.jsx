@@ -140,23 +140,21 @@ const Home = () => {
       setLoading(true)
       setError(null)
       
-      // Cargar estadísticas del backend (solo series)
-      const backendData = await statsApi.getAll()
-      
-      // Calcular estadísticas locales
+      // Calcular estadísticas locales para todas las categorías
+      const seriesStats = calculateLocalStats('series-list', 'Completado', 'Viendo')
       const animeStats = calculateLocalStats('anime-list', 'Completado', 'Viendo')
       const gamesStats = calculateLocalStats('games-list', 'Completado', 'Jugando')
       const booksStats = calculateLocalStats('books-list', 'Leido', 'Leyendo')
       
       // Combinar todas las estadísticas
       setStats({
-        series: backendData.series,
+        series: seriesStats,
         anime: animeStats,
         games: gamesStats,
         books: booksStats
       })
     } catch (err) {
-      setError('Error al cargar estadísticas. ¿Está el backend corriendo?')
+      setError('Error al cargar estadísticas')
       console.error(err)
     } finally {
       setLoading(false)

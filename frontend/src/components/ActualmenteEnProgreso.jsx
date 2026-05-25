@@ -14,6 +14,10 @@ const ActualmenteEnProgreso = () => {
   }, [])
 
   const cargarEnProgreso = () => {
+    // Cargar series (Estado: "Viendo")
+    const seriesStorage = localStorage.getItem('series-list')
+    const series = seriesStorage ? JSON.parse(seriesStorage).filter(s => s.Estado === 'Viendo') : []
+
     // Cargar anime (Estado: "Viendo")
     const animeStorage = localStorage.getItem('anime-list')
     const anime = animeStorage ? JSON.parse(animeStorage).filter(a => a.Estado === 'Viendo') : []
@@ -26,10 +30,10 @@ const ActualmenteEnProgreso = () => {
     const booksStorage = localStorage.getItem('books-list')
     const books = booksStorage ? JSON.parse(booksStorage).filter(b => b.Estado === 'Leyendo') : []
 
-    setEnProgreso({ anime, games, books, series: [] })
+    setEnProgreso({ anime, games, books, series })
   }
 
-  const total = enProgreso.anime.length + enProgreso.games.length + enProgreso.books.length
+  const total = enProgreso.anime.length + enProgreso.games.length + enProgreso.books.length + enProgreso.series.length
 
   if (total === 0) {
     return null // No mostrar la sección si no hay nada en progreso
@@ -174,7 +178,7 @@ const ActualmenteEnProgreso = () => {
                 {book.title}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                📚 Libro • {book.author}
+                Libro • {book.author}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 {book.pages} páginas
@@ -182,6 +186,50 @@ const ActualmenteEnProgreso = () => {
               <Box sx={{ mt: 'auto' }}>
                 <Chip 
                   label="Leyendo" 
+                  color="primary"
+                  size="small"
+                />
+              </Box>
+            </CardContent>
+          </Card>
+        ))}
+
+        {/* Series en progreso */}
+        {enProgreso.series.map((serie, index) => (
+          <Card 
+            key={`serie-${index}`}
+            sx={{ 
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              border: '2px solid #FFD700',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: 6,
+              }
+            }}
+          >
+            <CardMedia
+              component="img"
+              height="200"
+              image={serie.image}
+              alt={serie.title}
+              sx={{ objectFit: 'cover' }}
+            />
+            <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+              <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', mb: 1 }}>
+                {serie.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                Serie • {serie.year}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                {serie.episodes} episodios
+              </Typography>
+              <Box sx={{ mt: 'auto' }}>
+                <Chip 
+                  label="Viendo" 
                   color="primary"
                   size="small"
                 />
