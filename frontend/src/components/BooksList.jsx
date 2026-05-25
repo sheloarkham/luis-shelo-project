@@ -215,6 +215,75 @@ const BooksList = ({ searchTerm = '' }) => {
     book.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  // Agrupar libros por estado
+  const groupByStatus = () => {
+    const leyendo = filteredBooks.filter(b => b.Estado === 'Leyendo')
+    const pendiente = filteredBooks.filter(b => b.Estado === 'Pendiente')
+    const leido = filteredBooks.filter(b => b.Estado === 'Leido')
+    return { leyendo, pendiente, leido }
+  }
+
+  const { leyendo, pendiente, leido } = groupByStatus()
+
+  // Función para obtener color de tarjeta según estado
+  const getCardBackground = (estado) => {
+    switch(estado) {
+      case 'Leyendo': return 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)'
+      case 'Pendiente': return 'linear-gradient(135deg, #fb923c 0%, #f97316 100%)'
+      case 'Leido': return 'linear-gradient(135deg, #34d399 0%, #10b981 100%)'
+      default: return 'rgba(255, 255, 255, 0.9)'
+    }
+  }
+
+  const renderBookCard = (book, index) => (
+    <Card key={index} sx={{ 
+      position: 'relative',
+      background: getCardBackground(book.Estado),
+      color: 'white',
+      transition: 'all 0.3s',
+      boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
+      '&:hover': { 
+        transform: 'translateY(-10px)',
+        boxShadow: '0 12px 24px rgba(0,0,0,0.5)'
+      }
+    }}>
+      <IconButton
+        sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: 'rgba(255,255,255,1)' } }}
+        onClick={(e) => handleMenuOpen(e, index)}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <CardMedia
+        component="img"
+        height="250"
+        image={book.image}
+        alt={book.title}
+        sx={{ objectFit: 'contain', bgcolor: 'rgba(255,255,255,0.2)' }}
+      />
+      <CardContent>
+        <Typography variant="h6" gutterBottom sx={{ color: 'white' }}>{book.title}</Typography>
+        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+          <strong>Autor:</strong> {book.author}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+          <strong>Año:</strong> {book.releaseYear}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+          <strong>Páginas:</strong> {book.pages}
+        </Typography>
+        {book.synopsis && (
+          <Typography variant="body2" sx={{ mt: 1, fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)' }}>
+            {book.synopsis}
+          </Typography>
+        )}
+        <Chip 
+          label={book.Estado} 
+          sx={{ mt: 2, bgcolor: 'rgba(255,255,255,0.3)', color: 'white', fontWeight: 'bold' }}
+        />
+      </CardContent>
+    </Card>
+  )
+
   const deleteBook = () => {
     const updatedBooks = books.filter((_, index) => index !== selectedBook)
     setBooks(updatedBooks)
@@ -244,52 +313,43 @@ const BooksList = ({ searchTerm = '' }) => {
           </Typography>
         </Box>
       ) : (
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
-          {filteredBooks.map((book, index) => (
-          <Card key={index} sx={{ 
-            position: 'relative',
-            background: 'rgba(255, 255, 255, 0.9)',
-            transition: 'transform 0.3s',
-            '&:hover': { transform: 'translateY(-10px)' }
-          }}>
-            <IconButton
-              sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(255,255,255,0.8)' }}
-              onClick={(e) => handleMenuOpen(e, index)}
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <CardMedia
-              component="img"
-              height="250"
-              image={book.image}
-              alt={book.title}
-              sx={{ objectFit: 'contain', bgcolor: '#f5f5f5' }}
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>{book.title}</Typography>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Autor:</strong> {book.author}
+        <Box>
+          {/* Sección Leyendo */}
+          {leyendo.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#60a5fa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                📖 Leyendo ({leyendo.length})
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Año:</strong> {book.releaseYear}
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+                {leyendo.map(renderBookCard)}
+              </Box>
+            </Box>
+          )}
+
+          {/* Sección Pendiente */}
+          {pendiente.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#fb923c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                ⏳ Pendiente ({pendiente.length})
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Páginas:</strong> {book.pages}
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+                {pendiente.map(renderBookCard)}
+              </Box>
+            </Box>
+          )}
+
+          {/* Sección Leído */}
+          {leido.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#34d399', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                ✅ Leído ({leido.length})
               </Typography>
-              {book.synopsis && (
-                <Typography variant="body2" sx={{ mt: 1, fontSize: '0.85rem' }}>
-                  {book.synopsis}
-                </Typography>
-              )}
-              <Chip 
-                label={book.Estado} 
-                color={book.Estado === 'Leyendo' ? 'primary' : 'default'}
-                sx={{ mt: 2 }}
-              />
-            </CardContent>
-          </Card>
-        ))}
-      </Box>
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+                {leido.map(renderBookCard)}
+              </Box>
+            </Box>
+          )}
+        </Box>
       )}
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>

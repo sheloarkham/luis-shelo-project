@@ -242,6 +242,74 @@ const GamesList = ({ searchTerm = '' }) => {
     game.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  // Agrupar juegos por estado
+  const groupByStatus = () => {
+    const jugando = filteredGames.filter(g => g.Estado === 'Jugando')
+    const pendiente = filteredGames.filter(g => g.Estado === 'Pendiente')
+    const completado = filteredGames.filter(g => g.Estado === 'Completado')
+    return { jugando, pendiente, completado }
+  }
+
+  const { jugando, pendiente, completado } = groupByStatus()
+
+  // Función para obtener color de tarjeta según estado
+  const getCardBackground = (estado) => {
+    switch(estado) {
+      case 'Jugando': return 'linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)'
+      case 'Pendiente': return 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)'
+      case 'Completado': return 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+      default: return 'rgba(255, 255, 255, 0.9)'
+    }
+  }
+
+  const renderGameCard = (game, index) => (
+    <Card key={index} sx={{ 
+      position: 'relative',
+      background: getCardBackground(game.Estado),
+      color: 'white',
+      transition: 'all 0.3s',
+      boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
+      '&:hover': { 
+        transform: 'translateY(-10px)',
+        boxShadow: '0 12px 24px rgba(0,0,0,0.5)'
+      }
+    }}>
+      <IconButton
+        sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: 'rgba(255,255,255,1)' } }}
+        onClick={(e) => handleMenuOpen(e, index)}
+      >
+        <MoreVertIcon />
+      </IconButton>
+      <CardMedia
+        component="img"
+        height="200"
+        image={game.image}
+        alt={game.title}
+      />
+      <CardContent>
+        <Typography variant="h6" gutterBottom sx={{ color: 'white' }}>{game.title}</Typography>
+        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+          <strong>Año:</strong> {game.releaseYear}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+          <strong>Desarrollador:</strong> {game.developer}
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
+          <strong>Duración:</strong> {game.duration} horas
+        </Typography>
+        {game.synopsis && (
+          <Typography variant="body2" sx={{ mt: 1, fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)' }}>
+            {game.synopsis}
+          </Typography>
+        )}
+        <Chip 
+          label={game.Estado} 
+          sx={{ mt: 2, bgcolor: 'rgba(255,255,255,0.3)', color: 'white', fontWeight: 'bold' }}
+        />
+      </CardContent>
+    </Card>
+  )
+
   const deleteGame = () => {
     const updatedGames = games.filter((_, index) => index !== selectedGame)
     setGames(updatedGames)
@@ -271,51 +339,43 @@ const GamesList = ({ searchTerm = '' }) => {
           </Typography>
         </Box>
       ) : (
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
-        {filteredGames.map((game, index) => (
-          <Card key={index} sx={{ 
-            position: 'relative',
-            background: 'rgba(255, 255, 255, 0.9)',
-            transition: 'transform 0.3s',
-            '&:hover': { transform: 'translateY(-10px)' }
-          }}>
-            <IconButton
-              sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(255,255,255,0.8)' }}
-              onClick={(e) => handleMenuOpen(e, index)}
-            >
-              <MoreVertIcon />
-            </IconButton>
-            <CardMedia
-              component="img"
-              height="200"
-              image={game.image}
-              alt={game.title}
-            />
-            <CardContent>
-              <Typography variant="h6" gutterBottom>{game.title}</Typography>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Año:</strong> {game.releaseYear}
+        <Box>
+          {/* Sección Jugando */}
+          {jugando.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#a78bfa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                🎮 Jugando ({jugando.length})
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Desarrollador:</strong> {game.developer}
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+                {jugando.map(renderGameCard)}
+              </Box>
+            </Box>
+          )}
+
+          {/* Sección Pendiente */}
+          {pendiente.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#fbbf24', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                ⏳ Pendiente ({pendiente.length})
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Duración:</strong> {game.duration} horas
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+                {pendiente.map(renderGameCard)}
+              </Box>
+            </Box>
+          )}
+
+          {/* Sección Completado */}
+          {completado.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#10b981', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                ✅ Completado ({completado.length})
               </Typography>
-              {game.synopsis && (
-                <Typography variant="body2" sx={{ mt: 1, fontSize: '0.85rem' }}>
-                  {game.synopsis}
-                </Typography>
-              )}
-              <Chip 
-                label={game.Estado} 
-                color={game.Estado === 'Jugando' ? 'primary' : 'default'}
-                sx={{ mt: 2 }}
-              />
-            </CardContent>
-          </Card>
-        ))}
-      </Box>
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+                {completado.map(renderGameCard)}
+              </Box>
+            </Box>
+          )}
+        </Box>
       )}
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>

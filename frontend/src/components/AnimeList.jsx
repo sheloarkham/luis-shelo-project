@@ -623,6 +623,83 @@ const AnimeList = ({ searchTerm = '' }) => {
     anime.title.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  // Agrupar anime por estado
+  const groupByStatus = () => {
+    const viendo = filteredAnimes.filter(a => a.Estado === 'Viendo')
+    const pendiente = filteredAnimes.filter(a => a.Estado === 'Pendiente')
+    const completado = filteredAnimes.filter(a => a.Estado === 'Completado')
+    return { viendo, pendiente, completado }
+  }
+
+  const { viendo, pendiente, completado } = groupByStatus()
+
+  // Función para obtener color de tarjeta según estado
+  const getCardBackground = (estado) => {
+    switch(estado) {
+      case 'Viendo': return 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      case 'Pendiente': return 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+      case 'Completado': return 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+      default: return 'rgba(255, 255, 255, 0.9)'
+    }
+  }
+
+  const renderAnimeCard = (anime) => (
+    <Card 
+      key={anime.title} 
+      sx={{ 
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background: getCardBackground(anime.Estado),
+        color: 'white',
+        transition: 'all 0.3s',
+        boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
+        '&:hover': {
+          transform: 'translateY(-8px)',
+          boxShadow: '0 12px 24px rgba(0,0,0,0.5)',
+        }
+      }}
+    >
+      <CardMedia
+        component="img"
+        height="200"
+        image={anime.image}
+        alt={anime.title}
+        sx={{ objectFit: 'cover' }}
+      />
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+          <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', flex: 1, color: 'white' }}>
+            {anime.title}
+          </Typography>
+          <IconButton
+            size="small"
+            onClick={(e) => handleMenuOpen(e, anime)}
+            sx={{ ml: 1, color: 'white', bgcolor: 'rgba(255,255,255,0.2)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }}
+          >
+            <MoreVertIcon />
+          </IconButton>
+        </Box>
+
+        <Typography variant="body2" sx={{ mb: 1, color: 'rgba(255,255,255,0.9)' }}>
+          {anime.studio} • {anime.year}
+        </Typography>
+
+        <Typography variant="body2" sx={{ mb: 2, color: 'rgba(255,255,255,0.9)' }}>
+          {anime.episodes} episodios
+        </Typography>
+
+        <Box sx={{ mt: 'auto' }}>
+          <Chip 
+            label={anime.Estado} 
+            sx={{ bgcolor: 'rgba(255,255,255,0.3)', color: 'white', fontWeight: 'bold' }}
+            size="small"
+          />
+        </Box>
+      </CardContent>
+    </Card>
+  )
+
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 3, fontWeight: 'bold', color: '#ff6b6b' }}>
@@ -646,65 +723,43 @@ const AnimeList = ({ searchTerm = '' }) => {
           </Typography>
         </Box>
       ) : (
-        <Box sx={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
-          gap: 3 
-        }}>
-          {filteredAnimes.map((anime, index) => (
-          <Card 
-            key={index} 
-            sx={{ 
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              transition: 'transform 0.2s, box-shadow 0.2s',
-              '&:hover': {
-                transform: 'translateY(-4px)',
-                boxShadow: 6,
-              }
-            }}
-          >
-            <CardMedia
-              component="img"
-              height="200"
-              image={anime.image}
-              alt={anime.title}
-              sx={{ objectFit: 'cover' }}
-            />
-            <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', flex: 1 }}>
-                  {anime.title}
-                </Typography>
-                <IconButton
-                  size="small"
-                  onClick={(e) => handleMenuOpen(e, anime)}
-                  sx={{ ml: 1 }}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-              </Box>
-
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                {anime.studio} • {anime.year}
+        <Box>
+          {/* Sección Viendo */}
+          {viendo.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#667eea', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                👁️ Viendo ({viendo.length})
               </Typography>
-
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                {anime.episodes} episodios
-              </Typography>
-
-              <Box sx={{ mt: 'auto' }}>
-                <Chip 
-                  label={anime.Estado} 
-                  color={getEstadoColor(anime.Estado)}
-                  size="small"
-                />
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+                {viendo.map(renderAnimeCard)}
               </Box>
-            </CardContent>
-          </Card>
-        ))}
-      </Box>
+            </Box>
+          )}
+
+          {/* Sección Pendiente */}
+          {pendiente.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#f5576c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                ⏳ Pendiente ({pendiente.length})
+              </Typography>
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+                {pendiente.map(renderAnimeCard)}
+              </Box>
+            </Box>
+          )}
+
+          {/* Sección Completado */}
+          {completado.length > 0 && (
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h5" sx={{ mb: 2, color: '#00f2fe', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                ✅ Completado ({completado.length})
+              </Typography>
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+                {completado.map(renderAnimeCard)}
+              </Box>
+            </Box>
+          )}
+        </Box>
       )}
 
       <Menu
