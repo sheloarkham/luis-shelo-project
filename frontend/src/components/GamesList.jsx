@@ -319,7 +319,7 @@ const GamesList = ({ searchTerm = '' }) => {
   return (
     <Box id="games" sx={{ py: 4 }}>
       <Typography variant="h4" sx={{ mb: 3, color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
-        🎮 Videojuegos
+        Videojuegos
       </Typography>
       
       {filteredGames.length === 0 ? (
@@ -332,19 +332,25 @@ const GamesList = ({ searchTerm = '' }) => {
           border: '2px dashed rgba(167, 139, 250, 0.3)'
         }}>
           <Typography variant="h5" sx={{ color: '#a78bfa', mb: 2, fontWeight: 'bold' }}>
-            😢 No se encontraron juegos
+            No se encontraron juegos
           </Typography>
           <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
             {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay juegos en la lista'}
           </Typography>
         </Box>
+      ) : searchTerm ? (
+        /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+          {filteredGames.map(renderGameCard)}
+        </Box>
       ) : (
+        /* Cuando NO hay búsqueda, mostrar agrupado por estado */
         <Box>
           {/* Sección Jugando */}
           {jugando.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#a78bfa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                🎮 Jugando ({jugando.length})
+                Jugando ({jugando.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
                 {jugando.map(renderGameCard)}
@@ -356,7 +362,7 @@ const GamesList = ({ searchTerm = '' }) => {
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#fbbf24', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                ⏳ Pendiente ({pendiente.length})
+                Pendiente ({pendiente.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
                 {pendiente.map(renderGameCard)}
@@ -368,7 +374,7 @@ const GamesList = ({ searchTerm = '' }) => {
           {completado.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#10b981', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                ✅ Completado ({completado.length})
+                Completado ({completado.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
                 {completado.map(renderGameCard)}
@@ -382,7 +388,7 @@ const GamesList = ({ searchTerm = '' }) => {
         <MenuItem onClick={() => changeStatus('Pendiente')}>Pendiente</MenuItem>
         <MenuItem onClick={() => changeStatus('Jugando')}>Jugando</MenuItem>
         <MenuItem onClick={() => changeStatus('Completado')}>Completado</MenuItem>
-        <MenuItem onClick={deleteGame} sx={{ color: 'error.main' }}>🗑️ Eliminar</MenuItem>
+        <MenuItem onClick={deleteGame} sx={{ color: 'error.main' }}>Eliminar</MenuItem>
       </Menu>
     </Box>
   )

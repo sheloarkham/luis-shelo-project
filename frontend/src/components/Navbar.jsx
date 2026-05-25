@@ -94,16 +94,16 @@ const Navbar = () => {
             onClose={handleClose}
           >
             <MenuItem onClick={() => handleOcioSection('anime')}>
-              📺 Anime
+              Anime
             </MenuItem>
             <MenuItem onClick={() => handleOcioSection('series')}>
-              🎬 Series
+              Series
             </MenuItem>
             <MenuItem onClick={() => handleOcioSection('games')}>
-              🎮 Videojuegos
+              Videojuegos
             </MenuItem>
             <MenuItem onClick={() => handleOcioSection('books')}>
-              📚 Libros
+              Libros
             </MenuItem>
           </Menu>
 

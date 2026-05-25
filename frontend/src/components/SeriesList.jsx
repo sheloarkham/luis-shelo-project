@@ -50,7 +50,7 @@ const SeriesList = ({ searchTerm = '' }) => {
     <div id="series" className="gh-series-section">
       <div className="gh-series-container">
         <div className="gh-setlist-header">
-          <h2 className="gh-setlist-title">📺 Series</h2>
+          <h2 className="gh-setlist-title">Series</h2>
           <Fab 
             color="primary"
             onClick={() => setShowPanel(true)}
@@ -87,7 +87,7 @@ const SeriesList = ({ searchTerm = '' }) => {
             border: '2px dashed rgba(255, 215, 0, 0.3)'
           }}>
             <h3 style={{ color: '#FFD700', marginBottom: '1rem', fontWeight: 'bold' }}>
-              😢 No se encontraron series
+              No se encontraron series
             </h3>
             <p style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay series en la lista'}

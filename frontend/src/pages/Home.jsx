@@ -186,7 +186,7 @@ const Home = () => {
       <Box sx={{ p: 4 }}>
         <Box sx={{ mb: 4, textAlign: 'center' }}>
           <Typography variant="h3" sx={{ color: '#FFD700', fontWeight: 'bold', mb: 1 }}>
-            Dashboard
+            Progreso
           </Typography>
           <Typography variant="h6" sx={{ color: '#888' }}>
             Proyecto Luis & Shelo
@@ -198,7 +198,7 @@ const Home = () => {
             <StatCard
               title="Series"
               stats={stats?.series || {}}
-              icon="📺"
+              icon=""
               color="#FFD700"
             />
           </Grid>
@@ -206,7 +206,7 @@ const Home = () => {
             <StatCard
               title="Anime"
               stats={stats?.anime || {}}
-              icon="🎌"
+              icon=""
               color="#ff6b6b"
             />
           </Grid>
@@ -214,7 +214,7 @@ const Home = () => {
             <StatCard
               title="Juegos"
               stats={stats?.games || {}}
-              icon="🎮"
+              icon=""
               color="#a78bfa"
             />
           </Grid>
@@ -222,7 +222,7 @@ const Home = () => {
             <StatCard
               title="Libros"
               stats={stats?.books || {}}
-              icon="📚"
+              icon=""
               color="#60a5fa"
             />
           </Grid>

@@ -703,7 +703,7 @@ const AnimeList = ({ searchTerm = '' }) => {
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 3, fontWeight: 'bold', color: '#ff6b6b' }}>
-        📺 Anime
+        Anime
       </Typography>
       
       {filteredAnimes.length === 0 ? (
@@ -716,19 +716,25 @@ const AnimeList = ({ searchTerm = '' }) => {
           border: '2px dashed rgba(255, 107, 107, 0.3)'
         }}>
           <Typography variant="h5" sx={{ color: '#ff6b6b', mb: 2, fontWeight: 'bold' }}>
-            😢 No se encontraron animes
+            No se encontraron animes
           </Typography>
           <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
             {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay animes en la lista'}
           </Typography>
         </Box>
+      ) : searchTerm ? (
+        /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+          {filteredAnimes.map(renderAnimeCard)}
+        </Box>
       ) : (
+        /* Cuando NO hay búsqueda, mostrar agrupado por estado */
         <Box>
           {/* Sección Viendo */}
           {viendo.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#667eea', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                👁️ Viendo ({viendo.length})
+                Viendo ({viendo.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
                 {viendo.map(renderAnimeCard)}
@@ -740,7 +746,7 @@ const AnimeList = ({ searchTerm = '' }) => {
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#f5576c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                ⏳ Pendiente ({pendiente.length})
+                Pendiente ({pendiente.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
                 {pendiente.map(renderAnimeCard)}
@@ -752,7 +758,7 @@ const AnimeList = ({ searchTerm = '' }) => {
           {completado.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#00f2fe', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                ✅ Completado ({completado.length})
+                Completado ({completado.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
                 {completado.map(renderAnimeCard)}

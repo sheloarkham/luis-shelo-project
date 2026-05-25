@@ -293,7 +293,7 @@ const BooksList = ({ searchTerm = '' }) => {
   return (
     <Box id="books" sx={{ py: 4 }}>
       <Typography variant="h4" sx={{ mb: 3, color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
-        📚 Libros
+        Libros
       </Typography>
       
       {filteredBooks.length === 0 ? (
@@ -306,21 +306,27 @@ const BooksList = ({ searchTerm = '' }) => {
           border: '2px dashed rgba(96, 165, 250, 0.3)'
         }}>
           <Typography variant="h5" sx={{ color: '#60a5fa', mb: 2, fontWeight: 'bold' }}>
-            😢 No se encontraron libros
+            No se encontraron libros
           </Typography>
           <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
             {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay libros en la lista'}
           </Typography>
         </Box>
+      ) : searchTerm ? (
+        /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+          {filteredBooks.map(renderBookCard)}
+        </Box>
       ) : (
+        /* Cuando NO hay búsqueda, mostrar agrupado por estado */
         <Box>
           {/* Sección Leyendo */}
           {leyendo.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#60a5fa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                📖 Leyendo ({leyendo.length})
+                Leyendo ({leyendo.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmin(300px, 1fr))', gap: 3 }}>
                 {leyendo.map(renderBookCard)}
               </Box>
             </Box>
@@ -330,7 +336,7 @@ const BooksList = ({ searchTerm = '' }) => {
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#fb923c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                ⏳ Pendiente ({pendiente.length})
+                Pendiente ({pendiente.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
                 {pendiente.map(renderBookCard)}
@@ -342,7 +348,7 @@ const BooksList = ({ searchTerm = '' }) => {
           {leido.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <Typography variant="h5" sx={{ mb: 2, color: '#34d399', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                ✅ Leído ({leido.length})
+                Leído ({leido.length})
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
                 {leido.map(renderBookCard)}
@@ -356,7 +362,7 @@ const BooksList = ({ searchTerm = '' }) => {
         <MenuItem onClick={() => changeStatus('Pendiente')}>Pendiente</MenuItem>
         <MenuItem onClick={() => changeStatus('Leyendo')}>Leyendo</MenuItem>
         <MenuItem onClick={() => changeStatus('Leido')}>Leído</MenuItem>
-        <MenuItem onClick={deleteBook} sx={{ color: 'error.main' }}>🗑️ Eliminar</MenuItem>
+        <MenuItem onClick={deleteBook} sx={{ color: 'error.main' }}>Eliminar</MenuItem>
       </Menu>
     </Box>
   )

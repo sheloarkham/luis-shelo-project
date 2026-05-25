@@ -86,7 +86,7 @@ const ActualmenteEnProgreso = () => {
                 {anime.title}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                📺 Anime • {anime.studio}
+                Anime • {anime.studio}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 {anime.episodes} episodios
@@ -130,7 +130,7 @@ const ActualmenteEnProgreso = () => {
                 {game.title}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                🎮 Videojuego • {game.developer}
+                Videojuego • {game.developer}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 {game.duration} horas

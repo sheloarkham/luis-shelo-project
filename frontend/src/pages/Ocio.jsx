@@ -36,7 +36,7 @@ const Ocio = () => {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="🔍 Buscar anime, series, juegos o libros..."
+            placeholder="Buscar anime, series, juegos o libros..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             InputProps={{

@@ -131,7 +131,7 @@ const Presupuestos = () => {
         <main>
           <Box sx={{ p: 3 }}>
             <Typography variant="h3" gutterBottom sx={{ color: 'white', mb: 3 }}>
-              💰 Presupuestos 2026
+              Presupuestos 2026
             </Typography>
 
             <Tabs
