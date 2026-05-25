@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import ActualmenteEnProgreso from '../components/ActualmenteEnProgreso'
 import SeriesList from '../components/SeriesList'
 import GamesList from '../components/GamesList'
 import BooksList from '../components/BooksList'
@@ -25,6 +26,8 @@ const Ocio = () => {
   return (
     <div className="ocio-page">
       <Container maxWidth="xl" sx={{ py: 4 }}>
+        <ActualmenteEnProgreso />
+        
         <div id="anime">
           <AnimeList />
         </div>

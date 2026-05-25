@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -10,7 +10,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 
-const booksData = [
+const STORAGE_KEY = 'books-list'
+
+const initialBooksData = [
   {
     title: "El Hombre Invisible",
     author: "H. G. Wells",
@@ -158,9 +160,29 @@ const booksData = [
 ]
 
 const BooksList = () => {
-  const [books, setBooks] = useState(booksData)
+  const [books, setBooks] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    return saved ? JSON.parse(saved) : initialBooksData
+  })
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedBook, setSelectedBook] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  // Cargar datos guardados al montar
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
+      setBooks(JSON.parse(saved))
+    }
+    setIsLoaded(true)
+  }, [])
+
+  // Guardar cambios en localStorage
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books))
+    }
+  }, [books, isLoaded])
 
   const handleMenuOpen = (event, index) => {
     setAnchorEl(event.currentTarget)

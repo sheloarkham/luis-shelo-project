@@ -1,8 +1,9 @@
 export class StatsController {
-  constructor({ getSeriesStats, getGamesStats, getBooksStats }) {
+  constructor({ getSeriesStats, getGamesStats, getBooksStats, getAnimeStats }) {
     this.getSeriesStats = getSeriesStats
     this.getGamesStats = getGamesStats
     this.getBooksStats = getBooksStats
+    this.getAnimeStats = getAnimeStats
   }
 
   async getSeries(req, res) {
@@ -44,19 +45,30 @@ export class StatsController {
     }
   }
 
+  async getAnime(req, res) {
+    try {
+      const result = await this.getAnimeStats.execute()
+      res.json(result)
+    } catch (error) {
+      res.status(500).json({ error: error.message })
+    }
+  }
+
   async getAll(req, res) {
     try {
-      const [seriesResult, gamesResult, booksResult] = await Promise.all([
+      const [seriesResult, gamesResult, booksResult, animeResult] = await Promise.all([
         this.getSeriesStats.execute(),
         this.getGamesStats.execute(),
-        this.getBooksStats.execute()
+        this.getBooksStats.execute(),
+        this.getAnimeStats.execute()
       ])
 
       if (seriesResult.success && gamesResult.success && booksResult.success) {
         res.json({
           series: seriesResult.data,
           games: gamesResult.data,
-          books: booksResult.data
+          books: booksResult.data,
+          anime: animeResult
         })
       } else {
         res.status(400).json({ 

@@ -155,7 +155,7 @@ const Home = () => {
         </Box>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <StatCard
               title="Series"
               stats={stats?.series || {}}
@@ -163,7 +163,15 @@ const Home = () => {
               color="#FFD700"
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
+            <StatCard
+              title="Anime"
+              stats={stats?.anime || {}}
+              icon="🎌"
+              color="#ff6b6b"
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
             <StatCard
               title="Juegos"
               stats={stats?.games || {}}
@@ -171,7 +179,7 @@ const Home = () => {
               color="#a78bfa"
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <StatCard
               title="Libros"
               stats={stats?.books || {}}
