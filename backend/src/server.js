@@ -30,7 +30,8 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       health: '/api/health',
-      series: '/api/series'
+      series: '/api/series',
+      stats: '/api/stats'
     }
   })
 })

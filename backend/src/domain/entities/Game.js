@@ -8,12 +8,33 @@ export class Game {
     this.year = year
   }
 
+  // Métodos de negocio
+  isCompleted() {
+    return this.estado === 'Completado'
+  }
+
+  isPlaying() {
+    return this.estado === 'Jugando'
+  }
+
+  isPending() {
+    return this.estado === 'Pendiente'
+  }
+
+  getRatingStars() {
+    return '★'.repeat(Math.min(this.rating, 5))
+  }
+
   validate() {
     if (!this.title || this.title.trim() === '') {
       throw new Error('El título es requerido')
     }
     if (this.rating < 0 || this.rating > 5) {
       throw new Error('El rating debe estar entre 0 y 5')
+    }
+    const validEstados = ['Pendiente', 'Jugando', 'Completado']
+    if (!validEstados.includes(this.estado)) {
+      throw new Error('Estado inválido')
     }
     return true
   }
