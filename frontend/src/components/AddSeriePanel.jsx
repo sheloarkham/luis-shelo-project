@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography'
 const AddSeriePanel = ({ onClose, onAddSerie }) => {
   const [formData, setFormData] = useState({
     title: '',
-    Estado: 'Pendiente',
+    estado: 'Pendiente',
     temporadas: 1,
     rating: 3,
     year: new Date().getFullYear()
@@ -119,8 +119,8 @@ const AddSeriePanel = ({ onClose, onAddSerie }) => {
           <TextField
             select
             label="Estado"
-            value={formData.Estado}
-            onChange={(e) => setFormData({...formData, Estado: e.target.value})}
+            value={formData.estado}
+            onChange={(e) => setFormData({...formData, estado: e.target.value})}
             fullWidth
             sx={{
               '& .MuiInputLabel-root': { color: '#FFD700' },

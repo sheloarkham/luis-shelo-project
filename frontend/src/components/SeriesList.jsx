@@ -2,54 +2,32 @@ import { useState, useEffect } from 'react'
 import AddSeriePanel from './AddSeriePanel'
 import Fab from '@mui/material/Fab'
 import AddIcon from '@mui/icons-material/Add'
+import CircularProgress from '@mui/material/CircularProgress'
+import Alert from '@mui/material/Alert'
+import { seriesApi } from '../services/seriesApi'
 import './SeriesList.css'
 
 const SeriesList = () => {
   const [series, setSeries] = useState([])
   const [showPanel, setShowPanel] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    loadSavedSeries()
+    loadSeriesFromApi()
   }, [])
 
-  const loadSavedSeries = () => {
-    const savedSeries = localStorage.getItem('userSeries')
-    if (savedSeries) {
-      setSeries(JSON.parse(savedSeries))
-    } else {
-      // Series iniciales
-      const initialSeries = [
-        {
-          title: "Mayans M.C.",
-          rating: 5,
-          Estado: "Completada",
-          temporadas: 5,
-          year: 2018
-        },
-        {
-          title: "Daredevil: Born Again",
-          rating: 5,
-          Estado: "Viendo",
-          temporadas: 1,
-          year: 2025
-        },
-        {
-          title: "Black Mirror T7",
-          rating: 5,
-          Estado: "Pendiente",
-          temporadas: 7,
-          year: 2025
-        },
-        {
-          title: "Secret Level",
-          rating: 5,
-          Estado: "Viendo",
-          temporadas: 1,
-          year: 2024
-        }
-      ]
-      setSeries(initialSeries)
-      localStorage.setItem('userSeries', JSON.stringify(initialSeries))
+  const loadSeriesFromApi = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      const data = await seriesApi.getAll()
+      setSeries(data)
+    } catch (err) {
+      setError('Error al cargar las series. ¿Está el backend corriendo?')
+      console.error('Error loading series:', err)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -57,11 +35,15 @@ const SeriesList = () => {
     return rating ? '★'.repeat(Math.min(rating, 5)) : '☆☆☆☆☆'
   }
 
-  const handleAddSerie = (newSerie) => {
-    const updatedSeries = [...series, newSerie]
-    setSeries(updatedSeries)
-    localStorage.setItem('userSeries', JSON.stringify(updatedSeries))
-    setShowPanel(false)
+  const handleAddSerie = async (newSerie) => {
+    try {
+      const createdSerie = await seriesApi.create(newSerie)
+      setSeries([...series, createdSerie])
+      setShowPanel(false)
+    } catch (err) {
+      setError('Error al agregar la serie')
+      console.error('Error adding serie:', err)
+    }
   }
 
   return (
@@ -72,6 +54,7 @@ const SeriesList = () => {
           <Fab 
             color="primary"
             onClick={() => setShowPanel(true)}
+            disabled={loading}
             sx={{ 
               background: 'linear-gradient(135deg, #FFD700, #FFA500)',
               color: '#000',
@@ -85,17 +68,29 @@ const SeriesList = () => {
           </Fab>
         </div>
 
-        <div className="gh-setlist-container">
-          {series.map((serie, index) => (
-            <div key={index} className="gh-song-row">
-              <div className="gh-song-title">{serie.title}</div>
-              <div className="gh-song-stars">{createStars(serie.rating)}</div>
-              <div className="gh-song-details">
-                {serie.year} • {serie.Estado} • {serie.temporadas} temp.
+        {error && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+
+        {loading ? (
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+            <CircularProgress />
+          </div>
+        ) : (
+          <div className="gh-setlist-container">
+            {series.map((serie) => (
+              <div key={serie.id} className="gh-song-row">
+                <div className="gh-song-title">{serie.title}</div>
+                <div className="gh-song-stars">{createStars(serie.rating)}</div>
+                <div className="gh-song-details">
+                  {serie.year} • {serie.estado} • {serie.temporadas} temp.
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {showPanel && (
