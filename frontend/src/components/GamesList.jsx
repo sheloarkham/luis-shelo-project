@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
@@ -10,7 +10,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 
-const gamesData = [
+const STORAGE_KEY = 'games-list'
+
+const initialGamesData = [
   {
     title: "Hi-Fi RUSH",
     releaseYear: 2023,
@@ -193,10 +195,30 @@ const gamesData = [
   }
 ]
 
-const GamesList = () => {
-  const [games, setGames] = useState(gamesData)
+const GamesList = ({ searchTerm = '' }) => {
+  const [games, setGames] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    return saved ? JSON.parse(saved) : initialGamesData
+  })
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedGame, setSelectedGame] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  // Cargar datos guardados al montar
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
+      setGames(JSON.parse(saved))
+    }
+    setIsLoaded(true)
+  }, [])
+
+  // Guardar cambios en localStorage
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(games))
+    }
+  }, [games, isLoaded])
 
   const handleMenuOpen = (event, index) => {
     setAnchorEl(event.currentTarget)
@@ -215,6 +237,11 @@ const GamesList = () => {
     handleMenuClose()
   }
 
+  // Filtrar juegos por término de búsqueda
+  const filteredGames = games.filter(game =>
+    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   const deleteGame = () => {
     const updatedGames = games.filter((_, index) => index !== selectedGame)
     setGames(updatedGames)
@@ -227,7 +254,7 @@ const GamesList = () => {
         🎮 Videojuegos
       </Typography>
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
-        {games.map((game, index) => (
+        {filteredGames.map((game, index) => (
           <Card key={index} sx={{ 
             position: 'relative',
             background: 'rgba(255, 255, 255, 0.9)',
