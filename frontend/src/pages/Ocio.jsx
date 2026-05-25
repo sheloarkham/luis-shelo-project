@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import SeriesList from '../components/SeriesList'
 import GamesList from '../components/GamesList'
 import BooksList from '../components/BooksList'
+import AnimeList from '../components/AnimeList'
 import Container from '@mui/material/Container'
 import './Ocio.css'
 
@@ -24,6 +25,10 @@ const Ocio = () => {
   return (
     <div className="ocio-page">
       <Container maxWidth="xl" sx={{ py: 4 }}>
+        <div id="anime">
+          <AnimeList />
+        </div>
+        
         <div id="series">
           <SeriesList />
         </div>

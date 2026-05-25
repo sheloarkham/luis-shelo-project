@@ -93,8 +93,11 @@ const Navbar = () => {
             open={open}
             onClose={handleClose}
           >
+            <MenuItem onClick={() => handleOcioSection('anime')}>
+              📺 Anime
+            </MenuItem>
             <MenuItem onClick={() => handleOcioSection('series')}>
-              📺 Series
+              🎬 Series
             </MenuItem>
             <MenuItem onClick={() => handleOcioSection('games')}>
               🎮 Videojuegos
