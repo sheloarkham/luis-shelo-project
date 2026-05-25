@@ -195,7 +195,7 @@ const initialGamesData = [
   }
 ]
 
-const GamesList = () => {
+const GamesList = ({ searchTerm = '' }) => {
   const [games, setGames] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
     return saved ? JSON.parse(saved) : initialGamesData
@@ -237,6 +237,11 @@ const GamesList = () => {
     handleMenuClose()
   }
 
+  // Filtrar juegos por término de búsqueda
+  const filteredGames = games.filter(game =>
+    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   const deleteGame = () => {
     const updatedGames = games.filter((_, index) => index !== selectedGame)
     setGames(updatedGames)
@@ -249,7 +254,7 @@ const GamesList = () => {
         🎮 Videojuegos
       </Typography>
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
-        {games.map((game, index) => (
+        {filteredGames.map((game, index) => (
           <Card key={index} sx={{ 
             position: 'relative',
             background: 'rgba(255, 255, 255, 0.9)',

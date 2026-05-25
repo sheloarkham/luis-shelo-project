@@ -7,7 +7,7 @@ import Alert from '@mui/material/Alert'
 import { seriesApi } from '../services/seriesApi'
 import './SeriesList.css'
 
-const SeriesList = () => {
+const SeriesList = ({ searchTerm = '' }) => {
   const [series, setSeries] = useState([])
   const [showPanel, setShowPanel] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -80,7 +80,7 @@ const SeriesList = () => {
           </div>
         ) : (
           <div className="gh-setlist-container">
-            {series.map((serie) => (
+            {series.filter(serie => serie.title.toLowerCase().includes(searchTerm.toLowerCase())).map((serie) => (
               <div key={serie.id} className="gh-song-row">
                 <div className="gh-song-title">{serie.title}</div>
                 <div className="gh-song-stars">{createStars(serie.rating)}</div>

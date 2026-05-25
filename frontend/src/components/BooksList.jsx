@@ -168,7 +168,7 @@ const initialBooksData = [
   }
 ]
 
-const BooksList = () => {
+const BooksList = ({ searchTerm = '' }) => {
   const [books, setBooks] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
     return saved ? JSON.parse(saved) : initialBooksData
@@ -210,6 +210,11 @@ const BooksList = () => {
     handleMenuClose()
   }
 
+  // Filtrar libros por término de búsqueda
+  const filteredBooks = books.filter(book =>
+    book.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   const deleteBook = () => {
     const updatedBooks = books.filter((_, index) => index !== selectedBook)
     setBooks(updatedBooks)
@@ -222,7 +227,7 @@ const BooksList = () => {
         📚 Libros
       </Typography>
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
-        {books.map((book, index) => (
+        {filteredBooks.map((book, index) => (
           <Card key={index} sx={{ 
             position: 'relative',
             background: 'rgba(255, 255, 255, 0.9)',

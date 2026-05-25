@@ -559,7 +559,7 @@ const initialAnimeData = [
   }
 ]
 
-const AnimeList = () => {
+const AnimeList = ({ searchTerm = '' }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedAnime, setSelectedAnime] = useState(null)
   const [animes, setAnimes] = useState(() => {
@@ -618,6 +618,11 @@ const AnimeList = () => {
     }
   }
 
+  // Filtrar animes por término de búsqueda
+  const filteredAnimes = animes.filter(anime =>
+    anime.title.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   return (
     <Box sx={{ py: 4 }}>
       <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 3, fontWeight: 'bold', color: '#ff6b6b' }}>
@@ -629,7 +634,7 @@ const AnimeList = () => {
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
         gap: 3 
       }}>
-        {animes.map((anime, index) => (
+        {filteredAnimes.map((anime, index) => (
           <Card 
             key={index} 
             sx={{ 

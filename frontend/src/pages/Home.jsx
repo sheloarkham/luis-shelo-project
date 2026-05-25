@@ -110,12 +110,51 @@ const Home = () => {
     loadStats()
   }, [])
 
+  const calculateLocalStats = (storageKey, completedStatus, inProgressStatus) => {
+    try {
+      const saved = localStorage.getItem(storageKey)
+      if (!saved) return { total: 0, completados: 0, viendo: 0, pendientes: 0, porcentajeProgreso: 0 }
+      
+      const items = JSON.parse(saved)
+      const total = items.length
+      const completados = items.filter(item => item.Estado === completedStatus).length
+      const inProgress = items.filter(item => item.Estado === inProgressStatus).length
+      const pendientes = items.filter(item => item.Estado === 'Pendiente').length
+      const porcentajeProgreso = total > 0 ? Math.round(((completados + inProgress) / total) * 100) : 0
+      
+      return {
+        total,
+        completados,
+        [inProgressStatus.toLowerCase()]: inProgress,
+        pendientes,
+        porcentajeProgreso
+      }
+    } catch (err) {
+      console.error(`Error calculating stats for ${storageKey}:`, err)
+      return { total: 0, completados: 0, viendo: 0, pendientes: 0, porcentajeProgreso: 0 }
+    }
+  }
+
   const loadStats = async () => {
     try {
       setLoading(true)
       setError(null)
-      const data = await statsApi.getAll()
-      setStats(data)
+      
+      // Cargar estadísticas del backend (solo series)
+      const backendData = await statsApi.getAll()
+      
+      // Calcular estadísticas locales
+      const animeStats = calculateLocalStats('anime-list', 'Completado', 'Viendo')
+      const gamesStats = calculateLocalStats('games-list', 'Completado', 'Jugando')
+      const booksStats = calculateLocalStats('books-list', 'Leido', 'Leyendo')
+      
+      // Combinar todas las estadísticas
+      setStats({
+        series: backendData.series,
+        anime: animeStats,
+        games: gamesStats,
+        books: booksStats
+      })
     } catch (err) {
       setError('Error al cargar estadísticas. ¿Está el backend corriendo?')
       console.error(err)
