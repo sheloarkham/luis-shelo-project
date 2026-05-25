@@ -156,6 +156,15 @@ const initialBooksData = [
     image: "/Ocio/assetsB/tunel.png",
     synopsis: "Juan Pablo Castel, desde la cárcel, narra por qué mató a María Iribarne, la única mujer que comprendía su arte. Una novela existencialista sobre la incomunicación humana, la soledad y la obsesión amorosa destructiva.",
     Estado: "Leido"
+  },
+  {
+    title: "El Psicoanalista en la Mira",
+    author: "John Katzenbach",
+    releaseYear: 2012,
+    pages: 496,
+    image: "/Ocio/assetsB/psico2.png",
+    synopsis: "Secuela de El Psicoanalista. El Dr. Frederick Starks debe enfrentar nuevamente el terror cuando alguien de su pasado regresa con sed de venganza. Un thriller psicológico que explora las consecuencias de las decisiones tomadas en el primer libro.",
+    Estado: "Leyendo"
   }
 ]
 
