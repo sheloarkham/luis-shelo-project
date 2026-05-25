@@ -34,8 +34,9 @@ const Presupuestos = () => {
     monto: ''
   })
   const [error, setError] = useState('')
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  // Cargar gastos desde localStorage
+  // Cargar gastos desde localStorage al inicio
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
@@ -44,17 +45,21 @@ const Presupuestos = () => {
       }
     } catch (err) {
       console.error('Error al cargar gastos:', err)
+    } finally {
+      setIsLoaded(true)
     }
   }, [])
 
-  // Guardar gastos en localStorage
+  // Guardar gastos en localStorage solo después de cargar
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(gastos))
-    } catch (err) {
-      console.error('Error al guardar gastos:', err)
+    if (isLoaded) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(gastos))
+      } catch (err) {
+        console.error('Error al guardar gastos:', err)
+      }
     }
-  }, [gastos])
+  }, [gastos, isLoaded])
 
   const categorias = ['presupuesto', 'cmr', 'juna']
   const categoriaNombres = ['Presupuesto', 'CMR', 'Juna']
