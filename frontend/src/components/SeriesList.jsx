@@ -78,6 +78,21 @@ const SeriesList = ({ searchTerm = '' }) => {
           <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
             <CircularProgress />
           </div>
+        ) : series.filter(serie => serie.title.toLowerCase().includes(searchTerm.toLowerCase())).length === 0 ? (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '3rem 1rem',
+            background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05))',
+            borderRadius: '16px',
+            border: '2px dashed rgba(255, 215, 0, 0.3)'
+          }}>
+            <h3 style={{ color: '#FFD700', marginBottom: '1rem', fontWeight: 'bold' }}>
+              😢 No se encontraron series
+            </h3>
+            <p style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+              {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay series en la lista'}
+            </p>
+          </div>
         ) : (
           <div className="gh-setlist-container">
             {series.filter(serie => serie.title.toLowerCase().includes(searchTerm.toLowerCase())).map((serie) => (

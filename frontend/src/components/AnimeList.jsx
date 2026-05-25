@@ -629,12 +629,29 @@ const AnimeList = ({ searchTerm = '' }) => {
         📺 Anime
       </Typography>
       
-      <Box sx={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
-        gap: 3 
-      }}>
-        {filteredAnimes.map((anime, index) => (
+      {filteredAnimes.length === 0 ? (
+        <Box sx={{ 
+          textAlign: 'center', 
+          py: 8,
+          px: 3,
+          background: 'linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0.05))',
+          borderRadius: 4,
+          border: '2px dashed rgba(255, 107, 107, 0.3)'
+        }}>
+          <Typography variant="h5" sx={{ color: '#ff6b6b', mb: 2, fontWeight: 'bold' }}>
+            😢 No se encontraron animes
+          </Typography>
+          <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+            {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay animes en la lista'}
+          </Typography>
+        </Box>
+      ) : (
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
+          gap: 3 
+        }}>
+          {filteredAnimes.map((anime, index) => (
           <Card 
             key={index} 
             sx={{ 
@@ -688,6 +705,7 @@ const AnimeList = ({ searchTerm = '' }) => {
           </Card>
         ))}
       </Box>
+      )}
 
       <Menu
         anchorEl={anchorEl}

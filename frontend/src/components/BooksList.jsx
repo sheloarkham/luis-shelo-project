@@ -226,8 +226,26 @@ const BooksList = ({ searchTerm = '' }) => {
       <Typography variant="h4" sx={{ mb: 3, color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
         📚 Libros
       </Typography>
-      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
-        {filteredBooks.map((book, index) => (
+      
+      {filteredBooks.length === 0 ? (
+        <Box sx={{ 
+          textAlign: 'center', 
+          py: 8,
+          px: 3,
+          background: 'linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(96, 165, 250, 0.05))',
+          borderRadius: 4,
+          border: '2px dashed rgba(96, 165, 250, 0.3)'
+        }}>
+          <Typography variant="h5" sx={{ color: '#60a5fa', mb: 2, fontWeight: 'bold' }}>
+            😢 No se encontraron libros
+          </Typography>
+          <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+            {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay libros en la lista'}
+          </Typography>
+        </Box>
+      ) : (
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+          {filteredBooks.map((book, index) => (
           <Card key={index} sx={{ 
             position: 'relative',
             background: 'rgba(255, 255, 255, 0.9)',
@@ -272,6 +290,7 @@ const BooksList = ({ searchTerm = '' }) => {
           </Card>
         ))}
       </Box>
+      )}
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={() => changeStatus('Pendiente')}>Pendiente</MenuItem>

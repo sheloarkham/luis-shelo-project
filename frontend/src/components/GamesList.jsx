@@ -253,7 +253,25 @@ const GamesList = ({ searchTerm = '' }) => {
       <Typography variant="h4" sx={{ mb: 3, color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
         🎮 Videojuegos
       </Typography>
-      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+      
+      {filteredGames.length === 0 ? (
+        <Box sx={{ 
+          textAlign: 'center', 
+          py: 8,
+          px: 3,
+          background: 'linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(167, 139, 250, 0.05))',
+          borderRadius: 4,
+          border: '2px dashed rgba(167, 139, 250, 0.3)'
+        }}>
+          <Typography variant="h5" sx={{ color: '#a78bfa', mb: 2, fontWeight: 'bold' }}>
+            😢 No se encontraron juegos
+          </Typography>
+          <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+            {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay juegos en la lista'}
+          </Typography>
+        </Box>
+      ) : (
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
         {filteredGames.map((game, index) => (
           <Card key={index} sx={{ 
             position: 'relative',
@@ -298,6 +316,7 @@ const GamesList = ({ searchTerm = '' }) => {
           </Card>
         ))}
       </Box>
+      )}
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
         <MenuItem onClick={() => changeStatus('Pendiente')}>Pendiente</MenuItem>

@@ -8,6 +8,7 @@ import AnimeList from '../components/AnimeList'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import SearchIcon from '@mui/icons-material/Search'
 import InputAdornment from '@mui/material/InputAdornment'
 import './Ocio.css'
@@ -35,25 +36,55 @@ const Ocio = () => {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="Buscar por nombre..."
+            placeholder="🔍 Buscar anime, series, juegos o libros..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon />
+                  <SearchIcon sx={{ color: '#667eea' }} />
                 </InputAdornment>
               ),
             }}
             sx={{
               '& .MuiOutlinedInput-root': {
-                backgroundColor: 'white',
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: '16px',
+                fontSize: '16px',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s ease',
+                '& fieldset': {
+                  borderColor: 'rgba(102, 126, 234, 0.3)',
+                  borderWidth: '2px',
+                },
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 1)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 12px 40px rgba(102, 126, 234, 0.2)',
+                },
                 '&:hover fieldset': {
-                  borderColor: '#1976d2',
+                  borderColor: '#667eea',
+                },
+                '&.Mui-focused': {
+                  backgroundColor: 'rgba(255, 255, 255, 1)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 12px 48px rgba(102, 126, 234, 0.3)',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#667eea',
+                  borderWidth: '2px',
                 },
               },
             }}
           />
+          {searchTerm && (
+            <Box className="search-results-info" sx={{ mt: 2 }}>
+              <Typography variant="body2" sx={{ color: 'white', fontWeight: 500 }}>
+                🔎 Buscando: "{searchTerm}"
+              </Typography>
+            </Box>
+          )}
         </Box>
 
         <ActualmenteEnProgreso />
