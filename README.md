@@ -1,6 +1,18 @@
-# Luis Shelo Project - Monorepo
+# Luis Shelo Project
 
-Proyecto Full Stack con arquitectura monorepo y Clean Architecture.
+Aplicación web React para gestión personal: seguimiento de series, anime, videojuegos, libros, presupuestos y más.
+
+## 🚀 Características
+
+- ✅ Gestión de **Series** (38 series con estados: Viendo, Pendiente, Completado)
+- ✅ Gestión de **Anime** (68 anime con seguimiento de progreso)
+- ✅ Gestión de **Videojuegos** (20 juegos clasificados por estado)
+- ✅ Gestión de **Libros** (17 libros con seguimiento de lectura)
+- ✅ **Dashboard de Progreso** con estadísticas y porcentajes
+- ✅ **Presupuestos 2026** con seguimiento de gastos por categoría
+- ✅ **Búsqueda en tiempo real** para filtrar contenido
+- ✅ **Persistencia local** con localStorage (sin backend necesario)
+- ✅ **Interfaz moderna** con Material-UI y gradientes personalizados
 
 ## 📁 Estructura del Proyecto
 
@@ -8,156 +20,123 @@ Proyecto Full Stack con arquitectura monorepo y Clean Architecture.
 luis-shelo-project-1/
 ├── frontend/              # Aplicación React
 │   ├── src/
-│   │   ├── components/   # Componentes React
-│   │   ├── pages/        # Páginas/Vistas
-│   │   └── App.jsx
+│   │   ├── components/   # Componentes reutilizables
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── SeriesList.jsx
+│   │   │   ├── AnimeList.jsx
+│   │   │   ├── GamesList.jsx
+│   │   │   ├── BooksList.jsx
+│   │   │   ├── Layout.jsx
+│   │   │   └── ActualmenteEnProgreso.jsx
+│   │   │
+│   │   ├── pages/         # Páginas principales
+│   │   │   ├── Home.jsx (Dashboard/Progreso)
+│   │   │   ├── Ocio.jsx
+│   │   │   ├── Carrera.jsx
+│   │   │   ├── Presupuestos.jsx
+│   │   │   ├── Proyecto.jsx
+│   │   │   └── Yeni.jsx
+│   │   │
+│   │   ├── App.jsx        # Rutas y layout principal
+│   │   └── main.jsx       # Punto de entrada
+│   │
 │   ├── package.json
 │   └── vite.config.js
 │
-├── backend/              # API Node.js con Clean Architecture
-│   ├── src/
-│   │   ├── domain/                    # 🧠 Lógica de negocio pura
-│   │   │   ├── entities/             # Entidades (Serie, Game, Book)
-│   │   │   └── repositories/         # Interfaces (contratos)
-│   │   │
-│   │   ├── application/              # 🎯 Casos de uso
-│   │   │   └── useCases/
-│   │   │       ├── series/           # CRUD de series
-│   │   │       ├── games/            # CRUD de juegos
-│   │   │       └── books/            # CRUD de libros
-│   │   │
-│   │   ├── infrastructure/           # 🔧 Detalles técnicos
-│   │   │   ├── repositories/        # Implementaciones (InMemory, DB)
-│   │   │   └── api/                 # Express routes & controllers
-│   │   │       ├── routes/
-│   │   │       └── controllers/
-│   │   │
-│   │   └── server.js                # Punto de entrada
-│   │
-│   └── package.json
-│
-└── package.json          # Scripts para manejar todo el monorepo
+├── package.json          # Scripts principales
+└── README.md
 ```
 
-## 🏗️ Clean Architecture
+## 🛠️ Tecnologías
 
-### Capas (de dentro hacia afuera):
-
-1. **Domain** 🧠: Reglas de negocio puras, independientes de frameworks
-   - Entidades: Modelos con lógica de validación
-   - Interfaces: Contratos que define el dominio
-
-2. **Application** 🎯: Casos de uso (orquestación de lógica)
-   - Coordinan las entidades del dominio
-   - Independientes de la UI y base de datos
-
-3. **Infrastructure** 🔧: Detalles técnicos (frameworks, BD, APIs)
-   - Implementaciones concretas de repositorios
-   - Controllers y routes de Express
-   - Conexiones a bases de datos
-
-### Ventajas:
-
-✅ **Testeable**: Cada capa se puede testear independientemente  
-✅ **Flexible**: Fácil cambiar de base de datos sin afectar lógica  
-✅ **Mantenible**: Código organizado y con responsabilidades claras  
-✅ **Escalable**: Fácil agregar nuevas funcionalidades
+- **React 18.2.0** - Biblioteca UI
+- **React Router DOM 6.20.1** - Navegación SPA
+- **Material-UI 7.3.7** - Componentes y estilos
+- **Vite 5.0.8** - Build tool ultra rápido
+- **localStorage** - Persistencia de datos en el navegador
 
 ## 🚀 Inicio Rápido
 
 ### Instalación
 
 ```bash
-# Instalar dependencias de ambos proyectos
-npm run install:all
-
-# O instalarlas por separado
-npm run install:frontend
-npm run install:backend
+# Instalar dependencias
+npm install
+# o
+cd frontend && npm install
 ```
 
 ### Desarrollo
 
 ```bash
-# Iniciar frontend y backend simultáneamente
+# Iniciar servidor de desarrollo
 npm run dev
 
-# O iniciarlos por separado
-npm run dev:frontend  # http://localhost:3000
-npm run dev:backend   # http://localhost:3001
+# La aplicación se abrirá en http://localhost:3000
 ```
 
 ### Producción
 
 ```bash
-# Build del frontend
-npm run build:frontend
+# Build para producción
+npm run build
 
-# Iniciar backend en producción
-npm run start:backend
+# Preview del build
+npm run preview
 ```
 
-## 📡 API Endpoints
+## 📊 Datos y Persistencia
 
-Base URL: `http://localhost:3001/api`
+Todos los datos se guardan en **localStorage** del navegador:
 
-### Series
+- `series-list` - 38 series con estados (Viendo, Pendiente, Completado)
+- `anime-list` - 68 anime clasificados por progreso
+- `games-list` - 20 videojuegos con seguimiento
+- `books-list` - 17 libros con estado de lectura
+- `presupuestos-gastos` - Gastos y presupuestos 2026
 
-- `GET /api/series` - Obtener todas las series
-- `GET /api/series/:id` - Obtener una serie por ID
-- `POST /api/series` - Crear nueva serie
-- `PUT /api/series/:id` - Actualizar serie
-- `DELETE /api/series/:id` - Eliminar serie
+## 🎨 Diseño
 
-### Health Check
+- **Navbar**: Gradient dorado/naranjo (#FF8C00 → #FFD700)
+- **Footer**: Fondo negro (#000000)
+- **Cards**: Gradientes por estado:
+  - Viendo/Jugando/Leyendo: Rosa/Azul
+  - Pendiente: Dorado/Naranja
+  - Completado: Verde/Azul
+- **Búsqueda**: Filtrado en tiempo real sin agrupación por estado
 
-- `GET /api/health` - Verificar estado de la API
+## 📂 Características por Sección
 
-## 🔄 Flujo de Datos (Clean Architecture)
+### 🏠 Home (Progreso)
+- Dashboard con 4 tarjetas de estadísticas
+- Porcentaje de progreso circular
+- Totales y conteos por categoría
+- Componente "Actualmente en Progreso"
 
-```
-Usuario → Controller → Use Case → Repository → Entity
-   ↓                                              ↓
-Response ← Controller ← Use Case ← Repository ← Entity
-```
+### 🎭 Ocio
+- Pestañas: Anime, Series, Videojuegos, Libros
+- Barra de búsqueda global
+- Agrupación por estado (cuando no hay búsqueda)
+- Menú de opciones: Cambiar estado, Eliminar
 
-**Ejemplo: Agregar una serie**
-
-1. Usuario envía POST a `/api/series`
-2. **Controller** recibe la petición
-3. **Use Case** (AddSerie) valida y procesa
-4. **Entity** (Serie) aplica reglas de negocio
-5. **Repository** guarda en base de datos/memoria
-6. Respuesta viaja de vuelta al usuario
-
-## 🛠️ Tecnologías
-
-### Frontend
-- React 18
-- React Router
-- Material-UI (MUI)
-- Vite
-
-### Backend
-- Node.js
-- Express
-- Clean Architecture
-- ES Modules
-
-## 📝 Próximos Pasos
-
-- [ ] Implementar autenticación (JWT)
-- [ ] Conectar a base de datos real (MongoDB/PostgreSQL)
-- [ ] Agregar tests unitarios y de integración
-- [ ] Implementar Games y Books endpoints
-- [ ] Dockerizar la aplicación
+### 💰 Presupuestos 2026
+- Tabs por categoría de gastos
+- Lista de gastos con monto y descripción
+- Persistencia en localStorage
 
 ## 🤝 Contribuir
 
 1. Crear rama feature: `git checkout -b feature/nueva-funcionalidad`
-2. Commit: `git commit -m "Agregar nueva funcionalidad"`
+2. Hacer cambios y commit: `git commit -m "feat: descripción"`
 3. Push: `git push origin feature/nueva-funcionalidad`
-4. Crear Pull Request
+4. Crear Pull Request hacia `develop`
+
+## 📝 Git Flow
+
+- `main` - Producción
+- `develop` - Desarrollo
+- `feature/*` - Nuevas funcionalidades
 
 ## 📄 Licencia
 

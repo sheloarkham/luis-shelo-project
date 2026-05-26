@@ -17,7 +17,7 @@ import {
   Alert
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
-import './Presupuestos.css'
+import './shared-page.css'
 
 const STORAGE_KEY = 'presupuestos-gastos'
 
@@ -126,7 +126,7 @@ const Presupuestos = () => {
   }
 
   return (
-    <div className="presupuestos-page">
+    <div className="page-container">
       <div className="content">
         <main>
           <Box sx={{ p: 3 }}>

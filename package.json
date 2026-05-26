@@ -1,22 +1,15 @@
 {
-  "name": "luis-shelo-project-monorepo",
+  "name": "luis-shelo-project",
   "version": "1.0.0",
-  "description": "Monorepo con Frontend React y Backend Node.js con Clean Architecture",
+  "description": "Aplicación React para gestión personal - Series, Anime, Juegos, Libros, Presupuestos y más",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && npm run dev",
-    "install:all": "npm run install:frontend && npm run install:backend",
-    "install:frontend": "cd frontend && npm install",
-    "install:backend": "cd backend && npm install",
-    "build:frontend": "cd frontend && npm run build",
-    "start:backend": "cd backend && npm start"
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "install": "cd frontend && npm install",
+    "preview": "cd frontend && npm run preview"
   },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
-  },
-  "keywords": ["monorepo", "react", "node", "clean-architecture"],
+  "keywords": ["react", "vite", "spa", "localstorage"],
   "author": "",
   "license": "ISC"
 }
