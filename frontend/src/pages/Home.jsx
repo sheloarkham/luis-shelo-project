@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, CircularProgress, Alert, Grid } from '@mui/material'
-import { statsApi } from '../services/statsApi'
 import './Home.css'
 
 const StatCard = ({ title, stats, icon, color }) => {
