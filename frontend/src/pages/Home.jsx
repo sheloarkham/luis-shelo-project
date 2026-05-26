@@ -140,23 +140,21 @@ const Home = () => {
       setLoading(true)
       setError(null)
       
-      // Cargar estadísticas del backend (solo series)
-      const backendData = await statsApi.getAll()
-      
-      // Calcular estadísticas locales
+      // Calcular estadísticas locales para todas las categorías
+      const seriesStats = calculateLocalStats('series-list', 'Completado', 'Viendo')
       const animeStats = calculateLocalStats('anime-list', 'Completado', 'Viendo')
       const gamesStats = calculateLocalStats('games-list', 'Completado', 'Jugando')
       const booksStats = calculateLocalStats('books-list', 'Leido', 'Leyendo')
       
       // Combinar todas las estadísticas
       setStats({
-        series: backendData.series,
+        series: seriesStats,
         anime: animeStats,
         games: gamesStats,
         books: booksStats
       })
     } catch (err) {
-      setError('Error al cargar estadísticas. ¿Está el backend corriendo?')
+      setError('Error al cargar estadísticas')
       console.error(err)
     } finally {
       setLoading(false)
@@ -186,7 +184,7 @@ const Home = () => {
       <Box sx={{ p: 4 }}>
         <Box sx={{ mb: 4, textAlign: 'center' }}>
           <Typography variant="h3" sx={{ color: '#FFD700', fontWeight: 'bold', mb: 1 }}>
-            Dashboard
+            Progreso
           </Typography>
           <Typography variant="h6" sx={{ color: '#888' }}>
             Proyecto Luis & Shelo
@@ -198,7 +196,7 @@ const Home = () => {
             <StatCard
               title="Series"
               stats={stats?.series || {}}
-              icon="📺"
+              icon=""
               color="#FFD700"
             />
           </Grid>
@@ -206,7 +204,7 @@ const Home = () => {
             <StatCard
               title="Anime"
               stats={stats?.anime || {}}
-              icon="🎌"
+              icon=""
               color="#ff6b6b"
             />
           </Grid>
@@ -214,7 +212,7 @@ const Home = () => {
             <StatCard
               title="Juegos"
               stats={stats?.games || {}}
-              icon="🎮"
+              icon=""
               color="#a78bfa"
             />
           </Grid>
@@ -222,7 +220,7 @@ const Home = () => {
             <StatCard
               title="Libros"
               stats={stats?.books || {}}
-              icon="📚"
+              icon=""
               color="#60a5fa"
             />
           </Grid>
