@@ -1,8 +1,8 @@
-import './Carrera.css'
+import './shared-page.css'
 
 const Carrera = () => {
   return (
-    <div className="carrera-page">
+    <div className="page-container">
       <div className="content">
         <main>
           <header>

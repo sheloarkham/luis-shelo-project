@@ -1,8 +1,8 @@
-import './Yeni.css'
+import './shared-page.css'
 
 const Yeni = () => {
   return (
-    <div className="yeni-page">
+    <div className="page-container">
       <div className="content">
         <main>
           <header>
