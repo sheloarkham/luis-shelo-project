@@ -20,3 +20,24 @@
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .home-page .content {
+    padding: 80px 1rem 1rem;
+  }
+
+  .home-page h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-page .content {
+    padding: 70px 0.75rem 0.75rem;
+  }
+
+  .home-page h1 {
+    font-size: 1.75rem;
+  }
+}
