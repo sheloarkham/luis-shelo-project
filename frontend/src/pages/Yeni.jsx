@@ -199,6 +199,50 @@ const Yeni = () => {
               >
                 Nuestra Historia de Amor
               </Typography>
+
+              {/* Burbuja de Fechas Importantes */}
+              <Box
+                sx={{
+                  mt: 3,
+                  display: 'inline-block',
+                  bgcolor: 'rgba(255, 107, 157, 0.15)',
+                  border: '2px solid rgba(255, 107, 157, 0.4)',
+                  borderRadius: 4,
+                  px: 3,
+                  py: 2,
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 16px rgba(255, 107, 157, 0.3)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 107, 157, 0.25)',
+                    border: '2px solid rgba(255, 107, 157, 0.6)',
+                    transform: 'scale(1.05)',
+                    boxShadow: '0 6px 24px rgba(255, 107, 157, 0.5)'
+                  }
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: 'white',
+                    fontWeight: 600,
+                    mb: 0.5,
+                    fontSize: '0.95rem'
+                  }}
+                >
+                  ✨ <strong>Feliz Ricardo:</strong> 21 de marzo, 2024
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: 'white',
+                    fontWeight: 600,
+                    fontSize: '0.95rem'
+                  }}
+                >
+                  ❤️ <strong>Aniversario:</strong> 10 de abril, 2024
+                </Typography>
+              </Box>
             </Box>
 
             <Grid container spacing={4} sx={{ maxWidth: 1400, mx: 'auto' }}>
