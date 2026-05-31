@@ -1,0 +1,40 @@
+📱 ÍCONOS PARA PWA - INSTRUCCIONES
+
+Para que tu PWA tenga íconos personalizados, necesitas crear 2 imágenes:
+
+1. icon-192.png (192x192 píxeles)
+2. icon-512.png (512x512 píxeles)
+
+═══════════════════════════════════════════════════════════
+
+OPCIÓN 1: Crear íconos personalizados
+──────────────────────────────────────
+1. Diseña tu logo/ícono en cualquier programa (Photoshop, Figma, Canva)
+2. Exporta en 2 tamaños: 192x192px y 512x512px
+3. Guárdalos en: frontend/public/icon-192.png y icon-512.png
+
+OPCIÓN 2: Usar herramienta online (RECOMENDADO)
+────────────────────────────────────────────────
+1. Ve a: https://www.pwabuilder.com/imageGenerator
+2. Sube una imagen cuadrada (mínimo 512x512px)
+3. Descarga los íconos generados
+4. Coloca icon-192.png y icon-512.png en frontend/public/
+
+OPCIÓN 3: Usar íconos temporales (para probar ahora)
+─────────────────────────────────────────────────────
+Por ahora, puedes crear placeholders con cualquier imagen cuadrada
+que tengas. Incluso puedes usar emojis grandes como ícono temporal.
+
+Usa cualquier imagen de tus carpetas public/assets/ y renómbrala.
+
+═══════════════════════════════════════════════════════════
+
+MIENTRAS TANTO: La PWA funcionará incluso sin íconos personalizados.
+Solo se verá con el ícono por defecto del navegador.
+
+Para probar la PWA AHORA:
+1. Crea 2 archivos PNG cuadrados (cualquier imagen)
+2. Renómbralos: icon-192.png e icon-512.png
+3. Colócalos en frontend/public/
+4. Ejecuta: npm run build && npm run preview
+5. Abre en tu celular y verás la opción "Instalar app"

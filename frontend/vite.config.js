@@ -8,6 +8,15 @@ export default defineConfig({
     open: true
   },
   build: {
-    outDir: 'dist'
-  }
+    outDir: 'dist',
+    rollupOptions: {
+      input: {
+        main: './index.html',
+      },
+    },
+    // Copiar service-worker.js sin procesarlo
+    copyPublicDir: true,
+  },
+  // Asegurar que el service worker se sirva correctamente
+  publicDir: 'public',
 })
