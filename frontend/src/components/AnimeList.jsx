@@ -18,7 +18,7 @@ const initialAnimeData = [
     episodes: 75,
     studio: "White Fox",
     year: 2016,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -26,7 +26,7 @@ const initialAnimeData = [
     episodes: 28,
     studio: "Madhouse",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -34,7 +34,7 @@ const initialAnimeData = [
     episodes: 353,
     studio: "A-1 Pictures",
     year: 2009,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -42,7 +42,7 @@ const initialAnimeData = [
     episodes: 70,
     studio: "J.C.Staff",
     year: 2015,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -50,7 +50,7 @@ const initialAnimeData = [
     episodes: 60,
     studio: "Bones",
     year: 2016,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -58,7 +58,7 @@ const initialAnimeData = [
     episodes: 40,
     studio: "Brain's Base",
     year: 2021,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -66,7 +66,7 @@ const initialAnimeData = [
     episodes: 50,
     studio: "C2C",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -74,7 +74,7 @@ const initialAnimeData = [
     episodes: 52,
     studio: "Madhouse",
     year: 2015,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -82,7 +82,7 @@ const initialAnimeData = [
     episodes: 178,
     studio: "Madhouse / Production I.G",
     year: 2013,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -90,7 +90,7 @@ const initialAnimeData = [
     episodes: 38,
     studio: "Lerche",
     year: 2017,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -98,7 +98,7 @@ const initialAnimeData = [
     episodes: 60,
     studio: "Haoliners Animation",
     year: 2020,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -106,7 +106,7 @@ const initialAnimeData = [
     episodes: 62,
     studio: "Satelight / Studio Deen",
     year: 2013,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -114,7 +114,7 @@ const initialAnimeData = [
     episodes: 63,
     studio: "A-1 Pictures",
     year: 2012,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -122,7 +122,7 @@ const initialAnimeData = [
     episodes: 1130,
     studio: "TMS Entertainment",
     year: 1996,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Viendo"
   },
   {
@@ -130,7 +130,7 @@ const initialAnimeData = [
     episodes: 72,
     studio: "David Production",
     year: 2019,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -138,7 +138,7 @@ const initialAnimeData = [
     episodes: 27,
     studio: "Graphinica",
     year: 2021,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -146,7 +146,7 @@ const initialAnimeData = [
     episodes: 23,
     studio: "Wit Studio",
     year: 2020,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -154,7 +154,7 @@ const initialAnimeData = [
     episodes: 50,
     studio: "J.C.Staff",
     year: 2021,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -162,7 +162,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Orange",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -170,7 +170,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "A-1 Pictures",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -178,7 +178,7 @@ const initialAnimeData = [
     episodes: 58,
     studio: "TMS Entertainment",
     year: 2019,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -186,7 +186,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "TMS Entertainment",
     year: 2025,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -194,7 +194,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "MAPPA",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -202,7 +202,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Unknown",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -210,7 +210,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "ENGI",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -218,7 +218,7 @@ const initialAnimeData = [
     episodes: 25,
     studio: "Madhouse",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -226,7 +226,7 @@ const initialAnimeData = [
     episodes: 13,
     studio: "MAPPA",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -234,7 +234,7 @@ const initialAnimeData = [
     episodes: 159,
     studio: "Bones",
     year: 2016,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Viendo"
   },
   {
@@ -242,7 +242,7 @@ const initialAnimeData = [
     episodes: 26,
     studio: "Madhouse",
     year: 2007,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -250,7 +250,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Geno Studio",
     year: 2018,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -258,7 +258,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "Satelight",
     year: 2005,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -266,7 +266,7 @@ const initialAnimeData = [
     episodes: 13,
     studio: "E&H Production",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -274,7 +274,7 @@ const initialAnimeData = [
     episodes: 26,
     studio: "Asread",
     year: 2011,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -282,7 +282,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Bug Films",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -290,7 +290,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Science SARU",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -298,7 +298,7 @@ const initialAnimeData = [
     episodes: 50,
     studio: "A-1 Pictures",
     year: 2011,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -306,7 +306,7 @@ const initialAnimeData = [
     episodes: 25,
     studio: "Telecom Animation Film",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -314,7 +314,7 @@ const initialAnimeData = [
     episodes: 11,
     studio: "Bones",
     year: 2011,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -322,7 +322,7 @@ const initialAnimeData = [
     episodes: 20,
     studio: "Toei Animation",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -330,7 +330,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "Madhouse",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -338,7 +338,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "LIDENFILMS",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -346,7 +346,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Actas / Bandai Namco Pictures",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -354,7 +354,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "CONNECT",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -362,7 +362,7 @@ const initialAnimeData = [
     episodes: 11,
     studio: "Production I.G",
     year: 2009,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -370,7 +370,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "J.C.Staff",
     year: 2025,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -378,7 +378,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "ENGI",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -386,7 +386,7 @@ const initialAnimeData = [
     episodes: 22,
     studio: "Madhouse",
     year: 2003,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -394,7 +394,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "A-1 Pictures",
     year: 2016,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -402,7 +402,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "A.C.G.T.",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -410,7 +410,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Yokohama Animation Lab",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -418,7 +418,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "Silver Link",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -426,7 +426,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "Geek Toys",
     year: 2020,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -434,7 +434,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Unknown",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -442,7 +442,7 @@ const initialAnimeData = [
     episodes: 16,
     studio: "Brain's Base",
     year: 2007,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -450,7 +450,7 @@ const initialAnimeData = [
     episodes: 23,
     studio: "A-1 Pictures",
     year: 2021,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -458,7 +458,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "Wit Studio",
     year: 2015,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -466,7 +466,7 @@ const initialAnimeData = [
     episodes: 38,
     studio: "Asread / MOTHER",
     year: 2019,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -474,7 +474,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "Production I.G",
     year: 2022,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -482,7 +482,7 @@ const initialAnimeData = [
     episodes: 13,
     studio: "Production I.G",
     year: 2020,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -490,7 +490,7 @@ const initialAnimeData = [
     episodes: 37,
     studio: "White Fox / Studio 3Hz",
     year: 2013,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -498,7 +498,7 @@ const initialAnimeData = [
     episodes: 37,
     studio: "Wit Studio / CloverWorks",
     year: 2022,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Viendo"
   },
   {
@@ -506,7 +506,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "Production I.G",
     year: 2020,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -514,7 +514,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Silver Link / Studio Palette",
     year: 2021,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -522,7 +522,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Okuruto Noboru",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -530,7 +530,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Lerche",
     year: 2020,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -538,7 +538,7 @@ const initialAnimeData = [
     episodes: 49,
     studio: "Geno Studio",
     year: 2018,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -546,7 +546,7 @@ const initialAnimeData = [
     episodes: 12,
     studio: "Passione",
     year: 2024,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   },
   {
@@ -554,7 +554,7 @@ const initialAnimeData = [
     episodes: 24,
     studio: "A-1 Pictures",
     year: 2023,
-    image: "/assets/negro%20fondo.jpg",
+    image: "/anime-app-jkanime.jpg.jfif",
     Estado: "Pendiente"
   }
 ]

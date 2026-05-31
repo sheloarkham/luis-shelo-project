@@ -1,6 +1,6 @@
 {
-  "name": "Luis & Shelo Project",
-  "short_name": "L&S Project",
+  "name": "Luis Shelo Project",
+  "short_name": "Luis Shelo",
   "description": "Gestión personal - Series, Anime, Juegos, Libros, Presupuestos",
   "start_url": "/",
   "display": "standalone",
@@ -9,14 +9,14 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
+      "src": "/Copilot_20260531_184305.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
+      "src": "/Copilot_20260531_184305.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     }
