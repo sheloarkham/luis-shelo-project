@@ -11,7 +11,7 @@ const Footer = () => {
         py: 3,
         px: 2,
         mt: 'auto',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: '#000000',
         color: 'white'
       }}
     >

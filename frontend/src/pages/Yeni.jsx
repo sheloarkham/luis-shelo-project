@@ -1,20 +1,493 @@
-import './Yeni.css'
+import { useState, useEffect } from 'react'
+import { Box, Card, CardContent, Typography, Grid, CardMedia } from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import './shared-page.css'
 
 const Yeni = () => {
+  const [timeData, setTimeData] = useState({
+    conocidos: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 },
+    pololeando: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
+  })
+
+  const photos = [
+    { id: 1, src: '/assetsAmor/IMG-20250223-WA0022.jpg', caption: 'Nuestros momentos juntos 💕' },
+    { id: 2, src: '/assetsAmor/IMG-20250711-WA0013.jpg', caption: 'Siempre felices 🥰' },
+    { id: 3, src: '/assetsAmor/IMG_20240404_171933.jpg', caption: 'Te amo cada día más ❤️' },
+    { id: 4, src: '/assetsAmor/IMG-20240509-WA0023.jpg', caption: 'Recuerdos inolvidables 💖' },
+    { id: 5, src: '/assetsAmor/IMG-20240509-WA0061.jpg', caption: 'Juntos para siempre 🌟' },
+    { id: 6, src: '/assetsAmor/IMG-20241112-WA0024.jpg', caption: 'Amor verdadero 💞' },
+    { id: 7, src: '/assetsAmor/IMG-20241112-WA0025.jpg', caption: 'Nuestra felicidad 😊' },
+    { id: 8, src: '/assetsAmor/IMG-20241117-WA0012.jpg', caption: 'Momentos especiales 🥰' },
+    { id: 9, src: '/assetsAmor/IMG-20250122-WA0002.jpg', caption: 'Siempre unidos 💑' },
+    { id: 10, src: '/assetsAmor/IMG-20250316-WA0009.jpg', caption: 'Mi amor por ti crece 🌹' },
+    { id: 11, src: '/assetsAmor/IMG-20250504-WA0034.jpg', caption: 'Contigo todo es mejor 💝' },
+    { id: 12, src: '/assetsAmor/IMG_20240328_235414_003.jpg', caption: 'Eres mi todo 💫' },
+    { id: 13, src: '/assetsAmor/IMG_20240404_171408.jpg', caption: 'Te amaré por siempre 💗' }
+  ]
+
+  const calculateTimeDifference = (startDate) => {
+    const now = new Date()
+    const start = new Date(startDate)
+    const diff = now - start
+
+    const seconds = Math.floor(diff / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+    const days = Math.floor(hours / 24)
+
+    // Cálculo más preciso de años y meses
+    let years = now.getFullYear() - start.getFullYear()
+    let months = now.getMonth() - start.getMonth()
+    let remainingDays = now.getDate() - start.getDate()
+
+    if (remainingDays < 0) {
+      months--
+      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0)
+      remainingDays += prevMonth.getDate()
+    }
+
+    if (months < 0) {
+      years--
+      months += 12
+    }
+
+    return {
+      years,
+      months,
+      days: remainingDays,
+      hours: hours % 24,
+      minutes: minutes % 60,
+      seconds: seconds % 60
+    }
+  }
+
+  useEffect(() => {
+    const updateTime = () => {
+      setTimeData({
+        conocidos: calculateTimeDifference('2024-03-21T00:00:00'),
+        pololeando: calculateTimeDifference('2024-04-10T00:00:00')
+      })
+    }
+
+    updateTime()
+    const interval = setInterval(updateTime, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const TimeCard = ({ title, emoji, timeData, color, gradient }) => (
+    <Card
+      sx={{
+        background: gradient,
+        border: `3px solid ${color}`,
+        borderRadius: 4,
+        boxShadow: `0 8px 32px ${color}40`,
+        transition: 'all 0.3s ease',
+        '&:hover': {
+          transform: 'translateY(-10px) scale(1.02)',
+          boxShadow: `0 12px 48px ${color}60`,
+        }
+      }}
+    >
+      <CardContent sx={{ p: 4 }}>
+        <Box sx={{ textAlign: 'center', mb: 3 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              color: 'white',
+              fontWeight: 'bold',
+              mb: 1,
+              textShadow: `0 2px 8px ${color}80`
+            }}
+          >
+            {emoji} {title}
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 2 }}>
+            {[...Array(5)].map((_, i) => (
+              <FavoriteIcon
+                key={i}
+                sx={{
+                  color: color,
+                  fontSize: 20,
+                  animation: `heartbeat ${1 + i * 0.2}s ease-in-out infinite`,
+                  '@keyframes heartbeat': {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '50%': { transform: 'scale(1.2)' }
+                  }
+                }}
+              />
+            ))}
+          </Box>
+        </Box>
+
+        <Grid container spacing={2}>
+          {[
+            { value: timeData.years, label: 'Años', color: '#ff6b9d' },
+            { value: timeData.months, label: 'Meses', color: '#c44569' },
+            { value: timeData.days, label: 'Días', color: '#f7b731' },
+            { value: timeData.hours, label: 'Horas', color: '#5f27cd' },
+            { value: timeData.minutes, label: 'Minutos', color: '#00d2d3' },
+            { value: timeData.seconds, label: 'Segundos', color: '#1dd1a1' }
+          ].map(({ value, label, color }) => (
+            <Grid item xs={4} key={label}>
+              <Box
+                sx={{
+                  bgcolor: 'rgba(0, 0, 0, 0.4)',
+                  borderRadius: 3,
+                  p: 2,
+                  textAlign: 'center',
+                  border: `2px solid ${color}40`,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    border: `2px solid ${color}`,
+                    transform: 'scale(1.05)'
+                  }
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{
+                    color: color,
+                    fontWeight: 'bold',
+                    textShadow: `0 0 20px ${color}80`
+                  }}
+                >
+                  {value}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'white',
+                    fontWeight: 'bold',
+                    mt: 1,
+                    opacity: 0.9
+                  }}
+                >
+                  {label}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </CardContent>
+    </Card>
+  )
+
   return (
-    <div className="yeni-page">
+    <div className="page-container">
       <div className="content">
         <main>
-          <header>
-            <h1>Yeni 💞</h1>
-          </header>
-          <p style={{textAlign: 'center', color: 'white', fontSize: '1.2rem'}}>
-            Sección especial - En desarrollo
-          </p>
+          <Box sx={{ p: 4, minHeight: '100vh' }}>
+            <Box sx={{ textAlign: 'center', mb: 6 }}>
+              <Typography
+                variant="h2"
+                sx={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  mb: 2,
+                  textShadow: '0 4px 12px rgba(255, 107, 157, 0.5)',
+                  background: 'linear-gradient(45deg, #ff6b9d, #c44569, #ff6b9d)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  animation: 'gradient 3s ease infinite',
+                  '@keyframes gradient': {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' }
+                  }
+                }}
+              >
+                💞 Yeni 💞
+              </Typography>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: '#ff6b9d',
+                  fontStyle: 'italic',
+                  opacity: 0.9
+                }}
+              >
+                Nuestra Historia de Amor
+              </Typography>
+
+              {/* Burbuja de Fechas Importantes */}
+              <Box
+                sx={{
+                  mt: 3,
+                  display: 'inline-block',
+                  bgcolor: 'rgba(255, 107, 157, 0.15)',
+                  border: '2px solid rgba(255, 107, 157, 0.4)',
+                  borderRadius: 4,
+                  px: 3,
+                  py: 2,
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 16px rgba(255, 107, 157, 0.3)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 107, 157, 0.25)',
+                    border: '2px solid rgba(255, 107, 157, 0.6)',
+                    transform: 'scale(1.05)',
+                    boxShadow: '0 6px 24px rgba(255, 107, 157, 0.5)'
+                  }
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: 'white',
+                    fontWeight: 600,
+                    mb: 0.5,
+                    fontSize: '0.95rem'
+                  }}
+                >
+                  ✨ <strong>Feliz Ricardo:</strong> 21 de marzo, 2024
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: 'white',
+                    fontWeight: 600,
+                    fontSize: '0.95rem'
+                  }}
+                >
+                  ❤️ <strong>Aniversario:</strong> 10 de abril, 2024
+                </Typography>
+              </Box>
+            </Box>
+
+            <Grid container spacing={4} sx={{ maxWidth: 1200, mx: 'auto', justifyContent: 'center' }}>
+              <Grid item xs={12} md={5.5}>
+                <TimeCard
+                  title="Desde que nos conocimos"
+                  emoji="✨"
+                  timeData={timeData.conocidos}
+                  color="#ff6b9d"
+                  gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                />
+              </Grid>
+              <Grid item xs={12} md={5.5}>
+                <TimeCard
+                  title="Pololeando"
+                  emoji="❤️"
+                  timeData={timeData.pololeando}
+                  color="#c44569"
+                  gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+                />
+              </Grid>
+            </Grid>
+
+            {/* Galería de Fotos */}
+            <Box sx={{ mt: 6, maxWidth: 1400, mx: 'auto' }}>
+              <Typography
+                variant="h3"
+                sx={{
+                  textAlign: 'center',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  mb: 4,
+                  textShadow: '0 2px 12px rgba(255, 107, 157, 0.5)',
+                }}
+              >
+                 Nuestros Recuerdos
+              </Typography>
+
+              <Grid container spacing={4}>
+                {photos.map((photo, index) => (
+                  <Grid item xs={12} md={4} key={photo.id}>
+                    <Card
+                      sx={{
+                        background: 'linear-gradient(135deg, rgba(255, 107, 157, 0.2) 0%, rgba(196, 69, 105, 0.2) 100%)',
+                        border: '3px solid rgba(255, 107, 157, 0.3)',
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        position: 'relative',
+                        animation: `fadeInUp ${0.5 + index * 0.2}s ease-out`,
+                        '@keyframes fadeInUp': {
+                          '0%': {
+                            opacity: 0,
+                            transform: 'translateY(30px)'
+                          },
+                          '100%': {
+                            opacity: 1,
+                            transform: 'translateY(0)'
+                          }
+                        },
+                        '&:hover': {
+                          transform: 'translateY(-15px) scale(1.05)',
+                          boxShadow: '0 20px 60px rgba(255, 107, 157, 0.5)',
+                          border: '3px solid #ff6b9d',
+                          '& .photo-overlay': {
+                            opacity: 1
+                          },
+                          '& img': {
+                            transform: 'scale(1.1)'
+                          }
+                        }
+                      }}
+                    >
+                      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+                        <CardMedia
+                          component="img"
+                          image={photo.src}
+                          alt={photo.caption}
+                          sx={{
+                            height: 350,
+                            objectFit: 'cover',
+                            transition: 'transform 0.4s ease'
+                          }}
+                        />
+                        <Box
+                          className="photo-overlay"
+                          sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background: 'linear-gradient(to top, rgba(255, 107, 157, 0.9) 0%, transparent 50%)',
+                            opacity: 0,
+                            transition: 'opacity 0.4s ease',
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            justifyContent: 'center',
+                            p: 3
+                          }}
+                        >
+                          <Box sx={{ display: 'flex', gap: 1 }}>
+                            {[...Array(3)].map((_, i) => (
+                              <FavoriteIcon
+                                key={i}
+                                sx={{
+                                  color: 'white',
+                                  fontSize: 28,
+                                  animation: `pulse ${0.8 + i * 0.2}s ease-in-out infinite`,
+                                  '@keyframes pulse': {
+                                    '0%, 100%': { transform: 'scale(1)', opacity: 1 },
+                                    '50%': { transform: 'scale(1.3)', opacity: 0.7 }
+                                  }
+                                }}
+                              />
+                            ))}
+                          </Box>
+                        </Box>
+                      </Box>
+                      <CardContent sx={{ p: 3, textAlign: 'center' }}>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            textShadow: '0 2px 8px rgba(255, 107, 157, 0.5)'
+                          }}
+                        >
+                          {photo.caption}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+
+            <Box
+              sx={{
+                mt: 6,
+                textAlign: 'center',
+                p: 4,
+                bgcolor: 'rgba(255, 107, 157, 0.1)',
+                borderRadius: 4,
+                border: '2px solid rgba(255, 107, 157, 0.3)',
+                maxWidth: 800,
+                mx: 'auto'
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'white',
+                  fontStyle: 'italic',
+                  lineHeight: 1.8,
+                  opacity: 0.9
+                }}
+              >
+                "Cada segundo contigo es un regalo. Cada minuto, una bendición.
+                Cada día, una nueva razón para amarte más. Te amo, Yeni 💕"
+              </Typography>
+            </Box>
+
+            {/* Sección Brasil */}
+            <Box sx={{ mt: 8, textAlign: 'center', maxWidth: 1000, mx: 'auto' }}>
+              <Typography
+                variant="h3"
+                sx={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  mb: 2,
+                  textShadow: '0 4px 12px rgba(0, 151, 57, 0.5)',
+                }}
+              >
+                Nuestra próxima aventura:
+              </Typography>
+              
+              <Typography
+                variant="h1"
+                sx={{
+                  fontWeight: 900,
+                  mb: 4,
+                  fontSize: { xs: '4rem', md: '6rem' },
+                  background: 'linear-gradient(135deg, #009739 0%, #FEDD00 35%, #FEDD00 65%, #002776 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: 'none',
+                  animation: 'gradientShift 3s ease infinite',
+                  '@keyframes gradientShift': {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' }
+                  },
+                  backgroundSize: '200% auto',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                 BRASIL 
+              </Typography>
+
+              <Card
+                sx={{
+                  background: 'linear-gradient(135deg, rgba(0, 151, 57, 0.2) 0%, rgba(254, 221, 0, 0.2) 50%, rgba(0, 39, 118, 0.2) 100%)',
+                  border: '4px solid #009739',
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  boxShadow: '0 12px 48px rgba(0, 151, 57, 0.4)',
+                  transition: 'all 0.4s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                    boxShadow: '0 20px 60px rgba(254, 221, 0, 0.6)',
+                    border: '4px solid #FEDD00'
+                  }
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  image="/assetsAmor/brasil.png"
+                  alt="Brasil - Nuestra próxima aventura"
+                  sx={{
+                    width: '100%',
+                    height: 'auto',
+                    maxHeight: 600,
+                    objectFit: 'cover'
+                  }}
+                />
+              </Card>
+            </Box>
+          </Box>
         </main>
       </div>
     </div>
   )
 }
+
+
 
 export default Yeni

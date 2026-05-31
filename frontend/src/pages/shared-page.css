@@ -1,22 +1,22 @@
-.home-page {
+.page-container {
   min-height: 100vh;
   background: #000000;
 }
 
-.home-page .content {
+.page-container .content {
   padding: 100px 2rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-.home-page header {
+.page-container header {
   text-align: center;
   margin-bottom: 2rem;
 }
 
-.home-page h1 {
+.page-container h1 {
   color: white;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }

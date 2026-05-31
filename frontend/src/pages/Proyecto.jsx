@@ -1,8 +1,8 @@
-import './Proyecto.css'
+import './shared-page.css'
 
 const Proyecto = () => {
   return (
-    <div className="proyecto-page">
+    <div className="page-container">
       <div className="content">
         <main>
           <header>
