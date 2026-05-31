@@ -131,6 +131,15 @@ const initialBooksData = [
     Estado: "Leido"
   },
   {
+    title: "El Psicoanalista: jaque al psicoanalista",
+    author: "John Katzenbach",
+    releaseYear: 2012,
+    pages: 496,
+    image: "/assetsB/psico.png",
+    synopsis: "Secuela de El Psicoanalista. El Dr. Frederick Starks debe enfrentar nuevamente el terror cuando alguien de su pasado regresa con sed de venganza. Un thriller psicológico que explora las consecuencias de las decisiones tomadas en el primer libro.",
+    Estado: "Leido"
+  },
+  {
     title: "1984",
     author: "George Orwell",
     releaseYear: 1949,

@@ -1,6 +1,6 @@
 // Service Worker para PWA - Funcionalidad Offline
-const CACHE_NAME = 'luis-shelo-app-v1';
-const RUNTIME_CACHE = 'luis-shelo-runtime-v1';
+const CACHE_NAME = 'luis-shelo-app-v2';
+const RUNTIME_CACHE = 'luis-shelo-runtime-v2';
 
 // Archivos críticos para cachear en la instalación
 const PRECACHE_URLS = [
