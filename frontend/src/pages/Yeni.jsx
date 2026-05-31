@@ -10,9 +10,9 @@ const Yeni = () => {
   })
 
   const photos = [
-    { id: 1, src: '/assetsamor/IMG-20250223-WA0022.jpg', caption: 'Nuestros momentos juntos 💕' },
-    { id: 2, src: '/assetsamor/IMG-20250711-WA0013.jpg', caption: 'Siempre felices 🥰' },
-    { id: 3, src: '/assetsamor/IMG_20240404_171933.jpg', caption: 'Te amo cada día más ❤️' }
+    { id: 1, src: '/assetsAmor/IMG-20250223-WA0022.jpg', caption: 'Nuestros momentos juntos 💕' },
+    { id: 2, src: '/assetsAmor/IMG-20250711-WA0013.jpg', caption: 'Siempre felices 🥰' },
+    { id: 3, src: '/assetsAmor/IMG_20240404_171933.jpg', caption: 'Te amo cada día más ❤️' }
   ]
 
   const calculateTimeDifference = (startDate) => {

@@ -327,7 +327,7 @@ const Home = () => {
               }
             }}
           >
-            📊 Dashboard de Progreso
+            Progreso de las cosas que puedo hacer en mi tiempo libre
           </Typography>
           <Typography 
             variant="h6" 
@@ -339,7 +339,7 @@ const Home = () => {
               fontSize: '0.9rem'
             }}
           >
-            Proyecto Luis & Shelo
+            Proyecto Luis Shelo
           </Typography>
         </Box>
 
