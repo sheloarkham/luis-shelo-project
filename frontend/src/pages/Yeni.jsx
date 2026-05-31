@@ -278,7 +278,7 @@ const Yeni = () => {
                   textShadow: '0 2px 12px rgba(255, 107, 157, 0.5)',
                 }}
               >
-                📸 Nuestros Recuerdos
+                 Nuestros Recuerdos
               </Typography>
 
               <Grid container spacing={4}>
@@ -405,11 +405,79 @@ const Yeni = () => {
                 Cada día, una nueva razón para amarte más. Te amo, Yeni 💕"
               </Typography>
             </Box>
+
+            {/* Sección Brasil */}
+            <Box sx={{ mt: 8, textAlign: 'center', maxWidth: 1000, mx: 'auto' }}>
+              <Typography
+                variant="h3"
+                sx={{
+                  color: 'white',
+                  fontWeight: 'bold',
+                  mb: 2,
+                  textShadow: '0 4px 12px rgba(0, 151, 57, 0.5)',
+                }}
+              >
+                Nuestra próxima aventura:
+              </Typography>
+              
+              <Typography
+                variant="h1"
+                sx={{
+                  fontWeight: 900,
+                  mb: 4,
+                  fontSize: { xs: '4rem', md: '6rem' },
+                  background: 'linear-gradient(135deg, #009739 0%, #FEDD00 35%, #FEDD00 65%, #002776 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  textShadow: 'none',
+                  animation: 'gradientShift 3s ease infinite',
+                  '@keyframes gradientShift': {
+                    '0%, 100%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' }
+                  },
+                  backgroundSize: '200% auto',
+                  letterSpacing: '0.05em'
+                }}
+              >
+                🇧🇷 BRASIL 🇧🇷
+              </Typography>
+
+              <Card
+                sx={{
+                  background: 'linear-gradient(135deg, rgba(0, 151, 57, 0.2) 0%, rgba(254, 221, 0, 0.2) 50%, rgba(0, 39, 118, 0.2) 100%)',
+                  border: '4px solid #009739',
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  boxShadow: '0 12px 48px rgba(0, 151, 57, 0.4)',
+                  transition: 'all 0.4s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                    boxShadow: '0 20px 60px rgba(254, 221, 0, 0.6)',
+                    border: '4px solid #FEDD00'
+                  }
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  image="/assetsAmor/brasil.png"
+                  alt="Brasil - Nuestra próxima aventura"
+                  sx={{
+                    width: '100%',
+                    height: 'auto',
+                    maxHeight: 600,
+                    objectFit: 'cover'
+                  }}
+                />
+              </Card>
+            </Box>
           </Box>
         </main>
       </div>
     </div>
   )
 }
+
+
 
 export default Yeni
