@@ -7,34 +7,71 @@ const StatCard = ({ title, stats, icon, color }) => {
   
   return (
     <Card sx={{ 
-      background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
+      background: `linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%)`,
+      backdropFilter: 'blur(10px)',
       border: `2px solid ${color}`,
-      borderRadius: 3,
+      borderRadius: 4,
       height: '100%',
-      transition: 'transform 0.3s ease',
+      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      position: 'relative',
+      overflow: 'hidden',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '100%',
+        height: '100%',
+        background: `linear-gradient(90deg, transparent, ${color}20, transparent)`,
+        transition: 'left 0.5s ease'
+      },
       '&:hover': {
-        transform: 'translateY(-8px)',
-        boxShadow: `0 8px 24px ${color}40`
+        transform: 'translateY(-12px) scale(1.02)',
+        boxShadow: `0 20px 60px ${color}50, 0 0 40px ${color}30`,
+        border: `2px solid ${color}`,
+        '&::before': {
+          left: '100%'
+        }
       }
     }}>
-      <CardContent sx={{ p: 3 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <Typography variant="h5" sx={{ color, fontWeight: 'bold', flex: 1 }}>
+      <CardContent sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <Typography 
+            variant="h4" 
+            sx={{ 
+              color, 
+              fontWeight: 800,
+              flex: 1,
+              textShadow: `0 0 20px ${color}80`,
+              letterSpacing: '0.5px'
+            }}
+          >
             {icon} {title}
           </Typography>
         </Box>
         
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 4 }}>
           <Box sx={{ position: 'relative', display: 'inline-flex' }}>
             <CircularProgress
               variant="determinate"
+              value={100}
+              size={140}
+              thickness={3}
+              sx={{
+                color: `${color}20`,
+                position: 'absolute'
+              }}
+            />
+            <CircularProgress
+              variant="determinate"
               value={porcentajeProgreso || 0}
-              size={120}
-              thickness={4}
+              size={140}
+              thickness={3}
               sx={{
                 color: color,
                 '& .MuiCircularProgress-circle': {
                   strokeLinecap: 'round',
+                  filter: `drop-shadow(0 0 8px ${color})`
                 }
               }}
             />
@@ -51,46 +88,117 @@ const StatCard = ({ title, stats, icon, color }) => {
                 flexDirection: 'column'
               }}
             >
-              <Typography variant="h4" sx={{ color: 'white', fontWeight: 'bold' }}>
+              <Typography 
+                variant="h3" 
+                sx={{ 
+                  color: 'white', 
+                  fontWeight: 900,
+                  textShadow: `0 0 20px ${color}80`
+                }}
+              >
                 {porcentajeProgreso || 0}%
               </Typography>
-              <Typography variant="caption" sx={{ color: '#888' }}>
+              <Typography 
+                variant="caption" 
+                sx={{ 
+                  color: color,
+                  fontWeight: 600,
+                  fontSize: '0.85rem',
+                  mt: 0.5
+                }}
+              >
                 Progreso
               </Typography>
             </Box>
           </Box>
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2 }}>
-          <Box sx={{ textAlign: 'center', p: 1, bgcolor: '#1a1a1a', borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ color: color, fontWeight: 'bold' }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2, mt: 3 }}>
+          <Box 
+            sx={{ 
+              textAlign: 'center', 
+              p: 2, 
+              bgcolor: 'rgba(0, 0, 0, 0.4)',
+              borderRadius: 3,
+              border: `1px solid ${color}30`,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                bgcolor: `${color}10`,
+                border: `1px solid ${color}`,
+                transform: 'translateY(-2px)'
+              }
+            }}
+          >
+            <Typography variant="h5" sx={{ color: color, fontWeight: 800 }}>
               {total}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#888' }}>
+            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
               Total
             </Typography>
           </Box>
-          <Box sx={{ textAlign: 'center', p: 1, bgcolor: '#1a1a1a', borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ color: '#4ade80', fontWeight: 'bold' }}>
+          <Box 
+            sx={{ 
+              textAlign: 'center', 
+              p: 2, 
+              bgcolor: 'rgba(0, 0, 0, 0.4)',
+              borderRadius: 3,
+              border: '1px solid #4ade8030',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                bgcolor: '#4ade8010',
+                border: '1px solid #4ade80',
+                transform: 'translateY(-2px)'
+              }
+            }}
+          >
+            <Typography variant="h5" sx={{ color: '#4ade80', fontWeight: 800 }}>
               {stats.completadas || stats.completados || stats.leidos || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#888' }}>
+            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
               Completados
             </Typography>
           </Box>
-          <Box sx={{ textAlign: 'center', p: 1, bgcolor: '#1a1a1a', borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ color: '#fbbf24', fontWeight: 'bold' }}>
+          <Box 
+            sx={{ 
+              textAlign: 'center', 
+              p: 2, 
+              bgcolor: 'rgba(0, 0, 0, 0.4)',
+              borderRadius: 3,
+              border: '1px solid #fbbf2430',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                bgcolor: '#fbbf2410',
+                border: '1px solid #fbbf24',
+                transform: 'translateY(-2px)'
+              }
+            }}
+          >
+            <Typography variant="h5" sx={{ color: '#fbbf24', fontWeight: 800 }}>
               {stats.viendo || stats.jugando || stats.leyendo || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#888' }}>
+            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
               En progreso
             </Typography>
           </Box>
-          <Box sx={{ textAlign: 'center', p: 1, bgcolor: '#1a1a1a', borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ color: '#ef4444', fontWeight: 'bold' }}>
+          <Box 
+            sx={{ 
+              textAlign: 'center', 
+              p: 2, 
+              bgcolor: 'rgba(0, 0, 0, 0.4)',
+              borderRadius: 3,
+              border: '1px solid #ef444430',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                bgcolor: '#ef444410',
+                border: '1px solid #ef4444',
+                transform: 'translateY(-2px)'
+              }
+            }}
+          >
+            <Typography variant="h5" sx={{ color: '#ef4444', fontWeight: 800 }}>
               {stats.pendientes || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#888' }}>
+            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
               Pendientes
             </Typography>
           </Box>
@@ -180,22 +288,67 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <Box sx={{ p: 4 }}>
-        <Box sx={{ mb: 4, textAlign: 'center' }}>
-          <Typography variant="h3" sx={{ color: '#FFD700', fontWeight: 'bold', mb: 1 }}>
-            Progreso
+      <Box sx={{ p: 4, minHeight: '100vh' }}>
+        <Box 
+          sx={{ 
+            mb: 6, 
+            textAlign: 'center',
+            position: 'relative',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: -20,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: 100,
+              height: 4,
+              background: 'linear-gradient(90deg, transparent, #FFD700, transparent)',
+              borderRadius: 2
+            }
+          }}
+        >
+          <Typography 
+            variant="h2" 
+            sx={{ 
+              color: '#FFD700',
+              fontWeight: 900,
+              mb: 1,
+              textShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 4px 12px rgba(255, 215, 0, 0.3)',
+              letterSpacing: '1px',
+              background: 'linear-gradient(45deg, #FFD700, #FFA500, #FFD700)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundSize: '200% 200%',
+              animation: 'gradientShift 3s ease infinite',
+              '@keyframes gradientShift': {
+                '0%, 100%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' }
+              }
+            }}
+          >
+            📊 Dashboard de Progreso
           </Typography>
-          <Typography variant="h6" sx={{ color: '#888' }}>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: '#aaa',
+              fontWeight: 500,
+              letterSpacing: '2px',
+              textTransform: 'uppercase',
+              fontSize: '0.9rem'
+            }}
+          >
             Proyecto Luis & Shelo
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={4} sx={{ maxWidth: 1400, mx: 'auto' }}>
           <Grid item xs={12} md={6}>
             <StatCard
               title="Series"
               stats={stats?.series || {}}
-              icon=""
+              icon="📺"
               color="#FFD700"
             />
           </Grid>
@@ -203,7 +356,7 @@ const Home = () => {
             <StatCard
               title="Anime"
               stats={stats?.anime || {}}
-              icon=""
+              icon="🎌"
               color="#ff6b6b"
             />
           </Grid>
@@ -211,7 +364,7 @@ const Home = () => {
             <StatCard
               title="Juegos"
               stats={stats?.games || {}}
-              icon=""
+              icon="🎮"
               color="#a78bfa"
             />
           </Grid>
@@ -219,7 +372,7 @@ const Home = () => {
             <StatCard
               title="Libros"
               stats={stats?.books || {}}
-              icon=""
+              icon="📚"
               color="#60a5fa"
             />
           </Grid>
