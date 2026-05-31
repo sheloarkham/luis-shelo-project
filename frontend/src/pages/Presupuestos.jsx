@@ -29,7 +29,6 @@ const Presupuestos = () => {
     juna: []
   })
   const [formData, setFormData] = useState({
-    mes: '',
     nombre: '',
     monto: ''
   })
@@ -75,10 +74,6 @@ const Presupuestos = () => {
 
   const handleAgregarGasto = () => {
     // Validaciones
-    if (!formData.mes.trim()) {
-      setError('Por favor ingresa el mes')
-      return
-    }
     if (!formData.nombre.trim()) {
       setError('Por favor ingresa el nombre del gasto')
       return
@@ -92,7 +87,6 @@ const Presupuestos = () => {
 
     const nuevoGasto = {
       id: Date.now(),
-      mes: formData.mes.trim(),
       nombre: formData.nombre.trim(),
       monto: Number(formData.monto),
       fecha: new Date().toISOString()
@@ -104,7 +98,7 @@ const Presupuestos = () => {
     }))
 
     // Limpiar formulario
-    setFormData({ mes: '', nombre: '', monto: '' })
+    setFormData({ nombre: '', monto: '' })
   }
 
   const handleEliminarGasto = (id) => {
@@ -169,16 +163,6 @@ const Presupuestos = () => {
                     )}
 
                     <Box component="form" sx={{ mt: 2 }}>
-                      <TextField
-                        fullWidth
-                        label="Mes"
-                        name="mes"
-                        value={formData.mes}
-                        onChange={handleInputChange}
-                        placeholder="Ej: Enero 2026"
-                        sx={{ mb: 2 }}
-                      />
-
                       <TextField
                         fullWidth
                         label="Nombre del gasto"
@@ -253,7 +237,6 @@ const Presupuestos = () => {
                                     </Typography>
                                   </Box>
                                 }
-                                secondary={`Mes: ${gasto.mes}`}
                               />
                             </ListItem>
                           ))}
