@@ -12,7 +12,17 @@ const Yeni = () => {
   const photos = [
     { id: 1, src: '/assetsAmor/IMG-20250223-WA0022.jpg', caption: 'Nuestros momentos juntos 💕' },
     { id: 2, src: '/assetsAmor/IMG-20250711-WA0013.jpg', caption: 'Siempre felices 🥰' },
-    { id: 3, src: '/assetsAmor/IMG_20240404_171933.jpg', caption: 'Te amo cada día más ❤️' }
+    { id: 3, src: '/assetsAmor/IMG_20240404_171933.jpg', caption: 'Te amo cada día más ❤️' },
+    { id: 4, src: '/assetsAmor/IMG-20240509-WA0023.jpg', caption: 'Recuerdos inolvidables 💖' },
+    { id: 5, src: '/assetsAmor/IMG-20240509-WA0061.jpg', caption: 'Juntos para siempre 🌟' },
+    { id: 6, src: '/assetsAmor/IMG-20241112-WA0024.jpg', caption: 'Amor verdadero 💞' },
+    { id: 7, src: '/assetsAmor/IMG-20241112-WA0025.jpg', caption: 'Nuestra felicidad 😊' },
+    { id: 8, src: '/assetsAmor/IMG-20241117-WA0012.jpg', caption: 'Momentos especiales 🥰' },
+    { id: 9, src: '/assetsAmor/IMG-20250122-WA0002.jpg', caption: 'Siempre unidos 💑' },
+    { id: 10, src: '/assetsAmor/IMG-20250316-WA0009.jpg', caption: 'Mi amor por ti crece 🌹' },
+    { id: 11, src: '/assetsAmor/IMG-20250504-WA0034.jpg', caption: 'Contigo todo es mejor 💝' },
+    { id: 12, src: '/assetsAmor/IMG_20240328_235414_003.jpg', caption: 'Eres mi todo 💫' },
+    { id: 13, src: '/assetsAmor/IMG_20240404_171408.jpg', caption: 'Te amaré por siempre 💗' }
   ]
 
   const calculateTimeDifference = (startDate) => {
@@ -245,8 +255,8 @@ const Yeni = () => {
               </Box>
             </Box>
 
-            <Grid container spacing={4} sx={{ maxWidth: 1400, mx: 'auto' }}>
-              <Grid item xs={12} md={6}>
+            <Grid container spacing={4} sx={{ maxWidth: 1200, mx: 'auto', justifyContent: 'center' }}>
+              <Grid item xs={12} md={5.5}>
                 <TimeCard
                   title="Desde que nos conocimos"
                   emoji="✨"
@@ -255,7 +265,7 @@ const Yeni = () => {
                   gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={5.5}>
                 <TimeCard
                   title="Pololeando"
                   emoji="❤️"
@@ -440,7 +450,7 @@ const Yeni = () => {
                   letterSpacing: '0.05em'
                 }}
               >
-                🇧🇷 BRASIL 🇧🇷
+                 BRASIL 
               </Typography>
 
               <Card
