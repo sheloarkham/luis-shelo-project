@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Box, Card, CardContent, Typography, Grid } from '@mui/material'
+import { Box, Card, CardContent, Typography, Grid, CardMedia } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import './shared-page.css'
 
@@ -8,6 +8,12 @@ const Yeni = () => {
     conocidos: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 },
     pololeando: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
   })
+
+  const photos = [
+    { id: 1, src: '/assetsamor/IMG-20250223-WA0022.jpg', caption: 'Nuestros momentos juntos 💕' },
+    { id: 2, src: '/assetsamor/IMG-20250711-WA0013.jpg', caption: 'Siempre felices 🥰' },
+    { id: 3, src: '/assetsamor/IMG_20240404_171933.jpg', caption: 'Te amo cada día más ❤️' }
+  ]
 
   const calculateTimeDifference = (startDate) => {
     const now = new Date()
@@ -215,6 +221,120 @@ const Yeni = () => {
                 />
               </Grid>
             </Grid>
+
+            {/* Galería de Fotos */}
+            <Box sx={{ mt: 6, maxWidth: 1400, mx: 'auto' }}>
+              <Typography
+                variant="h3"
+                sx={{
+                  textAlign: 'center',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  mb: 4,
+                  textShadow: '0 2px 12px rgba(255, 107, 157, 0.5)',
+                }}
+              >
+                📸 Nuestros Recuerdos
+              </Typography>
+
+              <Grid container spacing={4}>
+                {photos.map((photo, index) => (
+                  <Grid item xs={12} md={4} key={photo.id}>
+                    <Card
+                      sx={{
+                        background: 'linear-gradient(135deg, rgba(255, 107, 157, 0.2) 0%, rgba(196, 69, 105, 0.2) 100%)',
+                        border: '3px solid rgba(255, 107, 157, 0.3)',
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        position: 'relative',
+                        animation: `fadeInUp ${0.5 + index * 0.2}s ease-out`,
+                        '@keyframes fadeInUp': {
+                          '0%': {
+                            opacity: 0,
+                            transform: 'translateY(30px)'
+                          },
+                          '100%': {
+                            opacity: 1,
+                            transform: 'translateY(0)'
+                          }
+                        },
+                        '&:hover': {
+                          transform: 'translateY(-15px) scale(1.05)',
+                          boxShadow: '0 20px 60px rgba(255, 107, 157, 0.5)',
+                          border: '3px solid #ff6b9d',
+                          '& .photo-overlay': {
+                            opacity: 1
+                          },
+                          '& img': {
+                            transform: 'scale(1.1)'
+                          }
+                        }
+                      }}
+                    >
+                      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
+                        <CardMedia
+                          component="img"
+                          image={photo.src}
+                          alt={photo.caption}
+                          sx={{
+                            height: 350,
+                            objectFit: 'cover',
+                            transition: 'transform 0.4s ease'
+                          }}
+                        />
+                        <Box
+                          className="photo-overlay"
+                          sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background: 'linear-gradient(to top, rgba(255, 107, 157, 0.9) 0%, transparent 50%)',
+                            opacity: 0,
+                            transition: 'opacity 0.4s ease',
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            justifyContent: 'center',
+                            p: 3
+                          }}
+                        >
+                          <Box sx={{ display: 'flex', gap: 1 }}>
+                            {[...Array(3)].map((_, i) => (
+                              <FavoriteIcon
+                                key={i}
+                                sx={{
+                                  color: 'white',
+                                  fontSize: 28,
+                                  animation: `pulse ${0.8 + i * 0.2}s ease-in-out infinite`,
+                                  '@keyframes pulse': {
+                                    '0%, 100%': { transform: 'scale(1)', opacity: 1 },
+                                    '50%': { transform: 'scale(1.3)', opacity: 0.7 }
+                                  }
+                                }}
+                              />
+                            ))}
+                          </Box>
+                        </Box>
+                      </Box>
+                      <CardContent sx={{ p: 3, textAlign: 'center' }}>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            textShadow: '0 2px 8px rgba(255, 107, 157, 0.5)'
+                          }}
+                        >
+                          {photo.caption}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
 
             <Box
               sx={{
