@@ -1,6 +1,6 @@
 // Service Worker para PWA - Funcionalidad Offline
-const CACHE_NAME = 'luis-shelo-app-v2';
-const RUNTIME_CACHE = 'luis-shelo-runtime-v2';
+const CACHE_NAME = 'luis-shelo-app-v3';
+const RUNTIME_CACHE = 'luis-shelo-runtime-v3';
 
 // Archivos críticos para cachear en la instalación
 const PRECACHE_URLS = [
@@ -41,7 +41,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Estrategia: Cache First, fallback a Network
+// Estrategia: Network First con revalidación (para JS/CSS), Cache First para imágenes
 self.addEventListener('fetch', (event) => {
   // Solo cachear GET requests
   if (event.request.method !== 'GET') return;
@@ -49,45 +49,54 @@ self.addEventListener('fetch', (event) => {
   // Ignorar requests de chrome-extension y otros protocolos
   if (!event.request.url.startsWith('http')) return;
 
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // Si está en caché, devolverlo
-        if (cachedResponse) {
-          console.log('Service Worker: Sirviendo desde caché:', event.request.url);
-          return cachedResponse;
-        }
+  const url = event.request.url;
+  const isAppResource = url.includes('.js') || url.includes('.css') || url.includes('.html');
 
-        // Si no está en caché, buscarlo en la red
-        return fetch(event.request)
-          .then((response) => {
-            // Verificar que sea una respuesta válida
-            if (!response || response.status !== 200 || response.type === 'error') {
-              return response;
-            }
-
-            // Clonar la respuesta (se puede usar solo una vez)
+  // Network First para JS/CSS/HTML (siempre intenta actualizar)
+  if (isAppResource) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
             const responseToCache = response.clone();
-
-            // Guardar en caché para uso futuro
-            caches.open(RUNTIME_CACHE)
-              .then((cache) => {
-                // Solo cachear ciertos tipos de archivos
+            caches.open(RUNTIME_CACHE).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // Si falla la red, usar caché
+          return caches.match(event.request);
+        })
+    );
+  } else {
+    // Cache First para imágenes y otros recursos estáticos
+    event.respondWith(
+      caches.match(event.request)
+        .then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          return fetch(event.request)
+            .then((response) => {
+              if (!response || response.status !== 200 || response.type === 'error') {
+                return response;
+              }
+              const responseToCache = response.clone();
+              caches.open(RUNTIME_CACHE).then((cache) => {
                 if (shouldCache(event.request.url)) {
-                  console.log('Service Worker: Cacheando nuevo recurso:', event.request.url);
                   cache.put(event.request, responseToCache);
                 }
               });
-
-            return response;
-          })
-          .catch((error) => {
-            console.log('Service Worker: Error al buscar recurso, usando caché:', error);
-            // Si falla la red, intentar devolver desde caché
-            return caches.match(event.request);
-          });
-      })
-  );
+              return response;
+            })
+            .catch((error) => {
+              return caches.match(event.request);
+            });
+        })
+    );
+  }
 });
 
 // Función para determinar qué cachear
