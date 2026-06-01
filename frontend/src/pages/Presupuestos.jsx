@@ -142,9 +142,9 @@ const Presupuestos = () => {
                 }
               }}
             >
-              <Tab label="💵 Presupuesto" />
-              <Tab label="💳 CMR" />
-              <Tab label="🧑 Juna" />
+              <Tab label=" Presupuesto" />
+              <Tab label=" CMR" />
+              <Tab label=" Juna" />
             </Tabs>
 
             <Grid container spacing={3}>

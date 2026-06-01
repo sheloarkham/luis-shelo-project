@@ -2,7 +2,14 @@ import './shared-page.css'
 
 const Proyecto = () => {
   const roadmapSteps = [
-    { id: 1, title: 'Curso básico de programación', status: 'en-progreso', description: 'Fundamentos de JavaScript' },
+    { 
+      id: 1, 
+      title: 'Introducción a la programación', 
+      status: 'en-progreso', 
+      description: 'Fundamentos de JavaScript - Todo Code Academy',
+      link: 'https://todocodeacademy.com/course/introduccion-a-la-programacion/',
+      icon: '💻'
+    },
     // Aquí irás agregando más pasos después
   ]
 
@@ -76,7 +83,7 @@ const Proyecto = () => {
               justifyContent: 'center',
               gap: '12px'
             }}>
-              🗺️ Roadmap de Aprendizaje
+              Roadmap de Aprendizaje
             </h2>
 
             {/* Timeline */}
@@ -140,6 +147,17 @@ const Proyecto = () => {
                     e.currentTarget.style.transform = 'translateX(0)'
                   }}
                   >
+                    {/* Ícono visual del curso */}
+                    {step.icon && (
+                      <div style={{
+                        fontSize: '3rem',
+                        marginBottom: '12px',
+                        textAlign: 'center'
+                      }}>
+                        {step.icon}
+                      </div>
+                    )}
+                    
                     <h3 style={{
                       color: 'white',
                       fontSize: '1.3rem',
@@ -154,6 +172,39 @@ const Proyecto = () => {
                     }}>
                       {step.description}
                     </p>
+                    
+                    {/* Link al curso */}
+                    {step.link && (
+                      <a 
+                        href={step.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-block',
+                          padding: '8px 16px',
+                          marginBottom: '12px',
+                          borderRadius: '8px',
+                          background: '#667eea',
+                          color: 'white',
+                          textDecoration: 'none',
+                          fontSize: '0.9rem',
+                          fontWeight: '500',
+                          transition: 'all 0.3s'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = '#5568d3'
+                          e.currentTarget.style.transform = 'scale(1.05)'
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = '#667eea'
+                          e.currentTarget.style.transform = 'scale(1)'
+                        }}
+                      >
+                        🔗 Ir al curso
+                      </a>
+                    )}
+                    <br />
+                    
                     <span style={{
                       display: 'inline-block',
                       padding: '4px 12px',

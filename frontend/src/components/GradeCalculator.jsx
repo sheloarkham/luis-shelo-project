@@ -9,6 +9,7 @@ import Box from '@mui/material/Box'
 import Fab from '@mui/material/Fab'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
+import RemoveIcon from '@mui/icons-material/Remove'
 
 const STORAGE_KEY = 'grade-calculator-subjects'
 
@@ -47,26 +48,45 @@ const GradeCalculator = () => {
     setSubjects(subjects.map(s => s.id === id ? { ...s, name } : s))
   }
 
-  const updateNumGrades = (id, num) => {
-    const numGrades = Math.max(1, Math.min(10, parseInt(num) || 1))
+  const addGrade = (id) => {
     setSubjects(subjects.map(s => {
       if (s.id === id) {
-        const equalPercentage = 100 / numGrades
-        const newGrades = Array(numGrades).fill(null).map((_, i) => ({
-          value: s.grades[i]?.value || '',
-          percentage: equalPercentage
-        }))
-        return { ...s, numGrades, grades: newGrades }
+        const newNumGrades = s.grades.length + 1
+        const equalPercentage = 100 / newNumGrades
+        const newGrades = [...s.grades, { value: '', percentage: equalPercentage }]
+        return {
+          ...s,
+          numGrades: newNumGrades,
+          grades: newGrades.map(g => ({ ...g, percentage: equalPercentage }))
+        }
+      }
+      return s
+    }))
+  }
+
+  const removeGrade = (id, index) => {
+    setSubjects(subjects.map(s => {
+      if (s.id === id && s.grades.length > 1) {
+        const newGrades = s.grades.filter((_, i) => i !== index)
+        const newNumGrades = newGrades.length
+        const equalPercentage = 100 / newNumGrades
+        return {
+          ...s,
+          numGrades: newNumGrades,
+          grades: newGrades.map(g => ({ ...g, percentage: equalPercentage }))
+        }
       }
       return s
     }))
   }
 
   const updateGrade = (id, gradeIndex, field, value) => {
+    const normalizedValue = typeof value === 'string' ? value.replace(',', '.') : value
+    
     setSubjects(subjects.map(s => {
       if (s.id === id) {
         const newGrades = [...s.grades]
-        newGrades[gradeIndex] = { ...newGrades[gradeIndex], [field]: value }
+        newGrades[gradeIndex] = { ...newGrades[gradeIndex], [field]: normalizedValue }
         return { ...s, grades: newGrades }
       }
       return s
@@ -74,7 +94,8 @@ const GradeCalculator = () => {
   }
 
   const updateTargetGrade = (id, value) => {
-    setSubjects(subjects.map(s => s.id === id ? { ...s, targetGrade: parseFloat(value) || 4.0 } : s))
+    const normalizedValue = typeof value === 'string' ? value.replace(',', '.') : value
+    setSubjects(subjects.map(s => s.id === id ? { ...s, targetGrade: parseFloat(normalizedValue) || 4.0 } : s))
   }
 
   const calculateNeededGrade = (subject) => {
@@ -94,13 +115,6 @@ const GradeCalculator = () => {
       grade: neededGrade,
       percentage: remainingPercentage,
       possible: neededGrade >= 1.0 && neededGrade <= 7.0
-    }
-  }
-
-  const clearAll = () => {
-    if (window.confirm('¿Borrar todas las asignaturas?')) {
-      setSubjects([])
-      setEditingSubject(null)
     }
   }
 
@@ -163,7 +177,7 @@ const GradeCalculator = () => {
                     <DeleteIcon />
                   </IconButton>
                   <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                    {needed ? needed.grade.toFixed(1) : '—'}
+                    {needed ? needed.grade.toFixed(1).replace('.', ',') : '—'}
                   </Typography>
                   <Typography variant="caption">
                     (Nota Final Necesaria)
@@ -183,7 +197,7 @@ const GradeCalculator = () => {
                 <Box sx={{ mb: 3 }}>
                   <Box sx={{ 
                     display: 'grid', 
-                    gridTemplateColumns: '1fr 1fr',
+                    gridTemplateColumns: '1fr 1fr 80px',
                     gap: 2,
                     mb: 2
                   }}>
@@ -193,31 +207,59 @@ const GradeCalculator = () => {
                     <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
                       Porcentaje (%)
                     </Typography>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                      
+                    </Typography>
                   </Box>
 
                   {subject.grades.map((grade, index) => (
                     <Box key={index} sx={{ 
                       display: 'grid', 
-                      gridTemplateColumns: '1fr 1fr',
+                      gridTemplateColumns: '1fr 1fr 80px',
                       gap: 2,
-                      mb: 2
+                      mb: 2,
+                      alignItems: 'center'
                     }}>
                       <TextField
                         label="Nota"
-                        type="number"
                         value={grade.value}
                         onChange={(e) => updateGrade(subject.id, index, 'value', e.target.value)}
-                        inputProps={{ min: 1, max: 7, step: 0.1 }}
+                        inputProps={{ inputMode: 'decimal' }}
                         fullWidth
                       />
                       <TextField
                         label="%"
-                        type="number"
                         value={grade.percentage}
                         onChange={(e) => updateGrade(subject.id, index, 'percentage', e.target.value)}
-                        inputProps={{ min: 0, max: 100, step: 0.1 }}
+                        inputProps={{ inputMode: 'decimal' }}
                         fullWidth
                       />
+                      <Box sx={{ display: 'flex', gap: 0.5 }}>
+                        <IconButton
+                          size="small"
+                          onClick={() => addGrade(subject.id)}
+                          sx={{ 
+                            bgcolor: '#4caf50',
+                            color: 'white',
+                            '&:hover': { bgcolor: '#45a049' }
+                          }}
+                        >
+                          <AddIcon />
+                        </IconButton>
+                        {subject.grades.length > 1 && (
+                          <IconButton
+                            size="small"
+                            onClick={() => removeGrade(subject.id, index)}
+                            sx={{ 
+                              bgcolor: '#f44336',
+                              color: 'white',
+                              '&:hover': { bgcolor: '#da190b' }
+                            }}
+                          >
+                            <RemoveIcon />
+                          </IconButton>
+                        )}
+                      </Box>
                     </Box>
                   ))}
                 </Box>
@@ -225,11 +267,10 @@ const GradeCalculator = () => {
                 {/* Nota objetivo */}
                 <TextField
                   fullWidth
-                  label="Nota objetivo (ej: 4.0)"
-                  type="number"
+                  label="Nota objetivo (ej: 4.0 o 4,0)"
                   value={subject.targetGrade}
                   onChange={(e) => updateTargetGrade(subject.id, e.target.value)}
-                  inputProps={{ min: 1, max: 7, step: 0.1 }}
+                  inputProps={{ inputMode: 'decimal' }}
                   sx={{ mb: 3 }}
                 />
 
@@ -248,24 +289,9 @@ const GradeCalculator = () => {
                         '&:hover': { bgcolor: '#45a049' }
                       }}
                     >
-                      NOTA NECESARIA: {needed.grade.toFixed(2)} ({needed.percentage.toFixed(1)}%)
+                      NOTA NECESARIA: {needed.grade.toFixed(2).replace('.', ',')} ({needed.percentage.toFixed(1).replace('.', ',')}%)
                     </Button>
                   )}
-                  
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    sx={{ 
-                      bgcolor: '#8bc34a',
-                      color: 'white',
-                      py: 1.5,
-                      fontSize: '1rem',
-                      '&:hover': { bgcolor: '#7cb342' }
-                    }}
-                    onClick={() => updateNumGrades(subject.id, subject.numGrades + 1)}
-                  >
-                    AGREGAR NOTA
-                  </Button>
 
                   <Button
                     fullWidth
