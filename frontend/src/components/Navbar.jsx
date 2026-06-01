@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
@@ -21,6 +21,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
 import FolderIcon from '@mui/icons-material/Folder'
 import SchoolIcon from '@mui/icons-material/School'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
@@ -28,6 +29,9 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [ocioExpanded, setOcioExpanded] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [scrollTimeout, setScrollTimeout] = useState(null)
   const open = Boolean(anchorEl)
   const location = useLocation()
   const navigate = useNavigate()
@@ -36,6 +40,46 @@ const Navbar = () => {
   const navbarBackground = isYeniPage 
     ? 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' 
     : 'linear-gradient(135deg, #FF8C00 0%, #FFD700 100%)'
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      // Mostrar navbar al hacer scroll hacia arriba
+      if (currentScrollY < lastScrollY) {
+        setVisible(true)
+      }
+      // Ocultar navbar al hacer scroll hacia abajo (después de 100px)
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setVisible(false)
+      }
+
+      setLastScrollY(currentScrollY)
+
+      // Limpiar timeout anterior
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout)
+      }
+
+      // Ocultar navbar después de 2 segundos sin actividad
+      const timeout = setTimeout(() => {
+        if (window.scrollY > 100) {
+          setVisible(false)
+        }
+      }, 2000)
+
+      setScrollTimeout(timeout)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout)
+      }
+    }
+  }, [lastScrollY, scrollTimeout])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -124,7 +168,16 @@ const Navbar = () => {
             <ListItemIcon>
               <SchoolIcon sx={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText primary="Carrera" sx={{ color: 'white' }} />
+            <ListItemText primary="Calificación" sx={{ color: 'white' }} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/gym" onClick={handleDrawerToggle}>
+            <ListItemIcon>
+              <FitnessCenterIcon sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Gym" sx={{ color: 'white' }} />
           </ListItemButton>
         </ListItem>
 
@@ -145,7 +198,8 @@ const Navbar = () => {
       <AppBar position="fixed" sx={{ 
         background: navbarBackground,
         boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-        transition: 'background 0.3s ease'
+        transition: 'transform 0.3s ease, background 0.3s ease',
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)'
       }}>
         <Toolbar sx={{ maxWidth: '1400px', width: '100%', margin: '0 auto', px: 2 }}>
           {/* Mobile Menu Icon */}
@@ -238,7 +292,16 @@ const Navbar = () => {
               startIcon={<SchoolIcon />}
               sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
             >
-              Carrera
+              Calificación
+            </Button>
+
+            <Button 
+              component={Link} 
+              to="/gym"
+              startIcon={<FitnessCenterIcon />}
+              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+            >
+              Gym
             </Button>
 
             <Button 

@@ -54,7 +54,7 @@ const Proyecto = () => {
               marginBottom: '16px',
               fontWeight: 'bold'
             }}>
-              🎯 Objetivo General
+              Objetivo General
             </h2>
             <p style={{
               color: 'white',
@@ -236,7 +236,7 @@ const Proyecto = () => {
                 color: 'rgba(255,255,255,0.6)',
                 fontSize: '1rem'
               }}>
-                💡 Más pasos se agregarán próximamente
+                Más pasos se agregarán próximamente
               </p>
             </div>
           </div>
