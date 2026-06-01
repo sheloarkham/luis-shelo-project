@@ -123,7 +123,7 @@ const initialAnimeData = [
     studio: "TMS Entertainment",
     year: 1996,
     image: "/anime-card.jpg",
-    Estado: "Viendo"
+    Estado: "Pendiente"
   },
   {
     title: "Fire Force",
@@ -235,7 +235,7 @@ const initialAnimeData = [
     studio: "Bones",
     year: 2016,
     image: "/anime-card.jpg",
-    Estado: "Viendo"
+    Estado: "Pendiente"
   },
   {
     title: "Claymore",
@@ -499,7 +499,7 @@ const initialAnimeData = [
     studio: "Wit Studio / CloverWorks",
     year: 2022,
     image: "/anime-card.jpg",
-    Estado: "Viendo"
+    Estado: "Pendiente"
   },
   {
     title: "Moriarty the Patriot",

@@ -20,7 +20,7 @@ const initialBooksData = [
     pages: 192,
     image: "/assetsB/invisible.png",
     synopsis: "Griffin, un científico brillante, descubre la fórmula para volverse invisible, pero su experimento lo condena a una existencia de aislamiento y locura. Una reflexión sobre el poder, la moralidad y las consecuencias de la ciencia sin ética.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "La Amortajada",
@@ -29,7 +29,7 @@ const initialBooksData = [
     pages: 142,
     image: "/assetsB/amortajda.jpg",
     synopsis: "Ana María, desde su ataúd, rememora su vida, sus amores y desamores. Una obra pionera del realismo mágico latinoamericano que explora la condición femenina y la muerte desde una perspectiva poética y surrealista.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "Cartas a Lucilio",
@@ -83,7 +83,7 @@ const initialBooksData = [
     pages: 384,
     image: "/assetsB/percy.png",
     synopsis: "Percy descubre que es hijo de Poseidón y debe encontrar el rayo maestro de Zeus antes de que estalle una guerra entre los dioses. Primera entrega de una saga que mezcla mitología griega con aventuras modernas para adolescentes.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "Rebelión en la granja",
@@ -92,7 +92,7 @@ const initialBooksData = [
     pages: 144,
     image: "/assetsB/rebelion.png",
     synopsis: "Los animales de la Granja Manor se rebelan contra su dueño humano, estableciendo su propio gobierno. Una alegoría satírica sobre la Revolución Rusa y el totalitarismo que muestra cómo el poder corrompe incluso las mejores intenciones.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "Mapas de Significado: La arquitectura de la creencia",
@@ -119,7 +119,7 @@ const initialBooksData = [
     pages: 409,
     image: "/assetsB/12%20reglas.png",
     synopsis: "Doce principios profundos para vivir una vida significativa, desde 'Ordena tu habitación' hasta 'Acaricia a un gato cuando te encuentres uno en la calle'. Peterson combina psicología clínica, filosofía y sabiduría práctica.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "El Psicoanalista",
@@ -128,7 +128,7 @@ const initialBooksData = [
     pages: 544,
     image: "/assetsB/psico.png",
     synopsis: "El Dr. Frederick Starks recibe una carta anónima que le da 15 días para suicidarse o enfrentar las consecuencias. Un thriller psicológico intenso donde debe descubrir la identidad de su torturador mientras su vida se desmorona.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "El Psicoanalista: jaque al psicoanalista",
@@ -137,7 +137,7 @@ const initialBooksData = [
     pages: 496,
     image: "/assetsB/psico.png",
     synopsis: "Secuela de El Psicoanalista. El Dr. Frederick Starks debe enfrentar nuevamente el terror cuando alguien de su pasado regresa con sed de venganza. Un thriller psicológico que explora las consecuencias de las decisiones tomadas en el primer libro.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "1984",
@@ -146,7 +146,7 @@ const initialBooksData = [
     pages: 326,
     image: "/assetsB/1984.png",
     synopsis: "Winston Smith vive en Oceanía, una sociedad totalitaria donde el Gran Hermano vigila cada movimiento. La novela distópica definitiva sobre vigilancia masiva, control del pensamiento y la lucha por la libertad individual contra el Estado.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "Black Paradox",
@@ -155,7 +155,7 @@ const initialBooksData = [
     pages: 248,
     image: "/assetsB/blackpa.png",
     synopsis: "Cuatro jóvenes con tendencias suicidas se conocen en un foro de internet y planean suicidarse juntos. Pero su encuentro desencadena eventos sobrenaturales y grotescos típicos del maestro del horror japonés Junji Ito.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "El Túnel",
@@ -164,7 +164,7 @@ const initialBooksData = [
     pages: 165,
     image: "/assetsB/tunel.png",
     synopsis: "Juan Pablo Castel, desde la cárcel, narra por qué mató a María Iribarne, la única mujer que comprendía su arte. Una novela existencialista sobre la incomunicación humana, la soledad y la obsesión amorosa destructiva.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   },
   {
     title: "El Psicoanalista en la Mira",
@@ -173,7 +173,7 @@ const initialBooksData = [
     pages: 496,
     image: "/assetsB/psico.png",
     synopsis: "Secuela de El Psicoanalista. El Dr. Frederick Starks debe enfrentar nuevamente el terror cuando alguien de su pasado regresa con sed de venganza. Un thriller psicológico que explora las consecuencias de las decisiones tomadas en el primer libro.",
-    Estado: "Leido"
+    Estado: "Pendiente"
   }
 ]
 
