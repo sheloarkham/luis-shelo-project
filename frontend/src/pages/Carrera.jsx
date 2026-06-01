@@ -1,4 +1,5 @@
 import './shared-page.css'
+import GradeCalculator from '../components/GradeCalculator'
 
 const Carrera = () => {
   return (
@@ -8,9 +9,7 @@ const Carrera = () => {
           <header>
             <h1>Carrera</h1>
           </header>
-          <p style={{textAlign: 'center', color: 'white', fontSize: '1.2rem'}}>
-            Sección de carrera - En desarrollo
-          </p>
+          <GradeCalculator />
         </main>
       </div>
     </div>
