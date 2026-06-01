@@ -32,8 +32,7 @@ const GradeCalculator = () => {
       grades: [
         { value: '', percentage: 50 },
         { value: '', percentage: 50 }
-      ],
-      targetGrade: 4.0
+      ]
     }
     setSubjects([...subjects, newSubject])
     setEditingSubject(newSubject.id)
@@ -93,29 +92,14 @@ const GradeCalculator = () => {
     }))
   }
 
-  const updateTargetGrade = (id, value) => {
-    const normalizedValue = typeof value === 'string' ? value.replace(',', '.') : value
-    setSubjects(subjects.map(s => s.id === id ? { ...s, targetGrade: parseFloat(normalizedValue) || 4.0 } : s))
-  }
-
-  const calculateNeededGrade = (subject) => {
-    const totalPercentage = subject.grades.reduce((sum, g) => sum + parseFloat(g.percentage || 0), 0)
-    if (totalPercentage >= 100) return null
-    
+  const calculateCurrentAverage = (subject) => {
     const weightedSum = subject.grades.reduce((sum, g) => {
       const grade = parseFloat(g.value)
       const percentage = parseFloat(g.percentage)
-      return sum + (isNaN(grade) ? 0 : grade * percentage)
+      return sum + (isNaN(grade) || isNaN(percentage) ? 0 : (grade * percentage) / 100)
     }, 0)
     
-    const remainingPercentage = 100 - totalPercentage
-    const neededGrade = ((subject.targetGrade * 100) - weightedSum) / remainingPercentage
-    
-    return {
-      grade: neededGrade,
-      percentage: remainingPercentage,
-      possible: neededGrade >= 1.0 && neededGrade <= 7.0
-    }
+    return weightedSum
   }
 
   return (
@@ -143,8 +127,7 @@ const GradeCalculator = () => {
         </Box>
       ) : (
         subjects.map((subject) => {
-          const needed = calculateNeededGrade(subject)
-          const totalPercentage = subject.grades.reduce((sum, g) => sum + parseFloat(g.percentage || 0), 0)
+          const currentAverage = calculateCurrentAverage(subject)
 
           return (
             <Card key={subject.id} sx={{ 
@@ -177,10 +160,10 @@ const GradeCalculator = () => {
                     <DeleteIcon />
                   </IconButton>
                   <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                    {needed ? needed.grade.toFixed(1).replace('.', ',') : '—'}
+                    {currentAverage > 0 ? currentAverage.toFixed(2).replace('.', ',') : '—'}
                   </Typography>
                   <Typography variant="caption">
-                    (Nota Final Necesaria)
+                    Promedio Actual (1-7)
                   </Typography>
                 </Box>
 
@@ -264,35 +247,8 @@ const GradeCalculator = () => {
                   ))}
                 </Box>
 
-                {/* Nota objetivo */}
-                <TextField
-                  fullWidth
-                  label="Nota objetivo (ej: 4.0 o 4,0)"
-                  value={subject.targetGrade}
-                  onChange={(e) => updateTargetGrade(subject.id, e.target.value)}
-                  inputProps={{ inputMode: 'decimal' }}
-                  sx={{ mb: 3 }}
-                />
-
-                {/* Botones de acción */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  {needed && totalPercentage < 100 && (
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      sx={{ 
-                        bgcolor: '#4caf50',
-                        color: 'white',
-                        py: 1.5,
-                        fontSize: '1rem',
-                        fontWeight: 'bold',
-                        '&:hover': { bgcolor: '#45a049' }
-                      }}
-                    >
-                      NOTA NECESARIA: {needed.grade.toFixed(2).replace('.', ',')} ({needed.percentage.toFixed(1).replace('.', ',')}%)
-                    </Button>
-                  )}
-
+                {/* Botón de borrar */}
+                <Box sx={{ mt: 3 }}>
                   <Button
                     fullWidth
                     variant="contained"
