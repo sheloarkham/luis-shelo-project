@@ -202,9 +202,9 @@ const BooksList = ({ searchTerm = '' }) => {
     }
   }, [books, isLoaded])
 
-  const handleMenuOpen = (event, index) => {
+  const handleMenuOpen = (event, bookTitle) => {
     setAnchorEl(event.currentTarget)
-    setSelectedBook(index)
+    setSelectedBook(bookTitle)
   }
 
   const handleMenuClose = () => {
@@ -213,9 +213,9 @@ const BooksList = ({ searchTerm = '' }) => {
   }
 
   const changeStatus = (status) => {
-    const updatedBooks = [...books]
-    updatedBooks[selectedBook].Estado = status
-    setBooks(updatedBooks)
+    setBooks(books.map(book => 
+      book.title === selectedBook ? { ...book, Estado: status } : book
+    ))
     handleMenuClose()
   }
 
@@ -258,7 +258,7 @@ const BooksList = ({ searchTerm = '' }) => {
     }}>
       <IconButton
         sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: 'rgba(255,255,255,1)' } }}
-        onClick={(e) => handleMenuOpen(e, index)}
+        onClick={(e) => handleMenuOpen(e, book.title)}
       >
         <MoreVertIcon />
       </IconButton>
@@ -294,8 +294,7 @@ const BooksList = ({ searchTerm = '' }) => {
   )
 
   const deleteBook = () => {
-    const updatedBooks = books.filter((_, index) => index !== selectedBook)
-    setBooks(updatedBooks)
+    setBooks(books.filter(book => book.title !== selectedBook))
     handleMenuClose()
   }
 

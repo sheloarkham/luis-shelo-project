@@ -19,7 +19,6 @@ const GradeCalculator = () => {
     return saved ? JSON.parse(saved) : []
   })
   const [newSubjectName, setNewSubjectName] = useState('')
-  const [targetGrade, setTargetGrade] = useState(4.0)
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(subjects))
@@ -30,6 +29,7 @@ const GradeCalculator = () => {
       setSubjects([...subjects, {
         id: Date.now(),
         name: newSubjectName,
+        numGrades: 3,
         grades: [],
         targetGrade: 4.0
       }])
@@ -41,33 +41,47 @@ const GradeCalculator = () => {
     setSubjects(subjects.filter(s => s.id !== id))
   }
 
-  const addGrade = (subjectId) => {
+  const updateNumGrades = (subjectId, num) => {
+    const numGrades = Math.max(1, Math.min(10, parseInt(num) || 1))
     setSubjects(subjects.map(s => 
       s.id === subjectId 
-        ? { ...s, grades: [...s.grades, { id: Date.now(), value: 0, percentage: 0 }] }
-        : s
-    ))
-  }
-
-  const updateGrade = (subjectId, gradeId, field, value) => {
-    setSubjects(subjects.map(s => 
-      s.id === subjectId 
-        ? {
-            ...s,
-            grades: s.grades.map(g => 
-              g.id === gradeId ? { ...g, [field]: parseFloat(value) || 0 } : g
+        ? { 
+            ...s, 
+            numGrades,
+            grades: Array(numGrades).fill(null).map((_, i) => 
+              s.grades[i] || { id: Date.now() + i, value: 0, percentage: (100 / numGrades).toFixed(1) }
             )
           }
         : s
     ))
   }
 
-  const deleteGrade = (subjectId, gradeId) => {
-    setSubjects(subjects.map(s => 
-      s.id === subjectId 
-        ? { ...s, grades: s.grades.filter(g => g.id !== gradeId) }
-        : s
-    ))
+  const updateGrade = (subjectId, gradeIndex, field, value) => {
+    setSubjects(subjects.map(s => {
+      if (s.id === subjectId) {
+        const newGrades = [...s.grades]
+        if (field === 'value') {
+          newGrades[gradeIndex] = { ...newGrades[gradeIndex], value: parseFloat(value) || 0 }
+        } else if (field === 'percentage') {
+          newGrades[gradeIndex] = { ...newGrades[gradeIndex], percentage: parseFloat(value) || 0 }
+        }
+        return { ...s, grades: newGrades }
+      }
+      return s
+    }))
+  }
+
+  const distributeEqually = (subjectId) => {
+    setSubjects(subjects.map(s => {
+      if (s.id === subjectId) {
+        const equalPercentage = (100 / s.numGrades).toFixed(1)
+        return {
+          ...s,
+          grades: s.grades.map(g => ({ ...g, percentage: parseFloat(equalPercentage) }))
+        }
+      }
+      return s
+    }))
   }
 
   const updateTargetGrade = (subjectId, value) => {
@@ -77,19 +91,19 @@ const GradeCalculator = () => {
   }
 
   const calculateCurrentAverage = (grades) => {
-    const totalPercentage = grades.reduce((sum, g) => sum + g.percentage, 0)
+    const totalPercentage = grades.reduce((sum, g) => sum + parseFloat(g.percentage || 0), 0)
     if (totalPercentage === 0) return 0
-    const weightedSum = grades.reduce((sum, g) => sum + (g.value * g.percentage), 0)
+    const weightedSum = grades.reduce((sum, g) => sum + (parseFloat(g.value || 0) * parseFloat(g.percentage || 0)), 0)
     return weightedSum / totalPercentage
   }
 
   const calculateNeededGrade = (subject) => {
     const currentGrades = subject.grades
-    const totalPercentage = currentGrades.reduce((sum, g) => sum + g.percentage, 0)
+    const totalPercentage = currentGrades.reduce((sum, g) => sum + parseFloat(g.percentage || 0), 0)
     
     if (totalPercentage >= 100) return null
     
-    const weightedSum = currentGrades.reduce((sum, g) => sum + (g.value * g.percentage), 0)
+    const weightedSum = currentGrades.reduce((sum, g) => sum + (parseFloat(g.value || 0) * parseFloat(g.percentage || 0)), 0)
     const remainingPercentage = 100 - totalPercentage
     
     const neededGrade = ((subject.targetGrade * 100) - weightedSum) / remainingPercentage
@@ -166,35 +180,58 @@ const GradeCalculator = () => {
                 </IconButton>
               </Box>
 
-              {/* Nota objetivo */}
-              <Box sx={{ mb: 2 }}>
-                <TextField
-                  label="Nota objetivo"
-                  type="number"
-                  value={subject.targetGrade}
-                  onChange={(e) => updateTargetGrade(subject.id, e.target.value)}
-                  inputProps={{ min: 1, max: 7, step: 0.1 }}
-                  sx={{
-                    width: 150,
-                    '& .MuiOutlinedInput-root': {
-                      color: 'white',
-                      '& fieldset': { borderColor: 'rgba(255,255,255,0.3)' },
-                    },
-                    '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' },
-                  }}
-                />
+              {/* Configuración del ramo */}
+              <Box sx={{ mb: 3 }}>
+                <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+                  <TextField
+                    label="¿Cuántas notas tienes?"
+                    type="number"
+                    value={subject.numGrades}
+                    onChange={(e) => updateNumGrades(subject.id, e.target.value)}
+                    inputProps={{ min: 1, max: 10, step: 1 }}
+                    sx={{
+                      width: 200,
+                      '& .MuiOutlinedInput-root': {
+                        color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.3)' },
+                      },
+                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' },
+                    }}
+                  />
+                  <TextField
+                    label="Nota objetivo"
+                    type="number"
+                    value={subject.targetGrade}
+                    onChange={(e) => updateTargetGrade(subject.id, e.target.value)}
+                    inputProps={{ min: 1, max: 7, step: 0.1 }}
+                    sx={{
+                      width: 150,
+                      '& .MuiOutlinedInput-root': {
+                        color: 'white',
+                        '& fieldset': { borderColor: 'rgba(255,255,255,0.3)' },
+                      },
+                      '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' },
+                    }}
+                  />
+                  <Button
+                    onClick={() => distributeEqually(subject.id)}
+                    sx={{ color: 'white', border: '1px solid rgba(255,255,255,0.3)' }}
+                  >
+                    Distribuir % igual
+                  </Button>
+                </Box>
               </Box>
 
-              {/* Notas ingresadas */}
+              {/* Notas */}
               <Box sx={{ mb: 2 }}>
                 {subject.grades.map((grade, index) => (
-                  <Box key={grade.id} sx={{ display: 'flex', gap: 2, mb: 1, alignItems: 'center' }}>
-                    <Chip label={`Nota ${index + 1}`} sx={{ bgcolor: 'rgba(255,255,255,0.3)', color: 'white' }} />
+                  <Box key={index} sx={{ display: 'flex', gap: 2, mb: 1, alignItems: 'center' }}>
+                    <Chip label={`Nota ${index + 1}`} sx={{ bgcolor: 'rgba(255,255,255,0.3)', color: 'white', width: 80 }} />
                     <TextField
                       label="Nota"
                       type="number"
-                      value={grade.value}
-                      onChange={(e) => updateGrade(subject.id, grade.id, 'value', e.target.value)}
+                      value={grade.value || ''}
+                      onChange={(e) => updateGrade(subject.id, index, 'value', e.target.value)}
                       inputProps={{ min: 1, max: 7, step: 0.1 }}
                       sx={{
                         width: 100,
@@ -208,9 +245,9 @@ const GradeCalculator = () => {
                     <TextField
                       label="%"
                       type="number"
-                      value={grade.percentage}
-                      onChange={(e) => updateGrade(subject.id, grade.id, 'percentage', e.target.value)}
-                      inputProps={{ min: 0, max: 100, step: 1 }}
+                      value={grade.percentage || ''}
+                      onChange={(e) => updateGrade(subject.id, index, 'percentage', e.target.value)}
+                      inputProps={{ min: 0, max: 100, step: 0.1 }}
                       sx={{
                         width: 100,
                         '& .MuiOutlinedInput-root': {
@@ -220,21 +257,8 @@ const GradeCalculator = () => {
                         '& .MuiInputLabel-root': { color: 'rgba(255,255,255,0.7)' },
                       }}
                     />
-                    <IconButton 
-                      onClick={() => deleteGrade(subject.id, grade.id)} 
-                      sx={{ color: 'white' }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
                   </Box>
                 ))}
-                <Button
-                  startIcon={<AddIcon />}
-                  onClick={() => addGrade(subject.id)}
-                  sx={{ color: 'white', mt: 1 }}
-                >
-                  Agregar Nota
-                </Button>
               </Box>
 
               {/* Resultados */}
