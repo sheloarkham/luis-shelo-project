@@ -241,7 +241,7 @@ const Navbar = () => {
               flexGrow: { xs: 1, md: 0 },
               mr: { md: 4 },
               fontWeight: 700,
-              color: 'white',
+              color: navbarTextColor,
               textDecoration: 'none',
               fontSize: { xs: '1.2rem', md: '1.5rem' },
               '&:hover': { transform: 'scale(1.05)' },
@@ -257,7 +257,7 @@ const Navbar = () => {
               component={Link} 
               to="/" 
               startIcon={<HomeIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               Home
             </Button>
@@ -265,7 +265,7 @@ const Navbar = () => {
             <Button
               startIcon={<SportsEsportsIcon />}
               onClick={handleClick}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               Ocio
             </Button>
@@ -292,7 +292,7 @@ const Navbar = () => {
               component={Link} 
               to="/presupuestos"
               startIcon={<AccountBalanceWalletIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               Presupuestos
             </Button>
@@ -301,7 +301,7 @@ const Navbar = () => {
               component={Link} 
               to="/proyecto"
               startIcon={<FolderIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               El Proyecto
             </Button>
@@ -310,7 +310,7 @@ const Navbar = () => {
               component={Link} 
               to="/carrera"
               startIcon={<SchoolIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               Calificación
             </Button>
@@ -319,7 +319,7 @@ const Navbar = () => {
               component={Link} 
               to="/gym"
               startIcon={<FitnessCenterIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               Gym
             </Button>
@@ -346,7 +346,7 @@ const Navbar = () => {
               component={Link} 
               to="/yeni"
               startIcon={<FavoriteIcon />}
-              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+              sx={{ color: '#ff6b9d', '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               Yeni 💞
             </Button>
