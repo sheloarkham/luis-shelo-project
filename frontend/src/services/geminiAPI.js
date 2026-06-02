@@ -5,8 +5,6 @@ class GeminiAPI {
   constructor() {
     // La API key se guarda en localStorage para que el usuario la configure
     this.apiKey = localStorage.getItem('gemini_api_key') || '';
-    this.baseURL = 'https://generativelanguage.googleapis.com/v1/models';
-    this.model = 'gemini-1.5-flash-latest'; // Modelo gratuito más actualizado
   }
 
   // Configurar API key
@@ -26,37 +24,29 @@ class GeminiAPI {
       throw new Error('API key no configurada. Por favor configura tu API key de Gemini.');
     }
 
-    // Construir el prompt completo con memoria
-    const messages = [];
-
+    // Construir el prompt completo con sistema y memoria
+    let fullPrompt = '';
+    
     // Agregar system prompt (personalidad)
     if (systemPrompt) {
-      messages.push({
-        role: 'user',
-        parts: [{ text: `INSTRUCCIONES DEL SISTEMA: ${systemPrompt}\n\nResponde siempre siguiendo estas instrucciones.` }]
-      });
-      messages.push({
-        role: 'model',
-        parts: [{ text: 'Entendido. Seguiré estas instrucciones en todas mis respuestas.' }]
-      });
+      fullPrompt += `[INSTRUCCIONES DEL SISTEMA]\n${systemPrompt}\n\n`;
     }
 
-    // Agregar historial de conversación (TODA la memoria)
-    conversationHistory.forEach(msg => {
-      messages.push({
-        role: msg.role === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.message }]
+    // Agregar historial de conversación (últimos mensajes para contexto)
+    if (conversationHistory.length > 0) {
+      fullPrompt += '[HISTORIAL DE CONVERSACIÓN]\n';
+      conversationHistory.forEach(msg => {
+        const prefix = msg.role === 'user' ? 'Usuario' : 'Jack';
+        fullPrompt += `${prefix}: ${msg.message}\n`;
       });
-    });
+      fullPrompt += '\n';
+    }
 
     // Agregar mensaje actual
-    messages.push({
-      role: 'user',
-      parts: [{ text: userMessage }]
-    });
+    fullPrompt += `Usuario: ${userMessage}\nJack:`;
 
-    // Hacer request a Gemini
-    const url = `${this.baseURL}/${this.model}:generateContent?key=${this.apiKey}`;
+    // Hacer request a Gemini usando v1beta con gemini-pro
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${this.apiKey}`;
     
     try {
       const response = await fetch(url, {
@@ -65,13 +55,35 @@ class GeminiAPI {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          contents: messages,
+          contents: [{
+            parts: [{
+              text: fullPrompt
+            }]
+          }],
           generationConfig: {
             temperature: 0.9,
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 2048,
-          }
+          },
+          safetySettings: [
+            {
+              category: "HARM_CATEGORY_HARASSMENT",
+              threshold: "BLOCK_NONE"
+            },
+            {
+              category: "HARM_CATEGORY_HATE_SPEECH",
+              threshold: "BLOCK_NONE"
+            },
+            {
+              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              threshold: "BLOCK_NONE"
+            },
+            {
+              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+              threshold: "BLOCK_NONE"
+            }
+          ]
         })
       });
 
@@ -83,7 +95,7 @@ class GeminiAPI {
       const data = await response.json();
       const aiResponse = data.candidates[0]?.content?.parts[0]?.text || 'No pude generar una respuesta.';
       
-      return aiResponse;
+      return aiResponse.trim();
     } catch (error) {
       console.error('Error calling Gemini API:', error);
       throw error;
