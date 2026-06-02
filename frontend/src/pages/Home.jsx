@@ -7,43 +7,25 @@ const StatCard = ({ title, stats, icon, color }) => {
   
   return (
     <Card sx={{ 
-      background: `linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(45, 45, 45, 0.95) 100%)`,
-      backdropFilter: 'blur(10px)',
-      border: `2px solid ${color}`,
-      borderRadius: 4,
+      background: '#ffffff',
+      border: `1px solid #e0e0e0`,
+      borderRadius: 1,
       height: '100%',
-      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-      position: 'relative',
-      overflow: 'hidden',
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: '-100%',
-        width: '100%',
-        height: '100%',
-        background: `linear-gradient(90deg, transparent, ${color}20, transparent)`,
-        transition: 'left 0.5s ease'
-      },
+      transition: 'all 0.3s ease',
       '&:hover': {
-        transform: 'translateY(-12px) scale(1.02)',
-        boxShadow: `0 20px 60px ${color}50, 0 0 40px ${color}30`,
-        border: `2px solid ${color}`,
-        '&::before': {
-          left: '100%'
-        }
+        transform: 'translateY(-5px)',
+        boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
       }
     }}>
-      <CardContent sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+      <CardContent sx={{ p: 4 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
           <Typography 
             variant="h4" 
             sx={{ 
-              color, 
-              fontWeight: 800,
+              color: '#2c2c2c', 
+              fontWeight: 300,
               flex: 1,
-              textShadow: `0 0 20px ${color}80`,
-              letterSpacing: '0.5px'
+              letterSpacing: '0.15em'
             }}
           >
             {icon} {title}
@@ -56,9 +38,9 @@ const StatCard = ({ title, stats, icon, color }) => {
               variant="determinate"
               value={100}
               size={140}
-              thickness={3}
+              thickness={2}
               sx={{
-                color: `${color}20`,
+                color: '#f5f5f5',
                 position: 'absolute'
               }}
             />
@@ -66,13 +48,9 @@ const StatCard = ({ title, stats, icon, color }) => {
               variant="determinate"
               value={porcentajeProgreso || 0}
               size={140}
-              thickness={3}
+              thickness={2}
               sx={{
                 color: color,
-                '& .MuiCircularProgress-circle': {
-                  strokeLinecap: 'round',
-                  filter: `drop-shadow(0 0 8px ${color})`
-                }
               }}
             />
             <Box
@@ -91,9 +69,8 @@ const StatCard = ({ title, stats, icon, color }) => {
               <Typography 
                 variant="h3" 
                 sx={{ 
-                  color: 'white', 
-                  fontWeight: 900,
-                  textShadow: `0 0 20px ${color}80`
+                  color: '#2c2c2c', 
+                  fontWeight: 300,
                 }}
               >
                 {porcentajeProgreso || 0}%
@@ -101,10 +78,12 @@ const StatCard = ({ title, stats, icon, color }) => {
               <Typography 
                 variant="caption" 
                 sx={{ 
-                  color: color,
-                  fontWeight: 600,
+                  color: '#666',
+                  fontWeight: 400,
                   fontSize: '0.85rem',
-                  mt: 0.5
+                  mt: 0.5,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase'
                 }}
               >
                 Progreso
@@ -118,21 +97,21 @@ const StatCard = ({ title, stats, icon, color }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: 'rgba(0, 0, 0, 0.4)',
-              borderRadius: 3,
-              border: `1px solid ${color}30`,
+              bgcolor: '#fafafa',
+              borderRadius: 1,
+              border: `1px solid #e0e0e0`,
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: `${color}10`,
-                border: `1px solid ${color}`,
-                transform: 'translateY(-2px)'
+                bgcolor: '#ffffff',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: color, fontWeight: 800 }}>
+            <Typography variant="h5" sx={{ color: color, fontWeight: 300 }}>
               {total}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
+            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
               Total
             </Typography>
           </Box>
@@ -140,21 +119,21 @@ const StatCard = ({ title, stats, icon, color }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: 'rgba(0, 0, 0, 0.4)',
-              borderRadius: 3,
-              border: '1px solid #4ade8030',
+              bgcolor: '#fafafa',
+              borderRadius: 1,
+              border: '1px solid #e0e0e0',
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: '#4ade8010',
-                border: '1px solid #4ade80',
-                transform: 'translateY(-2px)'
+                bgcolor: '#ffffff',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: '#4ade80', fontWeight: 800 }}>
+            <Typography variant="h5" sx={{ color: '#4ade80', fontWeight: 300 }}>
               {stats.completadas || stats.completados || stats.leidos || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
+            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
               Completados
             </Typography>
           </Box>
@@ -162,21 +141,21 @@ const StatCard = ({ title, stats, icon, color }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: 'rgba(0, 0, 0, 0.4)',
-              borderRadius: 3,
-              border: '1px solid #fbbf2430',
+              bgcolor: '#fafafa',
+              borderRadius: 1,
+              border: '1px solid #e0e0e0',
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: '#fbbf2410',
-                border: '1px solid #fbbf24',
-                transform: 'translateY(-2px)'
+                bgcolor: '#ffffff',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: '#fbbf24', fontWeight: 800 }}>
+            <Typography variant="h5" sx={{ color: '#fbbf24', fontWeight: 300 }}>
               {stats.viendo || stats.jugando || stats.leyendo || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
+            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
               En progreso
             </Typography>
           </Box>
@@ -184,21 +163,21 @@ const StatCard = ({ title, stats, icon, color }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: 'rgba(0, 0, 0, 0.4)',
-              borderRadius: 3,
-              border: '1px solid #ef444430',
+              bgcolor: '#fafafa',
+              borderRadius: 1,
+              border: '1px solid #e0e0e0',
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: '#ef444410',
-                border: '1px solid #ef4444',
-                transform: 'translateY(-2px)'
+                bgcolor: '#ffffff',
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: '#ef4444', fontWeight: 800 }}>
+            <Typography variant="h5" sx={{ color: '#ef4444', fontWeight: 300 }}>
               {stats.pendientes || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#aaa', fontWeight: 600 }}>
+            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
               Pendientes
             </Typography>
           </Box>
@@ -270,8 +249,8 @@ const Home = () => {
 
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-        <CircularProgress sx={{ color: '#FFD700' }} size={60} />
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', bgcolor: '#fafafa' }}>
+        <CircularProgress sx={{ color: '#2c2c2c' }} size={60} thickness={2} />
       </Box>
     )
   }
@@ -293,49 +272,26 @@ const Home = () => {
           sx={{ 
             mb: 6, 
             textAlign: 'center',
-            position: 'relative',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: -20,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 100,
-              height: 4,
-              background: 'linear-gradient(90deg, transparent, #FFD700, transparent)',
-              borderRadius: 2
-            }
           }}
         >
           <Typography 
             variant="h2" 
             sx={{ 
-              color: '#FFD700',
-              fontWeight: 900,
-              mb: 1,
-              textShadow: '0 0 30px rgba(255, 215, 0, 0.5), 0 4px 12px rgba(255, 215, 0, 0.3)',
-              letterSpacing: '1px',
-              background: 'linear-gradient(45deg, #FFD700, #FFA500, #FFD700)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundSize: '200% 200%',
-              animation: 'gradientShift 3s ease infinite',
-              '@keyframes gradientShift': {
-                '0%, 100%': { backgroundPosition: '0% 50%' },
-                '50%': { backgroundPosition: '100% 50%' }
-              }
+              color: '#2c2c2c',
+              fontWeight: 300,
+              mb: 2,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase'
             }}
           >
-            Progreso de las cosas que puedo hacer en mi tiempo libre
+            Mi Tiempo Libre
           </Typography>
           <Typography 
             variant="h6" 
             sx={{ 
-              color: '#aaa',
-              fontWeight: 500,
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
+              color: '#666',
+              fontWeight: 300,
+              letterSpacing: '0.1em',
               fontSize: '0.9rem'
             }}
           >

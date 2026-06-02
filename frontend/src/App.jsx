@@ -8,6 +8,7 @@ import Carrera from './pages/Carrera'
 import Gym from './pages/Gym'
 import Yeni from './pages/Yeni'
 import Books from './pages/Books'
+import Chat from './pages/Chat'
 import './App.css'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="gym" element={<Gym />} />
           <Route path="yeni" element={<Yeni />} />
           <Route path="books" element={<Books />} />
+          <Route path="chat" element={<Chat />} />
         </Route>
       </Routes>
     </Router>
