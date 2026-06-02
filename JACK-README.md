@@ -14,22 +14,24 @@ Jack es un chatbot inteligente con **memoria infinita** que nunca olvida nada de
   - Personalizado (tú defines cómo es)
 - **💾 Persistencia Local**: Todo se guarda en tu navegador
 - **📥 Exportación**: Descarga backup de todas tus conversaciones
-- **🆓 100% Gratis**: Usa Google Gemini API (sin tarjeta de crédito)
+- **🆓 100% Gratis**: Usa Groq API con Llama 3.3 (sin tarjeta de crédito)
+- **⚡ Súper Rápido**: Groq es más rápido que ChatGPT
 
 ## 🚀 Cómo Empezar
 
 ### 1. Obtener API Key (Gratis)
 
-1. Ve a [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Inicia sesión con tu cuenta de Google
-3. Haz clic en **"Create API Key"**
-4. Copia la key generada
+1. Ve a [Groq Console](https://console.groq.com)
+2. Crea una cuenta (sin tarjeta de crédito)
+3. Ve a **"API Keys"** en el menú
+4. Haz clic en **"Create API Key"**
+5. Copia la key generada
 
 ### 2. Configurar Jack
 
 1. Ve a la página **Jack** en el navbar
 2. Haz clic en **"⚙️ Configurar"**
-3. Pega tu API Key
+3. Pega tu API Key de Groq
 4. Elige una personalidad (o crea la tuya)
 5. ¡Listo! Empieza a hablar
 
@@ -76,16 +78,17 @@ Haz clic en **🗑️** para limpiar toda la conversación (confirmación requer
 
 ## 🆓 Límites Gratuitos
 
-**Google Gemini API Gratis:**
-- ✅ 60 requests por minuto
+**Groq API Gratis:**
+- ✅ 30 requests por minuto
 - ✅ Sin límite de mensajes diarios
 - ✅ Sin necesidad de tarjeta de crédito
-- ✅ Modelo: Gemini 1.5 Flash (rápido y potente)
+- ✅ Modelo: Llama 3.3 70B (súper potente)
+- ⚡ **MÁS RÁPIDO que ChatGPT**
 
 ## 🛠️ Tecnologías Usadas
 
 - **Frontend**: React + Vite
-- **API**: Google Gemini 1.5 Flash
+- **API**: Groq con Llama 3.3 70B
 - **Almacenamiento**: IndexedDB (memoria infinita)
 - **Estilos**: CSS custom con gradientes
 
