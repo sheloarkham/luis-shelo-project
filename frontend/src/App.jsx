@@ -7,6 +7,7 @@ import Proyecto from './pages/Proyecto'
 import Carrera from './pages/Carrera'
 import Gym from './pages/Gym'
 import Yeni from './pages/Yeni'
+import Books from './pages/Books'
 import './App.css'
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="carrera" element={<Carrera />} />
           <Route path="gym" element={<Gym />} />
           <Route path="yeni" element={<Yeni />} />
+          <Route path="books" element={<Books />} />
         </Route>
       </Routes>
     </Router>

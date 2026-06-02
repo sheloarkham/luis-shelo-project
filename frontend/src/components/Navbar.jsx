@@ -22,6 +22,7 @@ import FolderIcon from '@mui/icons-material/Folder'
 import SchoolIcon from '@mui/icons-material/School'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
@@ -39,7 +40,9 @@ const Navbar = () => {
   
   const navbarBackground = isYeniPage 
     ? 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' 
-    : 'linear-gradient(135deg, #FF8C00 0%, #FFD700 100%)'
+    : '#ffffff'
+  
+  const navbarTextColor = isYeniPage ? 'white' : '#2c2c2c'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -182,6 +185,15 @@ const Navbar = () => {
         </ListItem>
 
         <ListItem disablePadding>
+          <ListItemButton component={Link} to="/books" onClick={handleDrawerToggle}>
+            <ListItemIcon>
+              <MenuBookIcon sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Books" sx={{ color: 'white' }} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
           <ListItemButton component={Link} to="/yeni" onClick={handleDrawerToggle}>
             <ListItemIcon>
               <FavoriteIcon sx={{ color: '#ff6b9d' }} />
@@ -197,7 +209,8 @@ const Navbar = () => {
     <>
       <AppBar position="fixed" sx={{ 
         background: navbarBackground,
-        boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+        boxShadow: isYeniPage ? '0 2px 10px rgba(0,0,0,0.1)' : 'none',
+        borderBottom: isYeniPage ? 'none' : '1px solid #e0e0e0',
         transition: 'transform 0.3s ease, background 0.3s ease',
         transform: visible ? 'translateY(0)' : 'translateY(-100%)'
       }}>
@@ -237,7 +250,7 @@ const Navbar = () => {
               component={Link} 
               to="/" 
               startIcon={<HomeIcon />}
-              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
             >
               Home
             </Button>
@@ -245,7 +258,7 @@ const Navbar = () => {
             <Button
               startIcon={<SportsEsportsIcon />}
               onClick={handleClick}
-              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
             >
               Ocio
             </Button>
@@ -272,7 +285,7 @@ const Navbar = () => {
               component={Link} 
               to="/presupuestos"
               startIcon={<AccountBalanceWalletIcon />}
-              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
             >
               Presupuestos
             </Button>
@@ -281,7 +294,7 @@ const Navbar = () => {
               component={Link} 
               to="/proyecto"
               startIcon={<FolderIcon />}
-              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
             >
               El Proyecto
             </Button>
@@ -290,7 +303,7 @@ const Navbar = () => {
               component={Link} 
               to="/carrera"
               startIcon={<SchoolIcon />}
-              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
             >
               Calificación
             </Button>
@@ -299,9 +312,18 @@ const Navbar = () => {
               component={Link} 
               to="/gym"
               startIcon={<FitnessCenterIcon />}
-              sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
             >
               Gym
+            </Button>
+
+            <Button 
+              component={Link} 
+              to="/books"
+              startIcon={<MenuBookIcon />}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+            >
+              Books
             </Button>
 
             <Button 
