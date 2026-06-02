@@ -23,6 +23,7 @@ import SchoolIcon from '@mui/icons-material/School'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
+import ChatIcon from '@mui/icons-material/Chat'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
@@ -38,11 +39,8 @@ const Navbar = () => {
   const navigate = useNavigate()
   const isYeniPage = location.pathname === '/yeni'
   
-  const navbarBackground = isYeniPage 
-    ? 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' 
-    : '#ffffff'
-  
-  const navbarTextColor = isYeniPage ? 'white' : '#2c2c2c'
+  const navbarBackground = '#ffffff'
+  const navbarTextColor = '#2c2c2c'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -194,6 +192,15 @@ const Navbar = () => {
         </ListItem>
 
         <ListItem disablePadding>
+          <ListItemButton component={Link} to="/chat" onClick={handleDrawerToggle}>
+            <ListItemIcon>
+              <ChatIcon sx={{ color: 'white' }} />
+            </ListItemIcon>
+            <ListItemText primary="Jack" sx={{ color: 'white' }} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
           <ListItemButton component={Link} to="/yeni" onClick={handleDrawerToggle}>
             <ListItemIcon>
               <FavoriteIcon sx={{ color: '#ff6b9d' }} />
@@ -209,8 +216,8 @@ const Navbar = () => {
     <>
       <AppBar position="fixed" sx={{ 
         background: navbarBackground,
-        boxShadow: isYeniPage ? '0 2px 10px rgba(0,0,0,0.1)' : 'none',
-        borderBottom: isYeniPage ? 'none' : '1px solid #e0e0e0',
+        boxShadow: 'none',
+        borderBottom: '1px solid #e0e0e0',
         transition: 'transform 0.3s ease, background 0.3s ease',
         transform: visible ? 'translateY(0)' : 'translateY(-100%)'
       }}>
@@ -321,9 +328,18 @@ const Navbar = () => {
               component={Link} 
               to="/books"
               startIcon={<MenuBookIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: isYeniPage ? 'rgba(255,255,255,0.2)' : '#f5f5f5' } }}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
             >
               Books
+            </Button>
+
+            <Button 
+              component={Link} 
+              to="/chat"
+              startIcon={<ChatIcon />}
+              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+            >
+              Jack
             </Button>
 
             <Button 
