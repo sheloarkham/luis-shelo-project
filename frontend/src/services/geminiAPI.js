@@ -6,7 +6,7 @@ class GeminiAPI {
     // La API key se guarda en localStorage para que el usuario la configure
     this.apiKey = localStorage.getItem('gemini_api_key') || '';
     this.baseURL = 'https://generativelanguage.googleapis.com/v1beta/models';
-    this.model = 'gemini-1.5-flash'; // Modelo gratuito más rápido
+    this.model = 'gemini-pro'; // Modelo gratuito estable
   }
 
   // Configurar API key
