@@ -41,26 +41,28 @@ const Proyecto = () => {
           
           {/* Objetivo General */}
           <div style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            borderRadius: '16px',
+            background: '#ffffff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '8px',
             padding: '32px',
             marginBottom: '40px',
-            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
             textAlign: 'center'
           }}>
             <h2 style={{
-              color: 'white',
+              color: '#2c2c2c',
               fontSize: '2rem',
               marginBottom: '16px',
-              fontWeight: 'bold'
+              fontWeight: '300',
+              letterSpacing: '0.2em'
             }}>
               Objetivo General
             </h2>
             <p style={{
-              color: 'white',
+              color: '#666',
               fontSize: '1.5rem',
               fontWeight: '300',
-              letterSpacing: '1px'
+              letterSpacing: '0.1em'
             }}>
               Dominar Javascript
             </p>
@@ -68,20 +70,23 @@ const Proyecto = () => {
 
           {/* Roadmap */}
           <div style={{
-            background: 'rgba(255,255,255,0.05)',
-            borderRadius: '16px',
+            background: '#ffffff',
+            border: '1px solid #e0e0e0',
+            borderRadius: '8px',
             padding: '32px',
-            backdropFilter: 'blur(10px)'
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
           }}>
             <h2 style={{
-              color: 'white',
+              color: '#2c2c2c',
               fontSize: '1.8rem',
               marginBottom: '32px',
               textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '12px'
+              gap: '12px',
+              fontWeight: '300',
+              letterSpacing: '0.15em'
             }}>
               Roadmap de Aprendizaje
             </h2>
@@ -98,7 +103,7 @@ const Proyecto = () => {
                 top: '0',
                 bottom: '0',
                 width: '3px',
-                background: 'linear-gradient(180deg, #667eea 0%, #764ba2 100%)'
+                background: '#e0e0e0'
               }} />
 
               {/* Pasos del roadmap */}
@@ -131,20 +136,23 @@ const Proyecto = () => {
 
                   {/* Contenido del paso */}
                   <div style={{
-                    background: 'rgba(255,255,255,0.08)',
-                    borderRadius: '12px',
+                    background: '#fafafa',
+                    border: '1px solid #e0e0e0',
+                    borderRadius: '8px',
                     padding: '20px',
                     borderLeft: `4px solid ${getStepColor(step.status)}`,
                     transition: 'all 0.3s',
                     cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.12)'
+                    e.currentTarget.style.background = '#ffffff'
                     e.currentTarget.style.transform = 'translateX(8px)'
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)'
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
+                    e.currentTarget.style.background = '#fafafa'
                     e.currentTarget.style.transform = 'translateX(0)'
+                    e.currentTarget.style.boxShadow = 'none'
                   }}
                   >
                     {/* Ícono visual del curso */}
@@ -159,16 +167,19 @@ const Proyecto = () => {
                     )}
                     
                     <h3 style={{
-                      color: 'white',
+                      color: '#2c2c2c',
                       fontSize: '1.3rem',
-                      marginBottom: '8px'
+                      marginBottom: '8px',
+                      fontWeight: '400',
+                      letterSpacing: '0.05em'
                     }}>
                       {step.title}
                     </h3>
                     <p style={{
-                      color: 'rgba(255,255,255,0.7)',
+                      color: '#666',
                       fontSize: '1rem',
-                      marginBottom: '12px'
+                      marginBottom: '12px',
+                      fontWeight: '300'
                     }}>
                       {step.description}
                     </p>
@@ -183,21 +194,22 @@ const Proyecto = () => {
                           display: 'inline-block',
                           padding: '8px 16px',
                           marginBottom: '12px',
-                          borderRadius: '8px',
-                          background: '#667eea',
-                          color: 'white',
+                          borderRadius: '4px',
+                          background: '#2c2c2c',
+                          color: '#ffffff',
                           textDecoration: 'none',
                           fontSize: '0.9rem',
-                          fontWeight: '500',
+                          fontWeight: '400',
+                          letterSpacing: '0.05em',
                           transition: 'all 0.3s'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#5568d3'
-                          e.currentTarget.style.transform = 'scale(1.05)'
+                          e.currentTarget.style.background = '#000000'
+                          e.currentTarget.style.transform = 'translateY(-2px)'
                         }}
                         onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#667eea'
-                          e.currentTarget.style.transform = 'scale(1)'
+                          e.currentTarget.style.background = '#2c2c2c'
+                          e.currentTarget.style.transform = 'translateY(0)'
                         }}
                       >
                         🔗 Ir al curso
@@ -228,13 +240,15 @@ const Proyecto = () => {
               textAlign: 'center',
               marginTop: '40px',
               padding: '20px',
-              background: 'rgba(255,255,255,0.05)',
-              borderRadius: '12px',
-              border: '2px dashed rgba(255,255,255,0.2)'
+              background: '#fafafa',
+              borderRadius: '8px',
+              border: '2px dashed #e0e0e0'
             }}>
               <p style={{
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: '1rem'
+                color: '#666',
+                fontSize: '1rem',
+                fontWeight: '300',
+                letterSpacing: '0.05em'
               }}>
                 Más pasos se agregarán próximamente
               </p>
