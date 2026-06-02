@@ -22,6 +22,7 @@ import FolderIcon from '@mui/icons-material/Folder'
 import SchoolIcon from '@mui/icons-material/School'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
+import ChatIcon from '@mui/icons-material/Chat'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
@@ -189,6 +190,15 @@ const Navbar = () => {
             <ListItemText primary="Yeni 💞" sx={{ color: '#ff6b9d' }} />
           </ListItemButton>
         </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/chat" onClick={handleDrawerToggle}>
+            <ListItemIcon>
+              <ChatIcon sx={{ color: '#4ecca3' }} />
+            </ListItemIcon>
+            <ListItemText primary="Jack 🤖" sx={{ color: '#4ecca3' }} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   )
@@ -311,6 +321,19 @@ const Navbar = () => {
               sx={{ color: 'white', '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' } }}
             >
               Yeni 💞
+            </Button>
+
+            <Button 
+              component={Link} 
+              to="/chat"
+              startIcon={<ChatIcon />}
+              sx={{ 
+                color: 'white', 
+                bgcolor: 'rgba(78, 204, 163, 0.2)',
+                '&:hover': { bgcolor: 'rgba(78, 204, 163, 0.4)' } 
+              }}
+            >
+              Jack 🤖
             </Button>
           </Box>
         </Toolbar>
