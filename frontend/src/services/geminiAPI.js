@@ -1,5 +1,5 @@
-// Integración con Google Gemini API (Gratis)
-// 60 requests por minuto - Totalmente gratis
+// Integración con Groq API (Gratis y súper rápido)
+// Llama 3 - Totalmente gratis, más rápido que ChatGPT
 
 class GeminiAPI {
   constructor() {
@@ -21,83 +21,65 @@ class GeminiAPI {
   // Generar respuesta del chatbot
   async generateResponse(userMessage, conversationHistory = [], systemPrompt = '') {
     if (!this.hasApiKey()) {
-      throw new Error('API key no configurada. Por favor configura tu API key de Gemini.');
+      throw new Error('API key no configurada. Por favor configura tu API key de Groq.');
     }
 
-    // Construir el prompt completo con sistema y memoria
-    let fullPrompt = '';
-    
+    // Construir mensajes en formato Groq/OpenAI
+    const messages = [];
+
     // Agregar system prompt (personalidad)
     if (systemPrompt) {
-      fullPrompt += `[INSTRUCCIONES DEL SISTEMA]\n${systemPrompt}\n\n`;
+      messages.push({
+        role: 'system',
+        content: systemPrompt
+      });
     }
 
-    // Agregar historial de conversación (últimos mensajes para contexto)
-    if (conversationHistory.length > 0) {
-      fullPrompt += '[HISTORIAL DE CONVERSACIÓN]\n';
-      conversationHistory.forEach(msg => {
-        const prefix = msg.role === 'user' ? 'Usuario' : 'Jack';
-        fullPrompt += `${prefix}: ${msg.message}\n`;
+    // Agregar historial de conversación (últimos 20 para contexto)
+    conversationHistory.forEach(msg => {
+      messages.push({
+        role: msg.role === 'user' ? 'user' : 'assistant',
+        content: msg.message
       });
-      fullPrompt += '\n';
-    }
+    });
 
     // Agregar mensaje actual
-    fullPrompt += `Usuario: ${userMessage}\nJack:`;
+    messages.push({
+      role: 'user',
+      content: userMessage
+    });
 
-    // Hacer request a Gemini usando v1beta con gemini-pro
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${this.apiKey}`;
+    // Hacer request a Groq
+    const url = 'https://api.groq.com/openai/v1/chat/completions';
     
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: fullPrompt
-            }]
-          }],
-          generationConfig: {
-            temperature: 0.9,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 2048,
-          },
-          safetySettings: [
-            {
-              category: "HARM_CATEGORY_HARASSMENT",
-              threshold: "BLOCK_NONE"
-            },
-            {
-              category: "HARM_CATEGORY_HATE_SPEECH",
-              threshold: "BLOCK_NONE"
-            },
-            {
-              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-              threshold: "BLOCK_NONE"
-            },
-            {
-              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
-              threshold: "BLOCK_NONE"
-            }
-          ]
+          model: 'llama-3.3-70b-versatile', // Modelo gratuito más potente
+          messages: messages,
+          temperature: 0.9,
+          max_tokens: 2048,
+          top_p: 1,
+          stream: false
         })
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error?.message || 'Error en la API de Gemini');
+        throw new Error(error.error?.message || 'Error en la API de Groq');
       }
 
       const data = await response.json();
-      const aiResponse = data.candidates[0]?.content?.parts[0]?.text || 'No pude generar una respuesta.';
+      const aiResponse = data.choices[0]?.message?.content || 'No pude generar una respuesta.';
       
       return aiResponse.trim();
     } catch (error) {
-      console.error('Error calling Gemini API:', error);
+      console.error('Error calling Groq API:', error);
       throw error;
     }
   }
@@ -105,17 +87,19 @@ class GeminiAPI {
   // Obtener instrucciones para conseguir API key
   static getApiKeyInstructions() {
     return {
-      title: '🔑 Cómo obtener tu API Key GRATIS',
+      title: '🔑 Cómo obtener tu API Key GRATIS de Groq',
       steps: [
-        '1. Ve a https://makersuite.google.com/app/apikey',
-        '2. Inicia sesión con tu cuenta de Google',
-        '3. Haz clic en "Create API Key"',
-        '4. Copia la key generada',
-        '5. Pégala en el campo de configuración',
+        '1. Ve a https://console.groq.com',
+        '2. Crea una cuenta (gratis, sin tarjeta)',
+        '3. Ve a "API Keys" en el menú',
+        '4. Haz clic en "Create API Key"',
+        '5. Copia la key generada',
+        '6. Pégala aquí',
         '',
-        '✅ Es completamente GRATIS',
-        '✅ 60 requests por minuto',
-        '✅ Sin tarjeta de crédito'
+        '✅ 100% GRATIS - Sin tarjeta de crédito',
+        '✅ MÁS RÁPIDO que ChatGPT',
+        '✅ Llama 3.3 70B (súper inteligente)',
+        '✅ 30 requests por minuto'
       ]
     };
   }
