@@ -1,16 +1,32 @@
 import './shared-page.css'
 
+/**
+ * Página "El Proyecto" — roadmap de cursos en progreso.
+ * Cada curso es un objeto en `roadmapSteps` con la misma estructura.
+ */
 const Proyecto = () => {
+  /**
+   * Lista de cursos del roadmap.
+   * Para agregar uno nuevo, copia un objeto y cambia id, title, link, etc.
+   * @type {Array<{id: number, title: string, status: string, description: string, link: string, icon: string}>}
+   */
   const roadmapSteps = [
-    { 
-      id: 1, 
-      title: 'Introducción a la programación', 
-      status: 'en-progreso', 
+    {
+      id: 1,
+      title: 'Introducción a la programación',
+      status: 'en-progreso',
       description: 'Fundamentos de JavaScript - Todo Code Academy',
       link: 'https://todocodeacademy.com/course/introduccion-a-la-programacion/',
-      icon: '💻'
+      icon: '💻',
     },
-    // Aquí irás agregando más pasos después
+    {
+      id: 2,
+      title: 'Google Data Analytics',
+      status: 'en-progreso',
+      description: 'Análisis de datos, SQL, hojas de cálculo y visualización - Coursera',
+      link: 'https://www.coursera.org/professional-certificates/google-data-analytics',
+      icon: '📊',
+    },
   ]
 
   const getStepColor = (status) => {
