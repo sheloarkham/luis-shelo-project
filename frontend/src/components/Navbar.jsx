@@ -27,6 +27,16 @@ import ChatIcon from '@mui/icons-material/Chat'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
+/**
+ * Barra de navegación fija (desktop + menú hamburguesa en mobile).
+ *
+ * Problema que resolvemos aquí:
+ * Con muchos links, el texto se partía en 2 líneas ("El" arriba / "Proyecto" abajo,
+ * "Project" debajo del título, emoji de Yeni abajo). Eso se ve desordenado.
+ *
+ * Solución clave: `whiteSpace: 'nowrap'` = CSS que dice "no cortes este texto;
+ * déjalo siempre en una sola línea horizontal".
+ */
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -41,6 +51,22 @@ const Navbar = () => {
   
   const navbarBackground = '#ffffff'
   const navbarTextColor = '#2c2c2c'
+
+  /**
+   * Estilos compartidos de cada botón del menú desktop.
+   * - whiteSpace: 'nowrap' → título del link en 1 sola línea
+   * - flexShrink: 0 → el botón no se "aplasta" cuando falta espacio
+   * - minWidth: 'auto' → MUI pone un minWidth grande por defecto; lo bajamos
+   * - px más chico → cabe más contenido sin saltar de línea
+   */
+  const navButtonSx = {
+    color: navbarTextColor,
+    whiteSpace: 'nowrap',
+    flexShrink: 0,
+    minWidth: 'auto',
+    px: 1,
+    '&:hover': { bgcolor: '#f5f5f5' },
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -205,7 +231,7 @@ const Navbar = () => {
             <ListItemIcon>
               <FavoriteIcon sx={{ color: '#ff6b9d' }} />
             </ListItemIcon>
-            <ListItemText primary="Yeni 💞" sx={{ color: '#ff6b9d' }} />
+            <ListItemText primary="Yeni" sx={{ color: '#ff6b9d' }} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -221,7 +247,18 @@ const Navbar = () => {
         transition: 'transform 0.3s ease, background 0.3s ease',
         transform: visible ? 'translateY(0)' : 'translateY(-100%)'
       }}>
-        <Toolbar sx={{ maxWidth: '1400px', width: '100%', margin: '0 auto', px: 2 }}>
+        {/* flexWrap: 'nowrap' evita que título + links bajen a una segunda fila */}
+        <Toolbar
+          sx={{
+            maxWidth: '1400px',
+            width: '100%',
+            margin: '0 auto',
+            px: 2,
+            flexWrap: 'nowrap',
+            alignItems: 'center',
+            minHeight: { xs: 56, md: 64 },
+          }}
+        >
           {/* Mobile Menu Icon */}
           <IconButton
             color="inherit"
@@ -233,17 +270,23 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
 
+          {/*
+            whiteSpace: 'nowrap' aquí evita que "Project" caiga debajo de "Luis shelo".
+            flexShrink: 0 evita que el título se comprima y vuelva a partirse.
+          */}
           <Typography 
             variant="h5" 
             component={Link} 
             to="/" 
             sx={{ 
               flexGrow: { xs: 1, md: 0 },
-              mr: { md: 4 },
+              flexShrink: 0,
+              mr: { md: 2 },
               fontWeight: 700,
               color: navbarTextColor,
               textDecoration: 'none',
-              fontSize: { xs: '1.2rem', md: '1.5rem' },
+              whiteSpace: 'nowrap',
+              fontSize: { xs: '1.1rem', md: '1.25rem' },
               '&:hover': { transform: 'scale(1.05)' },
               transition: 'transform 0.3s'
             }}
@@ -251,13 +294,22 @@ const Navbar = () => {
             Luis shelo Project
           </Typography>
 
-          {/* Desktop Menu */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, flexGrow: 1 }}>
+          {/* Desktop Menu — todos los botones usan navButtonSx (nowrap) */}
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              gap: 0.5,
+              flexGrow: 1,
+              flexWrap: 'nowrap',
+              alignItems: 'center',
+              overflowX: 'auto',
+            }}
+          >
             <Button 
               component={Link} 
               to="/" 
               startIcon={<HomeIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               Home
             </Button>
@@ -265,7 +317,7 @@ const Navbar = () => {
             <Button
               startIcon={<SportsEsportsIcon />}
               onClick={handleClick}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               Ocio
             </Button>
@@ -292,16 +344,17 @@ const Navbar = () => {
               component={Link} 
               to="/presupuestos"
               startIcon={<AccountBalanceWalletIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               Presupuestos
             </Button>
 
+            {/* Antes: "El" quedaba arriba y "Proyecto" abajo por falta de espacio */}
             <Button 
               component={Link} 
               to="/proyecto"
               startIcon={<FolderIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               El Proyecto
             </Button>
@@ -310,7 +363,7 @@ const Navbar = () => {
               component={Link} 
               to="/carrera"
               startIcon={<SchoolIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               Calificación
             </Button>
@@ -319,7 +372,7 @@ const Navbar = () => {
               component={Link} 
               to="/gym"
               startIcon={<FitnessCenterIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               Gym
             </Button>
@@ -328,7 +381,7 @@ const Navbar = () => {
               component={Link} 
               to="/books"
               startIcon={<MenuBookIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               Books
             </Button>
@@ -337,18 +390,22 @@ const Navbar = () => {
               component={Link} 
               to="/chat"
               startIcon={<ChatIcon />}
-              sx={{ color: navbarTextColor, '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={navButtonSx}
             >
               Jack
             </Button>
 
+            {/*
+              Solo "Yeni" + el ícono FavoriteIcon.
+              Antes había "Yeni 💞": el emoji se iba debajo y se veían 2 corazones.
+            */}
             <Button 
               component={Link} 
               to="/yeni"
               startIcon={<FavoriteIcon />}
-              sx={{ color: '#ff6b9d', '&:hover': { bgcolor: '#f5f5f5' } }}
+              sx={{ ...navButtonSx, color: '#ff6b9d' }}
             >
-              Yeni 💞
+              Yeni
             </Button>
           </Box>
         </Toolbar>
