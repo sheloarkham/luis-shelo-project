@@ -1,0 +1,33 @@
+/**
+ * Texto blanco con borde negro para que se lea sobre fondo claro.
+ * text-shadow en 8 direcciones simula un contorno alrededor de cada letra.
+ */
+.yeni-text-stroke {
+  color: #ffffff !important;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000,
+    0 -1px 0 #000,
+    0 1px 0 #000,
+    -1px 0 0 #000,
+    1px 0 0 #000;
+}
+
+.rio-spot-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rio-spot-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(0, 151, 57, 0.35);
+}
+
+.rio-activity-card {
+  transition: transform 0.3s ease;
+}
+
+.rio-activity-card:hover {
+  transform: scale(1.03);
+}

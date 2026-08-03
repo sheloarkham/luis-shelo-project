@@ -2,6 +2,48 @@ import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, Grid, CardMedia } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import './shared-page.css'
+import './Yeni.css'
+
+/** Sombra que simula borde negro en texto blanco (para MUI sx) */
+const whiteStrokeSx = {
+  color: '#ffffff',
+  textShadow: `
+    -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000,
+    0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, 1px 0 0 #000
+  `,
+}
+
+/** Los 3 imperdibles de Río de Janeiro */
+const IMPERDIBLES = [
+  {
+    id: 1,
+    name: 'Cristo Redentor',
+    image: '/images/rio/cristo-redentor.png',
+    description: 'El ícono de Río en el Corcovado, con vistas increíbles de toda la ciudad.',
+  },
+  {
+    id: 2,
+    name: 'Pan de Azúcar',
+    image: '/images/rio/pan-de-azucar.png',
+    description: 'Subir en el bondinho y ver la bahía desde las alturas.',
+  },
+  {
+    id: 3,
+    name: 'AquaRio',
+    image: '/images/rio/aquario.png',
+    description: 'El acuario marino más grande de Brasil, con túnel submarino.',
+  },
+]
+
+/** Otras cosas que podemos hacer en Río */
+const OTRAS_ACTIVIDADES = [
+  { name: 'Playa de Copacabana', emoji: '🏖️', description: 'Camina por la orilla, mira el atardecer y prueba un açaí.' },
+  { name: 'Playa de Ipanema', emoji: '🌊', description: 'Famosa por su ambiente, los morros y el posto de sol.' },
+  { name: 'Escadaria Selarón', emoji: '🎨', description: 'Escaleras coloridas en Lapa, perfectas para fotos juntos.' },
+  { name: 'Jardim Botânico', emoji: '🌿', description: 'Paseo entre palmeras, orquídeas y naturaleza tropical.' },
+  { name: 'Maracaná', emoji: '⚽', description: 'Visitar el templo del fútbol brasileño y sentir la pasión.' },
+  { name: 'Feira de São Cristóvão', emoji: '🎶', description: 'Música, comida nordestina y ambiente de fiesta.' },
+]
 
 const Yeni = () => {
   const [timeData, setTimeData] = useState({
@@ -94,10 +136,9 @@ const Yeni = () => {
           <Typography
             variant="h4"
             sx={{
-              color: 'white',
+              ...whiteStrokeSx,
               fontWeight: 'bold',
               mb: 1,
-              textShadow: `0 2px 8px ${color}80`
             }}
           >
             {emoji} {title}
@@ -154,15 +195,14 @@ const Yeni = () => {
                 >
                   {value}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: 'white',
-                    fontWeight: 'bold',
-                    mt: 1,
-                    opacity: 0.9
-                  }}
-                >
+          <Typography
+            variant="body2"
+            sx={{
+              ...whiteStrokeSx,
+              fontWeight: 'bold',
+              mt: 1,
+            }}
+          >
                   {label}
                 </Typography>
               </Box>
@@ -181,20 +221,10 @@ const Yeni = () => {
             <Box sx={{ textAlign: 'center', mb: 6 }}>
               <Typography
                 variant="h2"
+                className="yeni-text-stroke"
                 sx={{
-                  color: 'white',
                   fontWeight: 'bold',
                   mb: 2,
-                  textShadow: '0 4px 12px rgba(255, 107, 157, 0.5)',
-                  background: 'linear-gradient(45deg, #ff6b9d, #c44569, #ff6b9d)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  animation: 'gradient 3s ease infinite',
-                  '@keyframes gradient': {
-                    '0%, 100%': { backgroundPosition: '0% 50%' },
-                    '50%': { backgroundPosition: '100% 50%' }
-                  }
                 }}
               >
                 💞 Yeni 💞
@@ -234,10 +264,10 @@ const Yeni = () => {
                 <Typography
                   variant="body1"
                   sx={{
-                    color: 'white',
+                    ...whiteStrokeSx,
                     fontWeight: 600,
                     mb: 0.5,
-                    fontSize: '0.95rem'
+                    fontSize: '0.95rem',
                   }}
                 >
                   ✨ <strong>Feliz Ricardo:</strong> 21 de marzo, 2024
@@ -245,9 +275,9 @@ const Yeni = () => {
                 <Typography
                   variant="body1"
                   sx={{
-                    color: 'white',
+                    ...whiteStrokeSx,
                     fontWeight: 600,
-                    fontSize: '0.95rem'
+                    fontSize: '0.95rem',
                   }}
                 >
                   ❤️ <strong>Aniversario:</strong> 10 de abril, 2024
@@ -280,12 +310,11 @@ const Yeni = () => {
             <Box sx={{ mt: 6, maxWidth: 1400, mx: 'auto' }}>
               <Typography
                 variant="h3"
+                className="yeni-text-stroke"
                 sx={{
                   textAlign: 'center',
-                  color: 'white',
                   fontWeight: 'bold',
                   mb: 4,
-                  textShadow: '0 2px 12px rgba(255, 107, 157, 0.5)',
                 }}
               >
                  Nuestros Recuerdos
@@ -375,10 +404,9 @@ const Yeni = () => {
                       <CardContent sx={{ p: 3, textAlign: 'center' }}>
                         <Typography
                           variant="h6"
+                          className="yeni-text-stroke"
                           sx={{
-                            color: 'white',
                             fontWeight: 'bold',
-                            textShadow: '0 2px 8px rgba(255, 107, 157, 0.5)'
                           }}
                         >
                           {photo.caption}
@@ -404,11 +432,10 @@ const Yeni = () => {
             >
               <Typography
                 variant="h6"
+                className="yeni-text-stroke"
                 sx={{
-                  color: 'white',
                   fontStyle: 'italic',
                   lineHeight: 1.8,
-                  opacity: 0.9
                 }}
               >
                 "Cada segundo contigo es un regalo. Cada minuto, una bendición.
@@ -420,11 +447,10 @@ const Yeni = () => {
             <Box sx={{ mt: 8, textAlign: 'center', maxWidth: 1000, mx: 'auto' }}>
               <Typography
                 variant="h3"
+                className="yeni-text-stroke"
                 sx={{
-                  color: 'white',
                   fontWeight: 'bold',
                   mb: 2,
-                  textShadow: '0 4px 12px rgba(0, 151, 57, 0.5)',
                 }}
               >
                 Nuestra próxima aventura:
@@ -480,6 +506,79 @@ const Yeni = () => {
                   }}
                 />
               </Card>
+
+              {/* Los 3 imperdibles de Río */}
+              <Typography
+                variant="h3"
+                className="yeni-text-stroke"
+                sx={{ fontWeight: 'bold', mt: 6, mb: 4 }}
+              >
+                Los 3 imperdibles
+              </Typography>
+
+              <Grid container spacing={3}>
+                {IMPERDIBLES.map((spot) => (
+                  <Grid item xs={12} md={4} key={spot.id}>
+                    <Card
+                      className="rio-spot-card"
+                      sx={{
+                        border: '3px solid #009739',
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        height: '100%',
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        image={spot.image}
+                        alt={spot.name}
+                        sx={{ height: 220, objectFit: 'cover' }}
+                      />
+                      <CardContent sx={{ textAlign: 'center' }}>
+                        <Typography variant="h5" className="yeni-text-stroke" sx={{ fontWeight: 'bold', mb: 1 }}>
+                          {spot.name}
+                        </Typography>
+                        <Typography variant="body2" className="yeni-text-stroke">
+                          {spot.description}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+
+              {/* Más cosas para hacer en Río */}
+              <Typography
+                variant="h3"
+                className="yeni-text-stroke"
+                sx={{ fontWeight: 'bold', mt: 6, mb: 4 }}
+              >
+                Más cosas para hacer en Río
+              </Typography>
+
+              <Grid container spacing={2}>
+                {OTRAS_ACTIVIDADES.map((actividad) => (
+                  <Grid item xs={12} sm={6} md={4} key={actividad.name}>
+                    <Card
+                      className="rio-activity-card"
+                      sx={{
+                        p: 2.5,
+                        height: '100%',
+                        border: '2px solid rgba(0, 151, 57, 0.4)',
+                        borderRadius: 3,
+                        bgcolor: 'rgba(0, 151, 57, 0.08)',
+                      }}
+                    >
+                      <Typography variant="h5" className="yeni-text-stroke" sx={{ fontWeight: 'bold', mb: 1 }}>
+                        {actividad.emoji} {actividad.name}
+                      </Typography>
+                      <Typography variant="body2" className="yeni-text-stroke">
+                        {actividad.description}
+                      </Typography>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
             </Box>
           </Box>
         </main>
