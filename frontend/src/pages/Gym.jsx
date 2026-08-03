@@ -8,6 +8,7 @@ import './Gym.css'
 const TRAINING_DAYS = [
   { id: 1, label: 'Día 1' },
   { id: 2, label: 'Día 2' },
+  { id: 3, label: 'Día 3' },
   { id: 4, label: 'Día 4' },
 ]
 
