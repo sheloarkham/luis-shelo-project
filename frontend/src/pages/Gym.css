@@ -1,0 +1,83 @@
+.gym-container {
+  min-height: 100vh;
+}
+
+.gym-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.gym-title {
+  color: #2c2c2c;
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+.gym-subtitle {
+  color: #666;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.gym-days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.gym-day-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 28px 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.gym-day-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  border-color: #2c2c2c;
+}
+
+.gym-day-number {
+  display: inline-block;
+  padding: 6px 14px;
+  margin-bottom: 16px;
+  background: #2c2c2c;
+  color: #ffffff;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.gym-day-label {
+  margin: 0 0 8px;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #2c2c2c;
+}
+
+.gym-day-placeholder {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #999;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 768px) {
+  .gym-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.15em;
+  }
+
+  .gym-days-grid {
+    grid-template-columns: 1fr;
+  }
+}
