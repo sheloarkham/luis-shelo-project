@@ -15,13 +15,65 @@
     1px 0 0 #000;
 }
 
+.rio-imperdibles-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
 .rio-spot-card {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 240px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.rio-spot-image-wrap {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 3px solid #009739;
+}
+
+.rio-spot-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .rio-spot-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(0, 151, 57, 0.35);
+  transform: translateY(-6px);
+}
+
+.rio-spot-card:hover .rio-spot-image-wrap {
+  box-shadow: 0 12px 28px rgba(0, 151, 57, 0.35);
+}
+
+.rio-spot-title {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.85rem !important;
+  line-height: 1.3;
+}
+
+@media (max-width: 600px) {
+  .rio-imperdibles-row {
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .rio-spot-card {
+    max-width: none;
+  }
+
+  .rio-spot-title {
+    font-size: 0.7rem !important;
+  }
 }
 
 .rio-activity-card {

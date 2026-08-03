@@ -507,45 +507,35 @@ const Yeni = () => {
                 />
               </Card>
 
-              {/* Los 3 imperdibles de Río */}
+              {/* Los 3 imperdibles — cuadrados en fila */}
               <Typography
                 variant="h3"
                 className="yeni-text-stroke"
-                sx={{ fontWeight: 'bold', mt: 6, mb: 4 }}
+                sx={{ fontWeight: 'bold', mt: 6, mb: 3 }}
               >
                 Los 3 imperdibles
               </Typography>
 
-              <Grid container spacing={3}>
+              <Box className="rio-imperdibles-row">
                 {IMPERDIBLES.map((spot) => (
-                  <Grid item xs={12} md={4} key={spot.id}>
-                    <Card
-                      className="rio-spot-card"
-                      sx={{
-                        border: '3px solid #009739',
-                        borderRadius: 4,
-                        overflow: 'hidden',
-                        height: '100%',
-                      }}
-                    >
+                  <Box key={spot.id} className="rio-spot-card">
+                    <Box className="rio-spot-image-wrap">
                       <CardMedia
                         component="img"
                         image={spot.image}
                         alt={spot.name}
-                        sx={{ height: 220, objectFit: 'cover' }}
                       />
-                      <CardContent sx={{ textAlign: 'center' }}>
-                        <Typography variant="h5" className="yeni-text-stroke" sx={{ fontWeight: 'bold', mb: 1 }}>
-                          {spot.name}
-                        </Typography>
-                        <Typography variant="body2" className="yeni-text-stroke">
-                          {spot.description}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
+                    </Box>
+                    <Typography
+                      variant="subtitle2"
+                      className="yeni-text-stroke rio-spot-title"
+                      sx={{ fontWeight: 'bold' }}
+                    >
+                      {spot.name}
+                    </Typography>
+                  </Box>
                 ))}
-              </Grid>
+              </Box>
 
               {/* Más cosas para hacer en Río */}
               <Typography
