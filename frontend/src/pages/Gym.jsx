@@ -18,7 +18,7 @@ const Gym = () => {
       <div className="content">
         <header className="gym-header">
           <h1 className="gym-title">Gym</h1>
-          <p className="gym-subtitle">Rutina semanal — 3 días de entrenamiento</p>
+          <p className="gym-subtitle">Rutina semanal — 4 días de entrenamiento</p>
         </header>
 
         <section className="gym-days-grid" aria-label="Días de entrenamiento">
