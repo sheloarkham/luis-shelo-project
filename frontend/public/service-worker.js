@@ -1,6 +1,6 @@
 // Service Worker para PWA - Funcionalidad Offline
-const CACHE_NAME = 'luis-shelo-app-v3';
-const RUNTIME_CACHE = 'luis-shelo-runtime-v3';
+const CACHE_NAME = 'luis-shelo-app-v4';
+const RUNTIME_CACHE = 'luis-shelo-runtime-v4';
 
 // Archivos críticos para cachear en la instalación
 const PRECACHE_URLS = [
@@ -71,7 +71,27 @@ self.addEventListener('fetch', (event) => {
         })
     );
   } else {
-    // Cache First para imágenes y otros recursos estáticos
+    // Imágenes: Network First para evitar servir HTML cacheado como imagen
+    const isImage = /\.(png|jpe?g|gif|webp|svg)(\?|$)/i.test(url);
+
+    if (isImage) {
+      event.respondWith(
+        fetch(event.request)
+          .then((response) => {
+            if (response && response.status === 200 && response.headers.get('content-type')?.startsWith('image/')) {
+              const responseToCache = response.clone();
+              caches.open(RUNTIME_CACHE).then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+            }
+            return response;
+          })
+          .catch(() => caches.match(event.request))
+      );
+      return;
+    }
+
+    // Cache First para otros recursos estáticos
     event.respondWith(
       caches.match(event.request)
         .then((cachedResponse) => {
