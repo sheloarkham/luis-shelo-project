@@ -26,6 +26,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import ChatIcon from '@mui/icons-material/Chat'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import { useThemeCustomization } from '../context/ThemeContext'
 
 /**
  * Barra de navegación fija (desktop + menú hamburguesa en mobile).
@@ -47,10 +48,11 @@ const Navbar = () => {
   const open = Boolean(anchorEl)
   const location = useLocation()
   const navigate = useNavigate()
+  const { colors } = useThemeCustomization()
   const isYeniPage = location.pathname === '/yeni'
   
-  const navbarBackground = '#ffffff'
-  const navbarTextColor = '#2c2c2c'
+  const navbarBackground = colors.navbarBg
+  const navbarTextColor = colors.navbarText
 
   /**
    * Estilos compartidos de cada botón del menú desktop.
@@ -242,6 +244,7 @@ const Navbar = () => {
     <>
       <AppBar position="fixed" sx={{ 
         background: navbarBackground,
+        color: navbarTextColor,
         boxShadow: 'none',
         borderBottom: '1px solid #e0e0e0',
         transition: 'transform 0.3s ease, background 0.3s ease',
@@ -265,7 +268,7 @@ const Navbar = () => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { xs: 'block', md: 'none' } }}
+            sx={{ mr: 2, display: { xs: 'block', md: 'none' }, color: navbarTextColor }}
           >
             <MenuIcon />
           </IconButton>

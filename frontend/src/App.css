@@ -1,6 +1,6 @@
 .App {
   min-height: 100vh;
-  background: #fafafa;
+  background: var(--color-page-bg);
 }
 
 /* Estilos globales para cards */
