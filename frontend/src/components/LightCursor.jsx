@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 import './LightCursor.css'
 
+const GLOW_RADIUS = 210
+const CORE_RADIUS = 7
+
 const LightCursor = () => {
   const canvasRef = useRef(null)
   const animationRef = useRef(null)
@@ -14,11 +17,21 @@ const LightCursor = () => {
   })
 
   useEffect(() => {
+    document.body.classList.add('light-cursor-active')
+
     const canvas = canvasRef.current
-    if (!canvas) return undefined
+    if (!canvas) {
+      return () => {
+        document.body.classList.remove('light-cursor-active')
+      }
+    }
 
     const context = canvas.getContext('2d')
-    if (!context) return undefined
+    if (!context) {
+      return () => {
+        document.body.classList.remove('light-cursor-active')
+      }
+    }
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
@@ -29,13 +42,13 @@ const LightCursor = () => {
       stateRef.current.particles.push({
         x,
         y,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
         life: 1,
-        size: Math.random() * 2.5 + 1.5,
+        size: Math.random() * 3.5 + 2,
       })
 
-      if (stateRef.current.particles.length > 28) {
+      if (stateRef.current.particles.length > 34) {
         stateRef.current.particles.shift()
       }
     }
@@ -46,7 +59,7 @@ const LightCursor = () => {
       stateRef.current.pointerY = clientY
       stateRef.current.visible = true
 
-      if (Math.random() > 0.55) {
+      if (Math.random() > 0.5) {
         spawnParticle(clientX, clientY)
       }
     }
@@ -69,20 +82,25 @@ const LightCursor = () => {
           0,
           state.glowX,
           state.glowY,
-          140
+          GLOW_RADIUS
         )
-        glow.addColorStop(0, 'rgba(255, 248, 210, 0.42)')
-        glow.addColorStop(0.35, 'rgba(196, 255, 170, 0.18)')
+        glow.addColorStop(0, 'rgba(255, 248, 210, 0.5)')
+        glow.addColorStop(0.35, 'rgba(196, 255, 170, 0.22)')
         glow.addColorStop(1, 'rgba(255, 255, 255, 0)')
 
         context.fillStyle = glow
         context.beginPath()
-        context.arc(state.glowX, state.glowY, 140, 0, Math.PI * 2)
+        context.arc(state.glowX, state.glowY, GLOW_RADIUS, 0, Math.PI * 2)
         context.fill()
 
-        context.fillStyle = 'rgba(255, 255, 230, 0.85)'
+        context.fillStyle = 'rgba(255, 255, 230, 0.95)'
         context.beginPath()
-        context.arc(state.glowX, state.glowY, 4, 0, Math.PI * 2)
+        context.arc(state.glowX, state.glowY, CORE_RADIUS, 0, Math.PI * 2)
+        context.fill()
+
+        context.fillStyle = 'rgba(255, 255, 255, 0.9)'
+        context.beginPath()
+        context.arc(state.glowX, state.glowY, CORE_RADIUS * 0.35, 0, Math.PI * 2)
         context.fill()
       }
 
@@ -90,9 +108,9 @@ const LightCursor = () => {
       state.particles.forEach((particle) => {
         particle.x += particle.vx
         particle.y += particle.vy
-        particle.life -= 0.028
+        particle.life -= 0.026
 
-        context.globalAlpha = particle.life * 0.75
+        context.globalAlpha = particle.life * 0.8
         context.fillStyle = 'rgba(255, 245, 190, 0.95)'
         context.beginPath()
         context.arc(particle.x, particle.y, particle.size * particle.life, 0, Math.PI * 2)
@@ -110,6 +128,7 @@ const LightCursor = () => {
     animationRef.current = window.requestAnimationFrame(draw)
 
     return () => {
+      document.body.classList.remove('light-cursor-active')
       window.removeEventListener('resize', resizeCanvas)
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerleave', onPointerLeave)

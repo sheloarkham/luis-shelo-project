@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, CircularProgress, Alert, Grid } from '@mui/material'
 import ForestBackground from '../components/ForestBackground'
 import HomeForestIntro, { hasSeenHomeIntro } from '../components/HomeForestIntro'
-import LightCursor from '../components/LightCursor'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
 
@@ -391,7 +390,6 @@ const Home = () => {
   return (
     <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
       {forestMode && <ForestBackground />}
-      {forestMode && introComplete && <LightCursor />}
       <Box
         className={`home-page__stage${introComplete ? ' home-page__stage--visible' : ''}`}
       >

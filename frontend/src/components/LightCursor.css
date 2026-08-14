@@ -1,13 +1,23 @@
 .light-cursor {
   position: fixed;
   inset: 0;
-  z-index: 2;
+  z-index: 9997;
   pointer-events: none;
   mix-blend-mode: screen;
+}
+
+body.light-cursor-active,
+body.light-cursor-active * {
+  cursor: none !important;
 }
 
 @media (max-width: 768px) {
   .light-cursor {
     display: none;
+  }
+
+  body.light-cursor-active,
+  body.light-cursor-active * {
+    cursor: auto !important;
   }
 }
