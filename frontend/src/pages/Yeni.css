@@ -2,6 +2,19 @@
  * Texto blanco con borde negro para que se lea sobre fondo claro.
  * text-shadow en 8 direcciones simula un contorno alrededor de cada letra.
  */
+.yeni-page .content {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  pointer-events: none;
+}
+
+.yeni-page--visible .content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .yeni-text-stroke {
   color: #ffffff !important;
   text-shadow:

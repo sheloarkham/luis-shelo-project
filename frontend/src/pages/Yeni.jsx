@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, Grid, CardMedia } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useParticleTheme } from '../context/ParticleThemeContext'
 import './shared-page.css'
 import './Yeni.css'
 
@@ -46,6 +47,7 @@ const OTRAS_ACTIVIDADES = [
 ]
 
 const Yeni = () => {
+  const { runYeniEntrance, resetTheme, yeniContentVisible } = useParticleTheme()
   const [timeData, setTimeData] = useState({
     conocidos: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 },
     pololeando: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
@@ -102,6 +104,13 @@ const Yeni = () => {
       seconds: seconds % 60
     }
   }
+
+  useEffect(() => {
+    runYeniEntrance()
+    return () => {
+      resetTheme()
+    }
+  }, [runYeniEntrance, resetTheme])
 
   useEffect(() => {
     const updateTime = () => {
@@ -214,7 +223,7 @@ const Yeni = () => {
   )
 
   return (
-    <div className="page-container">
+    <div className={`page-container yeni-page${yeniContentVisible ? ' yeni-page--visible' : ''}`}>
       <div className="content">
         <main>
           <Box sx={{ p: 4, minHeight: '100vh' }}>
