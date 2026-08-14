@@ -1,25 +1,41 @@
 // Service Worker para PWA - Funcionalidad Offline
-const CACHE_NAME = 'luis-shelo-app-v4';
-const RUNTIME_CACHE = 'luis-shelo-runtime-v4';
+const CACHE_NAME = 'luis-shelo-app-v5';
+const RUNTIME_CACHE = 'luis-shelo-runtime-v5';
 
-// Archivos críticos para cachear en la instalación
-const PRECACHE_URLS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
-];
+// Solo recursos estáticos que existen y no cambian de hash entre deploys
+const PRECACHE_URLS = ['/manifest.json'];
 
-// Instalación: cachea archivos críticos
+const isNavigationRequest = (request) =>
+  request.mode === 'navigate' ||
+  request.headers.get('accept')?.includes('text/html');
+
+const networkFirst = (request) =>
+  fetch(request)
+    .then((response) => {
+      if (response && response.status === 200) {
+        const responseToCache = response.clone();
+        caches.open(RUNTIME_CACHE).then((cache) => {
+          cache.put(request, responseToCache);
+        });
+      }
+      return response;
+    })
+    .catch(() => caches.match(request));
+
+// Instalación: cachea solo lo esencial (sin bloquear si falta algún archivo)
 self.addEventListener('install', (event) => {
   console.log('Service Worker: Instalando...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Service Worker: Cacheando archivos críticos');
-        return cache.addAll(PRECACHE_URLS);
-      })
+      .then((cache) =>
+        Promise.allSettled(
+          PRECACHE_URLS.map((url) =>
+            cache.add(url).catch((error) => {
+              console.warn('Service Worker: No se pudo precachear', url, error);
+            })
+          )
+        )
+      )
       .then(() => self.skipWaiting())
   );
 });
@@ -41,7 +57,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Estrategia: Network First con revalidación (para JS/CSS), Cache First para imágenes
+// Estrategia: Network First para HTML/JS/CSS; Cache First para imágenes
 self.addEventListener('fetch', (event) => {
   // Solo cachear GET requests
   if (event.request.method !== 'GET') return;
@@ -50,26 +66,16 @@ self.addEventListener('fetch', (event) => {
   if (!event.request.url.startsWith('http')) return;
 
   const url = event.request.url;
-  const isAppResource = url.includes('.js') || url.includes('.css') || url.includes('.html');
+  const isAppResource =
+    isNavigationRequest(event.request) ||
+    url.includes('.js') ||
+    url.includes('.css') ||
+    url.includes('.html');
 
-  // Network First para JS/CSS/HTML (siempre intenta actualizar)
+  // Network First para navegación y assets versionados (evita pantalla blanca tras deploy)
   if (isAppResource) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          if (response && response.status === 200) {
-            const responseToCache = response.clone();
-            caches.open(RUNTIME_CACHE).then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
-          }
-          return response;
-        })
-        .catch(() => {
-          // Si falla la red, usar caché
-          return caches.match(event.request);
-        })
-    );
+    event.respondWith(networkFirst(event.request));
+    return;
   } else {
     // Imágenes: Network First para evitar servir HTML cacheado como imagen
     const isImage = /\.(png|jpe?g|gif|webp|svg)(\?|$)/i.test(url);
