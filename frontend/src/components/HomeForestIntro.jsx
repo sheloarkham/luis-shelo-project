@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
 import './HomeForestIntro.css'
 
-const FOREST_VIDEO_CDN =
-  'https://assets.mixkit.co/videos/preview/mixkit-sun-light-passing-through-the-trees-in-a-forest-11859-large.mp4'
-
 const INTRO_SEEN_KEY = 'luis-shelo-home-intro-seen'
 
 export const hasSeenHomeIntro = () => {
@@ -53,18 +50,6 @@ const HomeForestIntro = ({ onComplete }) => {
         if (event.key === 'Enter' || event.key === ' ') dismissIntro()
       }}
     >
-      <video
-        className="home-forest-intro__video"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      >
-        <source src="/videos/forest-bg.mp4" type="video/mp4" />
-        <source src={FOREST_VIDEO_CDN} type="video/mp4" />
-      </video>
-
       <div className="home-forest-intro__overlay" />
 
       <div className="home-forest-intro__content">

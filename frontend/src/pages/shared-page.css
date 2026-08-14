@@ -1,6 +1,6 @@
 .page-container {
   min-height: 100vh;
-  background: var(--color-page-bg);
+  background: transparent;
   color: var(--color-page-text);
 }
 

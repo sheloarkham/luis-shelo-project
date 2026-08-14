@@ -1,27 +1,25 @@
 import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, CircularProgress, Alert, Grid } from '@mui/material'
-import ForestBackground from '../components/ForestBackground'
 import HomeForestIntro, { hasSeenHomeIntro } from '../components/HomeForestIntro'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
 
-const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
+const StatCard = ({ title, stats, icon, color }) => {
   const { total, porcentajeProgreso } = stats
   
   return (
-    <Card className={forestMode ? 'home-stat-card' : undefined} sx={{ 
-      background: forestMode ? 'rgba(255, 255, 255, 0.86)' : '#ffffff',
-      border: forestMode ? '1px solid rgba(255, 255, 255, 0.45)' : '1px solid #e0e0e0',
+    <Card className="home-stat-card" sx={{ 
+      background: 'rgba(8, 16, 32, 0.72)',
+      border: '1px solid rgba(80, 150, 255, 0.28)',
       borderRadius: 1,
       height: '100%',
-      backdropFilter: forestMode ? 'blur(14px)' : 'none',
-      WebkitBackdropFilter: forestMode ? 'blur(14px)' : 'none',
+      backdropFilter: 'blur(14px)',
+      WebkitBackdropFilter: 'blur(14px)',
       transition: 'all 0.3s ease',
       '&:hover': {
         transform: 'translateY(-5px)',
-        boxShadow: forestMode
-          ? '0 12px 28px rgba(0, 0, 0, 0.22)'
-          : '0 8px 20px rgba(0, 0, 0, 0.08)',
+        boxShadow: '0 12px 28px rgba(0, 40, 120, 0.35)',
+        borderColor: 'rgba(100, 180, 255, 0.45)',
       }
     }}>
       <CardContent sx={{ p: 4 }}>
@@ -29,7 +27,7 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
           <Typography 
             variant="h4" 
             sx={{ 
-              color: '#2c2c2c', 
+              color: '#e8f0ff', 
               fontWeight: 300,
               flex: 1,
               letterSpacing: '0.15em'
@@ -76,7 +74,7 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
               <Typography 
                 variant="h3" 
                 sx={{ 
-                  color: '#2c2c2c', 
+                  color: '#e8f0ff', 
                   fontWeight: 300,
                 }}
               >
@@ -85,7 +83,7 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
               <Typography 
                 variant="caption" 
                 sx={{ 
-                  color: '#666',
+                  color: 'rgba(200, 220, 255, 0.75)',
                   fontWeight: 400,
                   fontSize: '0.85rem',
                   mt: 0.5,
@@ -104,21 +102,20 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: '#fafafa',
-              borderRadius: 1,
-              border: `1px solid #e0e0e0`,
+              bgcolor: 'rgba(0, 10, 30, 0.45)',
+              border: '1px solid rgba(80, 150, 255, 0.18)',
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: '#ffffff',
+                bgcolor: 'rgba(10, 30, 60, 0.55)',
                 transform: 'translateY(-2px)',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
+                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
               }
             }}
           >
             <Typography variant="h5" sx={{ color: color, fontWeight: 300 }}>
               {total}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
               Total
             </Typography>
           </Box>
@@ -126,21 +123,21 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: '#fafafa',
+              bgcolor: 'rgba(0, 10, 30, 0.45)',
               borderRadius: 1,
-              border: '1px solid #e0e0e0',
+              border: '1px solid rgba(80, 150, 255, 0.18)',
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: '#ffffff',
+                bgcolor: 'rgba(10, 30, 60, 0.55)',
                 transform: 'translateY(-2px)',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
+                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
               }
             }}
           >
             <Typography variant="h5" sx={{ color: '#4ade80', fontWeight: 300 }}>
               {stats.completadas || stats.completados || stats.leidos || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
               Completados
             </Typography>
           </Box>
@@ -148,21 +145,21 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: '#fafafa',
+              bgcolor: 'rgba(0, 10, 30, 0.45)',
               borderRadius: 1,
-              border: '1px solid #e0e0e0',
+              border: '1px solid rgba(80, 150, 255, 0.18)',
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: '#ffffff',
+                bgcolor: 'rgba(10, 30, 60, 0.55)',
                 transform: 'translateY(-2px)',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
+                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
               }
             }}
           >
             <Typography variant="h5" sx={{ color: '#fbbf24', fontWeight: 300 }}>
               {stats.viendo || stats.jugando || stats.leyendo || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
               En progreso
             </Typography>
           </Box>
@@ -170,21 +167,21 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
             sx={{ 
               textAlign: 'center', 
               p: 2, 
-              bgcolor: '#fafafa',
+              bgcolor: 'rgba(0, 10, 30, 0.45)',
               borderRadius: 1,
-              border: '1px solid #e0e0e0',
+              border: '1px solid rgba(80, 150, 255, 0.18)',
               transition: 'all 0.3s ease',
               '&:hover': {
-                bgcolor: '#ffffff',
+                bgcolor: 'rgba(10, 30, 60, 0.55)',
                 transform: 'translateY(-2px)',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.05)'
+                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
               }
             }}
           >
             <Typography variant="h5" sx={{ color: '#ef4444', fontWeight: 300 }}>
               {stats.pendientes || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#666', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
               Pendientes
             </Typography>
           </Box>
@@ -196,19 +193,18 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
 
 const Home = () => {
   const isDesktop = useIsDesktop()
-  const forestMode = isDesktop
   const [showIntro, setShowIntro] = useState(
-    () => forestMode && !hasSeenHomeIntro()
+    () => isDesktop && !hasSeenHomeIntro()
   )
   const [introComplete, setIntroComplete] = useState(
-    () => !forestMode || hasSeenHomeIntro()
+    () => !isDesktop || hasSeenHomeIntro()
   )
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    if (!forestMode) {
+    if (!isDesktop) {
       setShowIntro(false)
       setIntroComplete(true)
       return
@@ -217,7 +213,7 @@ const Home = () => {
     const seen = hasSeenHomeIntro()
     setShowIntro(!seen)
     setIntroComplete(seen)
-  }, [forestMode])
+  }, [isDesktop])
 
   useEffect(() => {
     loadStats()
@@ -289,10 +285,10 @@ const Home = () => {
             justifyContent: 'center',
             alignItems: 'center',
             minHeight: '80vh',
-            bgcolor: forestMode ? 'transparent' : '#fafafa',
+            bgcolor: 'transparent',
           }}
         >
-          <CircularProgress sx={{ color: forestMode ? '#f5f5f0' : '#2c2c2c' }} size={60} thickness={2} />
+          <CircularProgress sx={{ color: '#66bbff' }} size={60} thickness={2} />
         </Box>
       )
     }
@@ -320,12 +316,12 @@ const Home = () => {
             variant="h2" 
             className="home-page__title"
             sx={{ 
-              color: forestMode ? '#f5f5f0' : '#2c2c2c',
+              color: '#e8f0ff',
               fontWeight: 300,
               mb: 2,
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              textShadow: forestMode ? '0 2px 18px rgba(0, 0, 0, 0.45)' : 'none',
+              textShadow: '0 2px 18px rgba(0, 40, 120, 0.5)',
             }}
           >
             Mi Tiempo Libre
@@ -334,11 +330,11 @@ const Home = () => {
             variant="h6" 
             className="home-page__subtitle"
             sx={{ 
-              color: forestMode ? 'rgba(245, 245, 240, 0.82)' : '#666',
+              color: 'rgba(180, 210, 255, 0.82)',
               fontWeight: 300,
               letterSpacing: '0.1em',
               fontSize: '0.9rem',
-              textShadow: forestMode ? '0 1px 10px rgba(0, 0, 0, 0.35)' : 'none',
+              textShadow: '0 1px 10px rgba(0, 40, 120, 0.35)',
             }}
           >
             Proyecto Luis Shelo
@@ -352,7 +348,6 @@ const Home = () => {
               stats={stats?.series || {}}
               icon="📺"
               color="#FFD700"
-              forestMode={forestMode}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -361,7 +356,6 @@ const Home = () => {
               stats={stats?.anime || {}}
               icon="🎌"
               color="#ff6b6b"
-              forestMode={forestMode}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -370,7 +364,6 @@ const Home = () => {
               stats={stats?.games || {}}
               icon="🎮"
               color="#a78bfa"
-              forestMode={forestMode}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -379,7 +372,6 @@ const Home = () => {
               stats={stats?.books || {}}
               icon="📚"
               color="#60a5fa"
-              forestMode={forestMode}
             />
           </Grid>
         </Grid>
@@ -388,8 +380,7 @@ const Home = () => {
   }
 
   return (
-    <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
-      {forestMode && <ForestBackground />}
+    <div className="home-page">
       <Box
         className={`home-page__stage${introComplete ? ' home-page__stage--visible' : ''}`}
       >

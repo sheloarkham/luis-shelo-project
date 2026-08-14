@@ -1,10 +1,6 @@
 .home-page {
   position: relative;
   min-height: 100vh;
-  background: #fafafa;
-}
-
-.home-page--forest {
   background: transparent;
 }
 
@@ -24,7 +20,7 @@
   transform: translateY(0);
 }
 
-.home-page--forest .home-page__stage:not(.home-page__stage--visible) {
+.home-page__stage:not(.home-page__stage--visible) {
   visibility: hidden;
 }
 

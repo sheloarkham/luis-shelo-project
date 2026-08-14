@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import CustomizePanel from './CustomizePanel'
 import LightCursor from './LightCursor'
+import ParticleBackground from './ParticleBackground'
 import Box from '@mui/material/Box'
 import { useThemeCustomization } from '../context/ThemeContext'
 import { useIsDesktop } from '../hooks/useIsDesktop'
@@ -17,14 +18,17 @@ const Layout = () => {
     : { xs: '56px', md: '64px' }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <ParticleBackground />
       {isDesktop && <LightCursor />}
+      <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Navbar />
       <CustomizePanel />
       <Box component="main" sx={{ flexGrow: 1, mt: mainTopMargin }}>
         <Outlet />
       </Box>
       <Footer />
+      </Box>
     </Box>
   )
 }
