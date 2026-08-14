@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -9,6 +8,15 @@ import MenuItem from '@mui/material/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
+import {
+  ocioCardsGridSx,
+  ocioCardSx,
+  ocioCardMediaSx,
+  ocioCardOverlaySx,
+  ocioCardTitleSx,
+  ocioCardMetaSx,
+  ocioCardMenuButtonSx,
+} from '../styles/ocioCardStyles'
 
 const STORAGE_KEY = 'anime-list'
 
@@ -646,57 +654,46 @@ const AnimeList = ({ searchTerm = '' }) => {
   const renderAnimeCard = (anime) => (
     <Card 
       key={anime.title} 
-      sx={{ 
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
+      sx={ocioCardSx({
         background: getCardBackground(anime.Estado),
         color: 'white',
-        transition: 'all 0.3s',
         boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
         '&:hover': {
-          transform: 'translateY(-8px)',
+          transform: 'translateY(-6px)',
           boxShadow: '0 12px 24px rgba(0,0,0,0.5)',
-        }
-      }}
+        },
+      })}
     >
       <CardMedia
         component="img"
-        height="200"
         image={anime.image}
         alt={anime.title}
-        sx={{ objectFit: 'cover' }}
+        sx={ocioCardMediaSx}
       />
-      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-          <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', flex: 1, color: 'white' }}>
-            {anime.title}
-          </Typography>
-          <IconButton
-            size="small"
-            onClick={(e) => handleMenuOpen(e, anime)}
-            sx={{ ml: 1, color: 'white', bgcolor: 'rgba(255,255,255,0.2)', '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' } }}
-          >
-            <MoreVertIcon />
-          </IconButton>
-        </Box>
+      <IconButton
+        size="small"
+        onClick={(e) => handleMenuOpen(e, anime)}
+        sx={ocioCardMenuButtonSx}
+      >
+        <MoreVertIcon sx={{ fontSize: 18 }} />
+      </IconButton>
 
-        <Typography variant="body2" sx={{ mb: 1, color: 'rgba(255,255,255,0.9)' }}>
+      <Box sx={ocioCardOverlaySx}>
+        <Typography variant="subtitle2" sx={ocioCardTitleSx}>
+          {anime.title}
+        </Typography>
+        <Typography variant="caption" sx={ocioCardMetaSx}>
           {anime.studio} • {anime.year}
         </Typography>
-
-        <Typography variant="body2" sx={{ mb: 2, color: 'rgba(255,255,255,0.9)' }}>
+        <Typography variant="caption" sx={ocioCardMetaSx}>
           {anime.episodes} episodios
         </Typography>
-
-        <Box sx={{ mt: 'auto' }}>
-          <Chip 
-            label={anime.Estado} 
-            sx={{ bgcolor: 'rgba(255,255,255,0.3)', color: 'white', fontWeight: 'bold' }}
-            size="small"
-          />
-        </Box>
-      </CardContent>
+        <Chip 
+          label={anime.Estado} 
+          sx={{ mt: 0.75, height: 20, fontSize: '0.65rem', bgcolor: 'rgba(255,255,255,0.28)', color: 'white', fontWeight: 'bold' }}
+          size="small"
+        />
+      </Box>
     </Card>
   )
 
@@ -724,7 +721,7 @@ const AnimeList = ({ searchTerm = '' }) => {
         </Box>
       ) : searchTerm ? (
         /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+        <Box sx={ocioCardsGridSx}>
           {filteredAnimes.map(renderAnimeCard)}
         </Box>
       ) : (
@@ -736,7 +733,7 @@ const AnimeList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#667eea', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Viendo ({viendo.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {viendo.map(renderAnimeCard)}
               </Box>
             </Box>
@@ -748,7 +745,7 @@ const AnimeList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#f5576c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Pendiente ({pendiente.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderAnimeCard)}
               </Box>
             </Box>
@@ -760,7 +757,7 @@ const AnimeList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#00f2fe', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Completado ({completado.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {completado.map(renderAnimeCard)}
               </Box>
             </Box>

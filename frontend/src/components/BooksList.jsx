@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -9,6 +8,15 @@ import MenuItem from '@mui/material/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
+import {
+  ocioCardsGridSx,
+  ocioCardSx,
+  ocioCardMediaSx,
+  ocioCardOverlaySx,
+  ocioCardTitleSx,
+  ocioCardMetaSx,
+  ocioCardMenuButtonSx,
+} from '../styles/ocioCardStyles'
 
 const STORAGE_KEY = 'books-list'
 
@@ -245,51 +253,42 @@ const BooksList = ({ searchTerm = '' }) => {
   }
 
   const renderBookCard = (book, index) => (
-    <Card key={index} sx={{ 
-      position: 'relative',
+    <Card key={index} sx={ocioCardSx({ 
       background: getCardBackground(book.Estado),
       color: 'white',
-      transition: 'all 0.3s',
       boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
       '&:hover': { 
-        transform: 'translateY(-10px)',
-        boxShadow: '0 12px 24px rgba(0,0,0,0.5)'
-      }
-    }}>
-      <IconButton
-        sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: 'rgba(255,255,255,1)' } }}
-        onClick={(e) => handleMenuOpen(e, book.title)}
-      >
-        <MoreVertIcon />
-      </IconButton>
+        transform: 'translateY(-6px)',
+        boxShadow: '0 12px 24px rgba(0,0,0,0.5)',
+      },
+    })}>
       <CardMedia
         component="img"
-        height="250"
         image={book.image}
         alt={book.title}
-        sx={{ objectFit: 'contain', bgcolor: 'rgba(255,255,255,0.2)' }}
+        sx={{ ...ocioCardMediaSx, objectFit: 'contain', bgcolor: 'rgba(255,255,255,0.08)' }}
       />
-      <CardContent>
-        <Typography variant="h6" gutterBottom sx={{ color: 'white' }}>{book.title}</Typography>
-        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-          <strong>Autor:</strong> {book.author}
+      <IconButton
+        size="small"
+        sx={ocioCardMenuButtonSx}
+        onClick={(e) => handleMenuOpen(e, book.title)}
+      >
+        <MoreVertIcon sx={{ fontSize: 18 }} />
+      </IconButton>
+      <Box sx={ocioCardOverlaySx}>
+        <Typography variant="subtitle2" sx={ocioCardTitleSx}>{book.title}</Typography>
+        <Typography variant="caption" sx={ocioCardMetaSx}>
+          {book.author}
         </Typography>
-        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-          <strong>Año:</strong> {book.releaseYear}
+        <Typography variant="caption" sx={ocioCardMetaSx}>
+          {book.releaseYear} • {book.pages} pág.
         </Typography>
-        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-          <strong>Páginas:</strong> {book.pages}
-        </Typography>
-        {book.synopsis && (
-          <Typography variant="body2" sx={{ mt: 1, fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)' }}>
-            {book.synopsis}
-          </Typography>
-        )}
         <Chip 
           label={book.Estado} 
-          sx={{ mt: 2, bgcolor: 'rgba(255,255,255,0.3)', color: 'white', fontWeight: 'bold' }}
+          size="small"
+          sx={{ mt: 0.75, height: 20, fontSize: '0.65rem', bgcolor: 'rgba(255,255,255,0.28)', color: 'white', fontWeight: 'bold' }}
         />
-      </CardContent>
+      </Box>
     </Card>
   )
 
@@ -322,7 +321,7 @@ const BooksList = ({ searchTerm = '' }) => {
         </Box>
       ) : searchTerm ? (
         /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+        <Box sx={ocioCardsGridSx}>
           {filteredBooks.map(renderBookCard)}
         </Box>
       ) : (
@@ -334,7 +333,7 @@ const BooksList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#60a5fa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Leyendo ({leyendo.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmin(300px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {leyendo.map(renderBookCard)}
               </Box>
             </Box>
@@ -346,7 +345,7 @@ const BooksList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#fb923c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Pendiente ({pendiente.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderBookCard)}
               </Box>
             </Box>
@@ -358,7 +357,7 @@ const BooksList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#34d399', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Leído ({leido.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {leido.map(renderBookCard)}
               </Box>
             </Box>

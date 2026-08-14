@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -9,6 +8,15 @@ import MenuItem from '@mui/material/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
+import {
+  ocioCardsGridSx,
+  ocioCardSx,
+  ocioCardMediaSx,
+  ocioCardOverlaySx,
+  ocioCardTitleSx,
+  ocioCardMetaSx,
+  ocioCardMenuButtonSx,
+} from '../styles/ocioCardStyles'
 
 const STORAGE_KEY = 'series-list'
 
@@ -131,52 +139,52 @@ const SeriesList = ({ searchTerm = '' }) => {
   const renderCard = (serie) => (
     <Card 
       key={serie.title}
-      sx={{
+      sx={ocioCardSx({
         background: getCardBackground(serie.Estado),
         backdropFilter: 'blur(10px)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         '&:hover': {
-          transform: 'translateY(-8px)',
-          boxShadow: '0 12px 40px rgba(255, 215, 0, 0.4)'
-        }
-      }}
+          transform: 'translateY(-6px)',
+          boxShadow: '0 12px 24px rgba(255, 215, 0, 0.35)',
+        },
+      })}
     >
       <CardMedia
         component="img"
-        height="300"
         image={serie.image}
         alt={serie.title}
-        sx={{ objectFit: 'cover' }}
+        sx={ocioCardMediaSx}
       />
-      <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-          <Typography variant="h6" component="div" sx={{ color: '#FFD700', fontWeight: 'bold', flex: 1 }}>
-            {serie.title}
-          </Typography>
-          <IconButton
-            size="small"
-            onClick={(e) => handleMenuOpen(e, serie)}
-            sx={{ color: '#FFD700' }}
-          >
-            <MoreVertIcon />
-          </IconButton>
-        </Box>
-        <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.7)', mb: 1 }}>
+      <IconButton
+        size="small"
+        onClick={(e) => handleMenuOpen(e, serie)}
+        sx={{ ...ocioCardMenuButtonSx, color: '#FFD700' }}
+      >
+        <MoreVertIcon sx={{ fontSize: 18 }} />
+      </IconButton>
+
+      <Box sx={ocioCardOverlaySx}>
+        <Typography variant="subtitle2" sx={{ ...ocioCardTitleSx, color: '#FFD700' }}>
+          {serie.title}
+        </Typography>
+        <Typography variant="caption" sx={ocioCardMetaSx}>
           {serie.year} • {serie.episodes} episodios
         </Typography>
         <Chip 
           label={serie.Estado} 
           size="small"
           sx={{
+            mt: 0.75,
+            height: 20,
+            fontSize: '0.65rem',
             background: serie.Estado === 'Completado' ? 'linear-gradient(135deg, #00FF7F, #0080FF)' :
                        serie.Estado === 'Viendo' ? 'linear-gradient(135deg, #FF0096, #00CCFF)' :
                        'linear-gradient(135deg, #FFD700, #FF8C00)',
             color: '#000',
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }}
         />
-      </CardContent>
+      </Box>
     </Card>
   )
 
@@ -204,7 +212,7 @@ const SeriesList = ({ searchTerm = '' }) => {
           </Typography>
         </Box>
       ) : searchTerm ? (
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+        <Box sx={ocioCardsGridSx}>
           {filteredSeries.map(renderCard)}
         </Box>
       ) : (
@@ -214,7 +222,7 @@ const SeriesList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
                 Viendo ({viendo.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {viendo.map(renderCard)}
               </Box>
             </Box>
@@ -225,7 +233,7 @@ const SeriesList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
                 Pendiente ({pendiente.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderCard)}
               </Box>
             </Box>
@@ -236,7 +244,7 @@ const SeriesList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
                 Completado ({completado.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {completado.map(renderCard)}
               </Box>
             </Box>

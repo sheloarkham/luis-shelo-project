@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -9,6 +8,15 @@ import MenuItem from '@mui/material/MenuItem'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
+import {
+  ocioCardsGridSx,
+  ocioCardSx,
+  ocioCardMediaSx,
+  ocioCardOverlaySx,
+  ocioCardTitleSx,
+  ocioCardMetaSx,
+  ocioCardMenuButtonSx,
+} from '../styles/ocioCardStyles'
 
 const STORAGE_KEY = 'games-list'
 
@@ -263,50 +271,42 @@ const GamesList = ({ searchTerm = '' }) => {
   }
 
   const renderGameCard = (game, index) => (
-    <Card key={index} sx={{ 
-      position: 'relative',
+    <Card key={index} sx={ocioCardSx({ 
       background: getCardBackground(game.Estado),
       color: 'white',
-      transition: 'all 0.3s',
       boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
       '&:hover': { 
-        transform: 'translateY(-10px)',
-        boxShadow: '0 12px 24px rgba(0,0,0,0.5)'
-      }
-    }}>
-      <IconButton
-        sx={{ position: 'absolute', top: 8, right: 8, bgcolor: 'rgba(255,255,255,0.9)', '&:hover': { bgcolor: 'rgba(255,255,255,1)' } }}
-        onClick={(e) => handleMenuOpen(e, index)}
-      >
-        <MoreVertIcon />
-      </IconButton>
+        transform: 'translateY(-6px)',
+        boxShadow: '0 12px 24px rgba(0,0,0,0.5)',
+      },
+    })}>
       <CardMedia
         component="img"
-        height="200"
         image={game.image}
         alt={game.title}
+        sx={ocioCardMediaSx}
       />
-      <CardContent>
-        <Typography variant="h6" gutterBottom sx={{ color: 'white' }}>{game.title}</Typography>
-        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-          <strong>Año:</strong> {game.releaseYear}
+      <IconButton
+        size="small"
+        sx={ocioCardMenuButtonSx}
+        onClick={(e) => handleMenuOpen(e, index)}
+      >
+        <MoreVertIcon sx={{ fontSize: 18 }} />
+      </IconButton>
+      <Box sx={ocioCardOverlaySx}>
+        <Typography variant="subtitle2" sx={ocioCardTitleSx}>{game.title}</Typography>
+        <Typography variant="caption" sx={ocioCardMetaSx}>
+          {game.releaseYear} • {game.developer}
         </Typography>
-        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-          <strong>Desarrollador:</strong> {game.developer}
+        <Typography variant="caption" sx={ocioCardMetaSx}>
+          {game.duration} horas
         </Typography>
-        <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)' }}>
-          <strong>Duración:</strong> {game.duration} horas
-        </Typography>
-        {game.synopsis && (
-          <Typography variant="body2" sx={{ mt: 1, fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)' }}>
-            {game.synopsis}
-          </Typography>
-        )}
         <Chip 
           label={game.Estado} 
-          sx={{ mt: 2, bgcolor: 'rgba(255,255,255,0.3)', color: 'white', fontWeight: 'bold' }}
+          size="small"
+          sx={{ mt: 0.75, height: 20, fontSize: '0.65rem', bgcolor: 'rgba(255,255,255,0.28)', color: 'white', fontWeight: 'bold' }}
         />
-      </CardContent>
+      </Box>
     </Card>
   )
 
@@ -340,7 +340,7 @@ const GamesList = ({ searchTerm = '' }) => {
         </Box>
       ) : searchTerm ? (
         /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+        <Box sx={ocioCardsGridSx}>
           {filteredGames.map(renderGameCard)}
         </Box>
       ) : (
@@ -352,7 +352,7 @@ const GamesList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#a78bfa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Jugando ({jugando.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {jugando.map(renderGameCard)}
               </Box>
             </Box>
@@ -364,7 +364,7 @@ const GamesList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#fbbf24', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Pendiente ({pendiente.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderGameCard)}
               </Box>
             </Box>
@@ -376,7 +376,7 @@ const GamesList = ({ searchTerm = '' }) => {
               <Typography variant="h5" sx={{ mb: 2, color: '#10b981', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Completado ({completado.length})
               </Typography>
-              <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 3 }}>
+              <Box sx={ocioCardsGridSx}>
                 {completado.map(renderGameCard)}
               </Box>
             </Box>
