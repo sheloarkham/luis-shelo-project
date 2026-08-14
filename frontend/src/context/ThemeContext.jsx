@@ -4,7 +4,7 @@ const STORAGE_KEY = 'luis-shelo-theme-colors'
 
 /** Colores por defecto del sitio */
 export const DEFAULT_THEME = {
-  navbarBg: 'rgba(0, 0, 0, 0.55)',
+  navbarBg: 'transparent',
   navbarText: '#d4e4ff',
   pageBg: 'transparent',
   pageText: '#dce8ff',

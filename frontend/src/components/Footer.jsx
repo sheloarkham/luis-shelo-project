@@ -14,8 +14,9 @@ const Footer = () => {
         py: 3,
         px: 2,
         mt: 'auto',
-        background: '#000000',
-        color: 'white',
+        background: 'transparent',
+        color: 'var(--color-page-text)',
+        borderTop: '1px solid rgba(80, 150, 255, 0.15)',
       }}
     >
       <Container maxWidth="lg">
@@ -31,7 +32,7 @@ const Footer = () => {
           <Button
             onClick={toggleCustomizationMode}
             sx={{
-              color: customizationMode ? '#ff6b9d' : '#ffffff',
+              color: customizationMode ? '#ff6b9d' : 'var(--color-page-text)',
               textTransform: 'none',
               letterSpacing: '0.06em',
               fontSize: '0.95rem',

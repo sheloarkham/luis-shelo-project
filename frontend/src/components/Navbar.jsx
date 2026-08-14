@@ -2,7 +2,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -23,7 +22,6 @@ import SchoolIcon from '@mui/icons-material/School'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
-import ChatIcon from '@mui/icons-material/Chat'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import { useThemeCustomization } from '../context/ThemeContext'
@@ -49,9 +47,6 @@ const Navbar = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { colors } = useThemeCustomization()
-  const isYeniPage = location.pathname === '/yeni'
-  
-  const navbarBackground = colors.navbarBg
   const navbarTextColor = colors.navbarText
 
   /**
@@ -67,7 +62,8 @@ const Navbar = () => {
     flexShrink: 0,
     minWidth: 'auto',
     px: 1,
-    '&:hover': { bgcolor: '#f5f5f5' },
+    textShadow: '0 1px 8px rgba(0, 0, 0, 0.45)',
+    '&:hover': { bgcolor: 'rgba(80, 150, 255, 0.12)' },
   }
 
   useEffect(() => {
@@ -220,15 +216,6 @@ const Navbar = () => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/chat" onClick={handleDrawerToggle}>
-            <ListItemIcon>
-              <ChatIcon sx={{ color: 'white' }} />
-            </ListItemIcon>
-            <ListItemText primary="Jack" sx={{ color: 'white' }} />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
           <ListItemButton component={Link} to="/yeni" onClick={handleDrawerToggle}>
             <ListItemIcon>
               <FavoriteIcon sx={{ color: '#ff6b9d' }} />
@@ -243,12 +230,13 @@ const Navbar = () => {
   return (
     <>
       <AppBar position="fixed" sx={{ 
-        background: navbarBackground,
+        background: 'transparent',
         color: navbarTextColor,
         boxShadow: 'none',
-        borderBottom: '1px solid #e0e0e0',
-        transition: 'transform 0.3s ease, background 0.3s ease',
-        transform: visible ? 'translateY(0)' : 'translateY(-100%)'
+        borderBottom: 'none',
+        backdropFilter: 'none',
+        transition: 'transform 0.3s ease',
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
       }}>
         {/* flexWrap: 'nowrap' evita que título + links bajen a una segunda fila */}
         <Toolbar
@@ -273,31 +261,6 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
 
-          {/*
-            whiteSpace: 'nowrap' aquí evita que "Project" caiga debajo de "Luis shelo".
-            flexShrink: 0 evita que el título se comprima y vuelva a partirse.
-          */}
-          <Typography 
-            variant="h5" 
-            component={Link} 
-            to="/" 
-            sx={{ 
-              flexGrow: { xs: 1, md: 0 },
-              flexShrink: 0,
-              mr: { md: 2 },
-              fontWeight: 700,
-              color: navbarTextColor,
-              textDecoration: 'none',
-              whiteSpace: 'nowrap',
-              fontSize: { xs: '1.1rem', md: '1.25rem' },
-              '&:hover': { transform: 'scale(1.05)' },
-              transition: 'transform 0.3s'
-            }}
-          >
-            Luis shelo Project
-          </Typography>
-
-          {/* Desktop Menu — todos los botones usan navButtonSx (nowrap) */}
           <Box
             sx={{
               display: { xs: 'none', md: 'flex' },
@@ -305,6 +268,7 @@ const Navbar = () => {
               flexGrow: 1,
               flexWrap: 'nowrap',
               alignItems: 'center',
+              justifyContent: 'center',
               overflowX: 'auto',
             }}
           >
@@ -389,19 +353,6 @@ const Navbar = () => {
               Books
             </Button>
 
-            <Button 
-              component={Link} 
-              to="/chat"
-              startIcon={<ChatIcon />}
-              sx={navButtonSx}
-            >
-              Jack
-            </Button>
-
-            {/*
-              Solo "Yeni" + el ícono FavoriteIcon.
-              Antes había "Yeni 💞": el emoji se iba debajo y se veían 2 corazones.
-            */}
             <Button 
               component={Link} 
               to="/yeni"
