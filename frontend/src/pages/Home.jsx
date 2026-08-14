@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, CircularProgress, Alert, Grid } from '@mui/material'
 import ForestBackground from '../components/ForestBackground'
+import HomeForestIntro, { hasSeenHomeIntro } from '../components/HomeForestIntro'
+import LightCursor from '../components/LightCursor'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
 
@@ -196,9 +198,27 @@ const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
 const Home = () => {
   const isDesktop = useIsDesktop()
   const forestMode = isDesktop
+  const [showIntro, setShowIntro] = useState(
+    () => forestMode && !hasSeenHomeIntro()
+  )
+  const [introComplete, setIntroComplete] = useState(
+    () => !forestMode || hasSeenHomeIntro()
+  )
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (!forestMode) {
+      setShowIntro(false)
+      setIntroComplete(true)
+      return
+    }
+
+    const seen = hasSeenHomeIntro()
+    setShowIntro(!seen)
+    setIntroComplete(seen)
+  }, [forestMode])
 
   useEffect(() => {
     loadStats()
@@ -255,10 +275,14 @@ const Home = () => {
     }
   }
 
-  if (loading) {
-    return (
-      <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
-        {forestMode && <ForestBackground />}
+  const handleIntroComplete = () => {
+    setShowIntro(false)
+    setIntroComplete(true)
+  }
+
+  const renderMainContent = () => {
+    if (loading) {
+      return (
         <Box
           className="home-page__content"
           sx={{
@@ -271,26 +295,20 @@ const Home = () => {
         >
           <CircularProgress sx={{ color: forestMode ? '#f5f5f0' : '#2c2c2c' }} size={60} thickness={2} />
         </Box>
-      </div>
-    )
-  }
+      )
+    }
 
-  if (error) {
-    return (
-      <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
-        {forestMode && <ForestBackground />}
+    if (error) {
+      return (
         <Box className="home-page__content" sx={{ p: 3 }}>
           <Alert severity="error" sx={{ mb: 2 }}>
             {error}
           </Alert>
         </Box>
-      </div>
-    )
-  }
+      )
+    }
 
-  return (
-    <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
-      {forestMode && <ForestBackground />}
+    return (
       <Box className="home-page__content" sx={{ p: 4, minHeight: '100vh' }}>
         <Box 
           className="home-page__header"
@@ -367,6 +385,19 @@ const Home = () => {
           </Grid>
         </Grid>
       </Box>
+    )
+  }
+
+  return (
+    <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
+      {forestMode && <ForestBackground />}
+      {forestMode && introComplete && <LightCursor />}
+      <Box
+        className={`home-page__stage${introComplete ? ' home-page__stage--visible' : ''}`}
+      >
+        {renderMainContent()}
+      </Box>
+      {showIntro && <HomeForestIntro onComplete={handleIntroComplete} />}
     </div>
   )
 }

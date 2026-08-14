@@ -1,0 +1,111 @@
+.home-forest-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  animation: homeIntroFadeIn 0.8s ease forwards;
+}
+
+.home-forest-intro--exit {
+  animation: homeIntroFadeOut 0.9s ease forwards;
+  pointer-events: none;
+}
+
+.home-forest-intro__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+}
+
+.home-forest-intro__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, rgba(8, 16, 10, 0.15) 0%, rgba(8, 16, 10, 0.72) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55));
+}
+
+.home-forest-intro__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+  animation: homeIntroTitleIn 1.2s ease 0.25s both;
+}
+
+.home-forest-intro--exit .home-forest-intro__content {
+  animation: homeIntroTitleOut 0.7s ease forwards;
+}
+
+.home-forest-intro__eyebrow {
+  margin: 0 0 1rem;
+  color: rgba(245, 245, 240, 0.72);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+.home-forest-intro__title {
+  margin: 0;
+  color: #f8f6ef;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.home-forest-intro__hint {
+  margin: 2rem 0 0;
+  color: rgba(245, 245, 240, 0.55);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 300;
+  animation: homeIntroHintPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes homeIntroFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes homeIntroFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes homeIntroTitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes homeIntroTitleOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px) scale(1.02);
+  }
+}
+
+@keyframes homeIntroHintPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.9; }
+}

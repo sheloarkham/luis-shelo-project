@@ -13,6 +13,21 @@
   z-index: 1;
 }
 
+.home-page__stage {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.home-page__stage--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-page--forest .home-page__stage:not(.home-page__stage--visible) {
+  visibility: hidden;
+}
+
 .home-page .content {
   padding: 120px 2rem 4rem;
   max-width: 1200px;

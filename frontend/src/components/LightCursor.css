@@ -1,0 +1,13 @@
+.light-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+@media (max-width: 768px) {
+  .light-cursor {
+    display: none;
+  }
+}
