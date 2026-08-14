@@ -1,20 +1,26 @@
 import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, CircularProgress, Alert, Grid } from '@mui/material'
+import ForestBackground from '../components/ForestBackground'
+import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
 
-const StatCard = ({ title, stats, icon, color }) => {
+const StatCard = ({ title, stats, icon, color, forestMode = false }) => {
   const { total, porcentajeProgreso } = stats
   
   return (
-    <Card sx={{ 
-      background: '#ffffff',
-      border: `1px solid #e0e0e0`,
+    <Card className={forestMode ? 'home-stat-card' : undefined} sx={{ 
+      background: forestMode ? 'rgba(255, 255, 255, 0.86)' : '#ffffff',
+      border: forestMode ? '1px solid rgba(255, 255, 255, 0.45)' : '1px solid #e0e0e0',
       borderRadius: 1,
       height: '100%',
+      backdropFilter: forestMode ? 'blur(14px)' : 'none',
+      WebkitBackdropFilter: forestMode ? 'blur(14px)' : 'none',
       transition: 'all 0.3s ease',
       '&:hover': {
         transform: 'translateY(-5px)',
-        boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)',
+        boxShadow: forestMode
+          ? '0 12px 28px rgba(0, 0, 0, 0.22)'
+          : '0 8px 20px rgba(0, 0, 0, 0.08)',
       }
     }}>
       <CardContent sx={{ p: 4 }}>
@@ -188,6 +194,8 @@ const StatCard = ({ title, stats, icon, color }) => {
 }
 
 const Home = () => {
+  const isDesktop = useIsDesktop()
+  const forestMode = isDesktop
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -249,26 +257,43 @@ const Home = () => {
 
   if (loading) {
     return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh', bgcolor: '#fafafa' }}>
-        <CircularProgress sx={{ color: '#2c2c2c' }} size={60} thickness={2} />
-      </Box>
+      <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
+        {forestMode && <ForestBackground />}
+        <Box
+          className="home-page__content"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '80vh',
+            bgcolor: forestMode ? 'transparent' : '#fafafa',
+          }}
+        >
+          <CircularProgress sx={{ color: forestMode ? '#f5f5f0' : '#2c2c2c' }} size={60} thickness={2} />
+        </Box>
+      </div>
     )
   }
 
   if (error) {
     return (
-      <Box sx={{ p: 3 }}>
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-      </Box>
+      <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
+        {forestMode && <ForestBackground />}
+        <Box className="home-page__content" sx={{ p: 3 }}>
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        </Box>
+      </div>
     )
   }
 
   return (
-    <div className="home-page">
-      <Box sx={{ p: 4, minHeight: '100vh' }}>
+    <div className={`home-page${forestMode ? ' home-page--forest' : ''}`}>
+      {forestMode && <ForestBackground />}
+      <Box className="home-page__content" sx={{ p: 4, minHeight: '100vh' }}>
         <Box 
+          className="home-page__header"
           sx={{ 
             mb: 6, 
             textAlign: 'center',
@@ -276,23 +301,27 @@ const Home = () => {
         >
           <Typography 
             variant="h2" 
+            className="home-page__title"
             sx={{ 
-              color: '#2c2c2c',
+              color: forestMode ? '#f5f5f0' : '#2c2c2c',
               fontWeight: 300,
               mb: 2,
               letterSpacing: '0.2em',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              textShadow: forestMode ? '0 2px 18px rgba(0, 0, 0, 0.45)' : 'none',
             }}
           >
             Mi Tiempo Libre
           </Typography>
           <Typography 
             variant="h6" 
+            className="home-page__subtitle"
             sx={{ 
-              color: '#666',
+              color: forestMode ? 'rgba(245, 245, 240, 0.82)' : '#666',
               fontWeight: 300,
               letterSpacing: '0.1em',
-              fontSize: '0.9rem'
+              fontSize: '0.9rem',
+              textShadow: forestMode ? '0 1px 10px rgba(0, 0, 0, 0.35)' : 'none',
             }}
           >
             Proyecto Luis Shelo
@@ -306,6 +335,7 @@ const Home = () => {
               stats={stats?.series || {}}
               icon="📺"
               color="#FFD700"
+              forestMode={forestMode}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -314,6 +344,7 @@ const Home = () => {
               stats={stats?.anime || {}}
               icon="🎌"
               color="#ff6b6b"
+              forestMode={forestMode}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -322,6 +353,7 @@ const Home = () => {
               stats={stats?.games || {}}
               icon="🎮"
               color="#a78bfa"
+              forestMode={forestMode}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -330,6 +362,7 @@ const Home = () => {
               stats={stats?.books || {}}
               icon="📚"
               color="#60a5fa"
+              forestMode={forestMode}
             />
           </Grid>
         </Grid>
