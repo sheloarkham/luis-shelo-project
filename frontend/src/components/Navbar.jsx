@@ -24,7 +24,6 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import { useThemeCustomization } from '../context/ThemeContext'
 
 /**
  * Barra de navegación fija (desktop + menú hamburguesa en mobile).
@@ -46,8 +45,7 @@ const Navbar = () => {
   const open = Boolean(anchorEl)
   const location = useLocation()
   const navigate = useNavigate()
-  const { colors } = useThemeCustomization()
-  const navbarTextColor = colors.navbarText
+  const navbarTextColor = 'var(--color-navbar-text)'
 
   /**
    * Estilos compartidos de cada botón del menú desktop.

@@ -9,7 +9,9 @@ import { useThemeCustomization } from '../context/ThemeContext'
 import { useParticleTheme } from '../context/ParticleThemeContext'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 
-const Layout = () => {
+import './PageDisintegration.css'
+
+const Layout = ({ contentRef, pageEntering = false }) => {
   const { customizationMode } = useThemeCustomization()
   const { chromeHidden } = useParticleTheme()
   const isDesktop = useIsDesktop()
@@ -27,7 +29,12 @@ const Layout = () => {
       <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {!chromeHidden && <Navbar />}
       {!chromeHidden && <CustomizePanel />}
-      <Box component="main" sx={{ flexGrow: 1, mt: mainTopMargin }}>
+      <Box
+        component="main"
+        ref={contentRef}
+        className={`page-transition-main${pageEntering ? ' page-transition-main--enter' : ''}`}
+        sx={{ flexGrow: 1, mt: mainTopMargin }}
+      >
         <Outlet />
       </Box>
       {!chromeHidden && <Footer />}

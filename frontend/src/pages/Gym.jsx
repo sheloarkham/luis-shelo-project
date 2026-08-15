@@ -1,109 +1,60 @@
+import { useEffect, useMemo, useState } from 'react'
+import { useThemeCustomization } from '../context/ThemeContext'
+import {
+  GYM_WEIGHTS_STORAGE_KEY,
+  getExerciseKey,
+  loadGymWeights,
+  mergeTrainingDaysWithWeights,
+} from '../data/gymData'
 import './shared-page.css'
 import './Gym.css'
 
-const TRAINING_DAYS = [
-  {
-    id: 1,
-    day: 'Martes',
-    focus: 'Piernas · Abs',
-    muscleImage: '/images/gym/dia-1-piernas-abs.png',
-    muscleImageAlt: 'Músculos trabajados en piernas y abdomen',
-    groups: [
-      {
-        name: 'Piernas',
-        exercises: [
-          { name: 'Prensa pierna', weight: '160 kg' },
-          { name: 'Leg extensión (cuádriceps)', weight: '36 kg' },
-          { name: 'Aductor', weight: '72 kg' },
-          { name: 'Abductor', weight: '72 kg' },
-        ],
-      },
-      {
-        name: 'Abdomen',
-        exercises: [{ name: 'Crunch', weight: '50 kg' }],
-      },
-    ],
-  },
-  {
-    id: 2,
-    day: 'Miércoles',
-    focus: 'Pecho · Hombros · Brazos',
-    muscleImage: '/images/gym/dia-2-pecho-hombros-brazos.png',
-    muscleImageAlt: 'Músculos trabajados en pecho, hombros y brazos',
-    groups: [
-      {
-        name: 'Pecho',
-        exercises: [
-          {
-            name: 'Prensa pecho máquina',
-            weight: '50 kg',
-            alternative: 'Prensa pecho peso libre 40 kg',
-          },
-          { name: 'Press banca con mancuerna', weight: '14 kg' },
-        ],
-      },
-      {
-        name: 'Hombros',
-        exercises: [
-          { name: 'Prensa hombro', weight: '41 kg' },
-          { name: 'Deltoides apertura polea', weight: '59 kg' },
-          { name: 'Polea unilateral', weight: '5 kg' },
-        ],
-      },
-      {
-        name: 'Brazos',
-        exercises: [
-          { name: 'Curl máquina', weight: '41 kg' },
-          { name: 'Tríceps polea', weight: '21 kg' },
-          { name: 'Curl bíceps martillo', weight: null },
-        ],
-      },
-    ],
-  },
-  {
-    id: 3,
-    day: 'Domingo',
-    focus: 'Piernas · Abs · Espalda',
-    muscleImage: '/images/gym/dia-3-piernas-abs-espalda.png',
-    muscleImageAlt: 'Músculos trabajados en piernas, abdomen y espalda',
-    groups: [
-      {
-        name: 'Piernas',
-        exercises: [
-          { name: 'Seated leg curl (isquio)', weight: '27 kg' },
-          { name: 'Prone leg curl (isquio)', weight: '50 kg' },
-        ],
-      },
-      {
-        name: 'Abdomen',
-        exercises: [{ name: 'Crunch', weight: '50 kg' }],
-      },
-      {
-        name: 'Espalda',
-        exercises: [
-          { name: 'Remo máquina', weight: '50 kg' },
-          {
-            name: 'Lat pulldown máquina',
-            weight: '50 kg',
-            alternative: 'Lat pulldown con polea 39 kg',
-          },
-        ],
-      },
-    ],
-  },
-]
-
 const Gym = () => {
+  const { customizationMode } = useThemeCustomization()
+  const [weights, setWeights] = useState(loadGymWeights)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isLoaded) return
+    localStorage.setItem(GYM_WEIGHTS_STORAGE_KEY, JSON.stringify(weights))
+  }, [weights, isLoaded])
+
+  const trainingDays = useMemo(() => mergeTrainingDaysWithWeights(weights), [weights])
+
+  const updateWeight = (dayId, groupName, exerciseName, field, value) => {
+    const key = getExerciseKey(dayId, groupName, exerciseName, field)
+    setWeights((prev) => ({
+      ...prev,
+      [key]: value,
+    }))
+  }
+
+  const resetGymWeights = () => {
+    if (window.confirm('¿Restaurar todos los pesos del gym a los valores originales?')) {
+      localStorage.removeItem(GYM_WEIGHTS_STORAGE_KEY)
+      setWeights(loadGymWeights())
+    }
+  }
+
   return (
     <div className="page-container gym-container">
       <div className="content">
         <header className="gym-header">
           <h1 className="gym-title">Gym</h1>
           <p className="gym-subtitle">Rutina semanal — 3 días de entrenamiento</p>
+          {customizationMode && (
+            <p className="gym-edit-hint">
+              Modo personalización: edita los pesos en cada ejercicio. Se guardan al recargar.
+            </p>
+          )}
         </header>
 
         <section className="gym-days-grid" aria-label="Días de entrenamiento">
-          {TRAINING_DAYS.map((day) => (
+          {trainingDays.map((day) => (
             <article key={day.id} className="gym-day-card">
               <span className="gym-day-number">Día {day.id}</span>
               <h2 className="gym-day-label">{day.day}</h2>
@@ -124,11 +75,41 @@ const Gym = () => {
                       {group.exercises.map((exercise) => (
                         <li key={`${group.name}-${exercise.name}`} className="gym-exercise-item">
                           <span className="gym-exercise-name">{exercise.name}</span>
-                          {exercise.weight && (
-                            <span className="gym-exercise-weight">{exercise.weight}</span>
-                          )}
-                          {exercise.alternative && (
-                            <span className="gym-exercise-alt">o {exercise.alternative}</span>
+
+                          {customizationMode ? (
+                            <>
+                              <input
+                                type="text"
+                                className="gym-weight-input"
+                                value={exercise.weight ?? ''}
+                                placeholder="Peso"
+                                onChange={(e) =>
+                                  updateWeight(day.id, group.name, exercise.name, 'weight', e.target.value)
+                                }
+                                aria-label={`Peso de ${exercise.name}`}
+                              />
+                              {exercise.alternative !== undefined && (
+                                <input
+                                  type="text"
+                                  className="gym-weight-input gym-weight-input--alt"
+                                  value={exercise.alternative ?? ''}
+                                  placeholder="Alternativa (o ...)"
+                                  onChange={(e) =>
+                                    updateWeight(day.id, group.name, exercise.name, 'alt', e.target.value)
+                                  }
+                                  aria-label={`Alternativa de ${exercise.name}`}
+                                />
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {exercise.weight && (
+                                <span className="gym-exercise-weight">{exercise.weight}</span>
+                              )}
+                              {exercise.alternative && (
+                                <span className="gym-exercise-alt">o {exercise.alternative}</span>
+                              )}
+                            </>
                           )}
                         </li>
                       ))}
@@ -139,6 +120,14 @@ const Gym = () => {
             </article>
           ))}
         </section>
+
+        {customizationMode && (
+          <div className="gym-reset-wrap">
+            <button type="button" className="gym-reset-btn" onClick={resetGymWeights}>
+              Restaurar pesos del gym
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

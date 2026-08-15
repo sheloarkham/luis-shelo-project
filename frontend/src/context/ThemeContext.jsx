@@ -1,55 +1,63 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { DEFAULT_THEME } from './themeDefaults'
 
-const STORAGE_KEY = 'luis-shelo-theme-colors'
+const STORAGE_KEY = 'luis-shelo-app-settings'
 
-/** Colores por defecto del sitio */
-export const DEFAULT_THEME = {
-  navbarBg: 'transparent',
-  navbarText: '#d4e4ff',
-  pageBg: 'transparent',
-  pageText: '#dce8ff',
+export const DEFAULT_SETTINGS = {
+  particleTheme: 'blue',
+  cursorTheme: 'gold',
 }
 
 const ThemeContext = createContext(null)
 
-/**
- * Aplica los colores como variables CSS en :root.
- * Cualquier hoja de estilos puede usar var(--color-page-bg), etc.
- */
-const applyThemeToDocument = (colors) => {
+const applyThemeToDocument = () => {
   const root = document.documentElement
-  root.style.setProperty('--color-navbar-bg', colors.navbarBg)
-  root.style.setProperty('--color-navbar-text', colors.navbarText)
-  root.style.setProperty('--color-page-bg', colors.pageBg)
-  root.style.setProperty('--color-page-text', colors.pageText)
+  root.style.setProperty('--color-navbar-bg', DEFAULT_THEME.navbarBg)
+  root.style.setProperty('--color-navbar-text', DEFAULT_THEME.navbarText)
+  root.style.setProperty('--color-page-bg', DEFAULT_THEME.pageBg)
+  root.style.setProperty('--color-page-text', DEFAULT_THEME.pageText)
+}
+
+const loadSettings = () => {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (!saved) return DEFAULT_SETTINGS
+    return { ...DEFAULT_SETTINGS, ...JSON.parse(saved) }
+  } catch {
+    return DEFAULT_SETTINGS
+  }
 }
 
 export function ThemeProvider({ children }) {
   const [customizationMode, setCustomizationMode] = useState(false)
-  const [colors, setColors] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      return saved ? { ...DEFAULT_THEME, ...JSON.parse(saved) } : DEFAULT_THEME
-    } catch {
-      return DEFAULT_THEME
-    }
-  })
+  const [settings, setSettings] = useState(loadSettings)
+  const particleThemeRef = useRef(settings.particleTheme)
+  const cursorThemeRef = useRef(settings.cursorTheme)
 
   useEffect(() => {
-    applyThemeToDocument(colors)
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(colors))
-  }, [colors])
+    applyThemeToDocument()
+  }, [])
+
+  useEffect(() => {
+    particleThemeRef.current = settings.particleTheme
+    cursorThemeRef.current = settings.cursorTheme
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))
+  }, [settings])
 
   const toggleCustomizationMode = () => {
     setCustomizationMode((prev) => !prev)
   }
 
-  const updateColor = (key, value) => {
-    setColors((prev) => ({ ...prev, [key]: value }))
+  const setParticleTheme = (theme) => {
+    setSettings((prev) => ({ ...prev, particleTheme: theme }))
   }
 
-  const resetColors = () => {
-    setColors(DEFAULT_THEME)
+  const setCursorTheme = (theme) => {
+    setSettings((prev) => ({ ...prev, cursorTheme: theme }))
+  }
+
+  const resetSettings = () => {
+    setSettings(DEFAULT_SETTINGS)
   }
 
   return (
@@ -57,9 +65,14 @@ export function ThemeProvider({ children }) {
       value={{
         customizationMode,
         toggleCustomizationMode,
-        colors,
-        updateColor,
-        resetColors,
+        settings,
+        particleTheme: settings.particleTheme,
+        cursorTheme: settings.cursorTheme,
+        particleThemeRef,
+        cursorThemeRef,
+        setParticleTheme,
+        setCursorTheme,
+        resetSettings,
       }}
     >
       {children}
@@ -67,7 +80,6 @@ export function ThemeProvider({ children }) {
   )
 }
 
-/** Hook para leer/ cambiar el tema desde cualquier componente */
 export function useThemeCustomization() {
   const context = useContext(ThemeContext)
   if (!context) {

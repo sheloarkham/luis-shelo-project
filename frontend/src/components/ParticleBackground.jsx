@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useParticleTheme } from '../context/ParticleThemeContext'
+import { useThemeCustomization } from '../context/ThemeContext'
+import { getParticleTheme } from '../constants/particleThemes'
 import './ParticleBackground.css'
 
 const PARTICLE_COUNT = 85
@@ -23,23 +25,7 @@ const lerpColor = (hexA, hexB, t) => {
   return `rgb(${r}, ${g}, ${blue})`
 }
 
-const BLUE = {
-  bgInner: '#001a33',
-  bgMid: '#000814',
-  particle: '#66bbff',
-  glow: { r: 80, g: 170, b: 255, a: 0.45 },
-  line: { r: 51, g: 153, b: 255, a: 0.18 },
-  wave: '#3399ff',
-}
-
-const PINK = {
-  bgInner: '#3a0a28',
-  bgMid: '#1a0512',
-  particle: '#ff6b9d',
-  glow: { r: 255, g: 120, b: 180, a: 0.5 },
-  line: { r: 255, g: 105, b: 180, a: 0.2 },
-  wave: '#ff6b9d',
-}
+const lerpChannel = (a, b, t) => Math.round(a + (b - a) * t)
 
 const createParticle = (width, height) => {
   const depth = Math.random()
@@ -57,6 +43,7 @@ const createParticle = (width, height) => {
 
 const ParticleBackground = () => {
   const { pinkBlendRef } = useParticleTheme()
+  const { particleThemeRef } = useThemeCustomization()
   const canvasRef = useRef(null)
   const animationRef = useRef(null)
   const particlesRef = useRef([])
@@ -84,7 +71,15 @@ const ParticleBackground = () => {
       }
     }
 
-    const drawBackground = (blend) => {
+    const getPalettes = (blend) => {
+      const base = getParticleTheme(particleThemeRef.current)
+      const pink = getParticleTheme('pink')
+      if (blend <= 0) return { base, target: base, blend: 0 }
+      return { base, target: pink, blend }
+    }
+
+    const drawBackground = (palettes) => {
+      const { base, target, blend } = palettes
       const { width, height } = sizeRef.current
       const gradient = context.createRadialGradient(
         width * 0.5,
@@ -94,8 +89,8 @@ const ParticleBackground = () => {
         height * 0.5,
         Math.max(width, height) * 0.9
       )
-      gradient.addColorStop(0, lerpColor(BLUE.bgInner, PINK.bgInner, blend))
-      gradient.addColorStop(0.45, lerpColor(BLUE.bgMid, PINK.bgMid, blend))
+      gradient.addColorStop(0, lerpColor(base.bgInner, target.bgInner, blend))
+      gradient.addColorStop(0.45, lerpColor(base.bgMid, target.bgMid, blend))
       gradient.addColorStop(1, '#000000')
 
       context.fillStyle = gradient
@@ -116,8 +111,10 @@ const ParticleBackground = () => {
       })
     }
 
-    const drawConnections = (blend) => {
+    const drawConnections = (palettes) => {
+      const { base, target, blend } = palettes
       const particles = particlesRef.current
+      const lineA = base.line.a + (target.line.a - base.line.a) * blend
 
       for (let i = 0; i < particles.length; i += 1) {
         for (let j = i + 1; j < particles.length; j += 1) {
@@ -127,8 +124,8 @@ const ParticleBackground = () => {
 
           if (distance > CONNECTION_DISTANCE) continue
 
-          const opacity = (1 - distance / CONNECTION_DISTANCE) * (BLUE.line.a + (PINK.line.a - BLUE.line.a) * blend)
-          context.strokeStyle = `rgba(${Math.round(BLUE.line.r + (PINK.line.r - BLUE.line.r) * blend)}, ${Math.round(BLUE.line.g + (PINK.line.g - BLUE.line.g) * blend)}, ${Math.round(BLUE.line.b + (PINK.line.b - BLUE.line.b) * blend)}, ${opacity})`
+          const opacity = (1 - distance / CONNECTION_DISTANCE) * lineA
+          context.strokeStyle = `rgba(${lerpChannel(base.line.r, target.line.r, blend)}, ${lerpChannel(base.line.g, target.line.g, blend)}, ${lerpChannel(base.line.b, target.line.b, blend)}, ${opacity})`
           context.lineWidth = 0.6
           context.beginPath()
           context.moveTo(a.x, a.y)
@@ -138,8 +135,11 @@ const ParticleBackground = () => {
       }
     }
 
-    const drawParticles = (blend) => {
+    const drawParticles = (palettes) => {
+      const { base, target, blend } = palettes
+
       particlesRef.current.forEach((particle) => {
+        const glowAlpha = (base.glow.a + (target.glow.a - base.glow.a) * blend) * particle.alpha
         const outerGlow = context.createRadialGradient(
           particle.x,
           particle.y,
@@ -148,10 +148,9 @@ const ParticleBackground = () => {
           particle.y,
           particle.size * 5
         )
-        const glowAlpha = (BLUE.glow.a + (PINK.glow.a - BLUE.glow.a) * blend) * particle.alpha
         outerGlow.addColorStop(
           0,
-          `rgba(${Math.round(BLUE.glow.r + (PINK.glow.r - BLUE.glow.r) * blend)}, ${Math.round(BLUE.glow.g + (PINK.glow.g - BLUE.glow.g) * blend)}, ${Math.round(BLUE.glow.b + (PINK.glow.b - BLUE.glow.b) * blend)}, ${glowAlpha})`
+          `rgba(${lerpChannel(base.glow.r, target.glow.r, blend)}, ${lerpChannel(base.glow.g, target.glow.g, blend)}, ${lerpChannel(base.glow.b, target.glow.b, blend)}, ${glowAlpha})`
         )
         outerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)')
 
@@ -161,7 +160,7 @@ const ParticleBackground = () => {
         context.fill()
 
         context.globalAlpha = particle.alpha
-        context.fillStyle = lerpColor(BLUE.particle, PINK.particle, blend)
+        context.fillStyle = lerpColor(base.particle, target.particle, blend)
         context.beginPath()
         context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
         context.fill()
@@ -170,11 +169,12 @@ const ParticleBackground = () => {
       context.globalAlpha = 1
     }
 
-    const drawWave = (time, blend) => {
+    const drawWave = (time, palettes) => {
+      const { base, target, blend } = palettes
       const { width, height } = sizeRef.current
       context.save()
       context.globalAlpha = 0.08 + blend * 0.04
-      context.strokeStyle = lerpColor(BLUE.wave, PINK.wave, blend)
+      context.strokeStyle = lerpColor(base.wave, target.wave, blend)
       context.lineWidth = 1
 
       for (let wave = 0; wave < 3; wave += 1) {
@@ -194,12 +194,12 @@ const ParticleBackground = () => {
     }
 
     const draw = (time) => {
-      const blend = pinkBlendRef.current
-      drawBackground(blend)
+      const palettes = getPalettes(pinkBlendRef.current)
+      drawBackground(palettes)
       updateParticles(time)
-      drawWave(time, blend)
-      drawConnections(blend)
-      drawParticles(blend)
+      drawWave(time, palettes)
+      drawConnections(palettes)
+      drawParticles(palettes)
       animationRef.current = window.requestAnimationFrame(draw)
     }
 
@@ -213,7 +213,7 @@ const ParticleBackground = () => {
         window.cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [pinkBlendRef])
+  }, [pinkBlendRef, particleThemeRef])
 
   return <canvas ref={canvasRef} className="particle-background" aria-hidden="true" />
 }

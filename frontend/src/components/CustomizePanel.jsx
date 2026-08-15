@@ -1,49 +1,87 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import { useLocation } from 'react-router-dom'
 import { useThemeCustomization } from '../context/ThemeContext'
+import { PARTICLE_THEMES, PARTICLE_THEME_IDS } from '../constants/particleThemes'
+import { CURSOR_THEMES, CURSOR_THEME_IDS } from '../constants/cursorThemes'
 import './CustomizePanel.css'
 
-const COLOR_OPTIONS = [
-  { key: 'navbarBg', label: 'Navbar (fondo)' },
-  { key: 'navbarText', label: 'Navbar (texto)' },
-  { key: 'pageBg', label: 'Fondo general' },
-  { key: 'pageText', label: 'Texto general' },
-]
-
-/**
- * Barra superior que aparece en "Modo personalización".
- * Por ahora solo permite cambiar colores; más adelante irán títulos y más opciones.
- */
 const CustomizePanel = () => {
-  const { customizationMode, colors, updateColor, resetColors } = useThemeCustomization()
+  const location = useLocation()
+  const {
+    customizationMode,
+    particleTheme,
+    cursorTheme,
+    setParticleTheme,
+    setCursorTheme,
+    resetSettings,
+  } = useThemeCustomization()
 
   if (!customizationMode) return null
+
+  const onGymPage = location.pathname === '/gym'
 
   return (
     <Box className="customize-panel" component="section" aria-label="Panel de personalización">
       <Typography variant="body2" className="customize-panel-title">
-        Personalizar colores
+        Personalización
       </Typography>
 
-      <Box className="customize-panel-colors">
-        {COLOR_OPTIONS.map(({ key, label }) => (
-          <label key={key} className="customize-color-field">
-            <span>{label}</span>
-            <input
-              type="color"
-              value={colors[key]}
-              onChange={(e) => updateColor(key, e.target.value)}
-              aria-label={label}
-            />
-          </label>
-        ))}
+      <Box className="customize-panel-section">
+        <span className="customize-section-label">Fondo de partículas</span>
+        <Box className="customize-theme-options">
+          {PARTICLE_THEME_IDS.map((id) => (
+            <button
+              key={id}
+              type="button"
+              className={`customize-theme-btn${particleTheme === id ? ' customize-theme-btn--active' : ''}`}
+              onClick={() => setParticleTheme(id)}
+              aria-label={`Tema de partículas ${PARTICLE_THEMES[id].label}`}
+              title={PARTICLE_THEMES[id].label}
+            >
+              <span
+                className="customize-theme-swatch"
+                style={{ backgroundColor: PARTICLE_THEMES[id].swatch }}
+              />
+              <span>{PARTICLE_THEMES[id].label}</span>
+            </button>
+          ))}
+        </Box>
       </Box>
+
+      <Box className="customize-panel-section">
+        <span className="customize-section-label">Luz del mouse</span>
+        <Box className="customize-theme-options">
+          {CURSOR_THEME_IDS.map((id) => (
+            <button
+              key={id}
+              type="button"
+              className={`customize-theme-btn${cursorTheme === id ? ' customize-theme-btn--active' : ''}`}
+              onClick={() => setCursorTheme(id)}
+              aria-label={`Color del cursor ${CURSOR_THEMES[id].label}`}
+              title={CURSOR_THEMES[id].label}
+            >
+              <span
+                className="customize-theme-swatch"
+                style={{ backgroundColor: CURSOR_THEMES[id].swatch }}
+              />
+              <span>{CURSOR_THEMES[id].label}</span>
+            </button>
+          ))}
+        </Box>
+      </Box>
+
+      {onGymPage && (
+        <Typography variant="caption" className="customize-gym-hint">
+          En Gym puedes editar los pesos directamente en cada ejercicio.
+        </Typography>
+      )}
 
       <Button
         size="small"
         variant="outlined"
-        onClick={resetColors}
+        onClick={resetSettings}
         className="customize-reset-btn"
       >
         Restaurar
