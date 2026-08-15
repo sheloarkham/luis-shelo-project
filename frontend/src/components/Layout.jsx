@@ -30,14 +30,20 @@ const Layout = ({ contentRef, pageEntering = false }) => {
       {!chromeHidden && <Navbar />}
       {!chromeHidden && <CustomizePanel />}
       <Box
-        component="main"
         ref={contentRef}
-        className={`page-transition-main${pageEntering ? ' page-transition-main--enter' : ''}`}
-        sx={{ flexGrow: 1, mt: mainTopMargin }}
+        className={`page-transition-shell${pageEntering ? ' page-transition-main--enter' : ''}`}
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          mt: mainTopMargin,
+        }}
       >
-        <Outlet />
+        <Box component="main" className="page-transition-main" sx={{ flexGrow: 1 }}>
+          <Outlet />
+        </Box>
+        {!chromeHidden && <Footer />}
       </Box>
-      {!chromeHidden && <Footer />}
       </Box>
     </Box>
   )

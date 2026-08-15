@@ -228,6 +228,7 @@ const Navbar = () => {
   return (
     <>
       <AppBar position="fixed" sx={{ 
+        zIndex: 1400,
         background: 'transparent',
         color: navbarTextColor,
         boxShadow: 'none',

@@ -8,6 +8,14 @@
   opacity: 0;
 }
 
+.page-transition-shell {
+  will-change: opacity, transform;
+}
+
+.page-transition-shell--out {
+  opacity: 0 !important;
+}
+
 .page-transition-main {
   will-change: opacity, transform;
 }
