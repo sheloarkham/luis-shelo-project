@@ -1,0 +1,150 @@
+.proyecto-page .content {
+  padding-top: var(--page-top-padding);
+}
+
+.proyecto-goal {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.proyecto-goal h2 {
+  margin-bottom: 0.75rem;
+}
+
+.proyecto-goal p {
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+}
+
+.proyecto-roadmap {
+  padding: 1.5rem;
+}
+
+.proyecto-roadmap-title {
+  text-align: center;
+  margin-bottom: 1.75rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.proyecto-timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.proyecto-timeline-line {
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.proyecto-step {
+  position: relative;
+  margin-bottom: 1.75rem;
+  padding-left: 1.5rem;
+}
+
+.proyecto-step-dot {
+  position: absolute;
+  left: -25px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+.proyecto-step-dot--done {
+  background: rgba(52, 211, 153, 0.85);
+}
+
+.proyecto-step-dot--progress {
+  background: rgba(140, 184, 255, 0.85);
+}
+
+.proyecto-step-dot--pending {
+  background: rgba(120, 140, 170, 0.65);
+}
+
+.proyecto-step-card {
+  display: block;
+  width: 100%;
+  padding: 1.25rem;
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  border-left: 3px solid var(--color-accent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.proyecto-step-card:hover {
+  transform: translateX(6px);
+  border-color: var(--color-border-hover);
+}
+
+.proyecto-step-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.proyecto-step-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.proyecto-step-card p {
+  margin-bottom: 0.75rem;
+}
+
+.proyecto-status-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+.proyecto-status-pill--done {
+  background: rgba(52, 211, 153, 0.75);
+}
+
+.proyecto-status-pill--progress {
+  background: rgba(140, 184, 255, 0.75);
+}
+
+.proyecto-status-pill--pending {
+  background: rgba(120, 140, 170, 0.55);
+}
+
+.proyecto-footer-note {
+  text-align: center;
+  margin-top: 1.75rem;
+  padding: 1rem;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-strong);
+}
+
+@media (max-width: 768px) {
+  .proyecto-timeline {
+    padding-left: 2rem;
+  }
+}

@@ -2,6 +2,10 @@
   min-height: 100vh;
 }
 
+.gym-container .content {
+  padding-top: var(--page-top-padding);
+}
+
 .gym-header {
   text-align: center;
   margin-bottom: 3rem;

@@ -307,11 +307,11 @@ const Home = () => {
     }
 
     return (
-      <Box className="home-page__content" sx={{ p: 4, minHeight: '100vh' }}>
+      <Box className="home-page__content" sx={{ px: { xs: 2, md: 3 }, pt: { xs: 2, md: 1 }, pb: 4, minHeight: 'auto' }}>
         <Box 
           className="home-page__header"
           sx={{ 
-            mb: 6, 
+            mb: 3, 
             textAlign: 'center',
           }}
         >

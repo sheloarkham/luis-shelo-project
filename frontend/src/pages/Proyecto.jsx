@@ -1,15 +1,7 @@
 import './shared-page.css'
+import './Proyecto.css'
 
-/**
- * Página "El Proyecto" — roadmap de cursos en progreso.
- * Cada curso es un objeto en `roadmapSteps` con la misma estructura.
- */
 const Proyecto = () => {
-  /**
-   * Lista de cursos del roadmap.
-   * Para agregar uno nuevo, copia un objeto y cambia id, title, link, etc.
-   * @type {Array<{id: number, title: string, status: string, description: string, link: string, icon: string}>}
-   */
   const roadmapSteps = [
     {
       id: 1,
@@ -29,247 +21,98 @@ const Proyecto = () => {
     },
   ]
 
-  const getStepColor = (status) => {
-    switch(status) {
-      case 'completado': return '#10b981'
-      case 'en-progreso': return '#fbbf24'
-      case 'pendiente': return '#6b7280'
-      default: return '#6b7280'
+  const getStatusClass = (status) => {
+    switch (status) {
+      case 'completado':
+        return 'done'
+      case 'en-progreso':
+        return 'progress'
+      default:
+        return 'pending'
     }
   }
 
   const getStepIcon = (status) => {
-    switch(status) {
-      case 'completado': return '✓'
-      case 'en-progreso': return '⏳'
-      case 'pendiente': return '○'
-      default: return '○'
+    switch (status) {
+      case 'completado':
+        return '✓'
+      case 'en-progreso':
+        return '⏳'
+      default:
+        return '○'
+    }
+  }
+
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case 'completado':
+        return 'Completado'
+      case 'en-progreso':
+        return 'En progreso'
+      default:
+        return 'Pendiente'
     }
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container proyecto-page">
       <div className="content">
         <main>
-          <header>
-            <h1>El Proyecto</h1>
+          <header className="page-header">
+            <h1 className="page-title">El Proyecto</h1>
           </header>
-          
-          {/* Objetivo General */}
-          <div style={{
-            background: '#ffffff',
-            border: '1px solid #e0e0e0',
-            borderRadius: '8px',
-            padding: '32px',
-            marginBottom: '40px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-            textAlign: 'center'
-          }}>
-            <h2 style={{
-              color: '#2c2c2c',
-              fontSize: '2rem',
-              marginBottom: '16px',
-              fontWeight: '300',
-              letterSpacing: '0.2em'
-            }}>
-              Objetivo General
-            </h2>
-            <p style={{
-              color: '#666',
-              fontSize: '1.5rem',
-              fontWeight: '300',
-              letterSpacing: '0.1em'
-            }}>
-              Dominar Javascript
-            </p>
-          </div>
 
-          {/* Roadmap */}
-          <div style={{
-            background: '#ffffff',
-            border: '1px solid #e0e0e0',
-            borderRadius: '8px',
-            padding: '32px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
-          }}>
-            <h2 style={{
-              color: '#2c2c2c',
-              fontSize: '1.8rem',
-              marginBottom: '32px',
-              textAlign: 'center',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '12px',
-              fontWeight: '300',
-              letterSpacing: '0.15em'
-            }}>
-              Roadmap de Aprendizaje
-            </h2>
+          <section className="glass-panel proyecto-goal">
+            <h2>Objetivo General</h2>
+            <p>Dominar Javascript</p>
+          </section>
 
-            {/* Timeline */}
-            <div style={{
-              position: 'relative',
-              paddingLeft: '40px'
-            }}>
-              {/* Línea vertical */}
-              <div style={{
-                position: 'absolute',
-                left: '15px',
-                top: '0',
-                bottom: '0',
-                width: '3px',
-                background: '#e0e0e0'
-              }} />
+          <section className="glass-panel proyecto-roadmap">
+            <h2 className="proyecto-roadmap-title">Roadmap de Aprendizaje</h2>
 
-              {/* Pasos del roadmap */}
-              {roadmapSteps.map((step, index) => (
-                <div key={step.id} style={{
-                  position: 'relative',
-                  marginBottom: '32px',
-                  paddingLeft: '24px'
-                }}>
-                  {/* Punto indicador */}
-                  <div style={{
-                    position: 'absolute',
-                    left: '-25px',
-                    top: '8px',
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: getStepColor(step.status),
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: '1.2rem',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                    zIndex: 1
-                  }}>
-                    {getStepIcon(step.status)}
-                  </div>
+            <div className="proyecto-timeline">
+              <div className="proyecto-timeline-line" aria-hidden="true" />
 
-                  {/* Contenido del paso */}
-                  <div style={{
-                    background: '#fafafa',
-                    border: '1px solid #e0e0e0',
-                    borderRadius: '8px',
-                    padding: '20px',
-                    borderLeft: `4px solid ${getStepColor(step.status)}`,
-                    transition: 'all 0.3s',
-                    cursor: 'pointer'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#ffffff'
-                    e.currentTarget.style.transform = 'translateX(8px)'
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)'
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = '#fafafa'
-                    e.currentTarget.style.transform = 'translateX(0)'
-                    e.currentTarget.style.boxShadow = 'none'
-                  }}
-                  >
-                    {/* Ícono visual del curso */}
-                    {step.icon && (
-                      <div style={{
-                        fontSize: '3rem',
-                        marginBottom: '12px',
-                        textAlign: 'center'
-                      }}>
-                        {step.icon}
-                      </div>
-                    )}
-                    
-                    <h3 style={{
-                      color: '#2c2c2c',
-                      fontSize: '1.3rem',
-                      marginBottom: '8px',
-                      fontWeight: '400',
-                      letterSpacing: '0.05em'
-                    }}>
-                      {step.title}
-                    </h3>
-                    <p style={{
-                      color: '#666',
-                      fontSize: '1rem',
-                      marginBottom: '12px',
-                      fontWeight: '300'
-                    }}>
-                      {step.description}
-                    </p>
-                    
-                    {/* Link al curso */}
-                    {step.link && (
-                      <a 
-                        href={step.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          display: 'inline-block',
-                          padding: '8px 16px',
-                          marginBottom: '12px',
-                          borderRadius: '4px',
-                          background: '#2c2c2c',
-                          color: '#ffffff',
-                          textDecoration: 'none',
-                          fontSize: '0.9rem',
-                          fontWeight: '400',
-                          letterSpacing: '0.05em',
-                          transition: 'all 0.3s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#000000'
-                          e.currentTarget.style.transform = 'translateY(-2px)'
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#2c2c2c'
-                          e.currentTarget.style.transform = 'translateY(0)'
-                        }}
-                      >
-                        🔗 Ir al curso
-                      </a>
-                    )}
-                    <br />
-                    
-                    <span style={{
-                      display: 'inline-block',
-                      padding: '4px 12px',
-                      borderRadius: '20px',
-                      background: getStepColor(step.status),
-                      color: 'white',
-                      fontSize: '0.85rem',
-                      fontWeight: '500'
-                    }}>
-                      {step.status === 'completado' && 'Completado'}
-                      {step.status === 'en-progreso' && 'En progreso'}
-                      {step.status === 'pendiente' && 'Pendiente'}
-                    </span>
-                  </div>
-                </div>
-              ))}
+              {roadmapSteps.map((step) => {
+                const statusClass = getStatusClass(step.status)
+
+                return (
+                  <article key={step.id} className="proyecto-step">
+                    <div className={`proyecto-step-dot proyecto-step-dot--${statusClass}`}>
+                      {getStepIcon(step.status)}
+                    </div>
+
+                    <div className={`proyecto-step-card proyecto-step-card--${statusClass}`}>
+                      {step.icon && <div className="proyecto-step-icon">{step.icon}</div>}
+
+                      <h3>{step.title}</h3>
+                      <p>{step.description}</p>
+
+                      {step.link && (
+                        <a
+                          href={step.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="glass-link-btn"
+                        >
+                          Ir al curso
+                        </a>
+                      )}
+
+                      <br />
+                      <span className={`proyecto-status-pill proyecto-status-pill--${statusClass}`}>
+                        {getStatusLabel(step.status)}
+                      </span>
+                    </div>
+                  </article>
+                )
+              })}
             </div>
 
-            {/* Mensaje informativo */}
-            <div style={{
-              textAlign: 'center',
-              marginTop: '40px',
-              padding: '20px',
-              background: '#fafafa',
-              borderRadius: '8px',
-              border: '2px dashed #e0e0e0'
-            }}>
-              <p style={{
-                color: '#666',
-                fontSize: '1rem',
-                fontWeight: '300',
-                letterSpacing: '0.05em'
-              }}>
-                Más pasos se agregarán próximamente
-              </p>
+            <div className="proyecto-footer-note">
+              <p>Más pasos se agregarán próximamente</p>
             </div>
-          </div>
+          </section>
         </main>
       </div>
     </div>

@@ -1,21 +1,30 @@
 .ocio-page {
   min-height: 100vh;
   background: transparent;
+  padding: var(--page-top-padding) 0 3rem;
 }
 
 .search-results-info {
   text-align: center;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 2px;
-  margin-bottom: 40px;
-  border: 1px solid #e0e0e0;
+  padding: 12px 16px;
+  background: var(--color-surface-strong);
+  border-radius: 8px;
+  margin-bottom: 24px;
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .search-results-info p {
-  color: #666;
-  font-size: 14px;
+  color: var(--color-muted);
+  font-size: 0.88rem;
   font-weight: 300;
   letter-spacing: 0.05em;
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .ocio-page {
+    padding-top: var(--page-top-padding-mobile);
+  }
 }

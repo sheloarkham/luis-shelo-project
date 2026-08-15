@@ -6,8 +6,8 @@ const Carrera = () => {
     <div className="page-container">
       <div className="content">
         <main>
-          <header>
-            <h1>Carrera</h1>
+          <header className="page-header">
+            <h1 className="page-title">Carrera</h1>
           </header>
           <GradeCalculator />
         </main>

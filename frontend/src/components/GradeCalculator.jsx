@@ -10,6 +10,7 @@ import Fab from '@mui/material/Fab'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
+import { glassTextFieldSx } from '../styles/glassTheme'
 
 const STORAGE_KEY = 'grade-calculator-subjects'
 
@@ -103,25 +104,20 @@ const GradeCalculator = () => {
   }
 
   return (
-    <Box sx={{ 
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      padding: 3,
-      pb: 10
-    }}>
+    <Box sx={{ pb: 10 }}>
       {subjects.length === 0 ? (
         <Box sx={{ 
           display: 'flex', 
           flexDirection: 'column', 
           alignItems: 'center', 
           justifyContent: 'center',
-          minHeight: '80vh',
-          color: 'white'
+          minHeight: '40vh',
+          color: 'var(--color-page-text)'
         }}>
-          <Typography variant="h4" sx={{ mb: 2 }}>
+          <Typography variant="h5" sx={{ mb: 1.5, letterSpacing: '0.1em', fontWeight: 300 }}>
             Calculadora de Notas
           </Typography>
-          <Typography variant="body1" sx={{ opacity: 0.8 }}>
+          <Typography variant="body2" sx={{ color: 'var(--color-muted)' }}>
             Presiona el botón + para agregar una asignatura
           </Typography>
         </Box>
@@ -131,19 +127,21 @@ const GradeCalculator = () => {
 
           return (
             <Card key={subject.id} sx={{ 
-              mb: 3,
-              background: 'white',
-              borderRadius: 3,
-              boxShadow: '0 8px 32px rgba(0,0,0,0.2)'
+              mb: 2.5,
+              background: 'rgba(8, 16, 32, 0.55)',
+              border: '1px solid rgba(80, 150, 255, 0.22)',
+              borderRadius: 2,
+              backdropFilter: 'blur(12px)',
+              boxShadow: 'none',
             }}>
-              <CardContent sx={{ p: 3 }}>
-                {/* Header con nota final */}
+              <CardContent sx={{ p: 2.5 }}>
                 <Box sx={{ 
-                  bgcolor: '#3f51b5',
-                  color: 'white',
+                  bgcolor: 'rgba(0, 10, 30, 0.5)',
+                  border: '1px solid rgba(80, 150, 255, 0.22)',
+                  color: '#dce8ff',
                   p: 2,
-                  borderRadius: 2,
-                  mb: 3,
+                  borderRadius: 1.5,
+                  mb: 2.5,
                   textAlign: 'center',
                   position: 'relative'
                 }}>
@@ -153,27 +151,27 @@ const GradeCalculator = () => {
                       position: 'absolute',
                       right: 8,
                       top: 8,
-                      color: 'white',
-                      bgcolor: 'rgba(255,255,255,0.2)'
+                      color: 'rgba(255, 190, 190, 0.85)',
+                      bgcolor: 'rgba(0, 10, 30, 0.45)',
+                      border: '1px solid rgba(255, 120, 120, 0.22)',
                     }}
                   >
                     <DeleteIcon />
                   </IconButton>
-                  <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                  <Typography variant="h4" sx={{ fontWeight: 400, color: '#8cb8ff' }}>
                     {currentAverage > 0 ? currentAverage.toFixed(2).replace('.', ',') : '—'}
                   </Typography>
-                  <Typography variant="caption">
+                  <Typography variant="caption" sx={{ color: 'var(--color-muted)' }}>
                     Promedio Actual (1-7)
                   </Typography>
                 </Box>
 
-                {/* Nombre de asignatura */}
                 <TextField
                   fullWidth
                   label="Asignatura (Opcional)"
                   value={subject.name}
                   onChange={(e) => updateSubjectName(subject.id, e.target.value)}
-                  sx={{ mb: 3 }}
+                  sx={{ mb: 2.5, ...glassTextFieldSx }}
                 />
 
                 {/* Tabla de notas y porcentajes */}
@@ -184,10 +182,10 @@ const GradeCalculator = () => {
                     gap: 2,
                     mb: 2
                   }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 500, textAlign: 'center', color: 'var(--color-muted)' }}>
                       Nota
                     </Typography>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 500, textAlign: 'center', color: 'var(--color-muted)' }}>
                       Porcentaje (%)
                     </Typography>
                     <Typography variant="subtitle1" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
@@ -209,6 +207,7 @@ const GradeCalculator = () => {
                         onChange={(e) => updateGrade(subject.id, index, 'value', e.target.value)}
                         inputProps={{ inputMode: 'decimal' }}
                         fullWidth
+                        sx={glassTextFieldSx}
                       />
                       <TextField
                         label="%"
@@ -216,15 +215,17 @@ const GradeCalculator = () => {
                         onChange={(e) => updateGrade(subject.id, index, 'percentage', e.target.value)}
                         inputProps={{ inputMode: 'decimal' }}
                         fullWidth
+                        sx={glassTextFieldSx}
                       />
                       <Box sx={{ display: 'flex', gap: 0.5 }}>
                         <IconButton
                           size="small"
                           onClick={() => addGrade(subject.id)}
                           sx={{ 
-                            bgcolor: '#4caf50',
-                            color: 'white',
-                            '&:hover': { bgcolor: '#45a049' }
+                            bgcolor: 'rgba(0, 10, 30, 0.5)',
+                            border: '1px solid rgba(80, 150, 255, 0.22)',
+                            color: '#8cb8ff',
+                            '&:hover': { bgcolor: 'rgba(20, 40, 80, 0.55)' }
                           }}
                         >
                           <AddIcon />
@@ -234,9 +235,10 @@ const GradeCalculator = () => {
                             size="small"
                             onClick={() => removeGrade(subject.id, index)}
                             sx={{ 
-                              bgcolor: '#f44336',
-                              color: 'white',
-                              '&:hover': { bgcolor: '#da190b' }
+                              bgcolor: 'rgba(0, 10, 30, 0.5)',
+                              border: '1px solid rgba(255, 120, 120, 0.22)',
+                              color: 'rgba(255, 190, 190, 0.85)',
+                              '&:hover': { bgcolor: 'rgba(60, 20, 30, 0.45)' }
                             }}
                           >
                             <RemoveIcon />
@@ -253,11 +255,12 @@ const GradeCalculator = () => {
                     fullWidth
                     variant="contained"
                     sx={{ 
-                      bgcolor: '#f44336',
-                      color: 'white',
-                      py: 1.5,
-                      fontSize: '1rem',
-                      '&:hover': { bgcolor: '#da190b' }
+                      bgcolor: 'rgba(0, 10, 30, 0.5)',
+                      border: '1px solid rgba(255, 120, 120, 0.22)',
+                      color: 'rgba(255, 190, 190, 0.9)',
+                      py: 1.25,
+                      boxShadow: 'none',
+                      '&:hover': { bgcolor: 'rgba(60, 20, 30, 0.45)' }
                     }}
                     onClick={() => {
                       if (window.confirm('¿Borrar esta asignatura?')) {
@@ -276,15 +279,17 @@ const GradeCalculator = () => {
 
       {/* Botón flotante para agregar asignatura */}
       <Fab
-        color="primary"
         sx={{ 
           position: 'fixed',
           bottom: 24,
           right: 24,
-          width: 64,
-          height: 64,
-          bgcolor: '#ffc107',
-          '&:hover': { bgcolor: '#ffb300' }
+          width: 56,
+          height: 56,
+          bgcolor: 'rgba(8, 16, 32, 0.85)',
+          border: '1px solid rgba(140, 184, 255, 0.4)',
+          color: '#8cb8ff',
+          boxShadow: 'none',
+          '&:hover': { bgcolor: 'rgba(20, 40, 80, 0.9)' }
         }}
         onClick={createNewSubject}
       >

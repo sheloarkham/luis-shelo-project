@@ -11,22 +11,11 @@ import {
   Alert
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { glassTextFieldSx, glassTabsSx } from '../styles/glassTheme'
 import './shared-page.css'
 import './Presupuestos.css'
 
 const STORAGE_KEY = 'presupuestos-gastos'
-
-const textFieldSx = {
-  '& .MuiOutlinedInput-root': {
-    bgcolor: 'rgba(0, 10, 30, 0.5)',
-    color: '#e8f0ff',
-    '& fieldset': { borderColor: 'rgba(80, 150, 255, 0.25)' },
-    '&:hover fieldset': { borderColor: 'rgba(100, 180, 255, 0.4)' },
-    '&.Mui-focused fieldset': { borderColor: 'rgba(100, 180, 255, 0.55)' },
-  },
-  '& .MuiInputLabel-root': { color: 'rgba(200, 220, 255, 0.75)' },
-  '& .MuiInputLabel-root.Mui-focused': { color: 'rgba(200, 220, 255, 0.9)' },
-}
 
 const Presupuestos = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -135,27 +124,14 @@ const Presupuestos = () => {
             onChange={(e, newValue) => setActiveTab(newValue)}
             centered
             className="presupuestos-tabs"
-            sx={{
-              mb: 4,
-              '& .MuiTab-root': {
-                color: 'rgba(220, 235, 255, 0.75)',
-                fontWeight: 500,
-                letterSpacing: '0.08em',
-              },
-              '& .Mui-selected': {
-                color: '#ffd700 !important',
-              },
-              '& .MuiTabs-indicator': {
-                backgroundColor: '#ffd700',
-              },
-            }}
+            sx={glassTabsSx}
           >
             <Tab label="Presupuesto" />
             <Tab label="CMR" />
             <Tab label="Juna" />
           </Tabs>
 
-          <Grid container spacing={4} justifyContent="center" className="presupuestos-grid">
+          <Grid container spacing={3} justifyContent="center" className="presupuestos-grid">
             <Grid item xs={12} md={5} lg={4}>
               <section className="presupuestos-section">
                 <Typography variant="h6" className="presupuestos-section-title">
@@ -176,7 +152,7 @@ const Presupuestos = () => {
                     value={formData.nombre}
                     onChange={handleInputChange}
                     placeholder="Ej: Supermercado"
-                    sx={textFieldSx}
+                    sx={glassTextFieldSx}
                   />
 
                   <TextField
@@ -187,7 +163,7 @@ const Presupuestos = () => {
                     value={formData.monto}
                     onChange={handleInputChange}
                     placeholder="Ej: 50000"
-                    sx={textFieldSx}
+                    sx={glassTextFieldSx}
                   />
 
                   <Button

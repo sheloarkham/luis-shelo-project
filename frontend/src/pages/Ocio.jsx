@@ -11,6 +11,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import SearchIcon from '@mui/icons-material/Search'
 import InputAdornment from '@mui/material/InputAdornment'
+import { glassSearchFieldSx } from '../styles/glassTheme'
 import './Ocio.css'
 
 const Ocio = () => {
@@ -31,8 +32,8 @@ const Ocio = () => {
 
   return (
     <div className="ocio-page">
-      <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Box sx={{ mb: 4 }}>
+      <Container maxWidth="xl" sx={{ py: 0, px: { xs: 2, md: 3 } }}>
+        <Box sx={{ mb: 3 }}>
           <TextField
             fullWidth
             variant="outlined"
@@ -42,41 +43,11 @@ const Ocio = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ color: '#667eea' }} />
+                  <SearchIcon sx={{ color: 'rgba(140, 184, 255, 0.75)' }} />
                 </InputAdornment>
               ),
             }}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: '16px',
-                fontSize: '16px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                transition: 'all 0.3s ease',
-                '& fieldset': {
-                  borderColor: 'rgba(102, 126, 234, 0.3)',
-                  borderWidth: '2px',
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 1)',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 12px 40px rgba(102, 126, 234, 0.2)',
-                },
-                '&:hover fieldset': {
-                  borderColor: '#667eea',
-                },
-                '&.Mui-focused': {
-                  backgroundColor: 'rgba(255, 255, 255, 1)',
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 12px 48px rgba(102, 126, 234, 0.3)',
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#667eea',
-                  borderWidth: '2px',
-                },
-              },
-            }}
+            sx={glassSearchFieldSx}
           />
           {searchTerm && (
             <Box className="search-results-info" sx={{ mt: 2 }}>
