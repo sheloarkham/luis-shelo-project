@@ -256,7 +256,7 @@
 /* Libro destacado: portada + descripción grande lado a lado */
 .featured-book {
   display: grid;
-  grid-template-columns: minmax(260px, 340px) 1fr;
+  grid-template-columns: minmax(160px, 200px) 1fr;
   gap: 48px;
   align-items: start;
   background: #ffffff;
@@ -273,14 +273,17 @@
 
 .featured-book-cover {
   position: relative;
+  max-width: 200px;
 }
 
 .featured-book-image {
   width: 100%;
+  max-width: 200px;
   height: auto;
   display: block;
   border-radius: 4px;
   box-shadow: 0 12px 32px rgba(120, 0, 0, 0.35);
+  object-fit: contain;
 }
 
 .featured-book-info {
@@ -375,8 +378,12 @@
   }
 
   .featured-book-cover {
-    max-width: 320px;
+    max-width: 180px;
     margin: 0 auto;
+  }
+
+  .featured-book-image {
+    max-width: 180px;
   }
 
   .featured-book-description {

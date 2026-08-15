@@ -1,0 +1,156 @@
+.presupuestos-page .content {
+  max-width: 1100px;
+}
+
+.presupuestos-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.presupuestos-title {
+  color: #e8f0ff !important;
+  text-align: center;
+  letter-spacing: 0.14em;
+  font-weight: 300 !important;
+  margin-bottom: 8px !important;
+}
+
+.presupuestos-tabs {
+  width: 100%;
+  max-width: 520px;
+}
+
+.presupuestos-grid {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.presupuestos-section {
+  width: 100%;
+}
+
+.presupuestos-section-title {
+  color: rgba(220, 235, 255, 0.9) !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 400 !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 20px !important;
+}
+
+.presupuestos-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.presupuestos-submit {
+  background: rgba(8, 16, 32, 0.72) !important;
+  border: 1px solid rgba(80, 150, 255, 0.35) !important;
+  color: #e8f0ff !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  box-shadow: none !important;
+}
+
+.presupuestos-submit:hover {
+  background: rgba(20, 40, 80, 0.85) !important;
+  border-color: rgba(100, 180, 255, 0.5) !important;
+}
+
+.presupuestos-empty {
+  color: rgba(200, 220, 255, 0.65);
+  text-align: center;
+  padding: 24px 12px;
+  letter-spacing: 0.05em;
+}
+
+.presupuestos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.presupuestos-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.presupuestos-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(0, 10, 30, 0.5);
+  border: 1px solid rgba(80, 150, 255, 0.22);
+  color: #e8f0ff;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.presupuestos-pill--name {
+  flex: 1 1 140px;
+  font-weight: 500;
+}
+
+.presupuestos-pill--amount {
+  font-weight: 600;
+  color: #93c5fd;
+  white-space: nowrap;
+}
+
+.presupuestos-delete {
+  color: rgba(255, 180, 180, 0.85) !important;
+  background: rgba(0, 10, 30, 0.45) !important;
+  border: 1px solid rgba(255, 100, 100, 0.25) !important;
+}
+
+.presupuestos-delete:hover {
+  background: rgba(80, 0, 0, 0.35) !important;
+}
+
+.presupuestos-total {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.presupuestos-pill--total-label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+  color: rgba(220, 235, 255, 0.85);
+}
+
+.presupuestos-pill--total-amount {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffd700;
+  border-color: rgba(255, 215, 0, 0.35);
+  background: rgba(40, 30, 0, 0.35);
+}
+
+@media (max-width: 768px) {
+  .presupuestos-row {
+    align-items: stretch;
+  }
+
+  .presupuestos-pill--name {
+    flex: 1 1 100%;
+  }
+}

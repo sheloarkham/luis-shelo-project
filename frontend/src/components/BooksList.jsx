@@ -11,7 +11,6 @@ import Chip from '@mui/material/Chip'
 import {
   ocioCardsGridSx,
   ocioCardSx,
-  ocioCardMediaSx,
   ocioCardOverlaySx,
   ocioCardTitleSx,
   ocioCardMetaSx,
@@ -262,12 +261,31 @@ const BooksList = ({ searchTerm = '' }) => {
         boxShadow: '0 12px 24px rgba(0,0,0,0.5)',
       },
     })}>
-      <CardMedia
-        component="img"
-        image={book.image}
-        alt={book.title}
-        sx={{ ...ocioCardMediaSx, objectFit: 'contain', bgcolor: 'rgba(255,255,255,0.08)' }}
-      />
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          pt: 1,
+          pb: 6,
+          pointerEvents: 'none',
+        }}
+      >
+        <CardMedia
+          component="img"
+          image={book.image}
+          alt={book.title}
+          sx={{
+            maxWidth: '68%',
+            maxHeight: '70%',
+            width: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
+          }}
+        />
+      </Box>
       <IconButton
         size="small"
         sx={ocioCardMenuButtonSx}

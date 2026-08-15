@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Box, Card, CardContent, Typography, CircularProgress, Alert, Grid } from '@mui/material'
+import { Box, Card, CardContent, Typography, CircularProgress, Alert } from '@mui/material'
 import HomeForestIntro, { hasSeenHomeIntro } from '../components/HomeForestIntro'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
@@ -344,40 +344,32 @@ const Home = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={{ xs: 2, md: 2 }} className="home-stats-grid">
-          <Grid item xs={12} sm={6} md={3}>
-            <StatCard
-              title="Series"
-              stats={stats?.series || {}}
-              icon="📺"
-              color="#FFD700"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <StatCard
-              title="Anime"
-              stats={stats?.anime || {}}
-              icon="🎌"
-              color="#ff6b6b"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <StatCard
-              title="Juegos"
-              stats={stats?.games || {}}
-              icon="🎮"
-              color="#a78bfa"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <StatCard
-              title="Libros"
-              stats={stats?.books || {}}
-              icon="📚"
-              color="#60a5fa"
-            />
-          </Grid>
-        </Grid>
+        <Box className="home-stats-grid">
+          <StatCard
+            title="Series"
+            stats={stats?.series || {}}
+            icon="📺"
+            color="#FFD700"
+          />
+          <StatCard
+            title="Anime"
+            stats={stats?.anime || {}}
+            icon="🎌"
+            color="#ff6b6b"
+          />
+          <StatCard
+            title="Juegos"
+            stats={stats?.games || {}}
+            icon="🎮"
+            color="#a78bfa"
+          />
+          <StatCard
+            title="Libros"
+            stats={stats?.books || {}}
+            icon="📚"
+            color="#60a5fa"
+          />
+        </Box>
       </Box>
     )
   }
