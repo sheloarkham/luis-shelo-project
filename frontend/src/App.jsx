@@ -21,7 +21,6 @@ function AppRoutes() {
   const contentRef = useRef(null)
   const canvasRef = useRef(null)
   const isFirstMount = useRef(true)
-  const transitionLock = useRef(false)
 
   useEffect(() => {
     if (isFirstMount.current) {
@@ -29,35 +28,41 @@ function AppRoutes() {
       return undefined
     }
 
-    if (location.pathname === displayLocation.pathname || transitionLock.current) {
+    if (location.pathname === displayLocation.pathname) {
       return undefined
     }
 
-    let cancelled = false
-    transitionLock.current = true
+    let active = true
 
-    const transition = async () => {
-      await runPageDisintegration(contentRef.current, canvasRef.current)
+    const runTransition = async () => {
+      await new Promise((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(resolve))
+      })
 
-      if (cancelled) return
+      if (!active) return
+
+      try {
+        await runPageDisintegration(contentRef.current, canvasRef.current)
+      } catch (error) {
+        console.error('Error en transicion de pagina:', error)
+      }
+
+      if (!active) return
 
       setDisplayLocation(location)
       setPageEntering(true)
 
       window.setTimeout(() => {
-        if (!cancelled) {
-          setPageEntering(false)
-        }
-        transitionLock.current = false
-      }, 760)
+        if (active) setPageEntering(false)
+      }, 750)
     }
 
-    transition()
+    runTransition()
 
     return () => {
-      cancelled = true
+      active = false
     }
-  }, [location, displayLocation])
+  }, [location, displayLocation.pathname])
 
   return (
     <>
