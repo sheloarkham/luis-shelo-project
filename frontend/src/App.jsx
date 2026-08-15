@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Layout from './components/Layout'
-import PageDisintegration from './components/PageDisintegration'
 import Home from './pages/Home'
 import Ocio from './pages/Ocio'
 import Presupuestos from './pages/Presupuestos'
@@ -11,7 +10,7 @@ import Gym from './pages/Gym'
 import Yeni from './pages/Yeni'
 import Books from './pages/Books'
 import Chat from './pages/Chat'
-import { runPageDisintegration } from './utils/pageDisintegration'
+import { runPageFadeOut } from './utils/pageTransition'
 import './App.css'
 
 function AppRoutes() {
@@ -19,7 +18,6 @@ function AppRoutes() {
   const [displayLocation, setDisplayLocation] = useState(location)
   const [pageEntering, setPageEntering] = useState(false)
   const contentRef = useRef(null)
-  const canvasRef = useRef(null)
   const isFirstMount = useRef(true)
 
   useEffect(() => {
@@ -35,17 +33,7 @@ function AppRoutes() {
     let active = true
 
     const runTransition = async () => {
-      await new Promise((resolve) => {
-        requestAnimationFrame(() => requestAnimationFrame(resolve))
-      })
-
-      if (!active) return
-
-      try {
-        await runPageDisintegration(contentRef.current, canvasRef.current)
-      } catch (error) {
-        console.error('Error en transicion de pagina:', error)
-      }
+      await runPageFadeOut(contentRef.current)
 
       if (!active) return
 
@@ -54,7 +42,7 @@ function AppRoutes() {
 
       window.setTimeout(() => {
         if (active) setPageEntering(false)
-      }, 750)
+      }, 450)
     }
 
     runTransition()
@@ -65,22 +53,19 @@ function AppRoutes() {
   }, [location, displayLocation.pathname])
 
   return (
-    <>
-      <PageDisintegration ref={canvasRef} />
-      <Routes location={displayLocation}>
-        <Route path="/" element={<Layout contentRef={contentRef} pageEntering={pageEntering} />}>
-          <Route index element={<Home />} />
-          <Route path="ocio" element={<Ocio />} />
-          <Route path="presupuestos" element={<Presupuestos />} />
-          <Route path="proyecto" element={<Proyecto />} />
-          <Route path="carrera" element={<Carrera />} />
-          <Route path="gym" element={<Gym />} />
-          <Route path="yeni" element={<Yeni />} />
-          <Route path="books" element={<Books />} />
-          <Route path="chat" element={<Chat />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes location={displayLocation}>
+      <Route path="/" element={<Layout contentRef={contentRef} pageEntering={pageEntering} />}>
+        <Route index element={<Home />} />
+        <Route path="ocio" element={<Ocio />} />
+        <Route path="presupuestos" element={<Presupuestos />} />
+        <Route path="proyecto" element={<Proyecto />} />
+        <Route path="carrera" element={<Carrera />} />
+        <Route path="gym" element={<Gym />} />
+        <Route path="yeni" element={<Yeni />} />
+        <Route path="books" element={<Books />} />
+        <Route path="chat" element={<Chat />} />
+      </Route>
+    </Routes>
   )
 }
 

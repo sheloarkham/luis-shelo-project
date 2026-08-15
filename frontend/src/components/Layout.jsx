@@ -9,7 +9,7 @@ import { useThemeCustomization } from '../context/ThemeContext'
 import { useParticleTheme } from '../context/ParticleThemeContext'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 
-import './PageDisintegration.css'
+import './PageTransition.css'
 
 const Layout = ({ contentRef, pageEntering = false }) => {
   const { customizationMode } = useThemeCustomization()
@@ -31,7 +31,7 @@ const Layout = ({ contentRef, pageEntering = false }) => {
       {!chromeHidden && <CustomizePanel />}
       <Box
         ref={contentRef}
-        className={`page-transition-shell${pageEntering ? ' page-transition-main--enter' : ''}`}
+        className={`page-transition-shell${pageEntering ? ' page-transition-shell--enter' : ''}`}
         sx={{
           flexGrow: 1,
           display: 'flex',
@@ -39,7 +39,7 @@ const Layout = ({ contentRef, pageEntering = false }) => {
           mt: mainTopMargin,
         }}
       >
-        <Box component="main" className="page-transition-main" sx={{ flexGrow: 1 }}>
+        <Box component="main" sx={{ flexGrow: 1 }}>
           <Outlet />
         </Box>
         {!chromeHidden && <Footer />}
