@@ -22,28 +22,29 @@ const StatCard = ({ title, stats, icon, color }) => {
         borderColor: 'rgba(100, 180, 255, 0.45)',
       }
     }}>
-      <CardContent sx={{ p: 4 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+      <CardContent sx={{ p: { xs: 2.5, md: 2 }, px: { md: 1.75 } }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 2, md: 1.5 } }}>
           <Typography 
-            variant="h4" 
+            variant="h5" 
             sx={{ 
               color: '#e8f0ff', 
               fontWeight: 300,
               flex: 1,
-              letterSpacing: '0.15em'
+              letterSpacing: '0.12em',
+              fontSize: { xs: '1.25rem', md: '1.05rem' },
             }}
           >
             {icon} {title}
           </Typography>
         </Box>
         
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', my: { xs: 3, md: 2 } }}>
           <Box sx={{ position: 'relative', display: 'inline-flex' }}>
             <CircularProgress
               variant="determinate"
               value={100}
-              size={140}
-              thickness={2}
+              size={110}
+              thickness={2.5}
               sx={{
                 color: '#f5f5f5',
                 position: 'absolute'
@@ -52,8 +53,8 @@ const StatCard = ({ title, stats, icon, color }) => {
             <CircularProgress
               variant="determinate"
               value={porcentajeProgreso || 0}
-              size={140}
-              thickness={2}
+              size={110}
+              thickness={2.5}
               sx={{
                 color: color,
               }}
@@ -72,10 +73,11 @@ const StatCard = ({ title, stats, icon, color }) => {
               }}
             >
               <Typography 
-                variant="h3" 
+                variant="h4" 
                 sx={{ 
                   color: '#e8f0ff', 
                   fontWeight: 300,
+                  fontSize: { xs: '2rem', md: '1.65rem' },
                 }}
               >
                 {porcentajeProgreso || 0}%
@@ -85,8 +87,8 @@ const StatCard = ({ title, stats, icon, color }) => {
                 sx={{ 
                   color: 'rgba(200, 220, 255, 0.75)',
                   fontWeight: 400,
-                  fontSize: '0.85rem',
-                  mt: 0.5,
+                  fontSize: { xs: '0.75rem', md: '0.68rem' },
+                  mt: 0.25,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase'
                 }}
@@ -97,13 +99,14 @@ const StatCard = ({ title, stats, icon, color }) => {
           </Box>
         </Box>
 
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2, mt: 3 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: { xs: 1.5, md: 1 }, mt: { xs: 2, md: 1.5 } }}>
           <Box 
             sx={{ 
               textAlign: 'center', 
-              p: 2, 
+              p: { xs: 1.5, md: 1.1 }, 
               bgcolor: 'rgba(0, 10, 30, 0.45)',
               border: '1px solid rgba(80, 150, 255, 0.18)',
+              borderRadius: 1,
               transition: 'all 0.3s ease',
               '&:hover': {
                 bgcolor: 'rgba(10, 30, 60, 0.55)',
@@ -112,17 +115,17 @@ const StatCard = ({ title, stats, icon, color }) => {
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: color, fontWeight: 300 }}>
+            <Typography variant="h6" sx={{ color: color, fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {total}
             </Typography>
-            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em', fontSize: { md: '0.68rem' } }}>
               Total
             </Typography>
           </Box>
           <Box 
             sx={{ 
               textAlign: 'center', 
-              p: 2, 
+              p: { xs: 1.5, md: 1.1 }, 
               bgcolor: 'rgba(0, 10, 30, 0.45)',
               borderRadius: 1,
               border: '1px solid rgba(80, 150, 255, 0.18)',
@@ -134,17 +137,17 @@ const StatCard = ({ title, stats, icon, color }) => {
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: '#4ade80', fontWeight: 300 }}>
+            <Typography variant="h6" sx={{ color: '#4ade80', fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {stats.completadas || stats.completados || stats.leidos || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em', fontSize: { md: '0.68rem' } }}>
               Completados
             </Typography>
           </Box>
           <Box 
             sx={{ 
               textAlign: 'center', 
-              p: 2, 
+              p: { xs: 1.5, md: 1.1 }, 
               bgcolor: 'rgba(0, 10, 30, 0.45)',
               borderRadius: 1,
               border: '1px solid rgba(80, 150, 255, 0.18)',
@@ -156,17 +159,17 @@ const StatCard = ({ title, stats, icon, color }) => {
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: '#fbbf24', fontWeight: 300 }}>
+            <Typography variant="h6" sx={{ color: '#fbbf24', fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {stats.viendo || stats.jugando || stats.leyendo || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em', fontSize: { md: '0.68rem' } }}>
               En progreso
             </Typography>
           </Box>
           <Box 
             sx={{ 
               textAlign: 'center', 
-              p: 2, 
+              p: { xs: 1.5, md: 1.1 }, 
               bgcolor: 'rgba(0, 10, 30, 0.45)',
               borderRadius: 1,
               border: '1px solid rgba(80, 150, 255, 0.18)',
@@ -178,10 +181,10 @@ const StatCard = ({ title, stats, icon, color }) => {
               }
             }}
           >
-            <Typography variant="h5" sx={{ color: '#ef4444', fontWeight: 300 }}>
+            <Typography variant="h6" sx={{ color: '#ef4444', fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {stats.pendientes || 0}
             </Typography>
-            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em' }}>
+            <Typography variant="caption" sx={{ color: 'rgba(200, 220, 255, 0.75)', fontWeight: 400, letterSpacing: '0.05em', fontSize: { md: '0.68rem' } }}>
               Pendientes
             </Typography>
           </Box>
@@ -341,8 +344,8 @@ const Home = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={4} sx={{ maxWidth: 1400, mx: 'auto' }}>
-          <Grid item xs={12} md={6}>
+        <Grid container spacing={{ xs: 2, md: 2 }} className="home-stats-grid">
+          <Grid item xs={12} sm={6} md={3}>
             <StatCard
               title="Series"
               stats={stats?.series || {}}
@@ -350,7 +353,7 @@ const Home = () => {
               color="#FFD700"
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} sm={6} md={3}>
             <StatCard
               title="Anime"
               stats={stats?.anime || {}}
@@ -358,7 +361,7 @@ const Home = () => {
               color="#ff6b6b"
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} sm={6} md={3}>
             <StatCard
               title="Juegos"
               stats={stats?.games || {}}
@@ -366,7 +369,7 @@ const Home = () => {
               color="#a78bfa"
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} sm={6} md={3}>
             <StatCard
               title="Libros"
               stats={stats?.books || {}}

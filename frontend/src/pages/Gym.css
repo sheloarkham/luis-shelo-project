@@ -8,7 +8,7 @@
 }
 
 .gym-title {
-  color: #2c2c2c;
+  color: var(--color-page-text);
   font-size: 2.5rem;
   font-weight: 300;
   letter-spacing: 0.25em;
@@ -17,7 +17,8 @@
 }
 
 .gym-subtitle {
-  color: #666;
+  color: var(--color-page-text);
+  opacity: 0.75;
   font-size: 1rem;
   letter-spacing: 0.1em;
   margin: 0;
@@ -25,50 +26,133 @@
 
 .gym-days-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
 }
 
 .gym-day-card {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
   padding: 28px 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .gym-day-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-  border-color: #2c2c2c;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .gym-day-number {
   display: inline-block;
   padding: 6px 14px;
-  margin-bottom: 16px;
-  background: #2c2c2c;
-  color: #ffffff;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-page-text);
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  border-radius: 4px;
 }
 
 .gym-day-label {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 0.08em;
-  color: #2c2c2c;
+  color: var(--color-page-text);
 }
 
-.gym-day-placeholder {
+.gym-day-focus {
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+  color: var(--color-page-text);
+  opacity: 0.7;
+  letter-spacing: 0.06em;
+}
+
+.gym-muscle-diagram {
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.gym-muscle-diagram img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.gym-muscle-diagram figcaption {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--color-page-text);
+  opacity: 0.6;
+  letter-spacing: 0.04em;
+}
+
+.gym-day-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.gym-muscle-group {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 14px;
+}
+
+.gym-group-title {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-page-text);
+  opacity: 0.85;
+}
+
+.gym-exercise-list {
+  list-style: none;
   margin: 0;
-  font-size: 0.95rem;
-  color: #999;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gym-exercise-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.gym-exercise-name {
+  color: var(--color-page-text);
+  flex: 1 1 160px;
+}
+
+.gym-exercise-weight {
+  color: var(--color-page-text);
+  opacity: 0.9;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.gym-exercise-alt {
+  width: 100%;
+  font-size: 0.82rem;
+  color: var(--color-page-text);
+  opacity: 0.65;
   font-style: italic;
-  letter-spacing: 0.03em;
 }
 
 @media (max-width: 768px) {
