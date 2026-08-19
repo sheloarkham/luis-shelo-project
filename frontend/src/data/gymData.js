@@ -50,7 +50,7 @@ export const DEFAULT_TRAINING_DAYS = [
         exercises: [
           { name: 'Curl máquina', weight: '41 kg' },
           { name: 'Tríceps polea', weight: '21 kg' },
-          { name: 'Curl bíceps martillo', weight: null },
+          { name: 'Curl martillo', weight: '18 kg' },
         ],
       },
     ],
