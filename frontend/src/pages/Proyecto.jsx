@@ -14,10 +14,28 @@ const Proyecto = () => {
     {
       id: 2,
       title: 'Google Data Analytics',
-      status: 'en-progreso',
+      status: 'completado',
       description: 'Análisis de datos, SQL, hojas de cálculo y visualización - Coursera',
       link: 'https://www.coursera.org/professional-certificates/google-data-analytics',
       icon: '📊',
+    },
+    {
+      id: 3,
+      title: 'TypeScript: Tu completa guía y manual de mano',
+      status: 'en-progreso',
+      description: 'Curso completo de TypeScript — Fernando Herrera · Udemy',
+      link: 'https://www.udemy.com/course/typescript-guia-completa/',
+      linkLabel: 'Ir al curso',
+      icon: '📘',
+    },
+    {
+      id: 4,
+      title: 'Lógica de Programación',
+      status: 'pendiente',
+      description: 'Libro · Fundamentos de algoritmos y pensamiento lógico — Omar Iván Trejos Buriticá',
+      link: 'https://matrix3d.co/producto/logica-de-programacion-2a-edicion/',
+      linkLabel: 'Ver libro',
+      icon: '📖',
     },
   ]
 
@@ -64,7 +82,7 @@ const Proyecto = () => {
 
           <section className="glass-panel proyecto-goal">
             <h2>Objetivo General</h2>
-            <p>Dominar Javascript</p>
+            <p>Dominar TypeScript y desarrollo full stack</p>
           </section>
 
           <section className="glass-panel proyecto-roadmap">
@@ -95,7 +113,7 @@ const Proyecto = () => {
                           rel="noopener noreferrer"
                           className="glass-link-btn"
                         >
-                          Ir al curso
+                          {step.linkLabel || 'Ir al curso'}
                         </a>
                       )}
 
@@ -110,7 +128,7 @@ const Proyecto = () => {
             </div>
 
             <div className="proyecto-footer-note">
-              <p>Más pasos se agregarán próximamente</p>
+              <p>Ruta activa: TypeScript + Full Stack</p>
             </div>
           </section>
         </main>
