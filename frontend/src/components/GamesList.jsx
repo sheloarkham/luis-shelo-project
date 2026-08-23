@@ -19,6 +19,8 @@ import {
 } from '../styles/ocioCardStyles'
 import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
 import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
+import ScrollReveal from './ScrollReveal'
+import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 
 const STORAGE_KEY = 'games-list'
 
@@ -277,7 +279,12 @@ const GamesList = ({ searchTerm = '' }) => {
   }
 
   const renderGameCard = (game, index) => (
-    <Card key={index} sx={ocioCardSx({ 
+    <ScrollReveal
+      key={game.title || index}
+      delay={scrollRevealStagger(index)}
+      className="scroll-reveal--fill"
+    >
+    <Card sx={ocioCardSx({ 
       background: getCardBackground(game.Estado),
       color: 'white',
       boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
@@ -314,6 +321,7 @@ const GamesList = ({ searchTerm = '' }) => {
         />
       </Box>
     </Card>
+    </ScrollReveal>
   )
 
   const deleteGame = () => {
@@ -324,9 +332,11 @@ const GamesList = ({ searchTerm = '' }) => {
 
   return (
     <Box id="games" sx={{ py: 4 }}>
+      <ScrollReveal>
       <Typography variant="h4" sx={{ mb: 3, color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
         Videojuegos
       </Typography>
+      </ScrollReveal>
       
       {filteredGames.length === 0 ? (
         <Box sx={{ 
@@ -355,9 +365,11 @@ const GamesList = ({ searchTerm = '' }) => {
           {/* Sección Jugando */}
           {jugando.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ mb: 2, color: '#a78bfa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Jugando ({jugando.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {jugando.map(renderGameCard)}
               </Box>
@@ -367,9 +379,11 @@ const GamesList = ({ searchTerm = '' }) => {
           {/* Sección Pendiente */}
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ mb: 2, color: '#fbbf24', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Pendiente ({pendiente.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderGameCard)}
               </Box>

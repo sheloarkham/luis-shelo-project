@@ -19,6 +19,8 @@ import {
 } from '../styles/ocioCardStyles'
 import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
 import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
+import ScrollReveal from './ScrollReveal'
+import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 
 const STORAGE_KEY = 'series-list'
 
@@ -143,9 +145,13 @@ const SeriesList = ({ searchTerm = '' }) => {
     }
   }
 
-  const renderCard = (serie) => (
-    <Card 
+  const renderCard = (serie, index = 0) => (
+    <ScrollReveal
       key={serie.title}
+      delay={scrollRevealStagger(index)}
+      className="scroll-reveal--fill"
+    >
+    <Card 
       sx={ocioCardSx({
         background: getCardBackground(serie.Estado),
         backdropFilter: 'blur(10px)',
@@ -193,15 +199,18 @@ const SeriesList = ({ searchTerm = '' }) => {
         />
       </Box>
     </Card>
+    </ScrollReveal>
   )
 
   const { viendo, pendiente } = groupByStatus()
 
   return (
     <Box id="series" sx={{ py: 4 }}>
+      <ScrollReveal>
       <Typography variant="h4" sx={{ color: '#FFD700', fontWeight: 'bold', mb: 4, textAlign: 'center' }}>
         Series
       </Typography>
+      </ScrollReveal>
 
       {filteredSeries.length === 0 ? (
         <Box sx={{ 
@@ -226,9 +235,11 @@ const SeriesList = ({ searchTerm = '' }) => {
         <Box>
           {viendo.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
                 Viendo ({viendo.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {viendo.map(renderCard)}
               </Box>
@@ -237,9 +248,11 @@ const SeriesList = ({ searchTerm = '' }) => {
 
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
                 Pendiente ({pendiente.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderCard)}
               </Box>

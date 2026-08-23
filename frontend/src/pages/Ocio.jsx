@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography'
 import SearchIcon from '@mui/icons-material/Search'
 import InputAdornment from '@mui/material/InputAdornment'
 import { glassSearchFieldSx } from '../styles/glassTheme'
+import ScrollReveal from '../components/ScrollReveal'
 import './Ocio.css'
 
 const Ocio = () => {
@@ -34,6 +35,7 @@ const Ocio = () => {
   return (
     <div className="ocio-page">
       <Container maxWidth="xl" sx={{ py: 0, px: { xs: 2, md: 3 } }}>
+        <ScrollReveal>
         <Box sx={{ mb: 3 }}>
           <TextField
             fullWidth
@@ -58,6 +60,7 @@ const Ocio = () => {
             </Box>
           )}
         </Box>
+        </ScrollReveal>
 
         <ActualmenteEnProgreso />
         

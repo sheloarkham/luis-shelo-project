@@ -18,6 +18,8 @@ import {
 } from '../styles/ocioCardStyles'
 import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
 import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
+import ScrollReveal from './ScrollReveal'
+import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 
 const STORAGE_KEY = 'books-list'
 
@@ -258,7 +260,12 @@ const BooksList = ({ searchTerm = '' }) => {
   }
 
   const renderBookCard = (book, index) => (
-    <Card key={index} sx={ocioCardSx({ 
+    <ScrollReveal
+      key={book.title || index}
+      delay={scrollRevealStagger(index)}
+      className="scroll-reveal--fill"
+    >
+    <Card sx={ocioCardSx({ 
       background: getCardBackground(book.Estado),
       color: 'white',
       boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
@@ -314,6 +321,7 @@ const BooksList = ({ searchTerm = '' }) => {
         />
       </Box>
     </Card>
+    </ScrollReveal>
   )
 
   const deleteBook = () => {
@@ -323,9 +331,11 @@ const BooksList = ({ searchTerm = '' }) => {
 
   return (
     <Box id="books" sx={{ py: 4 }}>
+      <ScrollReveal>
       <Typography variant="h4" sx={{ mb: 3, color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
         Libros
       </Typography>
+      </ScrollReveal>
       
       {filteredBooks.length === 0 ? (
         <Box sx={{ 
@@ -354,9 +364,11 @@ const BooksList = ({ searchTerm = '' }) => {
           {/* Sección Leyendo */}
           {leyendo.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ mb: 2, color: '#60a5fa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Leyendo ({leyendo.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {leyendo.map(renderBookCard)}
               </Box>
@@ -366,9 +378,11 @@ const BooksList = ({ searchTerm = '' }) => {
           {/* Sección Pendiente */}
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ mb: 2, color: '#fb923c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Pendiente ({pendiente.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderBookCard)}
               </Box>

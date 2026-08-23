@@ -5,6 +5,9 @@ import VolumeUpIcon from '@mui/icons-material/VolumeUp'
 import VolumeOffIcon from '@mui/icons-material/VolumeOff'
 import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import { useParticleTheme } from '../context/ParticleThemeContext'
+import BrasilPartyAds from '../components/BrasilPartyAds'
+import ScrollReveal from '../components/ScrollReveal'
+import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 import './shared-page.css'
 import './Yeni.css'
 
@@ -364,9 +367,11 @@ const Yeni = () => {
 
   return (
     <div className={`page-container yeni-page${yeniContentVisible ? ' yeni-page--visible' : ''}`}>
+      <BrasilPartyAds active={brasilInView && yeniContentVisible} />
       <div className="content">
         <main>
           <Box sx={{ p: 4, minHeight: '100vh' }}>
+            <ScrollReveal disabled={!yeniContentVisible}>
             <Box sx={{ textAlign: 'center', mb: 6 }}>
               <Typography
                 variant="h2"
@@ -390,6 +395,7 @@ const Yeni = () => {
               </Typography>
 
               {/* Burbuja de Fechas Importantes */}
+              <ScrollReveal disabled={!yeniContentVisible} delay={0.08}>
               <Box
                 sx={{
                   mt: 3,
@@ -432,10 +438,13 @@ const Yeni = () => {
                   ❤️ <strong>Aniversario:</strong> 10 de abril, 2024
                 </Typography>
               </Box>
+              </ScrollReveal>
             </Box>
+            </ScrollReveal>
 
             <Grid container spacing={4} sx={{ maxWidth: 1200, mx: 'auto', justifyContent: 'center' }}>
               <Grid item xs={12} md={5.5}>
+                <ScrollReveal disabled={!yeniContentVisible} delay={0.05} direction="left">
                 <TimeCard
                   title="Desde que nos conocimos"
                   emoji="✨"
@@ -443,8 +452,10 @@ const Yeni = () => {
                   color="#ff6b9d"
                   gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
                 />
+                </ScrollReveal>
               </Grid>
               <Grid item xs={12} md={5.5}>
+                <ScrollReveal disabled={!yeniContentVisible} delay={0.05} direction="right">
                 <TimeCard
                   title="Pololeando"
                   emoji="❤️"
@@ -452,11 +463,13 @@ const Yeni = () => {
                   color="#c44569"
                   gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
                 />
+                </ScrollReveal>
               </Grid>
             </Grid>
 
             {/* Galería de Fotos */}
             <Box sx={{ mt: 6, maxWidth: 1400, mx: 'auto' }}>
+              <ScrollReveal disabled={!yeniContentVisible}>
               <Typography
                 variant="h3"
                 className="yeni-text-stroke"
@@ -468,10 +481,16 @@ const Yeni = () => {
               >
                  Nuestros Recuerdos
               </Typography>
+              </ScrollReveal>
 
               <Grid container spacing={4}>
                 {photos.map((photo, index) => (
                   <Grid item xs={12} md={4} key={photo.id}>
+                    <ScrollReveal
+                      disabled={!yeniContentVisible}
+                      delay={scrollRevealStagger(index, 0.08, 6)}
+                      className="scroll-reveal--fill"
+                    >
                     <Card
                       sx={{
                         background: 'linear-gradient(135deg, rgba(255, 107, 157, 0.2) 0%, rgba(196, 69, 105, 0.2) 100%)',
@@ -480,17 +499,6 @@ const Yeni = () => {
                         overflow: 'hidden',
                         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                         position: 'relative',
-                        animation: `fadeInUp ${0.5 + index * 0.2}s ease-out`,
-                        '@keyframes fadeInUp': {
-                          '0%': {
-                            opacity: 0,
-                            transform: 'translateY(30px)'
-                          },
-                          '100%': {
-                            opacity: 1,
-                            transform: 'translateY(0)'
-                          }
-                        },
                         '&:hover': {
                           transform: 'translateY(-15px) scale(1.05)',
                           boxShadow: '0 20px 60px rgba(255, 107, 157, 0.5)',
@@ -562,11 +570,13 @@ const Yeni = () => {
                         </Typography>
                       </CardContent>
                     </Card>
+                    </ScrollReveal>
                   </Grid>
                 ))}
               </Grid>
             </Box>
 
+            <ScrollReveal disabled={!yeniContentVisible} direction="scale">
             <Box
               sx={{
                 mt: 6,
@@ -591,6 +601,7 @@ const Yeni = () => {
                 Cada día, una nueva razón para amarte más. Te amo, Yeni 💕"
               </Typography>
             </Box>
+            </ScrollReveal>
 
             {/* Sección Brasil */}
             <audio
@@ -631,6 +642,7 @@ const Yeni = () => {
                   </Tooltip>
                 </Box>
               )}
+              <ScrollReveal disabled={!yeniContentVisible}>
               <Typography
                 variant="h3"
                 className="yeni-text-stroke"
@@ -664,7 +676,9 @@ const Yeni = () => {
               >
                  BRASIL 
               </Typography>
+              </ScrollReveal>
 
+              <ScrollReveal disabled={!yeniContentVisible} delay={0.1} direction="scale">
               <Card
                 sx={{
                   background: 'linear-gradient(135deg, rgba(0, 151, 57, 0.2) 0%, rgba(254, 221, 0, 0.2) 50%, rgba(0, 39, 118, 0.2) 100%)',
@@ -692,8 +706,10 @@ const Yeni = () => {
                   }}
                 />
               </Card>
+              </ScrollReveal>
 
               {/* Los 3 imperdibles — cuadrados en fila */}
+              <ScrollReveal disabled={!yeniContentVisible} delay={0.05}>
               <Typography
                 variant="h3"
                 className="yeni-text-stroke"
@@ -701,10 +717,17 @@ const Yeni = () => {
               >
                 Los 3 imperdibles
               </Typography>
+              </ScrollReveal>
 
               <Box className="rio-imperdibles-row">
-                {IMPERDIBLES.map((spot) => (
-                  <Box key={spot.id} className="rio-spot-card">
+                {IMPERDIBLES.map((spot, index) => (
+                  <ScrollReveal
+                    key={spot.id}
+                    disabled={!yeniContentVisible}
+                    delay={scrollRevealStagger(index, 0.12, 3)}
+                    className="yeni-rio-spot-reveal"
+                  >
+                  <Box className="rio-spot-card">
                     <Box className="rio-spot-image-wrap">
                       <CardMedia
                         component="img"
@@ -720,10 +743,12 @@ const Yeni = () => {
                       {spot.name}
                     </Typography>
                   </Box>
+                  </ScrollReveal>
                 ))}
               </Box>
 
               {/* Más cosas para hacer en Río */}
+              <ScrollReveal disabled={!yeniContentVisible}>
               <Typography
                 variant="h3"
                 className="yeni-text-stroke"
@@ -731,10 +756,16 @@ const Yeni = () => {
               >
                 Más cosas para hacer en Río
               </Typography>
+              </ScrollReveal>
 
               <Grid container spacing={2}>
-                {OTRAS_ACTIVIDADES.map((actividad) => (
+                {OTRAS_ACTIVIDADES.map((actividad, index) => (
                   <Grid item xs={12} sm={6} md={4} key={actividad.name}>
+                    <ScrollReveal
+                      disabled={!yeniContentVisible}
+                      delay={scrollRevealStagger(index, 0.07, 6)}
+                      className="scroll-reveal--fill"
+                    >
                     <Card
                       className="rio-activity-card"
                       sx={{
@@ -752,6 +783,7 @@ const Yeni = () => {
                         {actividad.description}
                       </Typography>
                     </Card>
+                    </ScrollReveal>
                   </Grid>
                 ))}
               </Grid>

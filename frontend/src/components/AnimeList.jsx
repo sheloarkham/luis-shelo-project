@@ -19,6 +19,8 @@ import {
 } from '../styles/ocioCardStyles'
 import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
 import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
+import ScrollReveal from './ScrollReveal'
+import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 
 const STORAGE_KEY = 'anime-list'
 
@@ -657,9 +659,13 @@ const AnimeList = ({ searchTerm = '' }) => {
     }
   }
 
-  const renderAnimeCard = (anime) => (
+  const renderAnimeCard = (anime, index = 0) => (
+    <ScrollReveal
+      key={anime.title}
+      delay={scrollRevealStagger(index)}
+      className="scroll-reveal--fill"
+    >
     <Card 
-      key={anime.title} 
       sx={ocioCardSx({
         background: getCardBackground(anime.Estado),
         color: 'white',
@@ -701,13 +707,16 @@ const AnimeList = ({ searchTerm = '' }) => {
         />
       </Box>
     </Card>
+    </ScrollReveal>
   )
 
   return (
     <Box sx={{ py: 4 }}>
+      <ScrollReveal>
       <Typography variant="h4" component="h2" gutterBottom sx={{ mb: 3, fontWeight: 'bold', color: '#ff6b6b' }}>
         Anime
       </Typography>
+      </ScrollReveal>
       
       {filteredAnimes.length === 0 ? (
         <Box sx={{ 
@@ -736,9 +745,11 @@ const AnimeList = ({ searchTerm = '' }) => {
           {/* Sección Viendo */}
           {viendo.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ mb: 2, color: '#667eea', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Viendo ({viendo.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {viendo.map(renderAnimeCard)}
               </Box>
@@ -748,9 +759,11 @@ const AnimeList = ({ searchTerm = '' }) => {
           {/* Sección Pendiente */}
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
+              <ScrollReveal delay={0.05}>
               <Typography variant="h5" sx={{ mb: 2, color: '#f5576c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
                 Pendiente ({pendiente.length})
               </Typography>
+              </ScrollReveal>
               <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderAnimeCard)}
               </Box>

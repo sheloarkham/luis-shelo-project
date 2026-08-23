@@ -10,10 +10,12 @@ import {
 } from '../styles/ocioCardStyles'
 
 import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
+import ScrollReveal from './ScrollReveal'
+import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 
-const renderCompactCard = ({ key, image, title, metaLines, chipLabel, borderColor, chipColor = 'primary' }) => (
+const renderCompactCard = ({ key, image, title, metaLines, chipLabel, borderColor, chipColor = 'primary', revealIndex = 0 }) => (
+  <ScrollReveal key={key} delay={scrollRevealStagger(revealIndex)} className="scroll-reveal--fill">
   <Card
-    key={key}
     sx={ocioCardSx({
       border: `2px solid ${borderColor}`,
       '&:hover': {
@@ -35,6 +37,7 @@ const renderCompactCard = ({ key, image, title, metaLines, chipLabel, borderColo
       <Chip label={chipLabel} color={chipColor} size="small" sx={{ mt: 0.75, height: 20, fontSize: '0.65rem' }} />
     </Box>
   </Card>
+  </ScrollReveal>
 )
 
 const ActualmenteEnProgreso = () => {
@@ -75,6 +78,7 @@ const ActualmenteEnProgreso = () => {
 
   return (
     <Box sx={{ py: 4, mb: 4 }}>
+      <ScrollReveal>
       <Typography 
         variant="h4" 
         component="h2" 
@@ -90,11 +94,13 @@ const ActualmenteEnProgreso = () => {
       >
         ✨ Actualmente...
       </Typography>
+      </ScrollReveal>
 
       <Box sx={ocioCardsGridSx}>
         {enProgreso.anime.map((anime, index) =>
           renderCompactCard({
             key: `anime-${index}`,
+            revealIndex: index,
             image: anime.image,
             title: anime.title,
             metaLines: [`Anime • ${anime.studio}`, `${anime.episodes} episodios`],
@@ -106,6 +112,7 @@ const ActualmenteEnProgreso = () => {
         {enProgreso.games.map((game, index) =>
           renderCompactCard({
             key: `game-${index}`,
+            revealIndex: enProgreso.anime.length + index,
             image: game.image,
             title: game.title,
             metaLines: [`Videojuego • ${game.developer}`, `${game.duration} horas`],
@@ -117,6 +124,7 @@ const ActualmenteEnProgreso = () => {
         {enProgreso.books.map((book, index) =>
           renderCompactCard({
             key: `book-${index}`,
+            revealIndex: enProgreso.anime.length + enProgreso.games.length + index,
             image: book.image,
             title: book.title,
             metaLines: [`Libro • ${book.author}`, `${book.pages} páginas`],
@@ -128,6 +136,7 @@ const ActualmenteEnProgreso = () => {
         {enProgreso.series.map((serie, index) =>
           renderCompactCard({
             key: `serie-${index}`,
+            revealIndex: enProgreso.anime.length + enProgreso.games.length + enProgreso.books.length + index,
             image: serie.image,
             title: serie.title,
             metaLines: [`Serie • ${serie.year}`, `${serie.episodes} episodios`],

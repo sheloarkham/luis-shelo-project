@@ -129,3 +129,15 @@
 .rio-activity-card:hover {
   transform: scale(1.03);
 }
+
+.yeni-rio-spot-reveal {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 240px;
+}
+
+@media (max-width: 600px) {
+  .yeni-rio-spot-reveal {
+    max-width: none;
+  }
+}
