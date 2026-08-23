@@ -16,6 +16,8 @@ import {
   ocioCardMetaSx,
   ocioCardMenuButtonSx,
 } from '../styles/ocioCardStyles'
+import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
+import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
 
 const STORAGE_KEY = 'books-list'
 
@@ -206,8 +208,13 @@ const BooksList = ({ searchTerm = '' }) => {
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(books))
+      window.dispatchEvent(
+        new CustomEvent(OCIO_LIST_UPDATED_EVENT, { detail: { storageKey: STORAGE_KEY } })
+      )
     }
   }, [books, isLoaded])
+
+  useOcioListSync(STORAGE_KEY, setBooks)
 
   const handleMenuOpen = (event, bookTitle) => {
     setAnchorEl(event.currentTarget)
@@ -228,18 +235,17 @@ const BooksList = ({ searchTerm = '' }) => {
 
   // Filtrar libros por término de búsqueda
   const filteredBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    book.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    !isOcioCompletedStatus(book.Estado)
   )
 
-  // Agrupar libros por estado
   const groupByStatus = () => {
     const leyendo = filteredBooks.filter(b => b.Estado === 'Leyendo')
     const pendiente = filteredBooks.filter(b => b.Estado === 'Pendiente')
-    const leido = filteredBooks.filter(b => b.Estado === 'Leido')
-    return { leyendo, pendiente, leido }
+    return { leyendo, pendiente }
   }
 
-  const { leyendo, pendiente, leido } = groupByStatus()
+  const { leyendo, pendiente } = groupByStatus()
 
   // Función para obtener color de tarjeta según estado
   const getCardBackground = (estado) => {
@@ -365,18 +371,6 @@ const BooksList = ({ searchTerm = '' }) => {
               </Typography>
               <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderBookCard)}
-              </Box>
-            </Box>
-          )}
-
-          {/* Sección Leído */}
-          {leido.length > 0 && (
-            <Box sx={{ mb: 5 }}>
-              <Typography variant="h5" sx={{ mb: 2, color: '#34d399', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                Leído ({leido.length})
-              </Typography>
-              <Box sx={ocioCardsGridSx}>
-                {leido.map(renderBookCard)}
               </Box>
             </Box>
           )}

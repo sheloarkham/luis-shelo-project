@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import ActualmenteEnProgreso from '../components/ActualmenteEnProgreso'
+import OcioCompletedArchive from '../components/OcioCompletedArchive'
 import SeriesList from '../components/SeriesList'
 import GamesList from '../components/GamesList'
 import BooksList from '../components/BooksList'
@@ -75,6 +76,8 @@ const Ocio = () => {
         <div id="books">
           <BooksList searchTerm={searchTerm} />
         </div>
+
+        <OcioCompletedArchive />
       </Container>
     </div>
   )

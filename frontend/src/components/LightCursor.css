@@ -6,6 +6,10 @@
   mix-blend-mode: screen;
 }
 
+.light-cursor--heart {
+  mix-blend-mode: normal;
+}
+
 body.light-cursor-active,
 body.light-cursor-active * {
   cursor: none !important;

@@ -9,6 +9,8 @@ import {
   ocioCardMetaSx,
 } from '../styles/ocioCardStyles'
 
+import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
+
 const renderCompactCard = ({ key, image, title, metaLines, chipLabel, borderColor, chipColor = 'primary' }) => (
   <Card
     key={key}
@@ -45,6 +47,8 @@ const ActualmenteEnProgreso = () => {
 
   useEffect(() => {
     cargarEnProgreso()
+    window.addEventListener(OCIO_LIST_UPDATED_EVENT, cargarEnProgreso)
+    return () => window.removeEventListener(OCIO_LIST_UPDATED_EVENT, cargarEnProgreso)
   }, [])
 
   const cargarEnProgreso = () => {

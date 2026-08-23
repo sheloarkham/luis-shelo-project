@@ -17,6 +17,8 @@ import {
   ocioCardMetaSx,
   ocioCardMenuButtonSx,
 } from '../styles/ocioCardStyles'
+import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
+import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
 
 const STORAGE_KEY = 'series-list'
 
@@ -83,8 +85,13 @@ const SeriesList = ({ searchTerm = '' }) => {
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(series))
+      window.dispatchEvent(
+        new CustomEvent(OCIO_LIST_UPDATED_EVENT, { detail: { storageKey: STORAGE_KEY } })
+      )
     }
   }, [series, isLoaded])
+
+  useOcioListSync(STORAGE_KEY, setSeries)
 
   const handleMenuOpen = (event, serie) => {
     setAnchorEl(event.currentTarget)
@@ -112,15 +119,15 @@ const SeriesList = ({ searchTerm = '' }) => {
     handleMenuClose()
   }
 
-  const filteredSeries = series.filter(serie => 
-    serie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSeries = series.filter(serie =>
+    serie.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    !isOcioCompletedStatus(serie.Estado)
   )
 
   const groupByStatus = () => {
     const viendo = filteredSeries.filter(s => s.Estado === 'Viendo')
     const pendiente = filteredSeries.filter(s => s.Estado === 'Pendiente')
-    const completado = filteredSeries.filter(s => s.Estado === 'Completado')
-    return { viendo, pendiente, completado }
+    return { viendo, pendiente }
   }
 
   const getCardBackground = (estado) => {
@@ -188,7 +195,7 @@ const SeriesList = ({ searchTerm = '' }) => {
     </Card>
   )
 
-  const { viendo, pendiente, completado } = groupByStatus()
+  const { viendo, pendiente } = groupByStatus()
 
   return (
     <Box id="series" sx={{ py: 4 }}>
@@ -235,17 +242,6 @@ const SeriesList = ({ searchTerm = '' }) => {
               </Typography>
               <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderCard)}
-              </Box>
-            </Box>
-          )}
-
-          {completado.length > 0 && (
-            <Box sx={{ mb: 5 }}>
-              <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
-                Completado ({completado.length})
-              </Typography>
-              <Box sx={ocioCardsGridSx}>
-                {completado.map(renderCard)}
               </Box>
             </Box>
           )}

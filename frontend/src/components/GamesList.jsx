@@ -17,6 +17,8 @@ import {
   ocioCardMetaSx,
   ocioCardMenuButtonSx,
 } from '../styles/ocioCardStyles'
+import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
+import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
 
 const STORAGE_KEY = 'games-list'
 
@@ -225,8 +227,13 @@ const GamesList = ({ searchTerm = '' }) => {
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(games))
+      window.dispatchEvent(
+        new CustomEvent(OCIO_LIST_UPDATED_EVENT, { detail: { storageKey: STORAGE_KEY } })
+      )
     }
   }, [games, isLoaded])
+
+  useOcioListSync(STORAGE_KEY, setGames)
 
   const handleMenuOpen = (event, index) => {
     setAnchorEl(event.currentTarget)
@@ -247,18 +254,17 @@ const GamesList = ({ searchTerm = '' }) => {
 
   // Filtrar juegos por término de búsqueda
   const filteredGames = games.filter(game =>
-    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+    game.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    !isOcioCompletedStatus(game.Estado)
   )
 
-  // Agrupar juegos por estado
   const groupByStatus = () => {
     const jugando = filteredGames.filter(g => g.Estado === 'Jugando')
     const pendiente = filteredGames.filter(g => g.Estado === 'Pendiente')
-    const completado = filteredGames.filter(g => g.Estado === 'Completado')
-    return { jugando, pendiente, completado }
+    return { jugando, pendiente }
   }
 
-  const { jugando, pendiente, completado } = groupByStatus()
+  const { jugando, pendiente } = groupByStatus()
 
   // Función para obtener color de tarjeta según estado
   const getCardBackground = (estado) => {
@@ -366,18 +372,6 @@ const GamesList = ({ searchTerm = '' }) => {
               </Typography>
               <Box sx={ocioCardsGridSx}>
                 {pendiente.map(renderGameCard)}
-              </Box>
-            </Box>
-          )}
-
-          {/* Sección Completado */}
-          {completado.length > 0 && (
-            <Box sx={{ mb: 5 }}>
-              <Typography variant="h5" sx={{ mb: 2, color: '#10b981', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                Completado ({completado.length})
-              </Typography>
-              <Box sx={ocioCardsGridSx}>
-                {completado.map(renderGameCard)}
               </Box>
             </Box>
           )}

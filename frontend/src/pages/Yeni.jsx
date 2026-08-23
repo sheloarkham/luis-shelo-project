@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react'
-import { Box, Card, CardContent, Typography, Grid, CardMedia } from '@mui/material'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { Box, Card, CardContent, Typography, Grid, CardMedia, IconButton, Tooltip } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import VolumeUpIcon from '@mui/icons-material/VolumeUp'
+import VolumeOffIcon from '@mui/icons-material/VolumeOff'
+import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import { useParticleTheme } from '../context/ParticleThemeContext'
 import './shared-page.css'
 import './Yeni.css'
@@ -46,8 +49,16 @@ const OTRAS_ACTIVIDADES = [
   { name: 'Feira de São Cristóvão', emoji: '🎶', description: 'Música, comida nordestina y ambiente de fiesta.' },
 ]
 
+const BRASIL_AUDIO_SRC = '/audio/brasil-bossa.mp3'
+const BRASIL_AUDIO_VOLUME = 0.45
+
 const Yeni = () => {
   const { runYeniEntrance, resetTheme, yeniContentVisible } = useParticleTheme()
+  const brasilSectionRef = useRef(null)
+  const audioRef = useRef(null)
+  const [brasilInView, setBrasilInView] = useState(false)
+  const [audioMuted, setAudioMuted] = useState(false)
+  const [audioBlocked, setAudioBlocked] = useState(false)
   const [timeData, setTimeData] = useState({
     conocidos: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 },
     pololeando: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
@@ -125,6 +136,68 @@ const Yeni = () => {
 
     return () => clearInterval(interval)
   }, [])
+
+  const tryPlayBrasilAudio = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio || audioMuted || !brasilInView) return
+
+    audio.volume = BRASIL_AUDIO_VOLUME
+    audio.play()
+      .then(() => setAudioBlocked(false))
+      .catch(() => setAudioBlocked(true))
+  }, [audioMuted, brasilInView])
+
+  useEffect(() => {
+    const unlock = () => tryPlayBrasilAudio()
+    document.addEventListener('click', unlock, { once: true })
+    document.addEventListener('touchstart', unlock, { once: true })
+    document.addEventListener('keydown', unlock, { once: true })
+    return () => {
+      document.removeEventListener('click', unlock)
+      document.removeEventListener('touchstart', unlock)
+      document.removeEventListener('keydown', unlock)
+    }
+  }, [tryPlayBrasilAudio])
+
+  useEffect(() => {
+    if (!yeniContentVisible) return
+
+    const section = brasilSectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setBrasilInView(entry.isIntersecting),
+      { threshold: 0.25, rootMargin: '-8% 0px' }
+    )
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [yeniContentVisible])
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    if (brasilInView && !audioMuted) {
+      tryPlayBrasilAudio()
+    } else {
+      audio.pause()
+      if (!brasilInView) audio.currentTime = 0
+    }
+  }, [brasilInView, audioMuted, tryPlayBrasilAudio])
+
+  useEffect(() => () => audioRef.current?.pause(), [])
+
+  const toggleBrasilMute = () => {
+    setAudioMuted((prev) => {
+      const next = !prev
+      const audio = audioRef.current
+      if (audio) {
+        audio.muted = next
+        if (!next && brasilInView) tryPlayBrasilAudio()
+      }
+      return next
+    })
+  }
 
   const TimeCard = ({ title, emoji, timeData, color, gradient }) => (
     <Card
@@ -453,7 +526,37 @@ const Yeni = () => {
             </Box>
 
             {/* Sección Brasil */}
-            <Box sx={{ mt: 8, textAlign: 'center', maxWidth: 1000, mx: 'auto' }}>
+            <audio ref={audioRef} src={BRASIL_AUDIO_SRC} loop preload="auto" />
+
+            <Box
+              ref={brasilSectionRef}
+              className="yeni-brasil-section"
+              sx={{ mt: 8, textAlign: 'center', maxWidth: 1000, mx: 'auto', position: 'relative' }}
+            >
+              {(brasilInView || audioBlocked) && (
+                <Box className="yeni-brasil-audio-controls">
+                  {audioBlocked && !audioMuted && (
+                    <Tooltip title="Toca para escuchar la música de Brasil">
+                      <IconButton
+                        className="yeni-brasil-audio-btn yeni-brasil-audio-btn--hint"
+                        onClick={tryPlayBrasilAudio}
+                        aria-label="Reproducir música de Brasil"
+                      >
+                        <MusicNoteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                  <Tooltip title={audioMuted ? 'Activar música' : 'Silenciar música'}>
+                    <IconButton
+                      className="yeni-brasil-audio-btn"
+                      onClick={toggleBrasilMute}
+                      aria-label={audioMuted ? 'Activar música de Brasil' : 'Silenciar música de Brasil'}
+                    >
+                      {audioMuted ? <VolumeOffIcon /> : <VolumeUpIcon />}
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              )}
               <Typography
                 variant="h3"
                 className="yeni-text-stroke"

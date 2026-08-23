@@ -1,0 +1,9 @@
+Coloca aquí tu canción brasileña con este nombre exacto:
+
+  brasil-bossa.mp3
+
+La página Yeni la reproducirá al hacer scroll hasta la sección Brasil
+y se detendrá al salir de esa zona.
+
+Formato recomendado: MP3 (también funciona OGG en algunos navegadores).
+Sugerencias: bossa nova, samba instrumental o la canción que quieran para el viaje.

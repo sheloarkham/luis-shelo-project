@@ -1,15 +1,43 @@
 import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useThemeCustomization } from '../context/ThemeContext'
-import { getCursorTheme } from '../constants/cursorThemes'
+import { getCursorTheme, YENI_HEART_CURSOR } from '../constants/cursorThemes'
 import './LightCursor.css'
 
 const GLOW_RADIUS = 210
 const CORE_RADIUS = 7
+const HEART_SIZE = 16
+const HEART_GLOW_RADIUS = 120
+const YENI_TRAIL_MAX = 52
+
+const drawHeartPath = (context) => {
+  context.beginPath()
+  context.moveTo(0, 4)
+  context.bezierCurveTo(0, -4, -10, -4, -10, 3)
+  context.bezierCurveTo(-10, 9, 0, 14, 0, 18)
+  context.bezierCurveTo(0, 14, 10, 9, 10, 3)
+  context.bezierCurveTo(10, -4, 0, -4, 0, 4)
+  context.closePath()
+}
+
+const drawHeart = (context, x, y, size, fillStyle, alpha = 1) => {
+  context.save()
+  context.translate(x, y)
+  context.scale(size / 20, size / 20)
+  context.globalAlpha = alpha
+  context.fillStyle = fillStyle
+  drawHeartPath(context)
+  context.fill()
+  context.restore()
+}
 
 const LightCursor = () => {
+  const { pathname } = useLocation()
+  const isYeniPage = pathname === '/yeni'
   const { cursorThemeRef } = useThemeCustomization()
   const canvasRef = useRef(null)
   const animationRef = useRef(null)
+  const isYeniRef = useRef(isYeniPage)
   const stateRef = useRef({
     pointerX: -200,
     pointerY: -200,
@@ -18,6 +46,8 @@ const LightCursor = () => {
     visible: false,
     particles: [],
   })
+
+  isYeniRef.current = isYeniPage
 
   useEffect(() => {
     document.body.classList.add('light-cursor-active')
@@ -41,17 +71,20 @@ const LightCursor = () => {
       canvas.height = window.innerHeight
     }
 
-    const spawnParticle = (x, y) => {
+    const spawnParticle = (x, y, heartMode) => {
       stateRef.current.particles.push({
         x,
         y,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
+        vx: (Math.random() - 0.5) * (heartMode ? 0.5 : 0.8),
+        vy: (Math.random() - 0.5) * (heartMode ? 0.5 : 0.8) + (heartMode ? 0.35 : 0),
         life: 1,
-        size: Math.random() * 3.5 + 2,
+        size: heartMode ? Math.random() * 7 + 6 : Math.random() * 3.5 + 2,
+        rotation: heartMode ? (Math.random() - 0.5) * 0.6 : 0,
+        heart: heartMode,
       })
 
-      if (stateRef.current.particles.length > 34) {
+      const maxParticles = heartMode ? YENI_TRAIL_MAX : 34
+      if (stateRef.current.particles.length > maxParticles) {
         stateRef.current.particles.shift()
       }
     }
@@ -62,8 +95,10 @@ const LightCursor = () => {
       stateRef.current.pointerY = clientY
       stateRef.current.visible = true
 
-      if (Math.random() > 0.5) {
-        spawnParticle(clientX, clientY)
+      const heartMode = isYeniRef.current
+      const spawnChance = heartMode ? 0.82 : 0.5
+      if (Math.random() < spawnChance) {
+        spawnParticle(clientX, clientY, heartMode)
       }
     }
 
@@ -71,54 +106,104 @@ const LightCursor = () => {
       stateRef.current.visible = false
     }
 
+    const drawLightCursor = (theme, state) => {
+      const glow = context.createRadialGradient(
+        state.glowX,
+        state.glowY,
+        0,
+        state.glowX,
+        state.glowY,
+        GLOW_RADIUS
+      )
+      glow.addColorStop(0, theme.glowInner)
+      glow.addColorStop(0.35, theme.glowMid)
+      glow.addColorStop(1, 'rgba(255, 255, 255, 0)')
+
+      context.fillStyle = glow
+      context.beginPath()
+      context.arc(state.glowX, state.glowY, GLOW_RADIUS, 0, Math.PI * 2)
+      context.fill()
+
+      context.fillStyle = theme.core
+      context.beginPath()
+      context.arc(state.glowX, state.glowY, CORE_RADIUS, 0, Math.PI * 2)
+      context.fill()
+
+      context.fillStyle = theme.coreInner
+      context.beginPath()
+      context.arc(state.glowX, state.glowY, CORE_RADIUS * 0.35, 0, Math.PI * 2)
+      context.fill()
+    }
+
+    const drawHeartCursor = (theme, state) => {
+      const glow = context.createRadialGradient(
+        state.glowX,
+        state.glowY,
+        0,
+        state.glowX,
+        state.glowY,
+        HEART_GLOW_RADIUS
+      )
+      glow.addColorStop(0, theme.glowInner)
+      glow.addColorStop(0.45, theme.glowMid)
+      glow.addColorStop(1, 'rgba(255, 180, 210, 0)')
+
+      context.fillStyle = glow
+      context.beginPath()
+      context.arc(state.glowX, state.glowY, HEART_GLOW_RADIUS, 0, Math.PI * 2)
+      context.fill()
+
+      drawHeart(context, state.glowX, state.glowY, HEART_SIZE * 1.15, theme.core, 0.35)
+      drawHeart(context, state.glowX, state.glowY, HEART_SIZE, theme.core, 1)
+      drawHeart(context, state.glowX, state.glowY, HEART_SIZE * 0.42, theme.coreInner, 0.95)
+    }
+
     const draw = () => {
-      const theme = getCursorTheme(cursorThemeRef.current)
+      const heartMode = isYeniRef.current
+      const theme = heartMode ? YENI_HEART_CURSOR : getCursorTheme(cursorThemeRef.current)
       const state = stateRef.current
-      state.glowX += (state.pointerX - state.glowX) * 0.14
-      state.glowY += (state.pointerY - state.glowY) * 0.14
+      const followSpeed = heartMode ? 0.2 : 0.14
+      state.glowX += (state.pointerX - state.glowX) * followSpeed
+      state.glowY += (state.pointerY - state.glowY) * followSpeed
 
       context.clearRect(0, 0, canvas.width, canvas.height)
 
       if (state.visible) {
-        const glow = context.createRadialGradient(
-          state.glowX,
-          state.glowY,
-          0,
-          state.glowX,
-          state.glowY,
-          GLOW_RADIUS
-        )
-        glow.addColorStop(0, theme.glowInner)
-        glow.addColorStop(0.35, theme.glowMid)
-        glow.addColorStop(1, 'rgba(255, 255, 255, 0)')
-
-        context.fillStyle = glow
-        context.beginPath()
-        context.arc(state.glowX, state.glowY, GLOW_RADIUS, 0, Math.PI * 2)
-        context.fill()
-
-        context.fillStyle = theme.core
-        context.beginPath()
-        context.arc(state.glowX, state.glowY, CORE_RADIUS, 0, Math.PI * 2)
-        context.fill()
-
-        context.fillStyle = theme.coreInner
-        context.beginPath()
-        context.arc(state.glowX, state.glowY, CORE_RADIUS * 0.35, 0, Math.PI * 2)
-        context.fill()
+        if (heartMode) {
+          drawHeartCursor(theme, state)
+        } else {
+          drawLightCursor(theme, state)
+        }
       }
 
+      const fadeRate = heartMode ? 0.018 : 0.026
       state.particles = state.particles.filter((particle) => particle.life > 0.04)
       state.particles.forEach((particle) => {
         particle.x += particle.vx
         particle.y += particle.vy
-        particle.life -= 0.026
+        particle.life -= fadeRate
 
-        context.globalAlpha = particle.life * 0.8
-        context.fillStyle = theme.particle
-        context.beginPath()
-        context.arc(particle.x, particle.y, particle.size * particle.life, 0, Math.PI * 2)
-        context.fill()
+        context.globalAlpha = particle.life * (heartMode ? 0.92 : 0.8)
+
+        if (particle.heart) {
+          context.save()
+          context.translate(particle.x, particle.y)
+          context.rotate(particle.rotation)
+          drawHeart(
+            context,
+            0,
+            0,
+            particle.size * particle.life,
+            theme.particle,
+            1
+          )
+          context.restore()
+        } else {
+          context.fillStyle = theme.particle
+          context.beginPath()
+          context.arc(particle.x, particle.y, particle.size * particle.life, 0, Math.PI * 2)
+          context.fill()
+        }
       })
 
       context.globalAlpha = 1
@@ -140,9 +225,15 @@ const LightCursor = () => {
         window.cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [cursorThemeRef])
+  }, [cursorThemeRef, isYeniPage])
 
-  return <canvas ref={canvasRef} className="light-cursor" aria-hidden="true" />
+  return (
+    <canvas
+      ref={canvasRef}
+      className={`light-cursor${isYeniPage ? ' light-cursor--heart' : ''}`}
+      aria-hidden="true"
+    />
+  )
 }
 
 export default LightCursor
