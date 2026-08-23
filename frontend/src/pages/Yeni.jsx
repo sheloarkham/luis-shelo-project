@@ -56,9 +56,13 @@ const Yeni = () => {
   const { runYeniEntrance, resetTheme, yeniContentVisible } = useParticleTheme()
   const brasilSectionRef = useRef(null)
   const audioRef = useRef(null)
+  const audioUnlockedRef = useRef(false)
+  const brasilInViewRef = useRef(false)
+  const audioMutedRef = useRef(false)
   const [brasilInView, setBrasilInView] = useState(false)
   const [audioMuted, setAudioMuted] = useState(false)
   const [audioBlocked, setAudioBlocked] = useState(false)
+  const [audioLoadError, setAudioLoadError] = useState(false)
   const [timeData, setTimeData] = useState({
     conocidos: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 },
     pololeando: { years: 0, months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 }
@@ -137,27 +141,62 @@ const Yeni = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const tryPlayBrasilAudio = useCallback(() => {
+  brasilInViewRef.current = brasilInView
+  audioMutedRef.current = audioMuted
+
+  const playBrasilAudio = useCallback(async () => {
     const audio = audioRef.current
-    if (!audio || audioMuted || !brasilInView) return
+    if (!audio || audioMutedRef.current || !brasilInViewRef.current) return false
 
     audio.volume = BRASIL_AUDIO_VOLUME
-    audio.play()
-      .then(() => setAudioBlocked(false))
-      .catch(() => setAudioBlocked(true))
-  }, [audioMuted, brasilInView])
+    try {
+      await audio.play()
+      setAudioBlocked(false)
+      return true
+    } catch {
+      setAudioBlocked(true)
+      return false
+    }
+  }, [])
+
+  const unlockBrasilAudio = useCallback(async () => {
+    if (audioUnlockedRef.current) return true
+
+    const audio = audioRef.current
+    if (!audio) return false
+
+    audio.volume = BRASIL_AUDIO_VOLUME
+    try {
+      await audio.play()
+      audio.pause()
+      audio.currentTime = 0
+      audioUnlockedRef.current = true
+      setAudioBlocked(false)
+      return true
+    } catch {
+      setAudioBlocked(true)
+      return false
+    }
+  }, [])
 
   useEffect(() => {
-    const unlock = () => tryPlayBrasilAudio()
-    document.addEventListener('click', unlock, { once: true })
-    document.addEventListener('touchstart', unlock, { once: true })
-    document.addEventListener('keydown', unlock, { once: true })
-    return () => {
-      document.removeEventListener('click', unlock)
-      document.removeEventListener('touchstart', unlock)
-      document.removeEventListener('keydown', unlock)
+    const handleInteract = async () => {
+      const unlocked = await unlockBrasilAudio()
+      if (unlocked && brasilInViewRef.current && !audioMutedRef.current) {
+        await playBrasilAudio()
+      }
     }
-  }, [tryPlayBrasilAudio])
+
+    window.addEventListener('pointerdown', handleInteract, { passive: true })
+    window.addEventListener('keydown', handleInteract)
+    window.addEventListener('wheel', handleInteract, { passive: true })
+
+    return () => {
+      window.removeEventListener('pointerdown', handleInteract)
+      window.removeEventListener('keydown', handleInteract)
+      window.removeEventListener('wheel', handleInteract)
+    }
+  }, [unlockBrasilAudio, playBrasilAudio])
 
   useEffect(() => {
     if (!yeniContentVisible) return
@@ -167,7 +206,7 @@ const Yeni = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => setBrasilInView(entry.isIntersecting),
-      { threshold: 0.25, rootMargin: '-8% 0px' }
+      { threshold: 0.12, rootMargin: '0px 0px -5% 0px' }
     )
     observer.observe(section)
     return () => observer.disconnect()
@@ -178,22 +217,32 @@ const Yeni = () => {
     if (!audio) return
 
     if (brasilInView && !audioMuted) {
-      tryPlayBrasilAudio()
+      if (audioUnlockedRef.current) {
+        playBrasilAudio()
+      } else {
+        setAudioBlocked(true)
+      }
     } else {
       audio.pause()
       if (!brasilInView) audio.currentTime = 0
     }
-  }, [brasilInView, audioMuted, tryPlayBrasilAudio])
+  }, [brasilInView, audioMuted, playBrasilAudio])
 
   useEffect(() => () => audioRef.current?.pause(), [])
+
+  const handlePlayBrasilClick = async () => {
+    await unlockBrasilAudio()
+    await playBrasilAudio()
+  }
 
   const toggleBrasilMute = () => {
     setAudioMuted((prev) => {
       const next = !prev
+      audioMutedRef.current = next
       const audio = audioRef.current
       if (audio) {
         audio.muted = next
-        if (!next && brasilInView) tryPlayBrasilAudio()
+        if (!next && brasilInViewRef.current) playBrasilAudio()
       }
       return next
     })
@@ -526,21 +575,27 @@ const Yeni = () => {
             </Box>
 
             {/* Sección Brasil */}
-            <audio ref={audioRef} src={BRASIL_AUDIO_SRC} loop preload="auto" />
+            <audio
+              ref={audioRef}
+              src={BRASIL_AUDIO_SRC}
+              loop
+              preload="auto"
+              onError={() => setAudioLoadError(true)}
+            />
 
             <Box
               ref={brasilSectionRef}
               className="yeni-brasil-section"
               sx={{ mt: 8, textAlign: 'center', maxWidth: 1000, mx: 'auto', position: 'relative' }}
             >
-              {(brasilInView || audioBlocked) && (
+              {brasilInView && (
                 <Box className="yeni-brasil-audio-controls">
-                  {audioBlocked && !audioMuted && (
-                    <Tooltip title="Toca para escuchar la música de Brasil">
+                  {(audioBlocked || audioLoadError) && !audioMuted && (
+                    <Tooltip title={audioLoadError ? 'No se pudo cargar la cancion' : 'Toca para escuchar la musica de Brasil'}>
                       <IconButton
                         className="yeni-brasil-audio-btn yeni-brasil-audio-btn--hint"
-                        onClick={tryPlayBrasilAudio}
-                        aria-label="Reproducir música de Brasil"
+                        onClick={handlePlayBrasilClick}
+                        aria-label="Reproducir musica de Brasil"
                       >
                         <MusicNoteIcon />
                       </IconButton>

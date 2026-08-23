@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
+import { OCIO_LIST_UPDATED_EVENT } from '../components/OcioCompletedArchive'
 
 export const useOcioListSync = (storageKey, setItems) => {
   useEffect(() => {
