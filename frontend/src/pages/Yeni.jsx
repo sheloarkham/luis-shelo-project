@@ -51,6 +51,12 @@ const OTRAS_ACTIVIDADES = [
 
 const BRASIL_AUDIO_SRC = '/audio/brasil-bossa.mp3'
 const BRASIL_AUDIO_VOLUME = 0.45
+const BRASIL_AUDIO_START = 27
+
+const setBrasilAudioStart = (audio) => {
+  if (!audio) return
+  audio.currentTime = BRASIL_AUDIO_START
+}
 
 const Yeni = () => {
   const { runYeniEntrance, resetTheme, yeniContentVisible } = useParticleTheme()
@@ -149,6 +155,9 @@ const Yeni = () => {
     if (!audio || audioMutedRef.current || !brasilInViewRef.current) return false
 
     audio.volume = BRASIL_AUDIO_VOLUME
+    if (audio.currentTime < BRASIL_AUDIO_START) {
+      setBrasilAudioStart(audio)
+    }
     try {
       await audio.play()
       setAudioBlocked(false)
@@ -166,10 +175,11 @@ const Yeni = () => {
     if (!audio) return false
 
     audio.volume = BRASIL_AUDIO_VOLUME
+    setBrasilAudioStart(audio)
     try {
       await audio.play()
       audio.pause()
-      audio.currentTime = 0
+      setBrasilAudioStart(audio)
       audioUnlockedRef.current = true
       setAudioBlocked(false)
       return true
@@ -177,6 +187,14 @@ const Yeni = () => {
       setAudioBlocked(true)
       return false
     }
+  }, [])
+
+  const handleBrasilAudioEnded = useCallback(() => {
+    const audio = audioRef.current
+    if (!audio || !brasilInViewRef.current || audioMutedRef.current) return
+
+    setBrasilAudioStart(audio)
+    audio.play().catch(() => setAudioBlocked(true))
   }, [])
 
   useEffect(() => {
@@ -224,7 +242,7 @@ const Yeni = () => {
       }
     } else {
       audio.pause()
-      if (!brasilInView) audio.currentTime = 0
+      if (!brasilInView) setBrasilAudioStart(audio)
     }
   }, [brasilInView, audioMuted, playBrasilAudio])
 
@@ -578,8 +596,9 @@ const Yeni = () => {
             <audio
               ref={audioRef}
               src={BRASIL_AUDIO_SRC}
-              loop
               preload="auto"
+              onLoadedMetadata={(event) => setBrasilAudioStart(event.currentTarget)}
+              onEnded={handleBrasilAudioEnded}
               onError={() => setAudioLoadError(true)}
             />
 

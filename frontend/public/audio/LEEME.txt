@@ -1,10 +1,4 @@
-Canción incluida: Aquarela do Brasil (1939), dominio público via Wikimedia Commons.
+Cancion: Bellini - Samba De Janeiro
+Inicio: segundo 27
 
-Para cambiarla, reemplaza este archivo manteniendo el nombre:
-
-  brasil-bossa.mp3
-
-La página Yeni la reproducirá al hacer scroll hasta la sección Brasil
-y se detendrá al salir de esa zona.
-
-Formato recomendado: MP3.
+Para cambiarla, reemplaza brasil-bossa.mp3 y ajusta BRASIL_AUDIO_START en Yeni.jsx.
