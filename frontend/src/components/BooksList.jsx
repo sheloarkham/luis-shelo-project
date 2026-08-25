@@ -241,6 +241,11 @@ const BooksList = ({ searchTerm = '' }) => {
     !isOcioCompletedStatus(book.Estado)
   )
 
+  const completedBooks = books.filter(book =>
+    book.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    isOcioCompletedStatus(book.Estado)
+  )
+
   const groupByStatus = () => {
     const leyendo = filteredBooks.filter(b => b.Estado === 'Leyendo')
     const pendiente = filteredBooks.filter(b => b.Estado === 'Pendiente')
@@ -329,6 +334,20 @@ const BooksList = ({ searchTerm = '' }) => {
     handleMenuClose()
   }
 
+  const renderCompletedSection = () =>
+    completedBooks.length > 0 ? (
+      <Box sx={{ mb: 5 }}>
+        <ScrollReveal delay={0.05}>
+          <Typography variant="h5" sx={{ mb: 2, color: '#FFD700', fontWeight: 'bold' }}>
+            Lista de libros leídos
+          </Typography>
+        </ScrollReveal>
+        <Box sx={ocioCardsGridSx}>
+          {completedBooks.map(renderBookCard)}
+        </Box>
+      </Box>
+    ) : null
+
   return (
     <Box id="books" sx={{ py: 4 }}>
       <ScrollReveal>
@@ -337,31 +356,21 @@ const BooksList = ({ searchTerm = '' }) => {
       </Typography>
       </ScrollReveal>
       
-      {filteredBooks.length === 0 ? (
-        <Box sx={{ 
-          textAlign: 'center', 
-          py: 8,
-          px: 3,
-          background: 'linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(96, 165, 250, 0.05))',
-          borderRadius: 4,
-          border: '2px dashed rgba(96, 165, 250, 0.3)'
-        }}>
-          <Typography variant="h5" sx={{ color: '#60a5fa', mb: 2, fontWeight: 'bold' }}>
-            No se encontraron libros
-          </Typography>
-          <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-            {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay libros en la lista'}
-          </Typography>
-        </Box>
+      {filteredBooks.length === 0 && completedBooks.length === 0 ? (
+        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', py: 4 }}>
+          {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay libros en la lista'}
+        </Typography>
       ) : searchTerm ? (
-        /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
-        <Box sx={ocioCardsGridSx}>
-          {filteredBooks.map(renderBookCard)}
+        <Box>
+          {filteredBooks.length > 0 && (
+            <Box sx={ocioCardsGridSx}>
+              {filteredBooks.map(renderBookCard)}
+            </Box>
+          )}
+          {renderCompletedSection()}
         </Box>
       ) : (
-        /* Cuando NO hay búsqueda, mostrar agrupado por estado */
         <Box>
-          {/* Sección Leyendo */}
           {leyendo.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <ScrollReveal delay={0.05}>
@@ -375,7 +384,6 @@ const BooksList = ({ searchTerm = '' }) => {
             </Box>
           )}
 
-          {/* Sección Pendiente */}
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <ScrollReveal delay={0.05}>
@@ -388,6 +396,8 @@ const BooksList = ({ searchTerm = '' }) => {
               </Box>
             </Box>
           )}
+
+          {renderCompletedSection()}
         </Box>
       )}
 

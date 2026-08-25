@@ -641,6 +641,11 @@ const AnimeList = ({ searchTerm = '' }) => {
     !isOcioCompletedStatus(anime.Estado)
   )
 
+  const completedAnimes = animes.filter(anime =>
+    anime.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    isOcioCompletedStatus(anime.Estado)
+  )
+
   const groupByStatus = () => {
     const viendo = filteredAnimes.filter(a => a.Estado === 'Viendo')
     const pendiente = filteredAnimes.filter(a => a.Estado === 'Pendiente')
@@ -648,6 +653,20 @@ const AnimeList = ({ searchTerm = '' }) => {
   }
 
   const { viendo, pendiente } = groupByStatus()
+
+  const renderCompletedSection = () =>
+    completedAnimes.length > 0 ? (
+      <Box sx={{ mb: 5 }}>
+        <ScrollReveal delay={0.05}>
+          <Typography variant="h5" sx={{ mb: 2, color: '#FFD700', fontWeight: 'bold' }}>
+            Lista de anime completados
+          </Typography>
+        </ScrollReveal>
+        <Box sx={ocioCardsGridSx}>
+          {completedAnimes.map(renderAnimeCard)}
+        </Box>
+      </Box>
+    ) : null
 
   // Función para obtener color de tarjeta según estado
   const getCardBackground = (estado) => {
@@ -718,31 +737,21 @@ const AnimeList = ({ searchTerm = '' }) => {
       </Typography>
       </ScrollReveal>
       
-      {filteredAnimes.length === 0 ? (
-        <Box sx={{ 
-          textAlign: 'center', 
-          py: 8,
-          px: 3,
-          background: 'linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 107, 107, 0.05))',
-          borderRadius: 4,
-          border: '2px dashed rgba(255, 107, 107, 0.3)'
-        }}>
-          <Typography variant="h5" sx={{ color: '#ff6b6b', mb: 2, fontWeight: 'bold' }}>
-            No se encontraron animes
-          </Typography>
-          <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-            {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay animes en la lista'}
-          </Typography>
-        </Box>
+      {filteredAnimes.length === 0 && completedAnimes.length === 0 ? (
+        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', py: 4 }}>
+          {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay animes en la lista'}
+        </Typography>
       ) : searchTerm ? (
-        /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
-        <Box sx={ocioCardsGridSx}>
-          {filteredAnimes.map(renderAnimeCard)}
+        <Box>
+          {filteredAnimes.length > 0 && (
+            <Box sx={ocioCardsGridSx}>
+              {filteredAnimes.map(renderAnimeCard)}
+            </Box>
+          )}
+          {renderCompletedSection()}
         </Box>
       ) : (
-        /* Cuando NO hay búsqueda, mostrar agrupado por estado */
         <Box>
-          {/* Sección Viendo */}
           {viendo.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <ScrollReveal delay={0.05}>
@@ -756,7 +765,6 @@ const AnimeList = ({ searchTerm = '' }) => {
             </Box>
           )}
 
-          {/* Sección Pendiente */}
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <ScrollReveal delay={0.05}>
@@ -769,6 +777,8 @@ const AnimeList = ({ searchTerm = '' }) => {
               </Box>
             </Box>
           )}
+
+          {renderCompletedSection()}
         </Box>
       )}
 

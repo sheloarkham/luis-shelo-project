@@ -126,6 +126,11 @@ const SeriesList = ({ searchTerm = '' }) => {
     !isOcioCompletedStatus(serie.Estado)
   )
 
+  const completedSeries = series.filter(serie =>
+    serie.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    isOcioCompletedStatus(serie.Estado)
+  )
+
   const groupByStatus = () => {
     const viendo = filteredSeries.filter(s => s.Estado === 'Viendo')
     const pendiente = filteredSeries.filter(s => s.Estado === 'Pendiente')
@@ -204,6 +209,20 @@ const SeriesList = ({ searchTerm = '' }) => {
 
   const { viendo, pendiente } = groupByStatus()
 
+  const renderCompletedSection = () =>
+    completedSeries.length > 0 ? (
+      <Box sx={{ mb: 5 }}>
+        <ScrollReveal delay={0.05}>
+          <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
+            Lista de series completadas
+          </Typography>
+        </ScrollReveal>
+        <Box sx={ocioCardsGridSx}>
+          {completedSeries.map(renderCard)}
+        </Box>
+      </Box>
+    ) : null
+
   return (
     <Box id="series" sx={{ py: 4 }}>
       <ScrollReveal>
@@ -212,24 +231,18 @@ const SeriesList = ({ searchTerm = '' }) => {
       </Typography>
       </ScrollReveal>
 
-      {filteredSeries.length === 0 ? (
-        <Box sx={{ 
-          textAlign: 'center', 
-          padding: '3rem 1rem',
-          background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05))',
-          borderRadius: '16px',
-          border: '2px dashed rgba(255, 215, 0, 0.3)'
-        }}>
-          <Typography variant="h5" sx={{ color: '#FFD700', mb: 2, fontWeight: 'bold' }}>
-            No se encontraron series
-          </Typography>
-          <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-            {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay series en la lista'}
-          </Typography>
-        </Box>
+      {filteredSeries.length === 0 && completedSeries.length === 0 ? (
+        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', py: 4 }}>
+          {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay series en la lista'}
+        </Typography>
       ) : searchTerm ? (
-        <Box sx={ocioCardsGridSx}>
-          {filteredSeries.map(renderCard)}
+        <Box>
+          {filteredSeries.length > 0 && (
+            <Box sx={ocioCardsGridSx}>
+              {filteredSeries.map(renderCard)}
+            </Box>
+          )}
+          {renderCompletedSection()}
         </Box>
       ) : (
         <Box>
@@ -258,6 +271,8 @@ const SeriesList = ({ searchTerm = '' }) => {
               </Box>
             </Box>
           )}
+
+          {renderCompletedSection()}
         </Box>
       )}
 

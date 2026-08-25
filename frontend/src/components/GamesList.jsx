@@ -213,7 +213,7 @@ const GamesList = ({ searchTerm = '' }) => {
     return saved ? JSON.parse(saved) : initialGamesData
   })
   const [anchorEl, setAnchorEl] = useState(null)
-  const [selectedGame, setSelectedGame] = useState(null)
+  const [selectedGameTitle, setSelectedGameTitle] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
   // Cargar datos guardados al montar
@@ -237,27 +237,32 @@ const GamesList = ({ searchTerm = '' }) => {
 
   useOcioListSync(STORAGE_KEY, setGames)
 
-  const handleMenuOpen = (event, index) => {
+  const handleMenuOpen = (event, gameTitle) => {
     setAnchorEl(event.currentTarget)
-    setSelectedGame(index)
+    setSelectedGameTitle(gameTitle)
   }
 
   const handleMenuClose = () => {
     setAnchorEl(null)
-    setSelectedGame(null)
+    setSelectedGameTitle(null)
   }
 
   const changeStatus = (status) => {
-    const updatedGames = [...games]
-    updatedGames[selectedGame].Estado = status
-    setGames(updatedGames)
+    setGames(games.map(game =>
+      game.title === selectedGameTitle ? { ...game, Estado: status } : game
+    ))
     handleMenuClose()
   }
 
-  // Filtrar juegos por término de búsqueda
+  const matchesSearch = (title) =>
+    title.toLowerCase().includes(searchTerm.toLowerCase())
+
   const filteredGames = games.filter(game =>
-    game.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    !isOcioCompletedStatus(game.Estado)
+    matchesSearch(game.title) && !isOcioCompletedStatus(game.Estado)
+  )
+
+  const completedGames = games.filter(game =>
+    matchesSearch(game.title) && isOcioCompletedStatus(game.Estado)
   )
 
   const groupByStatus = () => {
@@ -302,7 +307,7 @@ const GamesList = ({ searchTerm = '' }) => {
       <IconButton
         size="small"
         sx={ocioCardMenuButtonSx}
-        onClick={(e) => handleMenuOpen(e, index)}
+        onClick={(e) => handleMenuOpen(e, game.title)}
       >
         <MoreVertIcon sx={{ fontSize: 18 }} />
       </IconButton>
@@ -325,10 +330,23 @@ const GamesList = ({ searchTerm = '' }) => {
   )
 
   const deleteGame = () => {
-    const updatedGames = games.filter((_, index) => index !== selectedGame)
-    setGames(updatedGames)
+    setGames(games.filter(game => game.title !== selectedGameTitle))
     handleMenuClose()
   }
+
+  const renderCompletedSection = () =>
+    completedGames.length > 0 ? (
+      <Box sx={{ mb: 5 }}>
+        <ScrollReveal delay={0.05}>
+          <Typography variant="h5" sx={{ mb: 2, color: '#FFD700', fontWeight: 'bold' }}>
+            Lista de juegos completados
+          </Typography>
+        </ScrollReveal>
+        <Box sx={ocioCardsGridSx}>
+          {completedGames.map(renderGameCard)}
+        </Box>
+      </Box>
+    ) : null
 
   return (
     <Box id="games" sx={{ py: 4 }}>
@@ -338,31 +356,21 @@ const GamesList = ({ searchTerm = '' }) => {
       </Typography>
       </ScrollReveal>
       
-      {filteredGames.length === 0 ? (
-        <Box sx={{ 
-          textAlign: 'center', 
-          py: 8,
-          px: 3,
-          background: 'linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(167, 139, 250, 0.05))',
-          borderRadius: 4,
-          border: '2px dashed rgba(167, 139, 250, 0.3)'
-        }}>
-          <Typography variant="h5" sx={{ color: '#a78bfa', mb: 2, fontWeight: 'bold' }}>
-            No se encontraron juegos
-          </Typography>
-          <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-            {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay juegos en la lista'}
-          </Typography>
-        </Box>
+      {filteredGames.length === 0 && completedGames.length === 0 ? (
+        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', py: 4 }}>
+          {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay juegos en la lista'}
+        </Typography>
       ) : searchTerm ? (
-        /* Cuando hay búsqueda, mostrar solo resultados sin agrupar */
-        <Box sx={ocioCardsGridSx}>
-          {filteredGames.map(renderGameCard)}
+        <Box>
+          {filteredGames.length > 0 && (
+            <Box sx={ocioCardsGridSx}>
+              {filteredGames.map(renderGameCard)}
+            </Box>
+          )}
+          {renderCompletedSection()}
         </Box>
       ) : (
-        /* Cuando NO hay búsqueda, mostrar agrupado por estado */
         <Box>
-          {/* Sección Jugando */}
           {jugando.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <ScrollReveal delay={0.05}>
@@ -376,7 +384,6 @@ const GamesList = ({ searchTerm = '' }) => {
             </Box>
           )}
 
-          {/* Sección Pendiente */}
           {pendiente.length > 0 && (
             <Box sx={{ mb: 5 }}>
               <ScrollReveal delay={0.05}>
@@ -389,6 +396,8 @@ const GamesList = ({ searchTerm = '' }) => {
               </Box>
             </Box>
           )}
+
+          {renderCompletedSection()}
         </Box>
       )}
 
