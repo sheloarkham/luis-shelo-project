@@ -334,19 +334,16 @@ const BooksList = ({ searchTerm = '' }) => {
     handleMenuClose()
   }
 
-  const renderCompletedSection = () =>
-    completedBooks.length > 0 ? (
-      <Box sx={{ mb: 5 }}>
-        <ScrollReveal delay={0.05}>
-          <Typography variant="h5" sx={{ mb: 2, color: '#FFD700', fontWeight: 'bold' }}>
-            Lista de libros leídos
-          </Typography>
-        </ScrollReveal>
-        <Box sx={ocioCardsGridSx}>
-          {completedBooks.map(renderBookCard)}
-        </Box>
-      </Box>
-    ) : null
+  const renderAllCompletedMessage = () => {
+    if (filteredBooks.length > 0 || completedBooks.length === 0) return null
+    return (
+      <ScrollReveal>
+        <Typography variant="h5" sx={{ color: '#FFD700', textAlign: 'center', py: 3, fontWeight: 'bold' }}>
+          Ya leíste todos los libros
+        </Typography>
+      </ScrollReveal>
+    )
+  }
 
   return (
     <Box id="books" sx={{ py: 4 }}>
@@ -367,7 +364,7 @@ const BooksList = ({ searchTerm = '' }) => {
               {filteredBooks.map(renderBookCard)}
             </Box>
           )}
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       ) : (
         <Box>
@@ -397,7 +394,7 @@ const BooksList = ({ searchTerm = '' }) => {
             </Box>
           )}
 
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       )}
 

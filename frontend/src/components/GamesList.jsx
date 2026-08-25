@@ -334,19 +334,16 @@ const GamesList = ({ searchTerm = '' }) => {
     handleMenuClose()
   }
 
-  const renderCompletedSection = () =>
-    completedGames.length > 0 ? (
-      <Box sx={{ mb: 5 }}>
-        <ScrollReveal delay={0.05}>
-          <Typography variant="h5" sx={{ mb: 2, color: '#FFD700', fontWeight: 'bold' }}>
-            Lista de juegos completados
-          </Typography>
-        </ScrollReveal>
-        <Box sx={ocioCardsGridSx}>
-          {completedGames.map(renderGameCard)}
-        </Box>
-      </Box>
-    ) : null
+  const renderAllCompletedMessage = () => {
+    if (filteredGames.length > 0 || completedGames.length === 0) return null
+    return (
+      <ScrollReveal>
+        <Typography variant="h5" sx={{ color: '#FFD700', textAlign: 'center', py: 3, fontWeight: 'bold' }}>
+          Ya completaste todos los juegos
+        </Typography>
+      </ScrollReveal>
+    )
+  }
 
   return (
     <Box id="games" sx={{ py: 4 }}>
@@ -367,7 +364,7 @@ const GamesList = ({ searchTerm = '' }) => {
               {filteredGames.map(renderGameCard)}
             </Box>
           )}
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       ) : (
         <Box>
@@ -397,7 +394,7 @@ const GamesList = ({ searchTerm = '' }) => {
             </Box>
           )}
 
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       )}
 

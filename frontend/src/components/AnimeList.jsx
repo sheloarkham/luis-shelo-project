@@ -654,19 +654,16 @@ const AnimeList = ({ searchTerm = '' }) => {
 
   const { viendo, pendiente } = groupByStatus()
 
-  const renderCompletedSection = () =>
-    completedAnimes.length > 0 ? (
-      <Box sx={{ mb: 5 }}>
-        <ScrollReveal delay={0.05}>
-          <Typography variant="h5" sx={{ mb: 2, color: '#FFD700', fontWeight: 'bold' }}>
-            Lista de anime completados
-          </Typography>
-        </ScrollReveal>
-        <Box sx={ocioCardsGridSx}>
-          {completedAnimes.map(renderAnimeCard)}
-        </Box>
-      </Box>
-    ) : null
+  const renderAllCompletedMessage = () => {
+    if (filteredAnimes.length > 0 || completedAnimes.length === 0) return null
+    return (
+      <ScrollReveal>
+        <Typography variant="h5" sx={{ color: '#FFD700', textAlign: 'center', py: 3, fontWeight: 'bold' }}>
+          Ya viste todo el anime
+        </Typography>
+      </ScrollReveal>
+    )
+  }
 
   // Función para obtener color de tarjeta según estado
   const getCardBackground = (estado) => {
@@ -748,7 +745,7 @@ const AnimeList = ({ searchTerm = '' }) => {
               {filteredAnimes.map(renderAnimeCard)}
             </Box>
           )}
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       ) : (
         <Box>
@@ -778,7 +775,7 @@ const AnimeList = ({ searchTerm = '' }) => {
             </Box>
           )}
 
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       )}
 

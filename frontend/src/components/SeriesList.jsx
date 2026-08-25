@@ -209,19 +209,16 @@ const SeriesList = ({ searchTerm = '' }) => {
 
   const { viendo, pendiente } = groupByStatus()
 
-  const renderCompletedSection = () =>
-    completedSeries.length > 0 ? (
-      <Box sx={{ mb: 5 }}>
-        <ScrollReveal delay={0.05}>
-          <Typography variant="h5" sx={{ color: '#FFD700', mb: 3, fontWeight: 'bold' }}>
-            Lista de series completadas
-          </Typography>
-        </ScrollReveal>
-        <Box sx={ocioCardsGridSx}>
-          {completedSeries.map(renderCard)}
-        </Box>
-      </Box>
-    ) : null
+  const renderAllCompletedMessage = () => {
+    if (filteredSeries.length > 0 || completedSeries.length === 0) return null
+    return (
+      <ScrollReveal>
+        <Typography variant="h5" sx={{ color: '#FFD700', textAlign: 'center', py: 3, fontWeight: 'bold' }}>
+          Ya viste todas las series
+        </Typography>
+      </ScrollReveal>
+    )
+  }
 
   return (
     <Box id="series" sx={{ py: 4 }}>
@@ -242,7 +239,7 @@ const SeriesList = ({ searchTerm = '' }) => {
               {filteredSeries.map(renderCard)}
             </Box>
           )}
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       ) : (
         <Box>
@@ -272,7 +269,7 @@ const SeriesList = ({ searchTerm = '' }) => {
             </Box>
           )}
 
-          {renderCompletedSection()}
+          {renderAllCompletedMessage()}
         </Box>
       )}
 
