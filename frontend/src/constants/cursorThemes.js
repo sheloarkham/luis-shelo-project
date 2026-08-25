@@ -53,15 +53,12 @@ export const CURSOR_THEMES = {
 
 export const CURSOR_THEME_IDS = Object.keys(CURSOR_THEMES)
 
-/** Cursor romántico exclusivo de la página Yeni */
+/** Cursor romántico exclusivo de la página Yeni (sin halo, solo corazón sólido) */
 export const YENI_HEART_CURSOR = {
   id: 'yeni-heart',
   core: '#ff4d8d',
-  coreInner: '#ffc2dc',
-  glowInner: 'rgba(255, 105, 157, 0.62)',
-  glowMid: 'rgba(255, 140, 190, 0.28)',
-  particle: 'rgba(255, 130, 190, 0.92)',
-  trail: 'rgba(255, 107, 157, 0.75)',
+  coreInner: '#ffe0ef',
+  particle: '#ff6b9d',
 }
 
 export const getCursorTheme = (id) => CURSOR_THEMES[id] || CURSOR_THEMES.gold

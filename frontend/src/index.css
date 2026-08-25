@@ -5,8 +5,8 @@
   --color-page-text: #e8eaef;
   --color-accent: #b8c4d8;
   --color-accent-soft: rgba(184, 196, 216, 0.82);
-  --color-surface: rgba(12, 12, 16, 0.72);
-  --color-surface-strong: rgba(6, 6, 10, 0.88);
+  --color-surface: rgba(0, 0, 0, 0.55);
+  --color-surface-strong: rgba(0, 0, 0, 0.82);
   --color-border: rgba(150, 160, 180, 0.2);
   --color-border-hover: rgba(180, 190, 210, 0.34);
   --color-muted: rgba(200, 205, 215, 0.72);

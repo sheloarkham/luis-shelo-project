@@ -9,8 +9,8 @@ const StatCard = ({ title, stats, icon, color }) => {
   
   return (
     <Card className="home-stat-card" sx={{ 
-      background: 'rgba(8, 8, 12, 0.78)',
-      border: '1px solid rgba(150, 160, 180, 0.22)',
+      background: 'rgba(0, 0, 0, 0.72)',
+      border: '1px solid rgba(110, 120, 140, 0.22)',
       borderRadius: 1,
       height: '100%',
       backdropFilter: 'blur(14px)',

@@ -90,9 +90,18 @@ const ParticleBackground = () => {
       return { base, target: pink, blend }
     }
 
+    const isDarkSite = () => !isYeniPageRef.current
+
     const drawBackground = (palettes) => {
-      const { base, target, blend } = palettes
       const { width, height } = sizeRef.current
+
+      if (isDarkSite()) {
+        context.fillStyle = '#000000'
+        context.fillRect(0, 0, width, height)
+        return
+      }
+
+      const { base, target, blend } = palettes
       const gradient = context.createRadialGradient(
         width * 0.5,
         height * 0.42,
@@ -125,7 +134,7 @@ const ParticleBackground = () => {
     const drawConnections = (palettes) => {
       const { base, target, blend } = palettes
       const particles = particlesRef.current
-      const lineA = base.line.a + (target.line.a - base.line.a) * blend
+      const lineA = (base.line.a + (target.line.a - base.line.a) * blend) * (isDarkSite() ? 0.5 : 1)
 
       for (let i = 0; i < particles.length; i += 1) {
         for (let j = i + 1; j < particles.length; j += 1) {
@@ -148,32 +157,14 @@ const ParticleBackground = () => {
 
     const drawParticles = (palettes) => {
       const { base, target, blend } = palettes
+      const darkSite = isDarkSite()
+      const particleAlphaScale = darkSite ? 0.55 : 0.75
 
       particlesRef.current.forEach((particle) => {
-        const glowAlpha = (base.glow.a + (target.glow.a - base.glow.a) * blend) * particle.alpha
-        const outerGlow = context.createRadialGradient(
-          particle.x,
-          particle.y,
-          0,
-          particle.x,
-          particle.y,
-          particle.size * 5
-        )
-        outerGlow.addColorStop(
-          0,
-          `rgba(${lerpChannel(base.glow.r, target.glow.r, blend)}, ${lerpChannel(base.glow.g, target.glow.g, blend)}, ${lerpChannel(base.glow.b, target.glow.b, blend)}, ${glowAlpha})`
-        )
-        outerGlow.addColorStop(1, 'rgba(255, 255, 255, 0)')
-
-        context.fillStyle = outerGlow
-        context.beginPath()
-        context.arc(particle.x, particle.y, particle.size * 5, 0, Math.PI * 2)
-        context.fill()
-
-        context.globalAlpha = particle.alpha
+        context.globalAlpha = particle.alpha * particleAlphaScale
         context.fillStyle = lerpColor(base.particle, target.particle, blend)
         context.beginPath()
-        context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+        context.arc(particle.x, particle.y, particle.size * (darkSite ? 0.8 : 1), 0, Math.PI * 2)
         context.fill()
       })
 
@@ -208,7 +199,9 @@ const ParticleBackground = () => {
       const palettes = getPalettes(pinkBlendRef.current)
       drawBackground(palettes)
       updateParticles(time)
-      drawWave(time, palettes)
+      if (!isDarkSite()) {
+        drawWave(time, palettes)
+      }
       drawConnections(palettes)
       drawParticles(palettes)
       animationRef.current = window.requestAnimationFrame(draw)
