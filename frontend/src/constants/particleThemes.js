@@ -24,13 +24,13 @@ export const PARTICLE_THEMES = {
   black: {
     id: 'black',
     label: 'Negro',
-    swatch: '#9ca3af',
-    bgInner: '#101010',
-    bgMid: '#050505',
-    particle: '#b0b0b0',
-    glow: { r: 160, g: 160, b: 160, a: 0.32 },
-    line: { r: 120, g: 120, b: 120, a: 0.14 },
-    wave: '#777777',
+    swatch: '#b8c0cc',
+    bgInner: '#0a0a0c',
+    bgMid: '#030303',
+    particle: '#c4ccd8',
+    glow: { r: 190, g: 198, b: 215, a: 0.24 },
+    line: { r: 130, g: 140, b: 160, a: 0.09 },
+    wave: '#2a3038',
   },
   red: {
     id: 'red',
@@ -58,4 +58,7 @@ export const PARTICLE_THEMES = {
 
 export const PARTICLE_THEME_IDS = Object.keys(PARTICLE_THEMES)
 
-export const getParticleTheme = (id) => PARTICLE_THEMES[id] || PARTICLE_THEMES.blue
+/** Tema oscuro elegante usado en todo el sitio excepto Yeni */
+export const ELEGANT_DARK_PARTICLE_ID = 'black'
+
+export const getParticleTheme = (id) => PARTICLE_THEMES[id] || PARTICLE_THEMES.black

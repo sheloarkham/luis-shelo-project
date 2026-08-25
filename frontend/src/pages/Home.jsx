@@ -9,8 +9,8 @@ const StatCard = ({ title, stats, icon, color }) => {
   
   return (
     <Card className="home-stat-card" sx={{ 
-      background: 'rgba(8, 16, 32, 0.72)',
-      border: '1px solid rgba(80, 150, 255, 0.28)',
+      background: 'rgba(8, 8, 12, 0.78)',
+      border: '1px solid rgba(150, 160, 180, 0.22)',
       borderRadius: 1,
       height: '100%',
       backdropFilter: 'blur(14px)',
@@ -18,8 +18,8 @@ const StatCard = ({ title, stats, icon, color }) => {
       transition: 'all 0.3s ease',
       '&:hover': {
         transform: 'translateY(-5px)',
-        boxShadow: '0 12px 28px rgba(0, 40, 120, 0.35)',
-        borderColor: 'rgba(100, 180, 255, 0.45)',
+        boxShadow: '0 12px 28px rgba(0, 0, 0, 0.45)',
+        borderColor: 'rgba(180, 190, 210, 0.38)',
       }
     }}>
       <CardContent sx={{ p: { xs: 2.5, md: 2 }, px: { md: 1.75 } }}>
@@ -291,7 +291,7 @@ const Home = () => {
             bgcolor: 'transparent',
           }}
         >
-          <CircularProgress sx={{ color: '#66bbff' }} size={60} thickness={2} />
+          <CircularProgress sx={{ color: '#c4ccd8' }} size={60} thickness={2} />
         </Box>
       )
     }

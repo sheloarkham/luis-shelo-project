@@ -69,7 +69,7 @@
 }
 
 .glass-section-title {
-  color: rgba(210, 228, 255, 0.88);
+  color: rgba(220, 224, 232, 0.88);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 400;
@@ -100,7 +100,7 @@
 
 .glass-link-btn:hover {
   border-color: var(--color-border-hover);
-  background: rgba(20, 40, 80, 0.55);
+  background: rgba(24, 24, 30, 0.72);
 }
 
 @media (max-width: 768px) {

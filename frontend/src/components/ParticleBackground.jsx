@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useParticleTheme } from '../context/ParticleThemeContext'
 import { useThemeCustomization } from '../context/ThemeContext'
-import { getParticleTheme } from '../constants/particleThemes'
+import {
+  ELEGANT_DARK_PARTICLE_ID,
+  getParticleTheme,
+} from '../constants/particleThemes'
 import './ParticleBackground.css'
-
 const PARTICLE_COUNT = 85
 const CONNECTION_DISTANCE = 130
 
@@ -42,13 +45,16 @@ const createParticle = (width, height) => {
 }
 
 const ParticleBackground = () => {
+  const { pathname } = useLocation()
   const { pinkBlendRef } = useParticleTheme()
   const { particleThemeRef } = useThemeCustomization()
   const canvasRef = useRef(null)
   const animationRef = useRef(null)
   const particlesRef = useRef([])
   const sizeRef = useRef({ width: 0, height: 0 })
+  const isYeniPageRef = useRef(pathname === '/yeni')
 
+  isYeniPageRef.current = pathname === '/yeni'
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return undefined
@@ -72,8 +78,14 @@ const ParticleBackground = () => {
     }
 
     const getPalettes = (blend) => {
-      const base = getParticleTheme(particleThemeRef.current)
+      const elegant = getParticleTheme(ELEGANT_DARK_PARTICLE_ID)
       const pink = getParticleTheme('pink')
+
+      if (!isYeniPageRef.current) {
+        return { base: elegant, target: elegant, blend: 0 }
+      }
+
+      const base = getParticleTheme(particleThemeRef.current)
       if (blend <= 0) return { base, target: base, blend: 0 }
       return { base, target: pink, blend }
     }
@@ -83,20 +95,19 @@ const ParticleBackground = () => {
       const { width, height } = sizeRef.current
       const gradient = context.createRadialGradient(
         width * 0.5,
-        height * 0.85,
+        height * 0.42,
         0,
         width * 0.5,
         height * 0.5,
-        Math.max(width, height) * 0.9
+        Math.max(width, height) * 0.92
       )
       gradient.addColorStop(0, lerpColor(base.bgInner, target.bgInner, blend))
-      gradient.addColorStop(0.45, lerpColor(base.bgMid, target.bgMid, blend))
+      gradient.addColorStop(0.42, lerpColor(base.bgMid, target.bgMid, blend))
       gradient.addColorStop(1, '#000000')
 
       context.fillStyle = gradient
       context.fillRect(0, 0, width, height)
     }
-
     const updateParticles = (time) => {
       const { width, height } = sizeRef.current
 
@@ -173,7 +184,7 @@ const ParticleBackground = () => {
       const { base, target, blend } = palettes
       const { width, height } = sizeRef.current
       context.save()
-      context.globalAlpha = 0.08 + blend * 0.04
+      context.globalAlpha = blend > 0 ? 0.08 + blend * 0.04 : 0.045
       context.strokeStyle = lerpColor(base.wave, target.wave, blend)
       context.lineWidth = 1
 
@@ -213,8 +224,7 @@ const ParticleBackground = () => {
         window.cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [pinkBlendRef, particleThemeRef])
-
+  }, [pinkBlendRef, particleThemeRef, pathname])
   return <canvas ref={canvasRef} className="particle-background" aria-hidden="true" />
 }
 

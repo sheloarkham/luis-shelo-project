@@ -46,7 +46,7 @@ const Ocio = () => {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <SearchIcon sx={{ color: 'rgba(140, 184, 255, 0.75)' }} />
+                  <SearchIcon sx={{ color: 'rgba(180, 190, 210, 0.75)' }} />
                 </InputAdornment>
               ),
             }}

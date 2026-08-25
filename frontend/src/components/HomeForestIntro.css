@@ -20,7 +20,7 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at center, rgba(0, 20, 50, 0.15) 0%, rgba(0, 0, 0, 0.55) 100%);
+    radial-gradient(circle at center, rgba(20, 20, 24, 0.2) 0%, rgba(0, 0, 0, 0.72) 100%);
   pointer-events: none;
 }
 

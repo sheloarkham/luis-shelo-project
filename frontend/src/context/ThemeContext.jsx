@@ -4,7 +4,7 @@ import { DEFAULT_THEME } from './themeDefaults'
 const STORAGE_KEY = 'luis-shelo-app-settings'
 
 export const DEFAULT_SETTINGS = {
-  particleTheme: 'blue',
+  particleTheme: 'black',
   cursorTheme: 'gold',
 }
 

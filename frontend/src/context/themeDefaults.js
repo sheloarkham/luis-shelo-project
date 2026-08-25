@@ -1,7 +1,7 @@
-/** Colores fijos del sitio (navbar transparente, texto claro). */
+/** Colores fijos del sitio (navbar transparente, texto claro sobre fondo negro). */
 export const DEFAULT_THEME = {
   navbarBg: 'transparent',
-  navbarText: '#d4e4ff',
+  navbarText: '#e8eaef',
   pageBg: 'transparent',
-  pageText: '#dce8ff',
+  pageText: '#e8eaef',
 }
