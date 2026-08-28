@@ -222,6 +222,16 @@ const Home = () => {
     loadStats()
   }, [])
 
+  useEffect(() => {
+    const html = document.documentElement
+    html.classList.add('home-no-scroll')
+    document.body.classList.add('home-no-scroll')
+    return () => {
+      html.classList.remove('home-no-scroll')
+      document.body.classList.remove('home-no-scroll')
+    }
+  }, [])
+
   const calculateLocalStats = (storageKey, completedStatus, inProgressStatus) => {
     try {
       const saved = localStorage.getItem(storageKey)
@@ -287,7 +297,7 @@ const Home = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            minHeight: '80vh',
+            flex: 1,
             bgcolor: 'transparent',
           }}
         >
@@ -307,11 +317,11 @@ const Home = () => {
     }
 
     return (
-      <Box className="home-page__content" sx={{ px: { xs: 2, md: 3 }, pt: { xs: 2, md: 1 }, pb: 4, minHeight: 'auto' }}>
+      <Box className="home-page__content" sx={{ px: { xs: 2, md: 3 }, py: { xs: 1, md: 0 } }}>
         <Box 
           className="home-page__header"
           sx={{ 
-            mb: 3, 
+            mb: { xs: 2, md: 2.5 }, 
             textAlign: 'center',
           }}
         >
@@ -321,26 +331,13 @@ const Home = () => {
             sx={{ 
               color: '#e8f0ff',
               fontWeight: 300,
-              mb: 2,
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.85rem' },
+              lineHeight: 1.35,
               textShadow: '0 2px 18px rgba(0, 40, 120, 0.5)',
             }}
           >
-            Mi Tiempo Libre
-          </Typography>
-          <Typography 
-            variant="h6" 
-            className="home-page__subtitle"
-            sx={{ 
-              color: 'rgba(180, 210, 255, 0.82)',
-              fontWeight: 300,
-              letterSpacing: '0.1em',
-              fontSize: '0.9rem',
-              textShadow: '0 1px 10px rgba(0, 40, 120, 0.35)',
-            }}
-          >
-            Proyecto Luis Shelo
+            Cosas para hacer en mi tiempo libre
           </Typography>
         </Box>
 
@@ -375,9 +372,10 @@ const Home = () => {
   }
 
   return (
-    <div className="home-page">
+    <div className="home-page" style={{ flex: 1, minHeight: 0 }}>
       <Box
         className={`home-page__stage${introComplete ? ' home-page__stage--visible' : ''}`}
+        sx={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
       >
         {renderMainContent()}
       </Box>
