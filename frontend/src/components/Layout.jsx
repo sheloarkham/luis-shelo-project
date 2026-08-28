@@ -44,7 +44,7 @@ const Layout = ({ contentRef, pageEntering = false }) => {
         <Box component="main" sx={{ flexGrow: 1, ...(isHome ? { minHeight: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' } : {}) }}>
           <Outlet />
         </Box>
-        {!chromeHidden && <Footer />}
+        {!chromeHidden && !isHome && <Footer />}
       </Box>
       </Box>
     </Box>
