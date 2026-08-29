@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import ProyectoShootingStars from '../components/ProyectoShootingStars'
 import './shared-page.css'
 import './Proyecto.css'
 
@@ -44,6 +45,7 @@ const Proyecto = () => {
 
   return (
     <div className="page-container proyecto-page proyecto-hub-page" style={{ flex: 1, minHeight: 0 }}>
+      <ProyectoShootingStars />
       <div className="content">
         <main className="proyecto-hub-main">
           <header className="page-header proyecto-hub-header">
