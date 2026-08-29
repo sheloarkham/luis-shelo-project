@@ -148,3 +148,95 @@
     padding-left: 2rem;
   }
 }
+
+.proyecto-hub-page .content {
+  max-width: 920px;
+}
+
+.proyecto-hub-header {
+  margin-bottom: 2.5rem;
+}
+
+.proyecto-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem 3rem;
+  padding: 1rem 0 2rem;
+}
+
+.proyecto-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  min-width: 120px;
+  transition: transform 0.25s ease;
+}
+
+.proyecto-badge:hover {
+  transform: translateY(-6px);
+}
+
+.proyecto-badge__circle {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0.55) 70%);
+  border: 2px solid color-mix(in srgb, var(--badge-accent) 55%, transparent);
+  box-shadow:
+    0 0 0 4px rgba(0, 0, 0, 0.35),
+    0 12px 28px rgba(0, 0, 0, 0.45),
+    inset 0 0 24px color-mix(in srgb, var(--badge-accent) 18%, transparent);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.proyecto-badge:hover .proyecto-badge__circle {
+  border-color: var(--badge-accent);
+  box-shadow:
+    0 0 0 4px rgba(0, 0, 0, 0.35),
+    0 16px 32px rgba(0, 0, 0, 0.5),
+    0 0 24px color-mix(in srgb, var(--badge-accent) 35%, transparent);
+}
+
+.proyecto-badge__icon {
+  font-size: 2.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+.proyecto-badge__label {
+  min-width: 120px;
+  padding: 0.55rem 0.85rem;
+  text-align: center;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-page-text);
+  background: var(--color-surface-strong);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@media (max-width: 560px) {
+  .proyecto-badges {
+    gap: 2rem;
+  }
+
+  .proyecto-badge__circle {
+    width: 96px;
+    height: 96px;
+  }
+
+  .proyecto-badge__icon {
+    font-size: 2rem;
+  }
+}

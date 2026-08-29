@@ -21,7 +21,6 @@ import FolderIcon from '@mui/icons-material/Folder'
 import SchoolIcon from '@mui/icons-material/School'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
-import MenuBookIcon from '@mui/icons-material/MenuBook'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
@@ -178,11 +177,11 @@ const Navbar = () => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/proyecto" onClick={handleDrawerToggle}>
+          <ListItemButton component={Link} to="/proyectos" onClick={handleDrawerToggle}>
             <ListItemIcon>
               <FolderIcon sx={{ color: 'white' }} />
             </ListItemIcon>
-            <ListItemText primary="El Proyecto" sx={{ color: 'white' }} />
+            <ListItemText primary="Proyectos" sx={{ color: 'white' }} />
           </ListItemButton>
         </ListItem>
 
@@ -201,15 +200,6 @@ const Navbar = () => {
               <FitnessCenterIcon sx={{ color: 'white' }} />
             </ListItemIcon>
             <ListItemText primary="Gym" sx={{ color: 'white' }} />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/books" onClick={handleDrawerToggle}>
-            <ListItemIcon>
-              <MenuBookIcon sx={{ color: 'white' }} />
-            </ListItemIcon>
-            <ListItemText primary="Books" sx={{ color: 'white' }} />
           </ListItemButton>
         </ListItem>
 
@@ -315,14 +305,13 @@ const Navbar = () => {
               Presupuestos
             </Button>
 
-            {/* Antes: "El" quedaba arriba y "Proyecto" abajo por falta de espacio */}
             <Button 
               component={Link} 
-              to="/proyecto"
+              to="/proyectos"
               startIcon={<FolderIcon />}
               sx={navButtonSx}
             >
-              El Proyecto
+              Proyectos
             </Button>
 
             <Button 
@@ -341,15 +330,6 @@ const Navbar = () => {
               sx={navButtonSx}
             >
               Gym
-            </Button>
-
-            <Button 
-              component={Link} 
-              to="/books"
-              startIcon={<MenuBookIcon />}
-              sx={navButtonSx}
-            >
-              Books
             </Button>
 
             <Button 

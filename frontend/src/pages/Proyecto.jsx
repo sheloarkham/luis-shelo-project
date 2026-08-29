@@ -1,140 +1,57 @@
+import { Link } from 'react-router-dom'
 import './shared-page.css'
 import './Proyecto.css'
 
-const Proyecto = () => {
-  const roadmapSteps = [
-    {
-      id: 1,
-      title: 'Introducción a la programación',
-      status: 'en-progreso',
-      description: 'Fundamentos de JavaScript - Todo Code Academy',
-      link: 'https://todocodeacademy.com/course/introduccion-a-la-programacion/',
-      icon: '💻',
-    },
-    {
-      id: 2,
-      title: 'Google Data Analytics',
-      status: 'completado',
-      description: 'Análisis de datos, SQL, hojas de cálculo y visualización - Coursera',
-      link: 'https://www.coursera.org/professional-certificates/google-data-analytics',
-      icon: '📊',
-    },
-    {
-      id: 3,
-      title: 'TypeScript: Tu completa guía y manual de mano',
-      status: 'en-progreso',
-      description: 'Curso completo de TypeScript — Fernando Herrera · Udemy',
-      link: 'https://www.udemy.com/course/typescript-guia-completa/',
-      linkLabel: 'Ir al curso',
-      icon: '📘',
-    },
-    {
-      id: 4,
-      title: 'Lógica de Programación',
-      status: 'pendiente',
-      description: 'Libro · Fundamentos de algoritmos y pensamiento lógico — Omar Iván Trejos Buriticá',
-      link: 'https://matrix3d.co/producto/logica-de-programacion-2a-edicion/',
-      linkLabel: 'Ver libro',
-      icon: '📖',
-    },
-  ]
+const PROJECT_BADGES = [
+  {
+    id: 'fullstack',
+    label: 'Fullstack',
+    path: '/proyectos/fullstack',
+    icon: '💻',
+    accent: '#8cb8ff',
+  },
+  {
+    id: 'autito',
+    label: 'Autito',
+    path: '/proyectos/autito',
+    icon: '🚗',
+    accent: '#fbbf24',
+  },
+  {
+    id: 'escritos',
+    label: 'Escritos',
+    path: '/proyectos/escritos',
+    icon: '✍️',
+    accent: '#c4a7e7',
+  },
+]
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case 'completado':
-        return 'done'
-      case 'en-progreso':
-        return 'progress'
-      default:
-        return 'pending'
-    }
-  }
+const Proyecto = () => (
+  <div className="page-container proyecto-page proyecto-hub-page">
+    <div className="content">
+      <main>
+        <header className="page-header proyecto-hub-header">
+          <h1 className="page-title">Proyectos</h1>
+        </header>
 
-  const getStepIcon = (status) => {
-    switch (status) {
-      case 'completado':
-        return '✓'
-      case 'en-progreso':
-        return '⏳'
-      default:
-        return '○'
-    }
-  }
-
-  const getStatusLabel = (status) => {
-    switch (status) {
-      case 'completado':
-        return 'Completado'
-      case 'en-progreso':
-        return 'En progreso'
-      default:
-        return 'Pendiente'
-    }
-  }
-
-  return (
-    <div className="page-container proyecto-page">
-      <div className="content">
-        <main>
-          <header className="page-header">
-            <h1 className="page-title">El Proyecto</h1>
-          </header>
-
-          <section className="glass-panel proyecto-goal">
-            <h2>Objetivo General</h2>
-            <p>Dominar TypeScript y desarrollo full stack</p>
-          </section>
-
-          <section className="glass-panel proyecto-roadmap">
-            <h2 className="proyecto-roadmap-title">Roadmap de Aprendizaje</h2>
-
-            <div className="proyecto-timeline">
-              <div className="proyecto-timeline-line" aria-hidden="true" />
-
-              {roadmapSteps.map((step) => {
-                const statusClass = getStatusClass(step.status)
-
-                return (
-                  <article key={step.id} className="proyecto-step">
-                    <div className={`proyecto-step-dot proyecto-step-dot--${statusClass}`}>
-                      {getStepIcon(step.status)}
-                    </div>
-
-                    <div className={`proyecto-step-card proyecto-step-card--${statusClass}`}>
-                      {step.icon && <div className="proyecto-step-icon">{step.icon}</div>}
-
-                      <h3>{step.title}</h3>
-                      <p>{step.description}</p>
-
-                      {step.link && (
-                        <a
-                          href={step.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="glass-link-btn"
-                        >
-                          {step.linkLabel || 'Ir al curso'}
-                        </a>
-                      )}
-
-                      <br />
-                      <span className={`proyecto-status-pill proyecto-status-pill--${statusClass}`}>
-                        {getStatusLabel(step.status)}
-                      </span>
-                    </div>
-                  </article>
-                )
-              })}
-            </div>
-
-            <div className="proyecto-footer-note">
-              <p>Ruta activa: TypeScript + Full Stack</p>
-            </div>
-          </section>
-        </main>
-      </div>
+        <section className="proyecto-badges" aria-label="Lista de proyectos">
+          {PROJECT_BADGES.map((badge) => (
+            <Link
+              key={badge.id}
+              to={badge.path}
+              className="proyecto-badge"
+              style={{ '--badge-accent': badge.accent }}
+            >
+              <span className="proyecto-badge__circle" aria-hidden="true">
+                <span className="proyecto-badge__icon">{badge.icon}</span>
+              </span>
+              <span className="proyecto-badge__label">{badge.label}</span>
+            </Link>
+          ))}
+        </section>
+      </main>
     </div>
-  )
-}
+  </div>
+)
 
 export default Proyecto
