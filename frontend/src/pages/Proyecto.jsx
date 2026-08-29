@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './shared-page.css'
 import './Proyecto.css'
@@ -7,51 +8,71 @@ const PROJECT_BADGES = [
     id: 'fullstack',
     label: 'Fullstack',
     path: '/proyectos/fullstack',
-    icon: '💻',
-    accent: '#8cb8ff',
+    image: '/images/proyectos/fullstack.png',
+    cropHalf: true,
   },
   {
     id: 'autito',
     label: 'Autito',
     path: '/proyectos/autito',
-    icon: '🚗',
-    accent: '#fbbf24',
+    image: '/images/proyectos/autito.png',
   },
   {
     id: 'escritos',
     label: 'Escritos',
     path: '/proyectos/escritos',
-    icon: '✍️',
-    accent: '#c4a7e7',
+    image: '/images/proyectos/escritos.png',
+  },
+  {
+    id: 'gym',
+    label: 'Gym',
+    path: '/gym',
+    image: '/images/proyectos/gym.png',
   },
 ]
 
-const Proyecto = () => (
-  <div className="page-container proyecto-page proyecto-hub-page">
-    <div className="content">
-      <main>
-        <header className="page-header proyecto-hub-header">
-          <h1 className="page-title">Proyectos</h1>
-        </header>
+const Proyecto = () => {
+  useEffect(() => {
+    const html = document.documentElement
+    html.classList.add('home-no-scroll')
+    document.body.classList.add('home-no-scroll')
+    return () => {
+      html.classList.remove('home-no-scroll')
+      document.body.classList.remove('home-no-scroll')
+    }
+  }, [])
 
-        <section className="proyecto-badges" aria-label="Lista de proyectos">
-          {PROJECT_BADGES.map((badge) => (
-            <Link
-              key={badge.id}
-              to={badge.path}
-              className="proyecto-badge"
-              style={{ '--badge-accent': badge.accent }}
-            >
-              <span className="proyecto-badge__circle" aria-hidden="true">
-                <span className="proyecto-badge__icon">{badge.icon}</span>
-              </span>
-              <span className="proyecto-badge__label">{badge.label}</span>
-            </Link>
-          ))}
-        </section>
-      </main>
+  return (
+    <div className="page-container proyecto-page proyecto-hub-page" style={{ flex: 1, minHeight: 0 }}>
+      <div className="content">
+        <main className="proyecto-hub-main">
+          <header className="page-header proyecto-hub-header">
+            <h1 className="page-title">Proyectos</h1>
+          </header>
+
+          <section className="proyecto-badges" aria-label="Lista de proyectos">
+            {PROJECT_BADGES.map((badge) => (
+              <Link
+                key={badge.id}
+                to={badge.path}
+                className={`proyecto-badge${badge.cropHalf ? ' proyecto-badge--crop-half' : ''}`}
+                aria-label={badge.label}
+              >
+                <span className="proyecto-badge__frame">
+                  <img
+                    src={badge.image}
+                    alt=""
+                    className="proyecto-badge__img"
+                    draggable={false}
+                  />
+                </span>
+              </Link>
+            ))}
+          </section>
+        </main>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default Proyecto

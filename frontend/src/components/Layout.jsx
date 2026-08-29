@@ -15,7 +15,10 @@ const Layout = ({ contentRef, pageEntering = false }) => {
   const { customizationMode } = useThemeCustomization()
   const { chromeHidden } = useParticleTheme()
   const isDesktop = useIsDesktop()
-  const isHome = useLocation().pathname === '/'
+  const pathname = useLocation().pathname
+  const isHome = pathname === '/'
+  const isProyectosHub = pathname === '/proyectos'
+  const isFixedPage = isHome || isProyectosHub
 
   const mainTopMargin = chromeHidden
     ? { xs: 0, md: 0 }
@@ -24,7 +27,7 @@ const Layout = ({ contentRef, pageEntering = false }) => {
       : { xs: '56px', md: '64px' }
 
   return (
-    <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100vh', ...(isHome ? { height: '100dvh', overflow: 'hidden' } : {}) }}>
+    <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100vh', ...(isFixedPage ? { height: '100dvh', overflow: 'hidden' } : {}) }}>
       <ParticleBackground />
       {isDesktop && !chromeHidden && <LightCursor />}
       <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -38,13 +41,13 @@ const Layout = ({ contentRef, pageEntering = false }) => {
           display: 'flex',
           flexDirection: 'column',
           mt: mainTopMargin,
-          ...(isHome ? { minHeight: 0, overflow: 'hidden' } : {}),
+          ...(isFixedPage ? { minHeight: 0, overflow: 'hidden' } : {}),
         }}
       >
-        <Box component="main" sx={{ flexGrow: 1, ...(isHome ? { minHeight: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' } : {}) }}>
+        <Box component="main" sx={{ flexGrow: 1, ...(isFixedPage ? { minHeight: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' } : {}) }}>
           <Outlet />
         </Box>
-        {!chromeHidden && !isHome && <Footer />}
+        {!chromeHidden && !isFixedPage && <Footer />}
       </Box>
       </Box>
     </Box>
