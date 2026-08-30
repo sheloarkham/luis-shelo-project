@@ -185,6 +185,24 @@ const initialBooksData = [
     image: "/assetsB/psico.png",
     synopsis: "Secuela de El Psicoanalista. El Dr. Frederick Starks debe enfrentar nuevamente el terror cuando alguien de su pasado regresa con sed de venganza. Un thriller psicológico que explora las consecuencias de las decisiones tomadas en el primer libro.",
     Estado: "Pendiente"
+  },
+  {
+    title: "La Odisea",
+    author: "Homero",
+    releaseYear: 725,
+    pages: 448,
+    image: "/assetsB/la-odisea.png",
+    synopsis: "Tras la guerra de Troya, Odiseo emprende un viaje de diez años lleno de monstruos, dioses y tentaciones para regresar a Ítaca. Uno de los poemas épicos fundacionales de la literatura occidental sobre el exilio, la astucia y el deseo de volver a casa.",
+    Estado: "Pendiente"
+  },
+  {
+    title: "El Jardín de las Palabras",
+    author: "Makoto Shinkai · Midori Motohashi",
+    releaseYear: 2013,
+    pages: 176,
+    image: "/assetsB/jardin-de-las-palabras.png",
+    synopsis: "Adaptación a manga de la historia de Takao y Yukino, dos almas solitarias que se encuentran bajo la lluvia en un parque de Tokio. Una historia melancólica sobre el amor, la distancia y las palabras que a veces llegan demasiado tarde.",
+    Estado: "Pendiente"
   }
 ]
 
