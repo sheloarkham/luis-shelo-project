@@ -1,24 +1,42 @@
 import { useEffect, useRef } from 'react'
 import './ProyectoShootingStars.css'
 
-const MAX_STARS = 4
-const SPAWN_INTERVAL_MS = 2200
+const MAX_STARS = 55
+const SPAWN_EVERY_MS = 90
+const BURST_EVERY_MS = 600
+const BURST_COUNT = 6
+
+const PALETTES = {
+  gold: {
+    head: [255, 236, 160],
+    mid: [255, 210, 90],
+    tail: [255, 185, 70],
+  },
+  purple: {
+    head: [220, 180, 255],
+    mid: [180, 120, 255],
+    tail: [140, 80, 220],
+  },
+}
+
+const pickPalette = () => (Math.random() > 0.42 ? 'gold' : 'purple')
 
 const createStar = (width, height) => {
-  const startX = Math.random() * width * 0.85 + width * 0.05
-  const angle = Math.PI * 0.22 + Math.random() * 0.08
-  const speed = 7 + Math.random() * 5
-  const length = 70 + Math.random() * 90
+  const paletteKey = pickPalette()
+  const angle = Math.PI * 0.18 + Math.random() * 0.14
+  const speed = 9 + Math.random() * 11
+  const length = 55 + Math.random() * 120
 
   return {
-    x: startX,
-    y: -length - Math.random() * height * 0.25,
+    x: Math.random() * width * 1.1 - width * 0.05,
+    y: -length - Math.random() * height * 0.35,
     vx: Math.cos(angle) * speed,
     vy: Math.sin(angle) * speed,
     length,
-    width: 1.2 + Math.random() * 1.2,
-    life: 1,
-    fade: 0.012 + Math.random() * 0.01,
+    width: 0.9 + Math.random() * 2.2,
+    life: 0.75 + Math.random() * 0.25,
+    fade: 0.008 + Math.random() * 0.012,
+    palette: PALETTES[paletteKey],
   }
 }
 
@@ -27,6 +45,7 @@ const ProyectoShootingStars = () => {
   const starsRef = useRef([])
   const animationRef = useRef(null)
   const lastSpawnRef = useRef(0)
+  const lastBurstRef = useRef(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -43,29 +62,42 @@ const ProyectoShootingStars = () => {
     resize()
     window.addEventListener('resize', resize)
 
+    const spawnStars = (width, height, count) => {
+      for (let i = 0; i < count; i += 1) {
+        if (starsRef.current.length >= MAX_STARS) break
+        starsRef.current.push(createStar(width, height))
+      }
+    }
+
     const draw = (time) => {
       const { width, height } = canvas
 
       context.clearRect(0, 0, width, height)
 
-      if (time - lastSpawnRef.current > SPAWN_INTERVAL_MS && starsRef.current.length < MAX_STARS) {
-        if (Math.random() > 0.35) {
-          starsRef.current.push(createStar(width, height))
-          lastSpawnRef.current = time
-        }
+      if (time - lastSpawnRef.current > SPAWN_EVERY_MS) {
+        spawnStars(width, height, 1 + Math.floor(Math.random() * 2))
+        lastSpawnRef.current = time
       }
 
-      starsRef.current = starsRef.current.filter((star) => star.life > 0.04)
+      if (time - lastBurstRef.current > BURST_EVERY_MS) {
+        spawnStars(width, height, BURST_COUNT)
+        lastBurstRef.current = time
+      }
+
+      starsRef.current = starsRef.current.filter((star) => star.life > 0.03)
 
       starsRef.current.forEach((star) => {
         const speed = Math.hypot(star.vx, star.vy) || 1
         const tailX = star.x - (star.vx / speed) * star.length
         const tailY = star.y - (star.vy / speed) * star.length
+        const [hr, hg, hb] = star.palette.head
+        const [mr, mg, mb] = star.palette.mid
+        const [tr, tg, tb] = star.palette.tail
 
         const gradient = context.createLinearGradient(star.x, star.y, tailX, tailY)
-        gradient.addColorStop(0, `rgba(255, 236, 160, ${star.life * 0.95})`)
-        gradient.addColorStop(0.35, `rgba(255, 215, 90, ${star.life * 0.55})`)
-        gradient.addColorStop(1, 'rgba(255, 200, 80, 0)')
+        gradient.addColorStop(0, `rgba(${hr}, ${hg}, ${hb}, ${star.life * 0.98})`)
+        gradient.addColorStop(0.4, `rgba(${mr}, ${mg}, ${mb}, ${star.life * 0.62})`)
+        gradient.addColorStop(1, `rgba(${tr}, ${tg}, ${tb}, 0)`)
 
         context.strokeStyle = gradient
         context.lineWidth = star.width
@@ -75,10 +107,13 @@ const ProyectoShootingStars = () => {
         context.lineTo(tailX, tailY)
         context.stroke()
 
-        context.fillStyle = `rgba(255, 248, 210, ${star.life})`
+        context.fillStyle = `rgba(${hr}, ${hg}, ${hb}, ${star.life * 0.95})`
+        context.shadowBlur = 8
+        context.shadowColor = `rgba(${mr}, ${mg}, ${mb}, ${star.life * 0.7})`
         context.beginPath()
-        context.arc(star.x, star.y, star.width * 1.1, 0, Math.PI * 2)
+        context.arc(star.x, star.y, star.width * 1.15, 0, Math.PI * 2)
         context.fill()
+        context.shadowBlur = 0
 
         star.x += star.vx
         star.y += star.vy
