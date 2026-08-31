@@ -6,6 +6,7 @@ const ScrollReveal = ({
   className = '',
   delay = 0,
   direction = 'up',
+  variant = 'default',
   disabled = false,
 }) => {
   const ref = useRef(null)
@@ -41,6 +42,7 @@ const ScrollReveal = ({
       className={[
         'scroll-reveal',
         `scroll-reveal--${direction}`,
+        variant === 'romantic' ? 'scroll-reveal--romantic' : '',
         visible ? 'scroll-reveal--visible' : '',
         className,
       ].filter(Boolean).join(' ')}

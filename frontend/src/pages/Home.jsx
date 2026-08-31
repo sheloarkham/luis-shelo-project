@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Box, Card, CardContent, Typography, CircularProgress, Alert } from '@mui/material'
 import HomeForestIntro, { hasSeenHomeIntro } from '../components/HomeForestIntro'
+import CustomizeToggle from '../components/CustomizeToggle'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
 
@@ -333,6 +334,7 @@ const Home = () => {
 
   return (
     <div className="home-page" style={{ flex: 1, minHeight: 0 }}>
+      <CustomizeToggle />
       <Box
         className={`home-page__stage${introComplete ? ' home-page__stage--visible' : ''}`}
         sx={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}

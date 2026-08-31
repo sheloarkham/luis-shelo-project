@@ -31,6 +31,34 @@
   transform: translate3d(0, 0, 0);
 }
 
+.scroll-reveal--romantic {
+  opacity: 0;
+  transform: translate3d(0, 36px, 0) scale(0.97);
+  filter: blur(6px);
+  transition:
+    opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1s ease;
+}
+
+.scroll-reveal--romantic.scroll-reveal--left {
+  transform: translate3d(-40px, 8px, 0) scale(0.97);
+}
+
+.scroll-reveal--romantic.scroll-reveal--right {
+  transform: translate3d(40px, 8px, 0) scale(0.97);
+}
+
+.scroll-reveal--romantic.scroll-reveal--scale {
+  transform: scale(0.92);
+}
+
+.scroll-reveal--romantic.scroll-reveal--visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
 .scroll-reveal--fill {
   height: 100%;
 }

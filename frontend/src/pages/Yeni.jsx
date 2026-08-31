@@ -7,6 +7,7 @@ import MusicNoteIcon from '@mui/icons-material/MusicNote'
 import { useParticleTheme } from '../context/ParticleThemeContext'
 import BrasilPartyAds from '../components/BrasilPartyAds'
 import ScrollReveal from '../components/ScrollReveal'
+import LazyRevealImage from '../components/LazyRevealImage'
 import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 import './shared-page.css'
 import './Yeni.css'
@@ -44,12 +45,12 @@ const IMPERDIBLES = [
 
 /** Otras cosas que podemos hacer en Río */
 const OTRAS_ACTIVIDADES = [
-  { name: 'Playa de Copacabana', emoji: '🏖️', description: 'Camina por la orilla, mira el atardecer y prueba un açaí.' },
-  { name: 'Playa de Ipanema', emoji: '🌊', description: 'Famosa por su ambiente, los morros y el posto de sol.' },
-  { name: 'Escadaria Selarón', emoji: '🎨', description: 'Escaleras coloridas en Lapa, perfectas para fotos juntos.' },
-  { name: 'Jardim Botânico', emoji: '🌿', description: 'Paseo entre palmeras, orquídeas y naturaleza tropical.' },
-  { name: 'Maracaná', emoji: '⚽', description: 'Visitar el templo del fútbol brasileño y sentir la pasión.' },
-  { name: 'Feira de São Cristóvão', emoji: '🎶', description: 'Música, comida nordestina y ambiente de fiesta.' },
+  { name: 'Playa de Copacabana', emoji: '🏖️', description: 'Camina por la orilla, mira el atardecer y prueba un açaí.', layout: 'hero' },
+  { name: 'Playa de Ipanema', emoji: '🌊', description: 'Famosa por su ambiente, los morros y el posto de sol.', layout: 'tall' },
+  { name: 'Escadaria Selarón', emoji: '🎨', description: 'Escaleras coloridas en Lapa, perfectas para fotos juntos.', layout: 'default' },
+  { name: 'Jardim Botânico', emoji: '🌿', description: 'Paseo entre palmeras, orquídeas y naturaleza tropical.', layout: 'default' },
+  { name: 'Maracaná', emoji: '⚽', description: 'Visitar el templo del fútbol brasileño y sentir la pasión.', layout: 'default' },
+  { name: 'Feira de São Cristóvão', emoji: '🎶', description: 'Música, comida nordestina y ambiente de fiesta.', layout: 'wide' },
 ]
 
 const BRASIL_AUDIO_SRC = '/audio/brasil-bossa.mp3'
@@ -488,7 +489,8 @@ const Yeni = () => {
                   <Grid item xs={12} md={4} key={photo.id}>
                     <ScrollReveal
                       disabled={!yeniContentVisible}
-                      delay={scrollRevealStagger(index, 0.08, 6)}
+                      delay={scrollRevealStagger(index, 0.1, 6)}
+                      variant="romantic"
                       className="scroll-reveal--fill"
                     >
                     <Card
@@ -506,23 +508,14 @@ const Yeni = () => {
                           '& .photo-overlay': {
                             opacity: 1
                           },
-                          '& img': {
+                          '& .lazy-reveal-image__img': {
                             transform: 'scale(1.1)'
                           }
                         }
                       }}
                     >
                       <Box sx={{ position: 'relative', overflow: 'hidden' }}>
-                        <CardMedia
-                          component="img"
-                          image={photo.src}
-                          alt={photo.caption}
-                          sx={{
-                            height: 350,
-                            objectFit: 'cover',
-                            transition: 'transform 0.4s ease'
-                          }}
-                        />
+                        <LazyRevealImage src={photo.src} alt={photo.caption} height={350} />
                         <Box
                           className="photo-overlay"
                           sx={{
@@ -758,28 +751,48 @@ const Yeni = () => {
               </Typography>
               </ScrollReveal>
 
-              <Grid container spacing={2}>
+              <Grid container spacing={2} className="rio-activities-bento">
                 {OTRAS_ACTIVIDADES.map((actividad, index) => (
-                  <Grid item xs={12} sm={6} md={4} key={actividad.name}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={actividad.layout === 'hero' ? 12 : actividad.layout === 'wide' ? 12 : 6}
+                    md={actividad.layout === 'hero' ? 8 : actividad.layout === 'wide' ? 12 : actividad.layout === 'tall' ? 4 : 4}
+                    key={actividad.name}
+                    className={`rio-activity-grid-item rio-activity-grid-item--${actividad.layout}`}
+                  >
                     <ScrollReveal
                       disabled={!yeniContentVisible}
-                      delay={scrollRevealStagger(index, 0.07, 6)}
+                      delay={scrollRevealStagger(index, 0.08, 6)}
+                      variant="romantic"
                       className="scroll-reveal--fill"
                     >
                     <Card
-                      className="rio-activity-card"
+                      className={`rio-activity-card rio-activity-card--${actividad.layout}`}
                       sx={{
-                        p: 2.5,
+                        p: actividad.layout === 'hero' ? 3 : 2.5,
                         height: '100%',
+                        minHeight: actividad.layout === 'hero' ? 140 : actividad.layout === 'tall' ? 180 : 130,
                         border: '2px solid rgba(0, 151, 57, 0.4)',
                         borderRadius: 3,
                         bgcolor: 'rgba(0, 151, 57, 0.08)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
                       }}
                     >
-                      <Typography variant="h5" className="yeni-text-stroke" sx={{ fontWeight: 'bold', mb: 1 }}>
+                      <Typography
+                        variant={actividad.layout === 'hero' ? 'h4' : 'h5'}
+                        className="yeni-text-stroke"
+                        sx={{ fontWeight: 'bold', mb: 1 }}
+                      >
                         {actividad.emoji} {actividad.name}
                       </Typography>
-                      <Typography variant="body2" className="yeni-text-stroke">
+                      <Typography
+                        variant={actividad.layout === 'hero' ? 'body1' : 'body2'}
+                        className="yeni-text-stroke"
+                        sx={{ opacity: 0.95 }}
+                      >
                         {actividad.description}
                       </Typography>
                     </Card>

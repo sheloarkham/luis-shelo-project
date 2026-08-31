@@ -1,3 +1,70 @@
+.customize-panel--popover {
+  position: static;
+  top: auto;
+  left: auto;
+  right: auto;
+  z-index: auto;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 10px 12px;
+  min-width: 148px;
+  border-radius: 12px;
+  background: rgba(8, 14, 28, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+}
+
+.customize-panel--popover .customize-panel-title {
+  font-size: 0.65rem !important;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+}
+
+.customize-panel-title--spaced {
+  margin-top: 4px;
+}
+
+.customize-panel--popover .customize-background-options {
+  gap: 6px;
+}
+
+.customize-panel--popover .customize-bg-btn {
+  width: 56px;
+}
+
+.customize-panel--popover .customize-bg-btn__thumb {
+  width: 48px;
+  height: 30px;
+}
+
+.customize-panel--popover .customize-bg-btn__label {
+  display: none;
+}
+
+.customize-theme-options--compact {
+  gap: 4px;
+}
+
+.customize-theme-btn--compact {
+  padding: 4px;
+  min-width: 0;
+}
+
+.customize-theme-btn--compact span:last-child {
+  display: none;
+}
+
+.customize-panel--popover .customize-reset-btn {
+  margin-left: 0;
+  margin-top: 2px;
+  align-self: flex-start;
+  min-width: 0;
+  padding: 2px 6px !important;
+  font-size: 0.68rem !important;
+  color: var(--color-muted) !important;
+}
+
 .customize-panel {
   position: fixed;
   top: 64px;
@@ -135,13 +202,6 @@
   flex-shrink: 0;
 }
 
-.customize-gym-hint {
-  color: var(--color-muted) !important;
-  letter-spacing: 0.04em;
-  max-width: 220px;
-  line-height: 1.4 !important;
-}
-
 .customize-reset-btn {
   color: var(--color-page-text) !important;
   border-color: var(--color-border) !important;
@@ -153,20 +213,4 @@
 .customize-reset-btn:hover {
   border-color: var(--color-border-hover) !important;
   background: rgba(20, 40, 80, 0.45) !important;
-}
-
-@media (max-width: 768px) {
-  .customize-panel {
-    top: 56px;
-    padding: 10px 12px;
-  }
-
-  .customize-panel-title {
-    width: 100%;
-  }
-
-  .customize-reset-btn {
-    margin-left: 0;
-    width: 100%;
-  }
 }

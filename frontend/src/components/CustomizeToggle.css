@@ -1,0 +1,51 @@
+.customize-toggle {
+  position: fixed;
+  left: 14px;
+  bottom: 14px;
+  z-index: 1400;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.customize-toggle__btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(8, 14, 28, 0.55);
+  color: rgba(232, 236, 244, 0.88);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.customize-toggle__btn:hover {
+  transform: scale(1.06);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(12, 20, 36, 0.72);
+}
+
+.customize-toggle__btn--active {
+  color: #ff6b9d;
+  border-color: rgba(255, 107, 157, 0.45);
+  background: rgba(24, 10, 20, 0.72);
+}
+
+.customize-toggle .customize-panel {
+  pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .customize-toggle {
+    left: 10px;
+    bottom: 10px;
+  }
+}
