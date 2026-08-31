@@ -7,9 +7,7 @@ import Box from '@mui/material/Box'
 import { useParticleTheme } from '../context/ParticleThemeContext'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 
-import './PageTransition.css'
-
-const Layout = ({ contentRef, enterDirection = null }) => {
+const Layout = ({ contentRef }) => {
   const { chromeHidden } = useParticleTheme()
   const isDesktop = useIsDesktop()
   const pathname = useLocation().pathname
@@ -25,12 +23,8 @@ const Layout = ({ contentRef, enterDirection = null }) => {
       {isDesktop && !chromeHidden && <LightCursor />}
       <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {!chromeHidden && <Navbar />}
+      <div ref={contentRef} className="page-transition-shell">
       <Box
-        ref={contentRef}
-        className={[
-          'page-transition-shell',
-          enterDirection ? `page-transition-shell--enter-${enterDirection}` : '',
-        ].filter(Boolean).join(' ')}
         sx={{
           flexGrow: 1,
           display: 'flex',
@@ -44,6 +38,7 @@ const Layout = ({ contentRef, enterDirection = null }) => {
         </Box>
         {!chromeHidden && !isFixedPage && <Footer />}
       </Box>
+      </div>
       </Box>
     </Box>
   )
