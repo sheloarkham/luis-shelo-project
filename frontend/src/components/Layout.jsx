@@ -11,7 +11,7 @@ import { useIsDesktop } from '../hooks/useIsDesktop'
 
 import './PageTransition.css'
 
-const Layout = ({ contentRef }) => {
+const Layout = ({ contentRef, pageEntering = false }) => {
   const { customizationMode } = useThemeCustomization()
   const { chromeHidden } = useParticleTheme()
   const isDesktop = useIsDesktop()
@@ -35,7 +35,7 @@ const Layout = ({ contentRef }) => {
       {!chromeHidden && <CustomizePanel />}
       <Box
         ref={contentRef}
-        className="page-transition-shell"
+        className={`page-transition-shell${pageEntering ? ' page-transition-shell--enter' : ''}`}
         sx={{
           flexGrow: 1,
           display: 'flex',

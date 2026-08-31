@@ -3,24 +3,6 @@
   background: transparent;
 }
 
-.books-container--enter {
-  animation: booksShadowReveal 0.9s ease forwards;
-}
-
-@keyframes booksShadowReveal {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-    filter: blur(6px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
 .books-hero {
   padding: var(--page-top-padding) 2rem 2rem;
   text-align: center;

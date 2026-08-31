@@ -1,65 +1,48 @@
 .page-transition-shell {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   filter: blur(0);
-  transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
-  will-change: opacity, transform, filter;
 }
 
-.page-transition-shell--dissolve-out {
-  animation: pageDissolveOut 0.78s cubic-bezier(0.45, 0.05, 0.2, 1) forwards;
+.page-transition-shell--shadow-out {
+  animation: pageShadowFoldOut 0.82s cubic-bezier(0.55, 0.06, 0.24, 0.99) forwards;
   pointer-events: none;
 }
 
 .page-transition-shell--enter {
-  animation: pageDissolveIn 0.82s cubic-bezier(0.16, 0.84, 0.22, 1) forwards;
+  animation: pageShadowFoldIn 0.88s cubic-bezier(0.16, 0.84, 0.22, 1) forwards;
 }
 
-@keyframes pageDissolveOut {
+@keyframes pageShadowFoldOut {
   0% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     filter: blur(0);
   }
 
-  45% {
-    opacity: 0.45;
-    transform: translateY(-6px) scale(1.015);
-    filter: blur(8px);
-  }
-
   100% {
     opacity: 0;
-    transform: translateY(-12px) scale(1.03);
-    filter: blur(16px);
+    transform: translateY(36px);
+    filter: blur(10px);
   }
 }
 
-@keyframes pageDissolveIn {
+@keyframes pageShadowFoldIn {
   0% {
     opacity: 0;
-    transform: translateY(14px) scale(1.03);
-    filter: blur(16px);
-  }
-
-  55% {
-    opacity: 0.6;
-    filter: blur(6px);
+    transform: translateY(40px);
+    filter: blur(12px);
   }
 
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     filter: blur(0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-transition-shell {
-    transition: none;
-  }
-
-  .page-transition-shell--dissolve-out,
+  .page-transition-shell--shadow-out,
   .page-transition-shell--enter {
     animation: none;
   }

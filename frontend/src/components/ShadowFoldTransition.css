@@ -26,8 +26,9 @@
 
 .shadow-fold__core {
   background:
-    radial-gradient(circle at 50% 48%, rgba(72, 28, 110, 0.95) 0%, rgba(18, 4, 32, 0.98) 34%, #000 68%);
+    radial-gradient(circle at 50% 88%, rgba(72, 28, 110, 0.95) 0%, rgba(18, 4, 32, 0.98) 34%, #000 68%);
   transform: scale(0.2);
+  transform-origin: 50% 100%;
   opacity: 0;
 }
 
