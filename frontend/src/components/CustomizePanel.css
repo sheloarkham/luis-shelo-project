@@ -37,6 +37,66 @@
   text-transform: uppercase;
 }
 
+.customize-panel-section--backgrounds {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.customize-background-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.customize-bg-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 10px;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface-strong);
+  color: var(--color-page-text);
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  width: 72px;
+}
+
+.customize-bg-btn:hover {
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+}
+
+.customize-bg-btn--active {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px rgba(184, 196, 216, 0.35);
+}
+
+.customize-bg-btn__thumb {
+  display: block;
+  width: 60px;
+  height: 38px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.customize-bg-btn__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.customize-bg-btn__label {
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 68px;
+}
+
 .customize-theme-options {
   display: flex;
   flex-wrap: wrap;

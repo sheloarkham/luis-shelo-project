@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { useLocation } from 'react-router-dom'
 import { useThemeCustomization } from '../context/ThemeContext'
-import { PARTICLE_THEMES, PARTICLE_THEME_IDS } from '../constants/particleThemes'
+import { BACKGROUND_THEMES, BACKGROUND_THEME_IDS } from '../constants/backgroundThemes'
 import { CURSOR_THEMES, CURSOR_THEME_IDS } from '../constants/cursorThemes'
 import './CustomizePanel.css'
 
@@ -11,9 +11,9 @@ const CustomizePanel = () => {
   const location = useLocation()
   const {
     customizationMode,
-    particleTheme,
+    backgroundId,
     cursorTheme,
-    setParticleTheme,
+    setBackgroundId,
     setCursorTheme,
     resetSettings,
   } = useThemeCustomization()
@@ -28,23 +28,22 @@ const CustomizePanel = () => {
         Personalización
       </Typography>
 
-      <Box className="customize-panel-section">
-        <span className="customize-section-label">Tono del fondo</span>
-        <Box className="customize-theme-options">
-          {PARTICLE_THEME_IDS.map((id) => (
+      <Box className="customize-panel-section customize-panel-section--backgrounds">
+        <span className="customize-section-label">Imagen de fondo</span>
+        <Box className="customize-background-options">
+          {BACKGROUND_THEME_IDS.map((id) => (
             <button
               key={id}
               type="button"
-              className={`customize-theme-btn${particleTheme === id ? ' customize-theme-btn--active' : ''}`}
-              onClick={() => setParticleTheme(id)}
-              aria-label={`Tono del fondo ${PARTICLE_THEMES[id].label}`}
-              title={PARTICLE_THEMES[id].label}
+              className={`customize-bg-btn${backgroundId === id ? ' customize-bg-btn--active' : ''}`}
+              onClick={() => setBackgroundId(id)}
+              aria-label={`Fondo ${BACKGROUND_THEMES[id].label}`}
+              title={BACKGROUND_THEMES[id].label}
             >
-              <span
-                className="customize-theme-swatch"
-                style={{ backgroundColor: PARTICLE_THEMES[id].swatch }}
-              />
-              <span>{PARTICLE_THEMES[id].label}</span>
+              <span className="customize-bg-btn__thumb">
+                <img src={BACKGROUND_THEMES[id].image} alt="" draggable={false} />
+              </span>
+              <span className="customize-bg-btn__label">{BACKGROUND_THEMES[id].label}</span>
             </button>
           ))}
         </Box>
