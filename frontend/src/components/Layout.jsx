@@ -9,7 +9,7 @@ import { useIsDesktop } from '../hooks/useIsDesktop'
 
 import './PageTransition.css'
 
-const Layout = ({ contentRef, pageEntering = false }) => {
+const Layout = ({ contentRef, enterDirection = null }) => {
   const { chromeHidden } = useParticleTheme()
   const isDesktop = useIsDesktop()
   const pathname = useLocation().pathname
@@ -27,7 +27,10 @@ const Layout = ({ contentRef, pageEntering = false }) => {
       {!chromeHidden && <Navbar />}
       <Box
         ref={contentRef}
-        className={`page-transition-shell${pageEntering ? ' page-transition-shell--enter' : ''}`}
+        className={[
+          'page-transition-shell',
+          enterDirection ? `page-transition-shell--enter-${enterDirection}` : '',
+        ].filter(Boolean).join(' ')}
         sx={{
           flexGrow: 1,
           display: 'flex',

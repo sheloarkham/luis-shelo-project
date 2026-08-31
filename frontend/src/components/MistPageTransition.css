@@ -1,0 +1,390 @@
+.mist-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.mist-transition--closing,
+.mist-transition--opening {
+  pointer-events: all;
+}
+
+.mist-transition__backdrop,
+.mist-transition__fog,
+.mist-transition__wisp,
+.mist-transition__sweep,
+.mist-transition__sweep-edge,
+.mist-transition__grain,
+.mist-transition__vignette {
+  position: absolute;
+  inset: 0;
+}
+
+.mist-transition__backdrop {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(10, 36, 52, 0.55), rgba(1, 4, 10, 0.98) 72%);
+  opacity: 0;
+}
+
+.mist-transition__fog {
+  filter: blur(32px);
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.mist-transition__fog--1 {
+  background:
+    radial-gradient(circle at 30% 45%, rgba(40, 120, 140, 0.55), transparent 58%),
+    radial-gradient(circle at 70% 55%, rgba(8, 28, 42, 0.85), transparent 62%);
+}
+
+.mist-transition__fog--2 {
+  background:
+    radial-gradient(circle at 55% 35%, rgba(80, 180, 200, 0.35), transparent 55%),
+    radial-gradient(circle at 42% 72%, rgba(4, 14, 24, 0.9), transparent 60%);
+  filter: blur(44px);
+}
+
+.mist-transition__fog--3 {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.92), transparent 68%);
+  mix-blend-mode: normal;
+  filter: blur(22px);
+}
+
+.mist-transition__wisp {
+  border-radius: 50%;
+  filter: blur(38px);
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.mist-transition__wisp--1 {
+  width: 48vw;
+  height: 48vw;
+  top: -12%;
+  left: -8%;
+  background: radial-gradient(circle, rgba(60, 160, 180, 0.45), transparent 68%);
+}
+
+.mist-transition__wisp--2 {
+  width: 42vw;
+  height: 42vw;
+  top: 18%;
+  right: -14%;
+  background: radial-gradient(circle, rgba(20, 70, 90, 0.55), transparent 70%);
+}
+
+.mist-transition__wisp--3 {
+  width: 36vw;
+  height: 36vw;
+  bottom: -10%;
+  left: 22%;
+  background: radial-gradient(circle, rgba(90, 200, 210, 0.28), transparent 72%);
+}
+
+.mist-transition__wisp--4 {
+  width: 28vw;
+  height: 28vw;
+  top: 42%;
+  left: 8%;
+  background: radial-gradient(circle, rgba(12, 40, 58, 0.65), transparent 74%);
+}
+
+.mist-transition__wisp--5 {
+  width: 32vw;
+  height: 32vw;
+  bottom: 8%;
+  right: 10%;
+  background: radial-gradient(circle, rgba(50, 130, 150, 0.38), transparent 70%);
+}
+
+.mist-transition__sweep {
+  top: -12%;
+  bottom: -12%;
+  width: 58%;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(30, 100, 120, 0.22) 28%,
+    rgba(4, 14, 24, 0.96) 50%,
+    rgba(30, 100, 120, 0.22) 72%,
+    transparent 100%
+  );
+  filter: blur(10px);
+}
+
+.mist-transition__sweep-edge {
+  top: -8%;
+  bottom: -8%;
+  width: 3px;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(120, 220, 235, 0.85) 45%,
+    rgba(80, 180, 200, 0.65) 55%,
+    transparent
+  );
+  filter: blur(2px);
+  box-shadow:
+    0 0 24px rgba(80, 200, 220, 0.45),
+    0 0 60px rgba(40, 140, 160, 0.25);
+}
+
+.mist-transition__grain {
+  opacity: 0;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.06) 0.6px, transparent 0.6px),
+    radial-gradient(rgba(255, 255, 255, 0.04) 0.8px, transparent 0.8px);
+  background-size: 3px 3px, 5px 5px;
+  background-position: 0 0, 2px 1px;
+  mix-blend-mode: overlay;
+}
+
+.mist-transition__vignette {
+  background: radial-gradient(circle at 50% 45%, transparent 35%, rgba(0, 0, 0, 0.75) 100%);
+  opacity: 0;
+}
+
+/* Forward: neblina entra desde la derecha */
+.mist-transition--forward.mist-transition--closing .mist-transition__sweep {
+  left: 100%;
+  animation: mistSweepCloseForward 0.78s cubic-bezier(0.62, 0, 0.22, 1) forwards;
+}
+
+.mist-transition--forward.mist-transition--closing .mist-transition__sweep-edge {
+  left: 100%;
+  animation: mistEdgeCloseForward 0.78s cubic-bezier(0.62, 0, 0.22, 1) forwards;
+}
+
+.mist-transition--forward.mist-transition--opening .mist-transition__sweep {
+  left: -58%;
+  animation: mistSweepOpenForward 0.86s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mist-transition--forward.mist-transition--opening .mist-transition__sweep-edge {
+  left: -3px;
+  animation: mistEdgeOpenForward 0.86s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Backward: neblina entra desde la izquierda */
+.mist-transition--backward.mist-transition--closing .mist-transition__sweep {
+  right: 100%;
+  left: auto;
+  animation: mistSweepCloseBackward 0.78s cubic-bezier(0.62, 0, 0.22, 1) forwards;
+}
+
+.mist-transition--backward.mist-transition--closing .mist-transition__sweep-edge {
+  right: 100%;
+  left: auto;
+  animation: mistEdgeCloseBackward 0.78s cubic-bezier(0.62, 0, 0.22, 1) forwards;
+}
+
+.mist-transition--backward.mist-transition--opening .mist-transition__sweep {
+  right: -58%;
+  left: auto;
+  animation: mistSweepOpenBackward 0.86s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mist-transition--backward.mist-transition--opening .mist-transition__sweep-edge {
+  right: -3px;
+  left: auto;
+  animation: mistEdgeOpenBackward 0.86s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mist-transition--closing .mist-transition__backdrop {
+  animation: mistBackdropClose 0.78s ease forwards;
+}
+
+.mist-transition--opening .mist-transition__backdrop {
+  animation: mistBackdropOpen 0.86s ease forwards;
+  opacity: 1;
+}
+
+.mist-transition--closing .mist-transition__fog--1 {
+  animation: mistFogClose 0.82s ease forwards;
+}
+
+.mist-transition--closing .mist-transition__fog--2 {
+  animation: mistFogClose 0.88s 0.04s ease forwards;
+}
+
+.mist-transition--closing .mist-transition__fog--3 {
+  animation: mistFogClose 0.8s 0.08s ease forwards;
+}
+
+.mist-transition--opening .mist-transition__fog--1,
+.mist-transition--opening .mist-transition__fog--2,
+.mist-transition--opening .mist-transition__fog--3 {
+  animation: mistFogOpen 0.86s ease forwards;
+  opacity: 1;
+}
+
+.mist-transition--closing .mist-transition__wisp--1 {
+  animation: mistWispClose 0.9s ease forwards;
+}
+
+.mist-transition--closing .mist-transition__wisp--2 {
+  animation: mistWispClose 0.94s 0.05s ease forwards;
+}
+
+.mist-transition--closing .mist-transition__wisp--3 {
+  animation: mistWispClose 0.88s 0.1s ease forwards;
+}
+
+.mist-transition--closing .mist-transition__wisp--4 {
+  animation: mistWispClose 0.92s 0.03s ease forwards;
+}
+
+.mist-transition--closing .mist-transition__wisp--5 {
+  animation: mistWispClose 0.96s 0.07s ease forwards;
+}
+
+.mist-transition--opening .mist-transition__wisp--1,
+.mist-transition--opening .mist-transition__wisp--2,
+.mist-transition--opening .mist-transition__wisp--3,
+.mist-transition--opening .mist-transition__wisp--4,
+.mist-transition--opening .mist-transition__wisp--5 {
+  animation: mistWispOpen 0.86s ease forwards;
+  opacity: 0.85;
+}
+
+.mist-transition--closing .mist-transition__grain,
+.mist-transition--closing .mist-transition__vignette {
+  animation: mistGrainClose 0.78s ease forwards;
+}
+
+.mist-transition--opening .mist-transition__grain,
+.mist-transition--opening .mist-transition__vignette {
+  animation: mistGrainOpen 0.86s ease forwards;
+  opacity: 0.35;
+}
+
+@keyframes mistSweepCloseForward {
+  to {
+    left: -58%;
+    opacity: 1;
+  }
+}
+
+@keyframes mistSweepOpenForward {
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes mistEdgeCloseForward {
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes mistEdgeOpenForward {
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes mistSweepCloseBackward {
+  to {
+    right: -58%;
+    opacity: 1;
+  }
+}
+
+@keyframes mistSweepOpenBackward {
+  to {
+    right: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes mistEdgeCloseBackward {
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes mistEdgeOpenBackward {
+  to {
+    right: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes mistBackdropClose {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mistBackdropOpen {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes mistFogClose {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.28);
+    opacity: 0.95;
+  }
+}
+
+@keyframes mistFogOpen {
+  to {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes mistWispClose {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.6);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate3d(4%, -3%, 0) scale(1.15);
+    opacity: 0.9;
+  }
+}
+
+@keyframes mistWispOpen {
+  to {
+    transform: translate3d(-6%, 4%, 0) scale(1.35);
+    opacity: 0;
+  }
+}
+
+@keyframes mistGrainClose {
+  to {
+    opacity: 0.22;
+  }
+}
+
+@keyframes mistGrainOpen {
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mist-transition {
+    display: none;
+  }
+}
