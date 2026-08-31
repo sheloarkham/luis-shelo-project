@@ -15,6 +15,20 @@ const hexToRgba = (hex, alpha) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
 
+const getTintStyle = (themeId, theme) => {
+  if (themeId === 'black') {
+    return {
+      '--site-bg-tint-opacity': '0',
+      background: 'transparent',
+    }
+  }
+
+  return {
+    '--site-bg-tint-opacity': '0.28',
+    background: `radial-gradient(circle at 50% 38%, ${hexToRgba(theme.bgInner, 0.38)}, ${hexToRgba(theme.bgMid, 0.55)})`,
+  }
+}
+
 const SiteBackground = () => {
   const { pathname } = useLocation()
   const { pinkBlendRef } = useParticleTheme()
@@ -44,16 +58,18 @@ const SiteBackground = () => {
 
   return (
     <div className="site-background" aria-hidden="true">
-      <div
+      <img
         className="site-background__image"
-        style={{ backgroundImage: `url(${BACKGROUND_IMAGE})` }}
+        src={BACKGROUND_IMAGE}
+        alt=""
+        draggable={false}
+        decoding="async"
+        fetchPriority="high"
       />
       <div className="site-background__dim" />
       <div
         className="site-background__tint"
-        style={{
-          background: `radial-gradient(circle at 50% 38%, ${hexToRgba(theme.bgInner, 0.55)}, ${hexToRgba(theme.bgMid, 0.82)})`,
-        }}
+        style={getTintStyle(particleTheme, theme)}
       />
       {isYeniPage && (
         <div
