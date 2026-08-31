@@ -5,10 +5,10 @@
   --color-page-text: #e8eaef;
   --color-accent: #b8c4d8;
   --color-accent-soft: rgba(184, 196, 216, 0.82);
-  --color-surface: rgba(0, 0, 0, 0.55);
-  --color-surface-strong: rgba(0, 0, 0, 0.82);
-  --color-border: rgba(150, 160, 180, 0.2);
-  --color-border-hover: rgba(180, 190, 210, 0.34);
+  --color-surface: rgba(8, 14, 28, 0.28);
+  --color-surface-strong: rgba(6, 12, 24, 0.4);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-hover: rgba(255, 255, 255, 0.22);
   --color-muted: rgba(200, 205, 215, 0.72);
   --page-top-padding: 84px;
   --page-top-padding-mobile: 76px;

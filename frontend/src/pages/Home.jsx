@@ -4,22 +4,38 @@ import HomeForestIntro, { hasSeenHomeIntro } from '../components/HomeForestIntro
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
 
+const statTileSx = {
+  textAlign: 'center',
+  p: { xs: 1.5, md: 1.1 },
+  bgcolor: 'rgba(255, 255, 255, 0.05)',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
+  borderRadius: 1,
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    bgcolor: 'rgba(255, 255, 255, 0.09)',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.18)',
+  },
+}
+
 const StatCard = ({ title, stats, icon, color }) => {
   const { total, porcentajeProgreso } = stats
   
   return (
     <Card className="home-stat-card" sx={{ 
-      background: 'rgba(0, 0, 0, 0.72)',
-      border: '1px solid rgba(110, 120, 140, 0.22)',
-      borderRadius: 1,
+      background: 'rgba(8, 16, 32, 0.24)',
+      border: '1px solid rgba(255, 255, 255, 0.12)',
+      borderRadius: 2,
       height: '100%',
-      backdropFilter: 'blur(14px)',
-      WebkitBackdropFilter: 'blur(14px)',
+      backdropFilter: 'blur(16px)',
+      WebkitBackdropFilter: 'blur(16px)',
+      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.18)',
       transition: 'all 0.3s ease',
       '&:hover': {
         transform: 'translateY(-5px)',
-        boxShadow: '0 12px 28px rgba(0, 0, 0, 0.45)',
-        borderColor: 'rgba(180, 190, 210, 0.38)',
+        boxShadow: '0 14px 36px rgba(0, 0, 0, 0.24)',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
+        background: 'rgba(10, 20, 40, 0.32)',
       }
     }}>
       <CardContent sx={{ p: { xs: 2.5, md: 2 }, px: { md: 1.75 } }}>
@@ -100,21 +116,7 @@ const StatCard = ({ title, stats, icon, color }) => {
         </Box>
 
         <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: { xs: 1.5, md: 1 }, mt: { xs: 2, md: 1.5 } }}>
-          <Box 
-            sx={{ 
-              textAlign: 'center', 
-              p: { xs: 1.5, md: 1.1 }, 
-              bgcolor: 'rgba(0, 10, 30, 0.45)',
-              border: '1px solid rgba(80, 150, 255, 0.18)',
-              borderRadius: 1,
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                bgcolor: 'rgba(10, 30, 60, 0.55)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
-              }
-            }}
-          >
+          <Box sx={statTileSx}>
             <Typography variant="h6" sx={{ color: color, fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {total}
             </Typography>
@@ -122,21 +124,7 @@ const StatCard = ({ title, stats, icon, color }) => {
               Total
             </Typography>
           </Box>
-          <Box 
-            sx={{ 
-              textAlign: 'center', 
-              p: { xs: 1.5, md: 1.1 }, 
-              bgcolor: 'rgba(0, 10, 30, 0.45)',
-              borderRadius: 1,
-              border: '1px solid rgba(80, 150, 255, 0.18)',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                bgcolor: 'rgba(10, 30, 60, 0.55)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
-              }
-            }}
-          >
+          <Box sx={statTileSx}>
             <Typography variant="h6" sx={{ color: '#4ade80', fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {stats.completadas || stats.completados || stats.leidos || 0}
             </Typography>
@@ -144,21 +132,7 @@ const StatCard = ({ title, stats, icon, color }) => {
               Completados
             </Typography>
           </Box>
-          <Box 
-            sx={{ 
-              textAlign: 'center', 
-              p: { xs: 1.5, md: 1.1 }, 
-              bgcolor: 'rgba(0, 10, 30, 0.45)',
-              borderRadius: 1,
-              border: '1px solid rgba(80, 150, 255, 0.18)',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                bgcolor: 'rgba(10, 30, 60, 0.55)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
-              }
-            }}
-          >
+          <Box sx={statTileSx}>
             <Typography variant="h6" sx={{ color: '#fbbf24', fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {stats.viendo || stats.jugando || stats.leyendo || 0}
             </Typography>
@@ -166,21 +140,7 @@ const StatCard = ({ title, stats, icon, color }) => {
               En progreso
             </Typography>
           </Box>
-          <Box 
-            sx={{ 
-              textAlign: 'center', 
-              p: { xs: 1.5, md: 1.1 }, 
-              bgcolor: 'rgba(0, 10, 30, 0.45)',
-              borderRadius: 1,
-              border: '1px solid rgba(80, 150, 255, 0.18)',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                bgcolor: 'rgba(10, 30, 60, 0.55)',
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 12px rgba(0, 60, 180, 0.2)'
-              }
-            }}
-          >
+          <Box sx={statTileSx}>
             <Typography variant="h6" sx={{ color: '#ef4444', fontWeight: 300, fontSize: { md: '1.05rem' } }}>
               {stats.pendientes || 0}
             </Typography>
