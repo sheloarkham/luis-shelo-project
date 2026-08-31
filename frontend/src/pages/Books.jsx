@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import './Books.css'
 
 /**
@@ -17,8 +18,15 @@ const MY_BOOK = {
 }
 
 export default function Books() {
+  const [revealed, setRevealed] = useState(false)
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setRevealed(true))
+    return () => window.cancelAnimationFrame(frame)
+  }, [])
+
   return (
-    <div className="books-container">
+    <div className={`books-container${revealed ? ' books-container--enter' : ''}`}>
       <div className="books-hero">
         <h1 className="books-title">BIBLIOTECA</h1>
         <p className="books-subtitle">Mis lecturas y escrituras</p>

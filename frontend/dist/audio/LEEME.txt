@@ -1,0 +1,4 @@
+Cancion: Bellini - Samba De Janeiro
+Inicio: segundo 27
+
+Para cambiarla, reemplaza brasil-bossa.mp3 y ajusta BRASIL_AUDIO_START en Yeni.jsx.

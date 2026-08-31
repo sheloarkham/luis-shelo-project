@@ -1,0 +1,7 @@
+Coloca aquí un video de bosque llamado forest-bg.mp4 (recomendado: 1920x1080, loop corto, sin audio).
+
+Fuentes gratis:
+- https://www.pexels.com/search/videos/forest/
+- https://mixkit.co/free-stock-video/forest/
+
+Si no hay archivo local, Home usará el video de respaldo desde internet (solo desktop).
