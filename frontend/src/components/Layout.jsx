@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import CustomizePanel from './CustomizePanel'
 import LightCursor from './LightCursor'
-import ParticleBackground from './ParticleBackground'
+import SiteBackground from './SiteBackground'
 import Box from '@mui/material/Box'
 import { useThemeCustomization } from '../context/ThemeContext'
 import { useParticleTheme } from '../context/ParticleThemeContext'
@@ -28,7 +28,7 @@ const Layout = ({ contentRef, pageEntering = false }) => {
 
   return (
     <Box sx={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100vh', ...(isFixedPage ? { height: '100dvh', overflow: 'hidden' } : {}) }}>
-      <ParticleBackground />
+      <SiteBackground />
       {isDesktop && !chromeHidden && <LightCursor />}
       <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {!chromeHidden && <Navbar />}

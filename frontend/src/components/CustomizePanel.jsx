@@ -29,7 +29,7 @@ const CustomizePanel = () => {
       </Typography>
 
       <Box className="customize-panel-section">
-        <span className="customize-section-label">Fondo de partículas</span>
+        <span className="customize-section-label">Tono del fondo</span>
         <Box className="customize-theme-options">
           {PARTICLE_THEME_IDS.map((id) => (
             <button
@@ -37,7 +37,7 @@ const CustomizePanel = () => {
               type="button"
               className={`customize-theme-btn${particleTheme === id ? ' customize-theme-btn--active' : ''}`}
               onClick={() => setParticleTheme(id)}
-              aria-label={`Tema de partículas ${PARTICLE_THEMES[id].label}`}
+              aria-label={`Tono del fondo ${PARTICLE_THEMES[id].label}`}
               title={PARTICLE_THEMES[id].label}
             >
               <span
