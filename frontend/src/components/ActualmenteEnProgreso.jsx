@@ -86,13 +86,10 @@ const ActualmenteEnProgreso = () => {
         sx={{ 
           mb: 3, 
           fontWeight: 'bold', 
-          color: '#4ade80',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
+          color: 'var(--color-page-text)',
         }}
       >
-        ✨ Actualmente...
+        Actualmente
       </Typography>
       </ScrollReveal>
 
