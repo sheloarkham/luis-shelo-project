@@ -6,6 +6,7 @@ import {
   loadGymWeights,
   mergeTrainingDaysWithWeights,
 } from '../data/gymData'
+import GymExerciseGuide from '../components/GymExerciseGuide'
 import './shared-page.css'
 import './Gym.css'
 
@@ -120,6 +121,8 @@ const Gym = () => {
             </article>
           ))}
         </section>
+
+        <GymExerciseGuide />
 
         {customizationMode && (
           <div className="gym-reset-wrap">
