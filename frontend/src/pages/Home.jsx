@@ -281,31 +281,16 @@ const Home = () => {
             textAlign: 'center',
           }}
         >
-          <Typography
-            component="h1"
-            className="home-page__brand"
-            sx={{
-              color: '#e8f0ff',
-              fontWeight: 300,
-              letterSpacing: { xs: '0.18em', md: '0.24em' },
-              fontSize: { xs: '1.5rem', sm: '1.85rem', md: '2.35rem' },
-              lineHeight: 1.2,
-              textTransform: 'uppercase',
-              mb: 1,
-              textShadow: '0 2px 18px rgba(0, 40, 120, 0.5)',
-            }}
-          >
-            Luis shelo Project
-          </Typography>
           <Typography 
             variant="h2" 
             className="home-page__title"
             sx={{ 
-              color: 'rgba(200, 220, 255, 0.88)',
+              color: '#e8f0ff',
               fontWeight: 300,
               letterSpacing: '0.06em',
-              fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' },
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.85rem' },
               lineHeight: 1.35,
+              textShadow: '0 2px 18px rgba(0, 40, 120, 0.5)',
             }}
           >
             Cosas para hacer en mi tiempo libre
