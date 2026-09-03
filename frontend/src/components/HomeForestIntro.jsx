@@ -1,24 +1,6 @@
 import { useEffect, useState } from 'react'
 import './HomeForestIntro.css'
 
-const INTRO_SEEN_KEY = 'luis-shelo-home-intro-seen'
-
-export const hasSeenHomeIntro = () => {
-  try {
-    return localStorage.getItem(INTRO_SEEN_KEY) === '1'
-  } catch {
-    return false
-  }
-}
-
-const markHomeIntroSeen = () => {
-  try {
-    localStorage.setItem(INTRO_SEEN_KEY, '1')
-  } catch {
-    // ignore
-  }
-}
-
 const HomeForestIntro = ({ onComplete }) => {
   const [phase, setPhase] = useState('visible')
 
@@ -37,7 +19,6 @@ const HomeForestIntro = ({ onComplete }) => {
   const dismissIntro = () => {
     if (phase === 'exit') return
     setPhase('exit')
-    markHomeIntroSeen()
     window.setTimeout(() => onComplete?.(), 900)
   }
 

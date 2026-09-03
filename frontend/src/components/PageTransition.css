@@ -10,6 +10,16 @@
   will-change: transform, opacity, filter;
 }
 
+.page-transition-shell--exit-forward,
+.page-transition-shell--exit-backward {
+  animation-fill-mode: forwards;
+}
+
+.page-transition-shell--enter-forward,
+.page-transition-shell--enter-backward {
+  animation-fill-mode: forwards;
+}
+
 .page-transition-shell--exit-forward {
   animation: pageMistExitForward 0.78s cubic-bezier(0.62, 0, 0.22, 1) forwards;
   pointer-events: none;

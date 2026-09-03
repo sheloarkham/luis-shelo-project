@@ -56,15 +56,13 @@ body.home-no-scroll {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.9s ease, transform 0.9s ease;
+  pointer-events: none;
 }
 
 .home-page__stage--visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.home-page__stage:not(.home-page__stage--visible) {
-  visibility: hidden;
+  pointer-events: auto;
 }
 
 .home-page__header {

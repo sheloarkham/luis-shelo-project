@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import { Box, Card, CardContent, Typography, CircularProgress, Alert } from '@mui/material'
-import HomeForestIntro, { hasSeenHomeIntro } from '../components/HomeForestIntro'
+import HomeForestIntro from '../components/HomeForestIntro'
 import CustomizeToggle from '../components/CustomizeToggle'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import './Home.css'
@@ -157,26 +157,21 @@ const StatCard = ({ title, stats, icon, color }) => {
 
 const Home = () => {
   const isDesktop = useIsDesktop()
-  const [showIntro, setShowIntro] = useState(
-    () => isDesktop && !hasSeenHomeIntro()
-  )
-  const [introComplete, setIntroComplete] = useState(
-    () => !isDesktop || hasSeenHomeIntro()
-  )
+  const [showIntro, setShowIntro] = useState(() => isDesktop)
+  const [introComplete, setIntroComplete] = useState(() => !isDesktop)
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isDesktop) {
       setShowIntro(false)
       setIntroComplete(true)
       return
     }
 
-    const seen = hasSeenHomeIntro()
-    setShowIntro(!seen)
-    setIntroComplete(seen)
+    setShowIntro(true)
+    setIntroComplete(false)
   }, [isDesktop])
 
   useEffect(() => {
@@ -286,16 +281,31 @@ const Home = () => {
             textAlign: 'center',
           }}
         >
+          <Typography
+            component="h1"
+            className="home-page__brand"
+            sx={{
+              color: '#e8f0ff',
+              fontWeight: 300,
+              letterSpacing: { xs: '0.18em', md: '0.24em' },
+              fontSize: { xs: '1.5rem', sm: '1.85rem', md: '2.35rem' },
+              lineHeight: 1.2,
+              textTransform: 'uppercase',
+              mb: 1,
+              textShadow: '0 2px 18px rgba(0, 40, 120, 0.5)',
+            }}
+          >
+            Luis shelo Project
+          </Typography>
           <Typography 
             variant="h2" 
             className="home-page__title"
             sx={{ 
-              color: '#e8f0ff',
+              color: 'rgba(200, 220, 255, 0.88)',
               fontWeight: 300,
               letterSpacing: '0.06em',
-              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.85rem' },
+              fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' },
               lineHeight: 1.35,
-              textShadow: '0 2px 18px rgba(0, 40, 120, 0.5)',
             }}
           >
             Cosas para hacer en mi tiempo libre

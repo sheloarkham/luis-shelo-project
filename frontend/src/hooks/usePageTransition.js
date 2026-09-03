@@ -54,7 +54,10 @@ export function usePageTransition(contentRef) {
         ? PAGE_TRANSITION.NONE
         : getPageTransitionKind(fromPath, toPath)
 
+      const shell = contentRef.current
+
       if (transitionKind === PAGE_TRANSITION.NONE) {
+        clearShellClasses(shell)
         window.scrollTo(0, 0)
         setDisplayLocation(toLoc)
         displayLocationRef.current = toLoc
@@ -62,35 +65,36 @@ export function usePageTransition(contentRef) {
       }
 
       const direction = getTransitionDirection(fromPath, toPath)
-      const shell = contentRef.current
       const exitClass = `page-transition-shell--exit-${direction}`
       const enterClass = `page-transition-shell--enter-${direction}`
 
-      clearShellClasses(shell)
-      shell?.classList.add(exitClass)
-      void shell?.offsetHeight
+      try {
+        clearShellClasses(shell)
+        shell?.classList.add(exitClass)
+        void shell?.offsetHeight
 
-      setMistPhase({ stage: 'closing', direction })
-      await wait(MIST_CLOSE_MS)
-      if (cancelled) return
+        setMistPhase({ stage: 'closing', direction })
+        await wait(MIST_CLOSE_MS)
+        if (cancelled) return
 
-      shell?.classList.remove(exitClass)
-      window.scrollTo(0, 0)
-      setDisplayLocation(toLoc)
-      displayLocationRef.current = toLoc
+        shell?.classList.remove(exitClass)
+        window.scrollTo(0, 0)
+        setDisplayLocation(toLoc)
+        displayLocationRef.current = toLoc
 
-      await nextFrame()
-      if (cancelled) return
+        await nextFrame()
+        if (cancelled) return
 
-      shell?.classList.add(enterClass)
-      void shell?.offsetHeight
+        shell?.classList.add(enterClass)
+        void shell?.offsetHeight
 
-      setMistPhase({ stage: 'opening', direction })
-      await wait(MIST_OPEN_MS)
-      if (cancelled) return
-
-      shell?.classList.remove(enterClass)
-      setMistPhase(null)
+        setMistPhase({ stage: 'opening', direction })
+        await wait(MIST_OPEN_MS)
+        if (cancelled) return
+      } finally {
+        clearShellClasses(shell)
+        setMistPhase(null)
+      }
     }
 
     const run = async () => {
