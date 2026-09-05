@@ -6,8 +6,10 @@ import {
   loadGymWeights,
   mergeTrainingDaysWithWeights,
 } from '../data/gymData'
+import PageHero from '../components/PageHero'
 import GymExerciseGuide from '../components/GymExerciseGuide'
 import './shared-page.css'
+import '../styles/futuristicPage.css'
 import './Gym.css'
 
 const Gym = () => {
@@ -42,17 +44,26 @@ const Gym = () => {
   }
 
   return (
-    <div className="page-container gym-container">
-      <div className="content">
-        <header className="gym-header">
-          <h1 className="gym-title">Gym</h1>
-          <p className="gym-subtitle">Rutina semanal — 3 días de entrenamiento</p>
-          {customizationMode && (
-            <p className="gym-edit-hint">
-              Modo personalización: edita los pesos en cada ejercicio. Se guardan al recargar.
-            </p>
-          )}
-        </header>
+    <div className="page-container neo-page gym-container">
+      <div className="content neo-page__content">
+        <PageHero
+          eyebrow="Proyecto · Fitness"
+          title="Gym"
+          subtitle="Rutina semanal — 3 días de entrenamiento"
+          stats={[
+            { value: trainingDays.length, label: 'Días' },
+            { value: trainingDays.reduce((n, d) => n + d.groups.length, 0), label: 'Grupos' },
+            { value: trainingDays.reduce(
+              (n, d) => n + d.groups.reduce((m, g) => m + g.exercises.length, 0),
+              0,
+            ), label: 'Ejercicios' },
+          ]}
+          hint={
+            customizationMode
+              ? 'Modo personalización: edita los pesos en cada ejercicio. Se guardan al recargar.'
+              : undefined
+          }
+        />
 
         <section className="gym-days-grid" aria-label="Días de entrenamiento">
           {trainingDays.map((day) => (

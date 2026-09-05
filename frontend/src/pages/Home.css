@@ -65,6 +65,20 @@ body.home-no-scroll {
   pointer-events: auto;
 }
 
+.home-stats-hero {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+.home-stats-hero .neo-hero__stats {
+  margin-top: 1.25rem;
+}
+
+.home-stats-hero .neo-stat__value {
+  font-size: 1.2rem;
+}
+
 .home-page__header {
   width: 100%;
 }

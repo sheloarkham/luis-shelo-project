@@ -1,9 +1,8 @@
+import PageHero from '../components/PageHero'
+import './shared-page.css'
+import '../styles/futuristicPage.css'
 import './Books.css'
 
-/**
- * Datos del libro propio que estás escribiendo.
- * La imagen vive en `public/images/` y se referencia con `/images/...`
- */
 const MY_BOOK = {
   title: 'Paseo Fatal',
   author: 'Luis Shelo Rosales',
@@ -18,17 +17,19 @@ const MY_BOOK = {
 
 export default function Books() {
   return (
-    <div className="books-container">
-      <div className="books-hero">
-        <h1 className="books-title">BIBLIOTECA</h1>
-        <p className="books-subtitle">Mis lecturas y escrituras</p>
-      </div>
+    <div className="page-container neo-page books-container">
+      <div className="content neo-page__content">
+        <PageHero
+          eyebrow="Proyecto · Escritos"
+          title="Biblioteca"
+          subtitle="Mis lecturas y escrituras"
+        />
 
-      <div className="books-content">
-        <p className="books-section-label">Escribiendo ahora</p>
+        <p className="neo-section-label">Escribiendo ahora</p>
 
-        {/* Sección destacada: portada grande + descripción amplia */}
-        <article className="featured-book">
+        <article className="featured-book neo-card neo-card--progress">
+          <div className="neo-card__glow" aria-hidden="true" />
+
           <div className="featured-book-cover">
             <img
               src={MY_BOOK.cover}
@@ -38,7 +39,9 @@ export default function Books() {
           </div>
 
           <div className="featured-book-info">
-            <span className="featured-book-badge">{MY_BOOK.status}</span>
+            <span className={`neo-card__status neo-card__status--progress featured-book-badge`}>
+              {MY_BOOK.status}
+            </span>
 
             <h2 className="featured-book-title">{MY_BOOK.title}</h2>
             <p className="featured-book-author">por {MY_BOOK.author}</p>
@@ -58,12 +61,18 @@ export default function Books() {
               href={MY_BOOK.wattpadUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="featured-book-link"
+              className="neo-card__link featured-book-link"
             >
               Leer en Wattpad
+              <span aria-hidden="true">→</span>
             </a>
           </div>
         </article>
+
+        <footer className="neo-footer">
+          <span className="neo-footer__pulse" aria-hidden="true" />
+          <p>En escritura · Paseo Fatal</p>
+        </footer>
       </div>
     </div>
   )

@@ -1,7 +1,3 @@
-.presupuestos-page .content {
-  padding-top: var(--page-top-padding);
-}
-
 .presupuestos-main {
   display: flex;
   flex-direction: column;
@@ -9,18 +5,10 @@
   width: 100%;
 }
 
-.presupuestos-title {
-  color: var(--color-page-text) !important;
-  text-align: center;
-  letter-spacing: 0.16em;
-  font-weight: 300 !important;
-  font-size: clamp(1.65rem, 3vw, 2.2rem) !important;
-  margin-bottom: 0.75rem !important;
-}
-
 .presupuestos-tabs {
   width: 100%;
   max-width: 480px;
+  margin-bottom: 1.5rem;
 }
 
 .presupuestos-grid {
@@ -29,29 +17,32 @@
   margin: 0 auto;
 }
 
-.presupuestos-section {
-  width: 100%;
+.presupuestos-panel {
+  text-align: left;
+  height: 100%;
 }
 
 .presupuestos-section-title {
-  color: rgba(210, 228, 255, 0.85) !important;
-  letter-spacing: 0.1em;
+  position: relative;
+  margin: 0 0 16px !important;
+  color: rgba(210, 228, 255, 0.9) !important;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   font-weight: 400 !important;
-  font-size: 0.88rem !important;
-  margin-bottom: 16px !important;
+  font-size: 0.82rem !important;
 }
 
 .presupuestos-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
 .presupuestos-submit {
-  background: var(--color-surface-strong) !important;
-  border: 1px solid var(--color-border) !important;
-  color: var(--color-page-text) !important;
+  background: rgba(8, 20, 36, 0.55) !important;
+  border: 1px solid rgba(140, 200, 230, 0.22) !important;
+  color: #e8f4ff !important;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding-top: 11px !important;
@@ -60,18 +51,21 @@
 }
 
 .presupuestos-submit:hover {
-  background: rgba(20, 40, 80, 0.55) !important;
-  border-color: var(--color-border-hover) !important;
+  background: rgba(20, 50, 80, 0.55) !important;
+  border-color: rgba(140, 220, 240, 0.45) !important;
 }
 
 .presupuestos-empty {
-  color: var(--color-muted);
+  position: relative;
+  color: rgba(190, 210, 225, 0.72);
   text-align: center;
   padding: 20px 12px;
   letter-spacing: 0.05em;
+  margin: 0;
 }
 
 .presupuestos-list {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -92,13 +86,11 @@
   align-items: center;
   padding: 8px 14px;
   border-radius: 8px;
-  background: var(--color-surface-strong);
-  border: 1px solid var(--color-border);
-  color: var(--color-page-text);
+  background: rgba(8, 20, 36, 0.55);
+  border: 1px solid rgba(140, 200, 230, 0.16);
+  color: #e8f4ff;
   font-size: 0.9rem;
   line-height: 1.2;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .presupuestos-pill--name {
@@ -108,13 +100,13 @@
 
 .presupuestos-pill--amount {
   font-weight: 600;
-  color: var(--color-accent-soft);
+  color: #8ecae6;
   white-space: nowrap;
 }
 
 .presupuestos-delete {
   color: rgba(255, 190, 190, 0.8) !important;
-  background: var(--color-surface-strong) !important;
+  background: rgba(8, 20, 36, 0.55) !important;
   border: 1px solid rgba(255, 120, 120, 0.22) !important;
 }
 
@@ -123,6 +115,7 @@
 }
 
 .presupuestos-total {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -135,15 +128,21 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.8rem;
-  color: var(--color-muted);
+  color: rgba(160, 200, 220, 0.72);
 }
 
 .presupuestos-pill--total-amount {
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--color-accent);
-  border-color: rgba(140, 184, 255, 0.32);
-  background: rgba(10, 25, 50, 0.45);
+  color: #90e0ef;
+  border-color: rgba(140, 200, 230, 0.32);
+  background: rgba(8, 20, 36, 0.65);
+}
+
+.presupuestos-footer {
+  width: 100%;
+  max-width: 960px;
+  margin-top: 1.5rem;
 }
 
 @media (max-width: 768px) {
