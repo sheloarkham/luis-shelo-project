@@ -1,122 +1,5 @@
 /* Shared futuristic glass / cyan page design (Fullstack-style) */
 
-.neo-page {
-  min-height: 100vh;
-}
-
-.neo-page__content {
-  max-width: 1080px;
-  padding-top: var(--page-top-padding);
-  padding-bottom: 3.5rem;
-}
-
-.neo-hero {
-  text-align: center;
-  margin-bottom: 2.75rem;
-  padding: 2rem 1.5rem 2.25rem;
-  border-radius: 16px;
-  border: 1px solid rgba(120, 200, 220, 0.16);
-  background: linear-gradient(145deg, rgba(8, 20, 36, 0.55) 0%, rgba(4, 10, 22, 0.35) 100%);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow:
-    0 24px 48px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  position: relative;
-  overflow: hidden;
-}
-
-.neo-hero::before {
-  content: '';
-  position: absolute;
-  inset: -40% -20% auto;
-  height: 70%;
-  background: radial-gradient(circle, rgba(60, 180, 200, 0.14) 0%, transparent 68%);
-  pointer-events: none;
-}
-
-.neo-hero--compact {
-  margin-bottom: 1.75rem;
-  padding: 1.35rem 1.25rem 1.5rem;
-}
-
-.neo-hero--compact .neo-hero__subtitle {
-  margin-top: 0;
-}
-
-.neo-hero__eyebrow {
-  position: relative;
-  margin: 0 0 0.65rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(140, 210, 225, 0.75);
-}
-
-.neo-hero__title {
-  position: relative;
-  margin: 0;
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 300;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  background: linear-gradient(135deg, #eef6ff 0%, #8ecae6 45%, #caf0f8 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 24px rgba(60, 160, 190, 0.25));
-}
-
-.neo-hero__subtitle {
-  position: relative;
-  margin: 0.85rem auto 0;
-  max-width: 520px;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: rgba(200, 220, 235, 0.78);
-  letter-spacing: 0.06em;
-}
-
-.neo-hero__hint {
-  position: relative;
-  margin: 0.85rem auto 0;
-  max-width: 520px;
-  font-size: 0.82rem;
-  color: rgba(140, 210, 225, 0.72);
-  letter-spacing: 0.05em;
-}
-
-.neo-hero__stats {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1.75rem;
-  flex-wrap: wrap;
-}
-
-.neo-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-  min-width: 72px;
-}
-
-.neo-stat__value {
-  font-size: 1.45rem;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: #e8f4ff;
-}
-
-.neo-stat__label {
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(160, 190, 210, 0.65);
-}
-
 .neo-progress {
   position: relative;
   margin-top: 1.5rem;
@@ -193,10 +76,6 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #eef6ff;
-}
-
-.carrera-calculator-wrap {
-  margin-top: 0.5rem;
 }
 
 .fullstack-progress {
@@ -533,18 +412,6 @@
 }
 
 @media (max-width: 768px) {
-  .neo-page__content {
-    padding-top: var(--page-top-padding-mobile);
-  }
-
-  .neo-hero {
-    padding: 1.5rem 1.1rem 1.75rem;
-  }
-
-  .neo-hero__stats {
-    gap: 1.25rem;
-  }
-
   .neo-grid {
     grid-template-columns: 1fr;
   }

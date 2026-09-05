@@ -8,7 +8,7 @@ import Presupuestos from './pages/Presupuestos'
 import Proyecto from './pages/Proyecto'
 import ProyectoFullstack from './pages/ProyectoFullstack'
 import ProyectoAutito from './pages/ProyectoAutito'
-import ProyectoEscritos from './pages/ProyectoEscritos'
+import Books from './pages/Books'
 import Carrera from './pages/Carrera'
 import Gym from './pages/Gym'
 import Yeni from './pages/Yeni'
@@ -32,7 +32,7 @@ function AppRoutes() {
           <Route path="proyectos" element={<Proyecto />} />
           <Route path="proyectos/fullstack" element={<ProyectoFullstack />} />
           <Route path="proyectos/autito" element={<ProyectoAutito />} />
-          <Route path="proyectos/escritos" element={<ProyectoEscritos />} />
+          <Route path="proyectos/escritos" element={<Books />} />
           <Route path="proyecto" element={<Navigate to="/proyectos" replace />} />
           <Route path="books" element={<Navigate to="/proyectos/escritos" replace />} />
           <Route path="carrera" element={<Carrera />} />

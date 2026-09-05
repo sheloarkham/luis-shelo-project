@@ -63,17 +63,3 @@ export const getTransitionDirection = (fromPath, toPath) => {
 
   return TRANSITION_DIRECTION.BACKWARD
 }
-
-const wait = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms))
-
-export function runMistClose(setPhase, direction) {
-  setPhase({ stage: 'closing', direction })
-  return wait(MIST_CLOSE_MS)
-}
-
-export function runMistOpen(setPhase, direction) {
-  setPhase({ stage: 'opening', direction })
-  return wait(MIST_OPEN_MS).then(() => {
-    setPhase(null)
-  })
-}

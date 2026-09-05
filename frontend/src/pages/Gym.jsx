@@ -9,7 +9,6 @@ import {
 import PageHeader from '../components/PageHeader'
 import GymExerciseGuide from '../components/GymExerciseGuide'
 import './shared-page.css'
-import '../styles/futuristicPage.css'
 import './Gym.css'
 
 const Gym = () => {

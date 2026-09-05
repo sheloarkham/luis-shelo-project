@@ -1,7 +1,7 @@
 import PageHeader from '../components/PageHeader'
 import GradeCalculator from '../components/GradeCalculator'
 import './shared-page.css'
-import '../styles/futuristicPage.css'
+import './Carrera.css'
 
 const Carrera = () => (
   <div className="page-container">

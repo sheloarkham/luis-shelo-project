@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import './shared-page.css'
 import './Proyecto.css'
 
@@ -32,15 +32,7 @@ const PROJECT_BADGES = [
 ]
 
 const Proyecto = () => {
-  useEffect(() => {
-    const html = document.documentElement
-    html.classList.add('home-no-scroll')
-    document.body.classList.add('home-no-scroll')
-    return () => {
-      html.classList.remove('home-no-scroll')
-      document.body.classList.remove('home-no-scroll')
-    }
-  }, [])
+  useLockBodyScroll()
 
   return (
     <div className="page-container proyecto-page proyecto-hub-page" style={{ flex: 1, minHeight: 0 }}>

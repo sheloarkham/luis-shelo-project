@@ -17,7 +17,7 @@ const MY_BOOK = {
 
 export default function Books() {
   return (
-    <div className="page-container books-container">
+    <div className="page-container">
       <div className="content">
         <PageHeader title="Biblioteca" className="page-header--solo" />
 

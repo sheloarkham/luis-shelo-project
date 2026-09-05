@@ -4,6 +4,7 @@ import HomeForestIntro from '../components/HomeForestIntro'
 import CustomizeToggle from '../components/CustomizeToggle'
 import PageHeader from '../components/PageHeader'
 import { useIsDesktop } from '../hooks/useIsDesktop'
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import '../styles/futuristicPage.css'
 import './Home.css'
 
@@ -82,15 +83,7 @@ const Home = () => {
     loadStats()
   }, [])
 
-  useEffect(() => {
-    const html = document.documentElement
-    html.classList.add('home-no-scroll')
-    document.body.classList.add('home-no-scroll')
-    return () => {
-      html.classList.remove('home-no-scroll')
-      document.body.classList.remove('home-no-scroll')
-    }
-  }, [])
+  useLockBodyScroll()
 
   const calculateLocalStats = (storageKey, completedStatus, inProgressStatus) => {
     try {
