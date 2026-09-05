@@ -179,9 +179,11 @@ const Home = () => {
             subtitle="Cosas para hacer en mi tiempo libre"
             className="home-stats-header"
           >
-            <div className="home-total-progress">
-              <span className="home-total-progress__value">{avgProgress}%</span>
-              <span className="home-total-progress__label">Progreso total</span>
+            <div className="neo-progress home-total-progress" aria-label={`Progreso total ${avgProgress}%`}>
+              <div className="neo-progress__track">
+                <div className="neo-progress__fill" style={{ width: `${avgProgress}%` }} />
+              </div>
+              <span className="neo-progress__label">{avgProgress}% progreso total</span>
             </div>
           </PageHeader>
 
