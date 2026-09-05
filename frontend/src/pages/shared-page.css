@@ -33,6 +33,23 @@
   margin-top: 0.5rem;
 }
 
+.page-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.page-hint {
+  margin: 0.75rem auto 0;
+  max-width: 520px;
+  font-size: 0.82rem;
+  color: var(--color-accent-soft);
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
+
 .page-container h2 {
   color: var(--color-page-text);
   font-size: 1.25rem;

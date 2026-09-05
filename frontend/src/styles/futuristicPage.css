@@ -199,6 +199,16 @@
   margin-top: 0.5rem;
 }
 
+.fullstack-progress {
+  margin-top: 1.25rem;
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.fullstack-roadmap {
+  margin-top: 0.5rem;
+}
+
 .neo-glass-panel p {
   position: relative;
   margin: 0;

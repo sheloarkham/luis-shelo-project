@@ -1,4 +1,4 @@
-import PageHero from '../components/PageHero'
+import PageHeader from '../components/PageHeader'
 import './shared-page.css'
 import '../styles/futuristicPage.css'
 import './Books.css'
@@ -17,9 +17,9 @@ const MY_BOOK = {
 
 export default function Books() {
   return (
-    <div className="page-container neo-page books-container">
-      <div className="content neo-page__content">
-        <PageHero
+    <div className="page-container books-container">
+      <div className="content">
+        <PageHeader
           eyebrow="Proyecto · Escritos"
           title="Biblioteca"
           subtitle="Mis lecturas y escrituras"

@@ -6,7 +6,7 @@ import {
   loadGymWeights,
   mergeTrainingDaysWithWeights,
 } from '../data/gymData'
-import PageHero from '../components/PageHero'
+import PageHeader from '../components/PageHeader'
 import GymExerciseGuide from '../components/GymExerciseGuide'
 import './shared-page.css'
 import '../styles/futuristicPage.css'
@@ -44,20 +44,11 @@ const Gym = () => {
   }
 
   return (
-    <div className="page-container neo-page gym-container">
-      <div className="content neo-page__content">
-        <PageHero
-          eyebrow="Proyecto · Fitness"
+    <div className="page-container gym-container">
+      <div className="content">
+        <PageHeader
           title="Gym"
           subtitle="Rutina semanal — 3 días de entrenamiento"
-          stats={[
-            { value: trainingDays.length, label: 'Días' },
-            { value: trainingDays.reduce((n, d) => n + d.groups.length, 0), label: 'Grupos' },
-            { value: trainingDays.reduce(
-              (n, d) => n + d.groups.reduce((m, g) => m + g.exercises.length, 0),
-              0,
-            ), label: 'Ejercicios' },
-          ]}
           hint={
             customizationMode
               ? 'Modo personalización: edita los pesos en cada ejercicio. Se guardan al recargar.'

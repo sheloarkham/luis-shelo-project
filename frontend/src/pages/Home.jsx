@@ -2,7 +2,7 @@ import { useState, useEffect, useLayoutEffect } from 'react'
 import { Box, CircularProgress, Alert } from '@mui/material'
 import HomeForestIntro from '../components/HomeForestIntro'
 import CustomizeToggle from '../components/CustomizeToggle'
-import PageHero from '../components/PageHero'
+import PageHeader from '../components/PageHeader'
 import { useIsDesktop } from '../hooks/useIsDesktop'
 import '../styles/futuristicPage.css'
 import './Home.css'
@@ -184,12 +184,15 @@ const Home = () => {
     return (
       <Box className="home-page__content" sx={{ px: { xs: 2, md: 3 }, py: { xs: 1, md: 0 } }}>
         <div className="home-stats-stack">
-          <PageHero
-            compact
+          <PageHeader
             subtitle="Cosas para hacer en mi tiempo libre"
-            stats={[{ value: `${avgProgress}%`, label: 'Progreso total' }]}
-            className="home-stats-hero"
-          />
+            className="home-stats-header"
+          >
+            <div className="home-total-progress">
+              <span className="home-total-progress__value">{avgProgress}%</span>
+              <span className="home-total-progress__label">Progreso total</span>
+            </div>
+          </PageHeader>
 
           <Box className="home-stats-grid">
             <StatCard

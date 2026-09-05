@@ -10,7 +10,7 @@ import {
   Alert
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
-import PageHero from '../components/PageHero'
+import PageHeader from '../components/PageHeader'
 import { glassTextFieldSx, glassTabsSx } from '../styles/glassTheme'
 import './shared-page.css'
 import '../styles/futuristicPage.css'
@@ -115,15 +115,13 @@ const Presupuestos = () => {
   const totalCategoria = calcularTotal(categoriaActual)
 
   return (
-    <div className="page-container neo-page presupuestos-page">
-      <div className="content neo-page__content">
+    <div className="page-container presupuestos-page">
+      <div className="content">
         <main className="presupuestos-main">
-          <PageHero
-            compact
+          <PageHeader
             eyebrow="Finanzas · 2026"
             title="Presupuestos"
             subtitle="Control de gastos por categoría"
-            className="presupuestos-hero"
           />
 
           <Tabs
