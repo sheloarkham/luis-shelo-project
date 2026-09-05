@@ -17,6 +17,12 @@ export const BACKGROUND_THEMES = {
     image: '/images/backgrounds/underwater-ocean.png',
     position: 'center center',
   },
+  'pink-clouds': {
+    id: 'pink-clouds',
+    label: 'Nubes rosadas',
+    image: '/images/backgrounds/pink-clouds.png',
+    position: 'center center',
+  },
 }
 
 export const BACKGROUND_THEME_IDS = Object.keys(BACKGROUND_THEMES)
