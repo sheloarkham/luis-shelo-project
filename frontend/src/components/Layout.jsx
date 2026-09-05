@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import LightCursor from './LightCursor'
 import SiteBackground from './SiteBackground'
+import PageEntrance from './PageEntrance'
 import Box from '@mui/material/Box'
 import { useParticleTheme } from '../context/ParticleThemeContext'
 import { useIsDesktop } from '../hooks/useIsDesktop'
@@ -34,7 +35,9 @@ const Layout = ({ contentRef }) => {
         }}
       >
         <Box component="main" sx={{ flexGrow: 1, ...(isFixedPage ? { minHeight: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' } : {}) }}>
-          <Outlet />
+          <PageEntrance disabled={isHome}>
+            <Outlet />
+          </PageEntrance>
         </Box>
         {!chromeHidden && !isFixedPage && <Footer />}
       </Box>

@@ -1,5 +1,5 @@
 const STORAGE_KEY = 'books-list'
-export const BOOKS_LIST_VERSION = 2
+export const BOOKS_LIST_VERSION = 3
 
 export function createBooksLoader(initialBooksData) {
   const mergeBooksWithDefaults = (savedBooks) => {

@@ -189,6 +189,15 @@ const initialBooksData = [
     image: "/assetsB/jardin-de-las-palabras.png",
     synopsis: "Adaptación a manga de la historia de Takao y Yukino, dos almas solitarias que se encuentran bajo la lluvia en un parque de Tokio. Una historia melancólica sobre el amor, la distancia y las palabras que a veces llegan demasiado tarde.",
     Estado: "Pendiente"
+  },
+  {
+    title: "Cementerio de animales",
+    author: "Stephen King",
+    releaseYear: 1983,
+    pages: 374,
+    image: "/assetsB/cementerio-de-animales.png",
+    synopsis: "La familia Creed se muda a una casa junto a una carretera y descubre un antiguo cementerio indígena con el poder de devolver la vida a los muertos. Una novela de terror sobre el duelo, la pérdida y las consecuencias de alterar lo inevitable.",
+    Estado: "Pendiente"
   }
 ]
 

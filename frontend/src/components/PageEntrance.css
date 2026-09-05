@@ -1,0 +1,26 @@
+.page-entrance {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  animation: pageEntranceIn 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
+}
+
+@keyframes pageEntranceIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-entrance {
+    animation: none;
+  }
+}
