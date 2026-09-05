@@ -11,7 +11,7 @@ const StatCard = ({ title, stats, icon, color }) => {
   const { porcentajeProgreso } = stats
 
   return (
-    <article className="neo-stat-card">
+    <article className="neo-stat-card home-stat-card">
       <div className="neo-stat-card__glow" style={{ background: color }} aria-hidden="true" />
 
       <div className="neo-stat-card__header">
@@ -183,39 +183,41 @@ const Home = () => {
 
     return (
       <Box className="home-page__content" sx={{ px: { xs: 2, md: 3 }, py: { xs: 1, md: 0 } }}>
-        <PageHero
-          compact
-          subtitle="Cosas para hacer en mi tiempo libre"
-          stats={[{ value: `${avgProgress}%`, label: 'Progreso total' }]}
-          className="home-stats-hero"
-        />
+        <div className="home-stats-stack">
+          <PageHero
+            compact
+            subtitle="Cosas para hacer en mi tiempo libre"
+            stats={[{ value: `${avgProgress}%`, label: 'Progreso total' }]}
+            className="home-stats-hero"
+          />
 
-        <Box className="home-stats-grid">
-          <StatCard
-            title="Series"
-            stats={stats?.series || {}}
-            icon="📺"
-            color="#FFD700"
-          />
-          <StatCard
-            title="Anime"
-            stats={stats?.anime || {}}
-            icon="🎌"
-            color="#ff6b6b"
-          />
-          <StatCard
-            title="Juegos"
-            stats={stats?.games || {}}
-            icon="🎮"
-            color="#a78bfa"
-          />
-          <StatCard
-            title="Libros"
-            stats={stats?.books || {}}
-            icon="📚"
-            color="#60a5fa"
-          />
-        </Box>
+          <Box className="home-stats-grid">
+            <StatCard
+              title="Series"
+              stats={stats?.series || {}}
+              icon="📺"
+              color="#FFD700"
+            />
+            <StatCard
+              title="Anime"
+              stats={stats?.anime || {}}
+              icon="🎌"
+              color="#ff6b6b"
+            />
+            <StatCard
+              title="Juegos"
+              stats={stats?.games || {}}
+              icon="🎮"
+              color="#a78bfa"
+            />
+            <StatCard
+              title="Libros"
+              stats={stats?.books || {}}
+              icon="📚"
+              color="#60a5fa"
+            />
+          </Box>
+        </div>
       </Box>
     )
   }
