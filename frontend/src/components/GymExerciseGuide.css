@@ -26,6 +26,25 @@
   letter-spacing: 0.06em;
 }
 
+.gym-guide-reset-images {
+  margin-top: 1rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-strong);
+  color: var(--color-page-text);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.gym-guide-reset-images:hover {
+  border-color: var(--color-border-hover);
+  background: rgba(20, 40, 80, 0.55);
+}
+
 .gym-guide-category {
   margin-bottom: 2.75rem;
 }
@@ -92,6 +111,15 @@
   gap: 0.35rem;
 }
 
+.gym-guide-image__file-input {
+  display: none;
+}
+
+.gym-guide-image__frame {
+  position: relative;
+  width: 100%;
+}
+
 .gym-guide-image img {
   width: 100%;
   aspect-ratio: 4 / 3;
@@ -99,6 +127,7 @@
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(8, 16, 32, 0.75);
+  display: block;
 }
 
 .gym-guide-image__placeholder {
@@ -118,13 +147,96 @@
       rgba(140, 184, 255, 0.03) 8px,
       rgba(140, 184, 255, 0.03) 16px
     );
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.gym-guide-image__placeholder:hover:not(:disabled) {
+  border-color: rgba(140, 184, 255, 0.45);
+  background: rgba(20, 40, 70, 0.65);
+}
+
+.gym-guide-image__placeholder:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
 
 .gym-guide-image__placeholder span {
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(180, 210, 255, 0.55);
+  color: rgba(180, 210, 255, 0.75);
+}
+
+.gym-guide-image__menu-wrap {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 2;
+}
+
+.gym-guide-image__menu-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(140, 184, 255, 0.35);
+  background: rgba(8, 16, 32, 0.82);
+  color: rgba(220, 235, 255, 0.92);
+  font-size: 0.95rem;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.gym-guide-image__menu-btn:hover {
+  border-color: rgba(140, 184, 255, 0.55);
+  background: rgba(20, 40, 80, 0.88);
+}
+
+.gym-guide-image__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 148px;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(140, 184, 255, 0.28);
+  background: rgba(8, 16, 32, 0.94);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.gym-guide-image__menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(220, 235, 255, 0.92);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+  cursor: pointer;
+}
+
+.gym-guide-image__menu button:hover {
+  background: rgba(140, 184, 255, 0.12);
+}
+
+.gym-guide-image__error {
+  margin: 0;
+  font-size: 0.68rem;
+  color: #fca5a5;
+  text-align: center;
+  letter-spacing: 0.03em;
 }
 
 .gym-guide-image figcaption {
