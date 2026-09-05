@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { OCIO_LIST_UPDATED_EVENT } from '../components/OcioCompletedArchive'
 
+export { isOcioCompletedStatus } from '../utils/ocioStatus'
+
 export const useOcioListSync = (storageKey, setItems) => {
   useEffect(() => {
     const handleUpdate = (event) => {
@@ -20,6 +22,3 @@ export const useOcioListSync = (storageKey, setItems) => {
     return () => window.removeEventListener(OCIO_LIST_UPDATED_EVENT, handleUpdate)
   }, [storageKey, setItems])
 }
-
-export const isOcioCompletedStatus = (estado) =>
-  estado === 'Completado' || estado === 'Leido'

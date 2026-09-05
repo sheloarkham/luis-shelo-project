@@ -1,29 +1,14 @@
-import { useState, useEffect } from 'react'
-import Card from '@mui/material/Card'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import Box from '@mui/material/Box'
-import Chip from '@mui/material/Chip'
+import { useMemo } from 'react'
+import { useLocalList } from '../hooks/useLocalList'
+import MediaList from './MediaList'
+import { booksListConfig } from '../config/ocioListConfigs'
 import {
-  ocioCardsGridSx,
-  ocioCardSx,
-  ocioCardOverlaySx,
-  ocioCardTitleSx,
-  ocioCardMetaSx,
-  ocioCardMenuButtonSx,
-} from '../styles/ocioCardStyles'
-import { OCIO_LIST_UPDATED_EVENT } from './OcioCompletedArchive'
-import { isOcioCompletedStatus, useOcioListSync } from '../hooks/useOcioListSync'
-import ScrollReveal from './ScrollReveal'
-import { scrollRevealStagger } from '../utils/scrollRevealStagger'
+  BOOKS_LIST_VERSION,
+  booksStorageKey,
+  createBooksLoader,
+} from '../data/ocio/booksLoader'
 
-const STORAGE_KEY = 'books-list'
-const BOOKS_LIST_VERSION = 2
-
+const STORAGE_KEY = booksStorageKey
 const initialBooksData = [
   {
     title: "El Hombre Invisible",
@@ -207,250 +192,16 @@ const initialBooksData = [
   }
 ]
 
-const mergeBooksWithDefaults = (savedBooks) => {
-  const knownTitles = new Set(savedBooks.map((book) => book.title))
-  const missingBooks = initialBooksData.filter((book) => !knownTitles.has(book.title))
-  return missingBooks.length > 0 ? [...savedBooks, ...missingBooks] : savedBooks
-}
-
-const loadBooks = () => {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (!saved) {
-      localStorage.setItem(`${STORAGE_KEY}-version`, String(BOOKS_LIST_VERSION))
-      return initialBooksData
-    }
-
-    const parsed = JSON.parse(saved)
-    const merged = mergeBooksWithDefaults(parsed)
-    const storedVersion = localStorage.getItem(`${STORAGE_KEY}-version`)
-    const needsPersist =
-      merged.length !== parsed.length ||
-      storedVersion !== String(BOOKS_LIST_VERSION)
-
-    if (needsPersist) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(merged))
-      localStorage.setItem(`${STORAGE_KEY}-version`, String(BOOKS_LIST_VERSION))
-    }
-
-    return merged
-  } catch {
-    return initialBooksData
-  }
-}
-
 const BooksList = ({ searchTerm = '' }) => {
-  const [books, setBooks] = useState(loadBooks)
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [selectedBook, setSelectedBook] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const loadBooks = useMemo(() => createBooksLoader(initialBooksData), [])
+  const list = useLocalList({
+    storageKey: STORAGE_KEY,
+    initialData: initialBooksData,
+    version: BOOKS_LIST_VERSION,
+    loadItems: loadBooks,
+  })
 
-  // Cargar datos guardados al montar
-  useEffect(() => {
-    setBooks(loadBooks())
-    setIsLoaded(true)
-  }, [])
-
-  // Guardar cambios en localStorage
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(books))
-      window.dispatchEvent(
-        new CustomEvent(OCIO_LIST_UPDATED_EVENT, { detail: { storageKey: STORAGE_KEY } })
-      )
-    }
-  }, [books, isLoaded])
-
-  useOcioListSync(STORAGE_KEY, () => setBooks(loadBooks()))
-
-  const handleMenuOpen = (event, bookTitle) => {
-    setAnchorEl(event.currentTarget)
-    setSelectedBook(bookTitle)
-  }
-
-  const handleMenuClose = () => {
-    setAnchorEl(null)
-    setSelectedBook(null)
-  }
-
-  const changeStatus = (status) => {
-    setBooks(books.map(book => 
-      book.title === selectedBook ? { ...book, Estado: status } : book
-    ))
-    handleMenuClose()
-  }
-
-  // Filtrar libros por término de búsqueda
-  const filteredBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    !isOcioCompletedStatus(book.Estado)
-  )
-
-  const completedBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    isOcioCompletedStatus(book.Estado)
-  )
-
-  const groupByStatus = () => {
-    const leyendo = filteredBooks.filter(b => b.Estado === 'Leyendo')
-    const pendiente = filteredBooks.filter(b => b.Estado === 'Pendiente')
-    return { leyendo, pendiente }
-  }
-
-  const { leyendo, pendiente } = groupByStatus()
-
-  // Función para obtener color de tarjeta según estado
-  const getCardBackground = (estado) => {
-    switch(estado) {
-      case 'Leyendo': return 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)'
-      case 'Pendiente': return 'linear-gradient(135deg, #fb923c 0%, #f97316 100%)'
-      case 'Leido': return 'linear-gradient(135deg, #34d399 0%, #10b981 100%)'
-      default: return 'rgba(255, 255, 255, 0.9)'
-    }
-  }
-
-  const renderBookCard = (book, index) => (
-    <ScrollReveal
-      key={book.title || index}
-      delay={scrollRevealStagger(index)}
-      className="scroll-reveal--fill"
-    >
-    <Card sx={ocioCardSx({ 
-      background: getCardBackground(book.Estado),
-      color: 'white',
-      boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
-      '&:hover': { 
-        transform: 'translateY(-6px)',
-        boxShadow: '0 12px 24px rgba(0,0,0,0.5)',
-      },
-    })}>
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          pt: 1,
-          pb: 6,
-          pointerEvents: 'none',
-        }}
-      >
-        <CardMedia
-          component="img"
-          image={book.image}
-          alt={book.title}
-          sx={{
-            maxWidth: '68%',
-            maxHeight: '70%',
-            width: 'auto',
-            height: 'auto',
-            objectFit: 'contain',
-          }}
-        />
-      </Box>
-      <IconButton
-        size="small"
-        sx={ocioCardMenuButtonSx}
-        onClick={(e) => handleMenuOpen(e, book.title)}
-      >
-        <MoreVertIcon sx={{ fontSize: 18 }} />
-      </IconButton>
-      <Box sx={ocioCardOverlaySx}>
-        <Typography variant="subtitle2" sx={ocioCardTitleSx}>{book.title}</Typography>
-        <Typography variant="caption" sx={ocioCardMetaSx}>
-          {book.author}
-        </Typography>
-        <Typography variant="caption" sx={ocioCardMetaSx}>
-          {book.releaseYear} • {book.pages} pág.
-        </Typography>
-        <Chip 
-          label={book.Estado} 
-          size="small"
-          sx={{ mt: 0.75, height: 20, fontSize: '0.65rem', bgcolor: 'rgba(255,255,255,0.28)', color: 'white', fontWeight: 'bold' }}
-        />
-      </Box>
-    </Card>
-    </ScrollReveal>
-  )
-
-  const deleteBook = () => {
-    setBooks(books.filter(book => book.title !== selectedBook))
-    handleMenuClose()
-  }
-
-  const renderAllCompletedMessage = () => {
-    if (filteredBooks.length > 0 || completedBooks.length === 0) return null
-    return (
-      <ScrollReveal>
-        <Typography variant="h5" sx={{ color: '#FFD700', textAlign: 'center', py: 3, fontWeight: 'bold' }}>
-          Ya leíste todos los libros
-        </Typography>
-      </ScrollReveal>
-    )
-  }
-
-  return (
-    <Box id="books" sx={{ py: 4 }}>
-      <ScrollReveal>
-      <Typography variant="h4" sx={{ mb: 3, color: 'white', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
-        Libros
-      </Typography>
-      </ScrollReveal>
-      
-      {filteredBooks.length === 0 && completedBooks.length === 0 ? (
-        <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center', py: 4 }}>
-          {searchTerm ? `No hay resultados para "${searchTerm}"` : 'No hay libros en la lista'}
-        </Typography>
-      ) : searchTerm ? (
-        <Box>
-          {filteredBooks.length > 0 && (
-            <Box sx={ocioCardsGridSx}>
-              {filteredBooks.map(renderBookCard)}
-            </Box>
-          )}
-          {renderAllCompletedMessage()}
-        </Box>
-      ) : (
-        <Box>
-          {leyendo.length > 0 && (
-            <Box sx={{ mb: 5 }}>
-              <ScrollReveal delay={0.05}>
-              <Typography variant="h5" sx={{ mb: 2, color: '#60a5fa', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                Leyendo ({leyendo.length})
-              </Typography>
-              </ScrollReveal>
-              <Box sx={ocioCardsGridSx}>
-                {leyendo.map(renderBookCard)}
-              </Box>
-            </Box>
-          )}
-
-          {pendiente.length > 0 && (
-            <Box sx={{ mb: 5 }}>
-              <ScrollReveal delay={0.05}>
-              <Typography variant="h5" sx={{ mb: 2, color: '#fb923c', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
-                Pendiente ({pendiente.length})
-              </Typography>
-              </ScrollReveal>
-              <Box sx={ocioCardsGridSx}>
-                {pendiente.map(renderBookCard)}
-              </Box>
-            </Box>
-          )}
-
-          {renderAllCompletedMessage()}
-        </Box>
-      )}
-
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-        <MenuItem onClick={() => changeStatus('Pendiente')}>Pendiente</MenuItem>
-        <MenuItem onClick={() => changeStatus('Leyendo')}>Leyendo</MenuItem>
-        <MenuItem onClick={() => changeStatus('Leido')}>Leído</MenuItem>
-        <MenuItem onClick={deleteBook} sx={{ color: 'error.main' }}>Eliminar</MenuItem>
-      </Menu>
-    </Box>
-  )
+  return <MediaList searchTerm={searchTerm} config={booksListConfig} {...list} />
 }
 
 export default BooksList
