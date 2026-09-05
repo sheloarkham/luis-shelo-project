@@ -58,10 +58,9 @@ const ProyectoFullstack = () => {
       <div className="content">
         <ScrollReveal>
           <PageHeader
-            eyebrow="Proyecto · Roadmap"
-            title="Fullstack"
-            subtitle="Ruta de aprendizaje hacia TypeScript y desarrollo full stack"
-          >
+          title="Fullstack"
+          className="page-header--solo"
+        >
             <div className="neo-progress fullstack-progress" aria-label={`Progreso ${progressPct}%`}>
               <div className="neo-progress__track">
                 <div className="neo-progress__fill" style={{ width: `${progressPct}%` }} />

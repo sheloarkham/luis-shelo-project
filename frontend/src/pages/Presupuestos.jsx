@@ -118,11 +118,7 @@ const Presupuestos = () => {
     <div className="page-container presupuestos-page">
       <div className="content">
         <main className="presupuestos-main">
-          <PageHeader
-            eyebrow="Finanzas · 2026"
-            title="Presupuestos"
-            subtitle="Control de gastos por categoría"
-          />
+        <PageHeader title="Presupuestos" className="page-header--solo" />
 
           <Tabs
             value={activeTab}

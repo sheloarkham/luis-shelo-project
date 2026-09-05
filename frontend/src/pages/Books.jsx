@@ -19,11 +19,7 @@ export default function Books() {
   return (
     <div className="page-container books-container">
       <div className="content">
-        <PageHeader
-          eyebrow="Proyecto · Escritos"
-          title="Biblioteca"
-          subtitle="Mis lecturas y escrituras"
-        />
+        <PageHeader title="Biblioteca" className="page-header--solo" />
 
         <p className="neo-section-label">Escribiendo ahora</p>
 

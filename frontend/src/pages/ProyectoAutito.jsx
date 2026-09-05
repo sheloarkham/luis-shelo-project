@@ -6,11 +6,7 @@ const ProyectoAutito = () => (
   <div className="page-container">
     <div className="content">
       <main>
-        <PageHeader
-          eyebrow="Proyecto"
-          title="Autito"
-          subtitle="Proyecto en construcción"
-        />
+        <PageHeader title="Autito" className="page-header--solo" />
 
         <section className="neo-glass-panel">
           <div className="neo-glass-panel__glow" aria-hidden="true" />

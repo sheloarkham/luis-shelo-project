@@ -117,6 +117,9 @@ body.home-no-scroll {
   flex: none;
   width: 100%;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.82rem;
 }
 
 .home-stat-card .neo-stat-card__ring-wrap {

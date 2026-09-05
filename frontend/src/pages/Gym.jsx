@@ -48,7 +48,7 @@ const Gym = () => {
       <div className="content">
         <PageHeader
           title="Gym"
-          subtitle="Rutina semanal — 3 días de entrenamiento"
+          className="page-header--solo"
           hint={
             customizationMode
               ? 'Modo personalización: edita los pesos en cada ejercicio. Se guardan al recargar.'

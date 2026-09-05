@@ -7,11 +7,7 @@ const Carrera = () => (
   <div className="page-container">
     <div className="content">
       <main>
-        <PageHeader
-          eyebrow="Universidad"
-          title="Carrera"
-          subtitle="Calculadora de notas y promedios por asignatura"
-        />
+        <PageHeader title="Carrera" className="page-header--solo" />
 
         <div className="carrera-calculator-wrap">
           <GradeCalculator />

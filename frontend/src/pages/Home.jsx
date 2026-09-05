@@ -7,7 +7,7 @@ import { useIsDesktop } from '../hooks/useIsDesktop'
 import '../styles/futuristicPage.css'
 import './Home.css'
 
-const StatCard = ({ title, stats, icon, color }) => {
+const StatCard = ({ title, stats, color }) => {
   const { porcentajeProgreso } = stats
 
   return (
@@ -15,9 +15,7 @@ const StatCard = ({ title, stats, icon, color }) => {
       <div className="neo-stat-card__glow" style={{ background: color }} aria-hidden="true" />
 
       <div className="neo-stat-card__header">
-        <h3 className="neo-stat-card__title">
-          {icon} {title}
-        </h3>
+        <h3 className="neo-stat-card__title">{title}</h3>
       </div>
 
       <div className="neo-stat-card__ring-wrap">
@@ -195,30 +193,26 @@ const Home = () => {
           </PageHeader>
 
           <Box className="home-stats-grid">
-            <StatCard
-              title="Series"
-              stats={stats?.series || {}}
-              icon="📺"
-              color="#FFD700"
-            />
-            <StatCard
-              title="Anime"
-              stats={stats?.anime || {}}
-              icon="🎌"
-              color="#ff6b6b"
-            />
-            <StatCard
-              title="Juegos"
-              stats={stats?.games || {}}
-              icon="🎮"
-              color="#a78bfa"
-            />
-            <StatCard
-              title="Libros"
-              stats={stats?.books || {}}
-              icon="📚"
-              color="#60a5fa"
-            />
+          <StatCard
+            title="Series"
+            stats={stats?.series || {}}
+            color="#FFD700"
+          />
+          <StatCard
+            title="Anime"
+            stats={stats?.anime || {}}
+            color="#ff6b6b"
+          />
+          <StatCard
+            title="Juegos"
+            stats={stats?.games || {}}
+            color="#a78bfa"
+          />
+          <StatCard
+            title="Libros"
+            stats={stats?.books || {}}
+            color="#60a5fa"
+          />
           </Box>
         </div>
       </Box>

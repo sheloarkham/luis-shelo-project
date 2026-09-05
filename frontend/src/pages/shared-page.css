@@ -10,10 +10,17 @@
   margin: 0 auto;
 }
 
-.page-container header,
 .page-header {
   text-align: center;
   margin-bottom: var(--page-header-gap);
+}
+
+.page-header--solo {
+  margin-bottom: 2rem;
+}
+
+.page-header--solo .page-title {
+  margin: 0;
 }
 
 .page-title,
