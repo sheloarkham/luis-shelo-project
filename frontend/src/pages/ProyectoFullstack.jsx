@@ -1,139 +1,148 @@
+import ScrollReveal from '../components/ScrollReveal'
+import { scrollRevealStagger } from '../utils/scrollRevealStagger'
 import './shared-page.css'
-import './Proyecto.css'
+import './ProyectoFullstack.css'
 
 const roadmapSteps = [
   {
     id: 1,
-    title: 'Introducción a la programación',
+    title: 'Pensamiento crítico',
     status: 'en-progreso',
-    description: 'Fundamentos de JavaScript - Todo Code Academy',
-    link: 'https://todocodeacademy.com/course/introduccion-a-la-programacion/',
-    icon: '💻',
+    platform: 'Santander Open Academy',
+    description: 'Habilidades analíticas, razonamiento lógico y toma de decisiones fundamentada.',
+    link: 'https://lms.santanderopenacademy.com/courses/582/modules',
+    linkLabel: 'Abrir módulos',
   },
   {
     id: 2,
     title: 'Google Data Analytics',
     status: 'completado',
-    description: 'Análisis de datos, SQL, hojas de cálculo y visualización - Coursera',
+    platform: 'Coursera',
+    description: 'Análisis de datos, SQL, hojas de cálculo y visualización profesional.',
     link: 'https://www.coursera.org/professional-certificates/google-data-analytics',
-    icon: '📊',
+    linkLabel: 'Ver certificado',
   },
   {
     id: 3,
     title: 'TypeScript: Tu completa guía y manual de mano',
     status: 'en-progreso',
-    description: 'Curso completo de TypeScript — Fernando Herrera · Udemy',
+    platform: 'Udemy · Fernando Herrera',
+    description: 'Curso completo de TypeScript para bases sólidas en desarrollo moderno.',
     link: 'https://www.udemy.com/course/typescript-guia-completa/',
     linkLabel: 'Ir al curso',
-    icon: '📘',
   },
   {
     id: 4,
     title: 'Lógica de Programación',
     status: 'pendiente',
-    description: 'Libro · Fundamentos de algoritmos y pensamiento lógico — Omar Iván Trejos Buriticá',
+    platform: 'Libro · Omar Iván Trejos Buriticá',
+    description: 'Fundamentos de algoritmos, estructuras y pensamiento lógico aplicado.',
     link: 'https://matrix3d.co/producto/logica-de-programacion-2a-edicion/',
     linkLabel: 'Ver libro',
-    icon: '📖',
   },
 ]
 
-const getStatusClass = (status) => {
-  switch (status) {
-    case 'completado':
-      return 'done'
-    case 'en-progreso':
-      return 'progress'
-    default:
-      return 'pending'
-  }
+const STATUS = {
+  completado: { label: 'Completado', className: 'done' },
+  'en-progreso': { label: 'En progreso', className: 'progress' },
+  pendiente: { label: 'Pendiente', className: 'pending' },
 }
 
-const getStepIcon = (status) => {
-  switch (status) {
-    case 'completado':
-      return '✓'
-    case 'en-progreso':
-      return '⏳'
-    default:
-      return '○'
-  }
-}
+const ProyectoFullstack = () => {
+  const completed = roadmapSteps.filter((step) => step.status === 'completado').length
+  const progressPct = Math.round((completed / roadmapSteps.length) * 100)
 
-const getStatusLabel = (status) => {
-  switch (status) {
-    case 'completado':
-      return 'Completado'
-    case 'en-progreso':
-      return 'En progreso'
-    default:
-      return 'Pendiente'
-  }
-}
+  return (
+    <div className="page-container fullstack-page">
+      <div className="content fullstack-page__content">
+        <ScrollReveal>
+          <header className="fullstack-hero">
+            <p className="fullstack-hero__eyebrow">Proyecto · Roadmap</p>
+            <h1 className="fullstack-hero__title">Fullstack</h1>
+            <p className="fullstack-hero__subtitle">
+              Ruta de aprendizaje hacia TypeScript y desarrollo full stack
+            </p>
 
-const ProyectoFullstack = () => (
-  <div className="page-container proyecto-page">
-    <div className="content">
-      <main>
-        <header className="page-header">
-          <h1 className="page-title">Fullstack</h1>
-          <p className="page-subtitle">Roadmap de aprendizaje</p>
-        </header>
+            <div className="fullstack-hero__stats">
+              <div className="fullstack-stat">
+                <span className="fullstack-stat__value">{completed}</span>
+                <span className="fullstack-stat__label">Completados</span>
+              </div>
+              <div className="fullstack-stat">
+                <span className="fullstack-stat__value">
+                  {roadmapSteps.filter((s) => s.status === 'en-progreso').length}
+                </span>
+                <span className="fullstack-stat__label">En curso</span>
+              </div>
+              <div className="fullstack-stat">
+                <span className="fullstack-stat__value">{roadmapSteps.length}</span>
+                <span className="fullstack-stat__label">Total</span>
+              </div>
+            </div>
 
-        <section className="glass-panel proyecto-goal">
-          <h2>Objetivo General</h2>
-          <p>Dominar TypeScript y desarrollo full stack</p>
-        </section>
+            <div className="fullstack-progress" aria-label={`Progreso ${progressPct}%`}>
+              <div className="fullstack-progress__track">
+                <div className="fullstack-progress__fill" style={{ width: `${progressPct}%` }} />
+              </div>
+              <span className="fullstack-progress__label">{progressPct}% del roadmap</span>
+            </div>
+          </header>
+        </ScrollReveal>
 
-        <section className="glass-panel proyecto-roadmap">
-          <h2 className="proyecto-roadmap-title">Roadmap de Aprendizaje</h2>
-
-          <div className="proyecto-timeline">
-            <div className="proyecto-timeline-line" aria-hidden="true" />
-
-            {roadmapSteps.map((step) => {
-              const statusClass = getStatusClass(step.status)
+        <section className="fullstack-roadmap" aria-label="Cursos del roadmap">
+          <div className="fullstack-roadmap__grid">
+            {roadmapSteps.map((step, index) => {
+              const status = STATUS[step.status]
 
               return (
-                <article key={step.id} className="proyecto-step">
-                  <div className={`proyecto-step-dot proyecto-step-dot--${statusClass}`}>
-                    {getStepIcon(step.status)}
-                  </div>
+                <ScrollReveal
+                  key={step.id}
+                  delay={scrollRevealStagger(index, 0.08, 4)}
+                  className="scroll-reveal--fill"
+                >
+                  <article className={`fullstack-card fullstack-card--${status.className}`}>
+                    <div className="fullstack-card__glow" aria-hidden="true" />
 
-                  <div className={`proyecto-step-card proyecto-step-card--${statusClass}`}>
-                    {step.icon && <div className="proyecto-step-icon">{step.icon}</div>}
+                    <div className="fullstack-card__top">
+                      <span className="fullstack-card__index">
+                        {String(step.id).padStart(2, '0')}
+                      </span>
+                      <span className={`fullstack-card__status fullstack-card__status--${status.className}`}>
+                        {status.label}
+                      </span>
+                    </div>
 
-                    <h3>{step.title}</h3>
-                    <p>{step.description}</p>
+                    <span className="fullstack-card__platform">{step.platform}</span>
+                    <h2 className="fullstack-card__title">{step.title}</h2>
+                    <p className="fullstack-card__desc">{step.description}</p>
 
                     {step.link && (
                       <a
                         href={step.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="glass-link-btn"
+                        className="fullstack-card__link"
                       >
                         {step.linkLabel || 'Ir al curso'}
+                        <span aria-hidden="true">→</span>
                       </a>
                     )}
-
-                    <br />
-                    <span className={`proyecto-status-pill proyecto-status-pill--${statusClass}`}>
-                      {getStatusLabel(step.status)}
-                    </span>
-                  </div>
-                </article>
+                  </article>
+                </ScrollReveal>
               )
             })}
           </div>
-
-          <div className="proyecto-footer-note">
-            <p>Ruta activa: TypeScript + Full Stack</p>
-          </div>
         </section>
-      </main>
+
+        <ScrollReveal delay={0.2}>
+          <footer className="fullstack-footer">
+            <span className="fullstack-footer__pulse" aria-hidden="true" />
+            <p>Ruta activa · TypeScript + Full Stack</p>
+          </footer>
+        </ScrollReveal>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default ProyectoFullstack
